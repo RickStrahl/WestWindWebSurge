@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FiddlerCapture));
             this.txtCapture = new System.Windows.Forms.TextBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.MainToolbar = new System.Windows.Forms.ToolStrip();
             this.tbCapture = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -38,9 +38,9 @@
             this.tbClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbIgnoreResources = new System.Windows.Forms.ToolStripButton();
-            this.tbtxtProcessId = new System.Windows.Forms.ToolStripTextBox();
             this.tblblProcessId = new System.Windows.Forms.ToolStripLabel();
-            this.toolStrip1.SuspendLayout();
+            this.tbtxtProcessId = new System.Windows.Forms.ToolStripTextBox();
+            this.MainToolbar.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCapture
@@ -56,9 +56,9 @@
             this.txtCapture.Size = new System.Drawing.Size(782, 544);
             this.txtCapture.TabIndex = 1;
             // 
-            // toolStrip1
+            // MainToolbar
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbCapture,
             this.tbStop,
             this.toolStripSeparator2,
@@ -68,10 +68,10 @@
             this.tbIgnoreResources,
             this.tblblProcessId,
             this.tbtxtProcessId});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(780, 25);
-            this.toolStrip1.TabIndex = 5;
+            this.MainToolbar.Location = new System.Drawing.Point(0, 0);
+            this.MainToolbar.Name = "MainToolbar";
+            this.MainToolbar.Size = new System.Drawing.Size(780, 25);
+            this.MainToolbar.TabIndex = 5;
             // 
             // tbCapture
             // 
@@ -133,23 +133,23 @@
             this.tbIgnoreResources.Size = new System.Drawing.Size(23, 22);
             this.tbIgnoreResources.ToolTipText = "Ignore Images, CSS and JavaScript links";
             // 
-            // tbtxtProcessId
-            // 
-            this.tbtxtProcessId.Name = "tbtxtProcessId";
-            this.tbtxtProcessId.Size = new System.Drawing.Size(60, 25);
-            // 
             // tblblProcessId
             // 
             this.tblblProcessId.Name = "tblblProcessId";
             this.tblblProcessId.Size = new System.Drawing.Size(63, 22);
             this.tblblProcessId.Text = "Process Id:";
             // 
+            // tbtxtProcessId
+            // 
+            this.tbtxtProcessId.Name = "tbtxtProcessId";
+            this.tbtxtProcessId.Size = new System.Drawing.Size(60, 25);
+            // 
             // FiddlerCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(780, 571);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.MainToolbar);
             this.Controls.Add(this.txtCapture);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FiddlerCapture";
@@ -158,8 +158,8 @@
             this.Text = "Kuhela Url Capture";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FiddlerCapture_FormClosing);
             this.Load += new System.EventHandler(this.FiddlerCapture_Load);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.MainToolbar.ResumeLayout(false);
+            this.MainToolbar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,7 +168,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtCapture;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip MainToolbar;
         private System.Windows.Forms.ToolStripButton tbCapture;
         private System.Windows.Forms.ToolStripButton tbStop;
         private System.Windows.Forms.ToolStripButton tbSave;

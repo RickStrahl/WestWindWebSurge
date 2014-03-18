@@ -17,16 +17,18 @@ namespace Kuhela
     public partial class FiddlerCapture : Form
     {
         private const string Separator = "------------------------------------------------------------------";
-        private UrlCaptureOptions CaptureOptions { get; set; }
+        private UrlCaptureConfiguration CaptureConfiguration { get; set; }
         public FiddlerCapture()
         {
             InitializeComponent();
-            CaptureOptions = new UrlCaptureOptions();
+            CaptureConfiguration = App.CaptureConfiguration;
         }
 
         private void FiddlerCapture_Load(object sender, EventArgs e)
         {
+            tbIgnoreResources.Checked = CaptureConfiguration.IgnoreResources; 
             UpdateButtonStatus();
+         
         }
 
         private void FiddlerApplication_AfterSessionComplete(Session sess)
@@ -34,24 +36,24 @@ namespace Kuhela
             if (sess.RequestMethod == "CONNECT")
                 return;
 
-            if (CaptureOptions.ProcessId > 0)
+            if (CaptureConfiguration.ProcessId > 0)
             {
-                if (sess.LocalProcessID != 0 && sess.LocalProcessID != CaptureOptions.ProcessId)
+                if (sess.LocalProcessID != 0 && sess.LocalProcessID != CaptureConfiguration.ProcessId)
                     return;
             }
 
-            if (CaptureOptions.IgnoreResources)
+            if (CaptureConfiguration.IgnoreResources)
             {
                 string url = sess.fullUrl.ToLower();
 
-                var extensions = CaptureOptions.ExtensionFilterExclusions.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+                var extensions = CaptureConfiguration.ExtensionFilterExclusions.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
                 foreach(var ext in extensions)
                 {
                     if (url.Contains(ext))
                         return;
                 }
 
-                var filters = CaptureOptions.UrlFilterExclusions.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+                var filters = CaptureConfiguration.UrlFilterExclusions.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var urlFilter in filters)
                 {
                     if (url.Contains(urlFilter))
@@ -87,9 +89,9 @@ namespace Kuhela
         void Start()
         {
             if (tbIgnoreResources.Checked)
-                CaptureOptions.IgnoreResources = true;
+                CaptureConfiguration.IgnoreResources = true;
             else
-                CaptureOptions.IgnoreResources = false;
+                CaptureConfiguration.IgnoreResources = false;
 
             int procId = 0;
             if (!string.IsNullOrEmpty(tbtxtProcessId.Text))
@@ -97,7 +99,7 @@ namespace Kuhela
                 if (!int.TryParse(tbtxtProcessId.Text, out procId))
                     procId = 0;
             }
-            CaptureOptions.ProcessId = procId;
+            CaptureConfiguration.ProcessId = procId;
             
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;            
             FiddlerApplication.Startup(8888,true,true,true);
@@ -162,7 +164,7 @@ namespace Kuhela
             tbSave.Enabled = txtCapture.Text.Length > 0;
             tbClear.Enabled = tbSave.Enabled;
 
-            CaptureOptions.IgnoreResources = tbIgnoreResources.Checked;
+            CaptureConfiguration.IgnoreResources = tbIgnoreResources.Checked;
         }
 
     }

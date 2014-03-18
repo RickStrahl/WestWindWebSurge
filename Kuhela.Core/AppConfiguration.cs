@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Westwind.Utilities.Configuration;
 
 namespace Kuhela
@@ -12,11 +13,14 @@ namespace Kuhela
     public class App
     {
         public static StressTesterConfiguration Configuration { get; set; }
-        public static UrlCaptureOptions UrlCaptureOptions { get; set; }
+        public static UrlCaptureConfiguration CaptureConfiguration { get; set; }
         static App()
         {
             Configuration = new StressTesterConfiguration();
             Configuration.Initialize();
+
+            CaptureConfiguration = new UrlCaptureConfiguration();
+            CaptureConfiguration.Initialize();
         }
     }
 
@@ -41,14 +45,16 @@ namespace Kuhela
         }
     }
 
-    public class UrlCaptureOptions : AppConfiguration
+    public class UrlCaptureConfiguration : AppConfiguration
     {
         public bool IgnoreResources { get; set; }
-        public int ProcessId { get; set; }
+
+
+        public int ProcessId;
         public string UrlFilterExclusions { get; set; }
         public string ExtensionFilterExclusions { get; set; }
 
-        public UrlCaptureOptions()
+        public UrlCaptureConfiguration()
         {
             UrlFilterExclusions =
                 "analytics.com|google-syndication.com|google.com|live.com|microsoft.com|/chrome-sync/|client=chrome-omni";
