@@ -34,18 +34,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FiddlerCore4">
+      <HintPath>..\Lib\FiddlerCore4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="Westwind.Utilities, Version=2.51.5175.27229, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Westwind.Utilities.2.51\lib\net40\Westwind.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FiddlerCapture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FiddlerCapture.Designer.cs">
+      <DependentUpon>FiddlerCapture.cs</DependentUpon>
+    </Compile>
     <Compile Include="StressTestForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +65,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FiddlerCapture.resx">
+      <DependentUpon>FiddlerCapture.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StressTestForm.resx">
       <DependentUpon>StressTestForm.cs</DependentUpon>
     </EmbeddedResource>

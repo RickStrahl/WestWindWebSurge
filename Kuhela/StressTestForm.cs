@@ -120,9 +120,10 @@ namespace Kuhela
                     App.Configuration.FileName = FileName;
                 }
             }
-            else if (sender == tbExit)
+            else if (sender == tbFiddlerCapture)
             {
-                Application.Exit();
+                var fiddlerForm = new FiddlerCapture();
+                fiddlerForm.Show();
             }
             else if (sender == tbStart)
             {

@@ -56,13 +56,13 @@
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tabPreview = new System.Windows.Forms.TabPage();
             this.PreViewBrowser = new System.Windows.Forms.WebBrowser();
-            this.ProcessToolstrip = new System.Windows.Forms.ToolStrip();
-            this.tbStart = new System.Windows.Forms.ToolStripButton();
-            this.tbStop = new System.Windows.Forms.ToolStripButton();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
             this.tbOpen = new System.Windows.Forms.ToolStripButton();
             this.tbEditFile = new System.Windows.Forms.ToolStripButton();
-            this.tbExit = new System.Windows.Forms.ToolStripButton();
+            this.tbFiddlerCapture = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbStart = new System.Windows.Forms.ToolStripButton();
+            this.tbStop = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
@@ -84,7 +84,6 @@
             this.TabsResult.SuspendLayout();
             this.tabOutput.SuspendLayout();
             this.tabPreview.SuspendLayout();
-            this.ProcessToolstrip.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +97,7 @@
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.HorizontalSplitContainer);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1272, 728);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1272, 726);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Name = "toolStripContainer";
@@ -109,7 +108,6 @@
             // toolStripContainer.TopToolStripPanel
             // 
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.MainToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.ProcessToolstrip);
             // 
             // statusBar
             // 
@@ -139,7 +137,7 @@
             this.lblStatusFilename.DoubleClickEnabled = true;
             this.lblStatusFilename.Name = "lblStatusFilename";
             this.lblStatusFilename.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.lblStatusFilename.Size = new System.Drawing.Size(947, 17);
+            this.lblStatusFilename.Size = new System.Drawing.Size(916, 17);
             this.lblStatusFilename.Spring = true;
             this.lblStatusFilename.Text = "No Fiddler Session File selected";
             this.lblStatusFilename.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -170,8 +168,8 @@
             // 
             this.HorizontalSplitContainer.Panel2.Controls.Add(this.BottomSplitContainer);
             this.HorizontalSplitContainer.Panel2MinSize = 100;
-            this.HorizontalSplitContainer.Size = new System.Drawing.Size(1272, 728);
-            this.HorizontalSplitContainer.SplitterDistance = 201;
+            this.HorizontalSplitContainer.Size = new System.Drawing.Size(1272, 726);
+            this.HorizontalSplitContainer.SplitterDistance = 200;
             this.HorizontalSplitContainer.SplitterWidth = 7;
             this.HorizontalSplitContainer.TabIndex = 0;
             // 
@@ -194,7 +192,7 @@
             // TopSplitContainer.Panel2
             // 
             this.TopSplitContainer.Panel2.Controls.Add(this.OptionsPropertyGrid);
-            this.TopSplitContainer.Size = new System.Drawing.Size(1272, 201);
+            this.TopSplitContainer.Size = new System.Drawing.Size(1272, 200);
             this.TopSplitContainer.SplitterDistance = 894;
             this.TopSplitContainer.TabIndex = 11;
             // 
@@ -253,7 +251,7 @@
             this.OptionsPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.OptionsPropertyGrid.Name = "OptionsPropertyGrid";
             this.OptionsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
-            this.OptionsPropertyGrid.Size = new System.Drawing.Size(374, 201);
+            this.OptionsPropertyGrid.Size = new System.Drawing.Size(374, 200);
             this.OptionsPropertyGrid.TabIndex = 0;
             this.OptionsPropertyGrid.ToolbarVisible = false;
             // 
@@ -272,7 +270,7 @@
             // BottomSplitContainer.Panel2
             // 
             this.BottomSplitContainer.Panel2.Controls.Add(this.TabsResult);
-            this.BottomSplitContainer.Size = new System.Drawing.Size(1272, 520);
+            this.BottomSplitContainer.Size = new System.Drawing.Size(1272, 519);
             this.BottomSplitContainer.SplitterDistance = 625;
             this.BottomSplitContainer.TabIndex = 0;
             // 
@@ -312,7 +310,7 @@
             this.ListResults.Location = new System.Drawing.Point(0, 27);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(625, 493);
+            this.ListResults.Size = new System.Drawing.Size(625, 492);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.ListResults.TabIndex = 0;
@@ -354,7 +352,7 @@
             this.TabsResult.Name = "TabsResult";
             this.TabsResult.Padding = new System.Drawing.Point(0, 0);
             this.TabsResult.SelectedIndex = 0;
-            this.TabsResult.Size = new System.Drawing.Size(643, 520);
+            this.TabsResult.Size = new System.Drawing.Size(643, 519);
             this.TabsResult.TabIndex = 1;
             // 
             // tabOutput
@@ -363,7 +361,7 @@
             this.tabOutput.Location = new System.Drawing.Point(4, 4);
             this.tabOutput.Margin = new System.Windows.Forms.Padding(0);
             this.tabOutput.Name = "tabOutput";
-            this.tabOutput.Size = new System.Drawing.Size(635, 490);
+            this.tabOutput.Size = new System.Drawing.Size(635, 489);
             this.tabOutput.TabIndex = 0;
             this.tabOutput.Text = "Output";
             this.tabOutput.UseVisualStyleBackColor = true;
@@ -378,7 +376,7 @@
             this.txtConsole.Multiline = true;
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConsole.Size = new System.Drawing.Size(635, 490);
+            this.txtConsole.Size = new System.Drawing.Size(635, 489);
             this.txtConsole.TabIndex = 2;
             this.txtConsole.WordWrap = false;
             // 
@@ -388,7 +386,7 @@
             this.tabPreview.Location = new System.Drawing.Point(4, 4);
             this.tabPreview.Margin = new System.Windows.Forms.Padding(0);
             this.tabPreview.Name = "tabPreview";
-            this.tabPreview.Size = new System.Drawing.Size(635, 490);
+            this.tabPreview.Size = new System.Drawing.Size(635, 489);
             this.tabPreview.TabIndex = 1;
             this.tabPreview.Text = "Preview";
             this.tabPreview.UseVisualStyleBackColor = true;
@@ -400,38 +398,8 @@
             this.PreViewBrowser.Location = new System.Drawing.Point(0, 0);
             this.PreViewBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.PreViewBrowser.Name = "PreViewBrowser";
-            this.PreViewBrowser.Size = new System.Drawing.Size(635, 490);
+            this.PreViewBrowser.Size = new System.Drawing.Size(635, 489);
             this.PreViewBrowser.TabIndex = 2;
-            // 
-            // ProcessToolstrip
-            // 
-            this.ProcessToolstrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.ProcessToolstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbStart,
-            this.tbStop});
-            this.ProcessToolstrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.ProcessToolstrip.Location = new System.Drawing.Point(195, 0);
-            this.ProcessToolstrip.Name = "ProcessToolstrip";
-            this.ProcessToolstrip.Size = new System.Drawing.Size(103, 23);
-            this.ProcessToolstrip.TabIndex = 2;
-            // 
-            // tbStart
-            // 
-            this.tbStart.Image = ((System.Drawing.Image)(resources.GetObject("tbStart.Image")));
-            this.tbStart.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbStart.Name = "tbStart";
-            this.tbStart.Size = new System.Drawing.Size(51, 20);
-            this.tbStart.Text = "Start";
-            this.tbStart.Click += new System.EventHandler(this.ButtonHandler_Click);
-            // 
-            // tbStop
-            // 
-            this.tbStop.Image = ((System.Drawing.Image)(resources.GetObject("tbStop.Image")));
-            this.tbStop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbStop.Name = "tbStop";
-            this.tbStop.Size = new System.Drawing.Size(51, 20);
-            this.tbStop.Text = "Stop";
-            this.tbStop.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // MainToolStrip
             // 
@@ -439,11 +407,14 @@
             this.MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbOpen,
             this.tbEditFile,
-            this.tbExit});
-            this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.tbFiddlerCapture,
+            this.toolStripSeparator1,
+            this.tbStart,
+            this.tbStop});
+            this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainToolStrip.Location = new System.Drawing.Point(3, 0);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(191, 23);
+            this.MainToolStrip.Size = new System.Drawing.Size(334, 25);
             this.MainToolStrip.TabIndex = 0;
             // 
             // tbOpen
@@ -451,7 +422,7 @@
             this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
             this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(77, 20);
+            this.tbOpen.Size = new System.Drawing.Size(77, 22);
             this.tbOpen.Text = "Open File";
             this.tbOpen.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
@@ -460,18 +431,41 @@
             this.tbEditFile.Image = ((System.Drawing.Image)(resources.GetObject("tbEditFile.Image")));
             this.tbEditFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbEditFile.Name = "tbEditFile";
-            this.tbEditFile.Size = new System.Drawing.Size(68, 20);
+            this.tbEditFile.Size = new System.Drawing.Size(68, 22);
             this.tbEditFile.Text = "Edit File";
             this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
-            // tbExit
+            // tbFiddlerCapture
             // 
-            this.tbExit.Image = ((System.Drawing.Image)(resources.GetObject("tbExit.Image")));
-            this.tbExit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbExit.Name = "tbExit";
-            this.tbExit.Size = new System.Drawing.Size(45, 20);
-            this.tbExit.Text = "E&xit";
-            this.tbExit.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbFiddlerCapture.Image = ((System.Drawing.Image)(resources.GetObject("tbFiddlerCapture.Image")));
+            this.tbFiddlerCapture.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbFiddlerCapture.Name = "tbFiddlerCapture";
+            this.tbFiddlerCapture.Size = new System.Drawing.Size(69, 22);
+            this.tbFiddlerCapture.Text = "Capture";
+            this.tbFiddlerCapture.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tbStart
+            // 
+            this.tbStart.Image = ((System.Drawing.Image)(resources.GetObject("tbStart.Image")));
+            this.tbStart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbStart.Name = "tbStart";
+            this.tbStart.Size = new System.Drawing.Size(51, 22);
+            this.tbStart.Text = "Start";
+            this.tbStart.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // tbStop
+            // 
+            this.tbStop.Image = ((System.Drawing.Image)(resources.GetObject("tbStop.Image")));
+            this.tbStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbStop.Name = "tbStop";
+            this.tbStop.Size = new System.Drawing.Size(51, 22);
+            this.tbStop.Text = "Stop";
+            this.tbStop.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // StressTestForm
             // 
@@ -513,8 +507,6 @@
             this.tabOutput.ResumeLayout(false);
             this.tabOutput.PerformLayout();
             this.tabPreview.ResumeLayout(false);
-            this.ProcessToolstrip.ResumeLayout(false);
-            this.ProcessToolstrip.PerformLayout();
             this.MainToolStrip.ResumeLayout(false);
             this.MainToolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -529,13 +521,9 @@
         private System.Windows.Forms.SplitContainer HorizontalSplitContainer;
         private System.Windows.Forms.ToolStrip MainToolStrip;
         private System.Windows.Forms.ToolStripButton tbOpen;
-        private System.Windows.Forms.ToolStripButton tbExit;
         private System.Windows.Forms.ToolStripStatusLabel txtProcessingTime;
         private System.Windows.Forms.SplitContainer BottomSplitContainer;
         private System.Windows.Forms.ListView ListResults;
-        private System.Windows.Forms.ToolStrip ProcessToolstrip;
-        private System.Windows.Forms.ToolStripButton tbStart;
-        private System.Windows.Forms.ToolStripButton tbStop;
         private System.Windows.Forms.ToolTip ToolTip;
         private System.Windows.Forms.ImageList Images;
         private System.Windows.Forms.ColumnHeader Request;
@@ -557,6 +545,10 @@
         private System.Windows.Forms.TabPage tabPreview;
         private System.Windows.Forms.TextBox txtConsole;
         private System.Windows.Forms.WebBrowser PreViewBrowser;
+        private System.Windows.Forms.ToolStripButton tbFiddlerCapture;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton tbStart;
+        private System.Windows.Forms.ToolStripButton tbStop;
     }
 }
 
