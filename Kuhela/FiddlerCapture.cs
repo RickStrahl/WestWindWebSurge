@@ -10,17 +10,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Fiddler;
 using Westwind.Utilities;
+using Westwind.Utilities.Configuration;
 
 namespace Kuhela
 {
     public partial class FiddlerCapture : Form
     {
         private const string Separator = "------------------------------------------------------------------";
-        private FiddlerCaptureOptions Options { get; set; }
+        private UrlCaptureOptions CaptureOptions { get; set; }
         public FiddlerCapture()
         {
             InitializeComponent();
-            Options = new FiddlerCaptureOptions();
+            CaptureOptions = new UrlCaptureOptions();
         }
 
         private void FiddlerCapture_Load(object sender, EventArgs e)
@@ -33,15 +34,30 @@ namespace Kuhela
             if (sess.RequestMethod == "CONNECT")
                 return;
 
-            if (Options.IgnoreResources)
+            if (CaptureOptions.ProcessId > 0)
+            {
+                if (sess.LocalProcessID != 0 && sess.LocalProcessID != CaptureOptions.ProcessId)
+                    return;
+            }
+
+            if (CaptureOptions.IgnoreResources)
             {
                 string url = sess.fullUrl.ToLower();
-                if (url.Contains(".css") ||
-                    url.Contains(".js") ||
-                    url.Contains(".png") ||
-                    url.Contains(".jpg") ||
-                    url.Contains(".gif"))
-                    return;
+
+                var extensions = CaptureOptions.ExtensionFilterExclusions.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+                foreach(var ext in extensions)
+                {
+                    if (url.Contains(ext))
+                        return;
+                }
+
+                var filters = CaptureOptions.UrlFilterExclusions.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var urlFilter in filters)
+                {
+                    if (url.Contains(urlFilter))
+                        return;
+                }
+
             }
 
             BeginInvoke(new Action<Session>((session) =>
@@ -71,12 +87,20 @@ namespace Kuhela
         void Start()
         {
             if (tbIgnoreResources.Checked)
-                Options.IgnoreResources = true;
+                CaptureOptions.IgnoreResources = true;
             else
-                Options.IgnoreResources = false;
+                CaptureOptions.IgnoreResources = false;
 
+            int procId = 0;
+            if (!string.IsNullOrEmpty(tbtxtProcessId.Text))
+            {
+                if (!int.TryParse(tbtxtProcessId.Text, out procId))
+                    procId = 0;
+            }
+            CaptureOptions.ProcessId = procId;
+            
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;            
-            FiddlerApplication.Startup(8888, true, true);
+            FiddlerApplication.Startup(8888,true,true,true);
         }
 
         void Stop()
@@ -84,8 +108,7 @@ namespace Kuhela
             FiddlerApplication.AfterSessionComplete -= FiddlerApplication_AfterSessionComplete;
 
             if (FiddlerApplication.IsStarted())
-                FiddlerApplication.Shutdown();
-            
+                FiddlerApplication.Shutdown();            
         }
 
         private void ButtonHandler(object sender, EventArgs e)
@@ -138,14 +161,10 @@ namespace Kuhela
             tbSave.Enabled = txtCapture.Text.Length > 0;
             tbClear.Enabled = tbSave.Enabled;
 
-            Options.IgnoreResources = tbIgnoreResources.Checked;
+            CaptureOptions.IgnoreResources = tbIgnoreResources.Checked;
         }
 
     }
 
-    public class FiddlerCaptureOptions
-    {
-        public bool IgnoreResources { get; set; }
-
-    }
+  
 }

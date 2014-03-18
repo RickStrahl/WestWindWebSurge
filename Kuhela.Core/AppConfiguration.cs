@@ -12,7 +12,7 @@ namespace Kuhela
     public class App
     {
         public static StressTesterConfiguration Configuration { get; set; }
-
+        public static UrlCaptureOptions UrlCaptureOptions { get; set; }
         static App()
         {
             Configuration = new StressTesterConfiguration();
@@ -39,5 +39,22 @@ namespace Kuhela
             LastSecondsToRun = 10;
             LastThreads = 2;
         }
+    }
+
+    public class UrlCaptureOptions : AppConfiguration
+    {
+        public bool IgnoreResources { get; set; }
+        public int ProcessId { get; set; }
+        public string UrlFilterExclusions { get; set; }
+        public string ExtensionFilterExclusions { get; set; }
+
+        public UrlCaptureOptions()
+        {
+            UrlFilterExclusions =
+                "analytics.com|google-syndication.com|google.com|live.com|microsoft.com|/chrome-sync/|client=chrome-omni";
+
+            ExtensionFilterExclusions = ".css|.js|.png|.jpg|.gif|.ico";
+        }
+
     }
 }

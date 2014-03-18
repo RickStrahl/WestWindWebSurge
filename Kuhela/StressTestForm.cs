@@ -103,7 +103,7 @@ namespace Kuhela
         private void ButtonHandler_Click(object sender, EventArgs e)
         {
 
-            if (sender == tbOpen || sender == txtProcessingTime)
+            if (sender == tbOpen || sender == btnOpen || sender == txtProcessingTime)
             {
                 var fd = new OpenFileDialog()
                 {
@@ -120,25 +120,32 @@ namespace Kuhela
                     App.Configuration.FileName = FileName;
                 }
             }
-            else if (sender == tbFiddlerCapture)
+            else if (sender == tbCapture || sender == btnCapture)
             {
                 var fiddlerForm = new FiddlerCapture();
                 fiddlerForm.Show();
-            }
-            else if (sender == tbStart)
+            }           
+            else if (sender == tbStart || sender == btnStart)
             {
                 StartProcessing();
             }
-            else if (sender == tbStop)
+            else if (sender == tbStop || sender == btnStop)
             {
                 StressTester.CancelThreads = true;
                 ShowStatus("Stopping request processing...");
             }
-            else if (sender == tbEditFile)
+            else if (sender == tbEditFile || sender == btnEditFile)
             {
                 if (!string.IsNullOrEmpty(FileName))
                     ShellUtils.GoUrl(FileName);
             }
+            else if (sender == btnAbout)
+            {
+                var splashForm = new Splash();
+                splashForm.Show();
+            }
+            else if (sender == btnExit)
+                Close();
 
             UpdateButtonStatus();
         }
@@ -320,9 +327,19 @@ namespace Kuhela
         public void UpdateButtonStatus()
         {
             tbOpen.Enabled = !StressTester.Running;
+            btnOpen.Enabled = tbOpen.Enabled;
+
             tbEditFile.Enabled = !string.IsNullOrEmpty(FileName);
+            btnEditFile.Enabled = tbEditFile.Enabled;
+
             tbStart.Enabled = !StressTester.Running && !string.IsNullOrEmpty(FileName);
+            btnStart.Enabled = tbStart.Enabled;
+
             tbStop.Enabled = StressTester.Running;
+            btnStop.Enabled = tbStop.Enabled;
+
+            btnExport.Enabled = StressTester.Results.Count > 0;
+            tbExport.Enabled = btnExport.Enabled;
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)

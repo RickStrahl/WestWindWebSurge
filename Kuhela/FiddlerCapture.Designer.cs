@@ -33,11 +33,13 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tbCapture = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
-            this.tbSave = new System.Windows.Forms.ToolStripButton();
-            this.tbIgnoreResources = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbSave = new System.Windows.Forms.ToolStripButton();
+            this.tbClear = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbIgnoreResources = new System.Windows.Forms.ToolStripButton();
+            this.tbtxtProcessId = new System.Windows.Forms.ToolStripTextBox();
+            this.tblblProcessId = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +65,9 @@
             this.tbSave,
             this.tbClear,
             this.toolStripSeparator1,
-            this.tbIgnoreResources});
+            this.tbIgnoreResources,
+            this.tblblProcessId,
+            this.tbtxtProcessId});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(780, 25);
@@ -89,6 +93,11 @@
             this.tbStop.ToolTipText = "Stop capturing HTTP Requests";
             this.tbStop.Click += new System.EventHandler(this.ButtonHandler);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // tbSave
             // 
             this.tbSave.Image = ((System.Drawing.Image)(resources.GetObject("tbSave.Image")));
@@ -98,21 +107,6 @@
             this.tbSave.Text = "Save";
             this.tbSave.ToolTipText = "Saves captured URLs to a file";
             this.tbSave.Click += new System.EventHandler(this.ButtonHandler);
-            // 
-            // tbIgnoreResources
-            // 
-            this.tbIgnoreResources.CheckOnClick = true;
-            this.tbIgnoreResources.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbIgnoreResources.Image = ((System.Drawing.Image)(resources.GetObject("tbIgnoreResources.Image")));
-            this.tbIgnoreResources.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbIgnoreResources.Name = "tbIgnoreResources";
-            this.tbIgnoreResources.Size = new System.Drawing.Size(23, 22);
-            this.tbIgnoreResources.ToolTipText = "Ignore Images, CSS and JavaScript links";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tbClear
             // 
@@ -124,10 +118,31 @@
             this.tbClear.ToolTipText = "Clears the captured Urls";
             this.tbClear.Click += new System.EventHandler(this.ButtonHandler);
             // 
-            // toolStripSeparator2
+            // toolStripSeparator1
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tbIgnoreResources
+            // 
+            this.tbIgnoreResources.CheckOnClick = true;
+            this.tbIgnoreResources.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbIgnoreResources.Image = ((System.Drawing.Image)(resources.GetObject("tbIgnoreResources.Image")));
+            this.tbIgnoreResources.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbIgnoreResources.Name = "tbIgnoreResources";
+            this.tbIgnoreResources.Size = new System.Drawing.Size(23, 22);
+            this.tbIgnoreResources.ToolTipText = "Ignore Images, CSS and JavaScript links";
+            // 
+            // tbtxtProcessId
+            // 
+            this.tbtxtProcessId.Name = "tbtxtProcessId";
+            this.tbtxtProcessId.Size = new System.Drawing.Size(60, 25);
+            // 
+            // tblblProcessId
+            // 
+            this.tblblProcessId.Name = "tblblProcessId";
+            this.tblblProcessId.Size = new System.Drawing.Size(63, 22);
+            this.tblblProcessId.Text = "Process Id:";
             // 
             // FiddlerCapture
             // 
@@ -161,5 +176,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tbClear;
+        private System.Windows.Forms.ToolStripLabel tblblProcessId;
+        private System.Windows.Forms.ToolStripTextBox tbtxtProcessId;
     }
 }

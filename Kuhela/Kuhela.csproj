@@ -57,6 +57,12 @@
     <Compile Include="FiddlerCapture.Designer.cs">
       <DependentUpon>FiddlerCapture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Splash.Designer.cs">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </Compile>
     <Compile Include="StressTestForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FiddlerCapture.resx">
       <DependentUpon>FiddlerCapture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Splash.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StressTestForm.resx">
       <DependentUpon>StressTestForm.cs</DependentUpon>
