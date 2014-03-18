@@ -110,7 +110,8 @@ namespace Kuhela
                     DefaultExt = ".txt;.log",
                     CheckFileExists = true,
                     RestoreDirectory = true,
-                    FileName = "1_Full.txt"
+                    FileName = "1_Full.txt",
+                    Title = "Open Fiddler Capture File"
                 };
                 var dr = fd.ShowDialog();
                 if (dr != System.Windows.Forms.DialogResult.Cancel)
@@ -144,6 +145,12 @@ namespace Kuhela
                 var splashForm = new Splash();
                 splashForm.Show();
             }
+            else if (sender == tbExportXml || sender == btnExportXml)
+                Export("xml");
+            else if (sender == tbExportJson || sender == btnExportJson)
+                Export("json");
+            else if (sender == tbExportHtml || sender == btnExportHtml)
+                Export("html");
             else if (sender == btnExit)
                 Close();
 
@@ -357,6 +364,90 @@ namespace Kuhela
             PreViewBrowser.Url = new Uri( file);
 
             TabsResult.SelectedTab = tabPreview;
+        }
+
+        void Export(string mode)
+        {
+            if (mode == "xml")
+            {
+                var diag = new SaveFileDialog()
+                {
+                    AutoUpgradeEnabled = true,
+                    CheckPathExists = true,
+                    DefaultExt = "xml",
+                    Filter = "Xml files (*.xml)|*.xml|All Files (*.*)|*.*",
+                    OverwritePrompt = false,
+                    Title = "Export Results as XML",
+                    RestoreDirectory = true,
+                    FileName = "KuhelaResults.xml"
+                };
+                var res = diag.ShowDialog();
+
+                if (res == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (File.Exists(diag.FileName))
+                        File.Delete(diag.FileName);
+
+                    if (SerializationUtils.SerializeObject(StressTester.Results, diag.FileName, false))
+                        ShellUtils.GoUrl(diag.FileName);
+                }                
+            }
+            else if (mode == "json")
+            {
+                var diag = new SaveFileDialog()
+                {
+                    AutoUpgradeEnabled = true,
+                    CheckPathExists = true,
+                    DefaultExt = "JSON",
+                    Filter = "JSON files (*.json)|*.json|All Files (*.*)|*.*",
+                    OverwritePrompt = false,
+                    Title = "Export Results as JSON",
+                    RestoreDirectory = true,
+                    FileName = "KuhelaResults.json"
+                };
+                var res = diag.ShowDialog();
+
+                if (res == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (File.Exists(diag.FileName))
+                        File.Delete(diag.FileName);
+                    string json = JsonSerializationUtils.Serialize(StressTester.Results, false, true);
+
+                    if (json != null)
+                    {
+                        File.WriteAllText(diag.FileName, json);
+                        ShellUtils.GoUrl(diag.FileName);
+                    }
+                }
+            }
+            else if (mode == "html")
+            {
+                var diag = new SaveFileDialog()
+                {
+                    AutoUpgradeEnabled = true,
+                    CheckPathExists = true,
+                    DefaultExt = "html",
+                    Filter = "Html files (*.html)|*.html|All Files (*.*)|*.*",
+                    OverwritePrompt = false,
+                    Title = "Export Results as HTML",
+                    RestoreDirectory = true,
+                    FileName = "KuhelaResults.html"
+                };
+                var res = diag.ShowDialog();
+                if (res == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (File.Exists(diag.FileName))
+                        File.Delete(diag.FileName);
+
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var req in StressTester.Results)
+                    {
+                        sb.Append(StressTester.RequestDataToHtml(req));
+                    }
+
+                    File.WriteAllText(diag.FileName, sb.ToString());
+                }
+            }
         }
 
     }

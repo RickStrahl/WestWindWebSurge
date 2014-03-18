@@ -89,6 +89,8 @@
             this.tbExportXml = new System.Windows.Forms.ToolStripMenuItem();
             this.tbExportJson = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tbExportHtml = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExportHtml = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -526,14 +528,14 @@
             // btnStart
             // 
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(107, 22);
+            this.btnStart.Size = new System.Drawing.Size(152, 22);
             this.btnStart.Text = "&Start";
             this.btnStart.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnStop
             // 
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(107, 22);
+            this.btnStop.Size = new System.Drawing.Size(152, 22);
             this.btnStop.Text = "S&top";
             this.btnStop.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
@@ -541,22 +543,23 @@
             // 
             this.btnExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnExportXml,
-            this.btnExportJson});
+            this.btnExportJson,
+            this.btnExportHtml});
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(107, 22);
+            this.btnExport.Size = new System.Drawing.Size(152, 22);
             this.btnExport.Text = "E&xport";
             // 
             // btnExportXml
             // 
             this.btnExportXml.Name = "btnExportXml";
-            this.btnExportXml.Size = new System.Drawing.Size(97, 22);
+            this.btnExportXml.Size = new System.Drawing.Size(152, 22);
             this.btnExportXml.Text = "Xml";
             this.btnExportXml.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnExportJson
             // 
             this.btnExportJson.Name = "btnExportJson";
-            this.btnExportJson.Size = new System.Drawing.Size(97, 22);
+            this.btnExportJson.Size = new System.Drawing.Size(152, 22);
             this.btnExportJson.Text = "Json";
             this.btnExportJson.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
@@ -623,7 +626,7 @@
             this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainToolStrip.Location = new System.Drawing.Point(3, 24);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(412, 25);
+            this.MainToolStrip.Size = new System.Drawing.Size(452, 25);
             this.MainToolStrip.TabIndex = 0;
             // 
             // tbOpen
@@ -685,26 +688,41 @@
             // 
             this.tbExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbExportXml,
-            this.tbExportJson});
+            this.tbExportJson,
+            this.tbExportHtml});
             this.tbExport.Image = ((System.Drawing.Image)(resources.GetObject("tbExport.Image")));
             this.tbExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbExport.Name = "tbExport";
-            this.tbExport.Size = new System.Drawing.Size(72, 22);
-            this.tbExport.Text = "Export";
+            this.tbExport.Size = new System.Drawing.Size(112, 22);
+            this.tbExport.Text = "Export Results";
             // 
             // tbExportXml
             // 
             this.tbExportXml.Name = "tbExportXml";
-            this.tbExportXml.Size = new System.Drawing.Size(97, 22);
+            this.tbExportXml.Size = new System.Drawing.Size(152, 22);
             this.tbExportXml.Text = "Xml";
             this.tbExportXml.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // tbExportJson
             // 
             this.tbExportJson.Name = "tbExportJson";
-            this.tbExportJson.Size = new System.Drawing.Size(97, 22);
+            this.tbExportJson.Size = new System.Drawing.Size(152, 22);
             this.tbExportJson.Text = "Json";
             this.tbExportJson.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // tbExportHtml
+            // 
+            this.tbExportHtml.Name = "tbExportHtml";
+            this.tbExportHtml.Size = new System.Drawing.Size(152, 22);
+            this.tbExportHtml.Text = "Html";
+            this.tbExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // btnExportHtml
+            // 
+            this.btnExportHtml.Name = "btnExportHtml";
+            this.btnExportHtml.Size = new System.Drawing.Size(152, 22);
+            this.btnExportHtml.Text = "Html";
+            this.btnExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // StressTestForm
             // 
@@ -819,6 +837,8 @@
         private System.Windows.Forms.ToolStripMenuItem registerKuhelaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enterRegistrationKeyToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem btnExportHtml;
+        private System.Windows.Forms.ToolStripMenuItem tbExportHtml;
     }
 }
 

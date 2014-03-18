@@ -124,6 +124,7 @@ namespace Kuhela
                     AutoUpgradeEnabled = true,
                     CheckPathExists = true,
                     DefaultExt = "txt",
+                    Filter = "Text files (*.txt)|*.txt|All Files (*.*)|*.*",
                     OverwritePrompt = false,
                     Title = "Save Fiddler Capture File",
                     RestoreDirectory = true
