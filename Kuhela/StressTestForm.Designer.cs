@@ -35,20 +35,6 @@
             this.lblStatusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatusFilename = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtProcessingTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.HorizontalSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.BottomSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbListDisplayMode = new System.Windows.Forms.ComboBox();
-            this.ListResults = new System.Windows.Forms.ListView();
-            this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Request = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ErrorMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Images = new System.Windows.Forms.ImageList(this.components);
-            this.TabsResult = new System.Windows.Forms.TabControl();
-            this.tabOutput = new System.Windows.Forms.TabPage();
-            this.txtConsole = new System.Windows.Forms.TextBox();
-            this.tabPreview = new System.Windows.Forms.TabPage();
-            this.PreViewBrowser = new System.Windows.Forms.WebBrowser();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,18 +74,30 @@
             this.tbtxtTimeToRun = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
+            this.BottomSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbListDisplayMode = new System.Windows.Forms.ComboBox();
+            this.ListResults = new System.Windows.Forms.ListView();
+            this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Request = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ErrorMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Images = new System.Windows.Forms.ImageList(this.components);
+            this.TabsResult = new System.Windows.Forms.TabControl();
+            this.tabOutput = new System.Windows.Forms.TabPage();
+            this.txtConsole = new System.Windows.Forms.TextBox();
+            this.tabPreview = new System.Windows.Forms.TabPage();
+            this.PreViewBrowser = new System.Windows.Forms.WebBrowser();
             this.tabOptions = new System.Windows.Forms.TabPage();
             this.OptionsPropertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
-            this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
             this.statusBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.HorizontalSplitContainer)).BeginInit();
-            this.HorizontalSplitContainer.Panel2.SuspendLayout();
-            this.HorizontalSplitContainer.SuspendLayout();
+            this.MainMenu.SuspendLayout();
+            this.MainToolStrip.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BottomSplitContainer)).BeginInit();
             this.BottomSplitContainer.Panel1.SuspendLayout();
             this.BottomSplitContainer.Panel2.SuspendLayout();
@@ -107,9 +105,6 @@
             this.TabsResult.SuspendLayout();
             this.tabOutput.SuspendLayout();
             this.tabPreview.SuspendLayout();
-            this.MainMenu.SuspendLayout();
-            this.MainToolStrip.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.tabOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,7 +117,7 @@
             // 
             // toolStripContainer.ContentPanel
             // 
-            this.toolStripContainer.ContentPanel.Controls.Add(this.HorizontalSplitContainer);
+            this.toolStripContainer.ContentPanel.Controls.Add(this.BottomSplitContainer);
             this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1272, 677);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
@@ -179,176 +174,6 @@
             this.txtProcessingTime.Size = new System.Drawing.Size(10, 17);
             this.txtProcessingTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.txtProcessingTime.Click += new System.EventHandler(this.ButtonHandler_Click);
-            // 
-            // HorizontalSplitContainer
-            // 
-            this.HorizontalSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HorizontalSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.HorizontalSplitContainer.Name = "HorizontalSplitContainer";
-            this.HorizontalSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // HorizontalSplitContainer.Panel1
-            // 
-            this.HorizontalSplitContainer.Panel1.BackColor = System.Drawing.Color.White;
-            this.HorizontalSplitContainer.Panel1MinSize = 0;
-            // 
-            // HorizontalSplitContainer.Panel2
-            // 
-            this.HorizontalSplitContainer.Panel2.Controls.Add(this.BottomSplitContainer);
-            this.HorizontalSplitContainer.Panel2MinSize = 100;
-            this.HorizontalSplitContainer.Size = new System.Drawing.Size(1272, 677);
-            this.HorizontalSplitContainer.SplitterDistance = 0;
-            this.HorizontalSplitContainer.SplitterWidth = 7;
-            this.HorizontalSplitContainer.TabIndex = 0;
-            // 
-            // BottomSplitContainer
-            // 
-            this.BottomSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BottomSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.BottomSplitContainer.Name = "BottomSplitContainer";
-            // 
-            // BottomSplitContainer.Panel1
-            // 
-            this.BottomSplitContainer.Panel1.Controls.Add(this.label1);
-            this.BottomSplitContainer.Panel1.Controls.Add(this.cmbListDisplayMode);
-            this.BottomSplitContainer.Panel1.Controls.Add(this.ListResults);
-            // 
-            // BottomSplitContainer.Panel2
-            // 
-            this.BottomSplitContainer.Panel2.Controls.Add(this.TabsResult);
-            this.BottomSplitContainer.Size = new System.Drawing.Size(1272, 670);
-            this.BottomSplitContainer.SplitterDistance = 625;
-            this.BottomSplitContainer.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.label1.Location = new System.Drawing.Point(204, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "1000 items max";
-            // 
-            // cmbListDisplayMode
-            // 
-            this.cmbListDisplayMode.FormattingEnabled = true;
-            this.cmbListDisplayMode.Items.AddRange(new object[] {
-            "Errors",
-            "Success"});
-            this.cmbListDisplayMode.Location = new System.Drawing.Point(4, 3);
-            this.cmbListDisplayMode.Name = "cmbListDisplayMode";
-            this.cmbListDisplayMode.Size = new System.Drawing.Size(195, 23);
-            this.cmbListDisplayMode.TabIndex = 1;
-            this.cmbListDisplayMode.SelectedIndexChanged += new System.EventHandler(this.cmbListDisplayMode_SelectedIndexChanged);
-            // 
-            // ListResults
-            // 
-            this.ListResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Status,
-            this.Request,
-            this.ErrorMessage});
-            this.ListResults.FullRowSelect = true;
-            this.ListResults.GridLines = true;
-            this.ListResults.Location = new System.Drawing.Point(0, 27);
-            this.ListResults.Name = "ListResults";
-            this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(625, 643);
-            this.ListResults.SmallImageList = this.Images;
-            this.ListResults.Sorting = System.Windows.Forms.SortOrder.Descending;
-            this.ListResults.TabIndex = 0;
-            this.ListResults.UseCompatibleStateImageBehavior = false;
-            this.ListResults.View = System.Windows.Forms.View.Details;
-            this.ListResults.VirtualListSize = 50;
-            this.ListResults.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.ListResults_ItemSelectionChanged);
-            // 
-            // Status
-            // 
-            this.Status.Text = "Status";
-            // 
-            // Request
-            // 
-            this.Request.Text = "Request";
-            this.Request.Width = 356;
-            // 
-            // ErrorMessage
-            // 
-            this.ErrorMessage.Text = "Error Message";
-            this.ErrorMessage.Width = 209;
-            // 
-            // Images
-            // 
-            this.Images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("Images.ImageStream")));
-            this.Images.TransparentColor = System.Drawing.Color.Transparent;
-            this.Images.Images.SetKeyName(0, "ok");
-            this.Images.Images.SetKeyName(1, "error");
-            // 
-            // TabsResult
-            // 
-            this.TabsResult.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.TabsResult.Controls.Add(this.tabOutput);
-            this.TabsResult.Controls.Add(this.tabPreview);
-            this.TabsResult.Controls.Add(this.tabOptions);
-            this.TabsResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabsResult.ItemSize = new System.Drawing.Size(90, 22);
-            this.TabsResult.Location = new System.Drawing.Point(0, 0);
-            this.TabsResult.Margin = new System.Windows.Forms.Padding(0);
-            this.TabsResult.Name = "TabsResult";
-            this.TabsResult.Padding = new System.Drawing.Point(0, 0);
-            this.TabsResult.SelectedIndex = 0;
-            this.TabsResult.Size = new System.Drawing.Size(643, 670);
-            this.TabsResult.TabIndex = 1;
-            // 
-            // tabOutput
-            // 
-            this.tabOutput.Controls.Add(this.txtConsole);
-            this.tabOutput.Location = new System.Drawing.Point(4, 4);
-            this.tabOutput.Margin = new System.Windows.Forms.Padding(0);
-            this.tabOutput.Name = "tabOutput";
-            this.tabOutput.Size = new System.Drawing.Size(635, 492);
-            this.tabOutput.TabIndex = 0;
-            this.tabOutput.Text = "Output";
-            this.tabOutput.UseVisualStyleBackColor = true;
-            // 
-            // txtConsole
-            // 
-            this.txtConsole.BackColor = System.Drawing.Color.Black;
-            this.txtConsole.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtConsole.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConsole.ForeColor = System.Drawing.Color.LimeGreen;
-            this.txtConsole.Location = new System.Drawing.Point(0, 0);
-            this.txtConsole.Margin = new System.Windows.Forms.Padding(0);
-            this.txtConsole.Multiline = true;
-            this.txtConsole.Name = "txtConsole";
-            this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConsole.Size = new System.Drawing.Size(635, 492);
-            this.txtConsole.TabIndex = 2;
-            this.txtConsole.WordWrap = false;
-            // 
-            // tabPreview
-            // 
-            this.tabPreview.Controls.Add(this.PreViewBrowser);
-            this.tabPreview.Location = new System.Drawing.Point(4, 4);
-            this.tabPreview.Margin = new System.Windows.Forms.Padding(0);
-            this.tabPreview.Name = "tabPreview";
-            this.tabPreview.Size = new System.Drawing.Size(635, 492);
-            this.tabPreview.TabIndex = 1;
-            this.tabPreview.Text = "Preview";
-            this.tabPreview.UseVisualStyleBackColor = true;
-            // 
-            // PreViewBrowser
-            // 
-            this.PreViewBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PreViewBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.PreViewBrowser.Location = new System.Drawing.Point(0, 0);
-            this.PreViewBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.PreViewBrowser.Name = "PreViewBrowser";
-            this.PreViewBrowser.Size = new System.Drawing.Size(635, 492);
-            this.PreViewBrowser.TabIndex = 2;
             // 
             // MainMenu
             // 
@@ -631,7 +456,7 @@
             this.tbNoProgressEvents});
             this.toolStrip1.Location = new System.Drawing.Point(3, 49);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(291, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(260, 25);
             this.toolStrip1.TabIndex = 2;
             // 
             // toolStripLabel1
@@ -681,6 +506,155 @@
             this.tbNoProgressEvents.ToolTipText = "Don\'t show progress info - faster, can create more requests.";
             this.tbNoProgressEvents.CheckedChanged += new System.EventHandler(this.tbNoProgressEvents_CheckedChanged);
             // 
+            // BottomSplitContainer
+            //             
+            this.BottomSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BottomSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.BottomSplitContainer.Name = "BottomSplitContainer";
+            // 
+            // BottomSplitContainer.Panel1
+            // 
+            this.BottomSplitContainer.Panel1.Controls.Add(this.label1);
+            this.BottomSplitContainer.Panel1.Controls.Add(this.cmbListDisplayMode);
+            this.BottomSplitContainer.Panel1.Controls.Add(this.ListResults);
+            // 
+            // BottomSplitContainer.Panel2
+            // 
+            this.BottomSplitContainer.Panel2.Controls.Add(this.TabsResult);
+            this.BottomSplitContainer.Size = new System.Drawing.Size(1272, 670);
+            this.BottomSplitContainer.SplitterDistance = 625;
+            this.BottomSplitContainer.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.label1.Location = new System.Drawing.Point(204, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "1000 items max";
+            // 
+            // cmbListDisplayMode
+            // 
+            this.cmbListDisplayMode.FormattingEnabled = true;
+            this.cmbListDisplayMode.Items.AddRange(new object[] {
+            "Errors",
+            "Success"});
+            this.cmbListDisplayMode.Location = new System.Drawing.Point(4, 3);
+            this.cmbListDisplayMode.Name = "cmbListDisplayMode";
+            this.cmbListDisplayMode.Size = new System.Drawing.Size(195, 21);
+            this.cmbListDisplayMode.TabIndex = 1;
+            this.cmbListDisplayMode.SelectedIndexChanged += new System.EventHandler(this.cmbListDisplayMode_SelectedIndexChanged);
+            // 
+            // ListResults
+            // 
+            this.ListResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Status,
+            this.Request,
+            this.ErrorMessage});
+            this.ListResults.FullRowSelect = true;
+            this.ListResults.GridLines = true;
+            this.ListResults.Location = new System.Drawing.Point(0, 27);
+            this.ListResults.Name = "ListResults";
+            this.ListResults.ShowItemToolTips = true;
+            this.ListResults.Size = new System.Drawing.Size(625, 643);
+            this.ListResults.SmallImageList = this.Images;
+            this.ListResults.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.ListResults.TabIndex = 0;
+            this.ListResults.UseCompatibleStateImageBehavior = false;
+            this.ListResults.View = System.Windows.Forms.View.Details;
+            this.ListResults.VirtualListSize = 50;
+            this.ListResults.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.ListResults_ItemSelectionChanged);
+            // 
+            // Status
+            // 
+            this.Status.Text = "Status";
+            // 
+            // Request
+            // 
+            this.Request.Text = "Request";
+            this.Request.Width = 356;
+            // 
+            // ErrorMessage
+            // 
+            this.ErrorMessage.Text = "Error Message";
+            this.ErrorMessage.Width = 209;
+            // 
+            // Images
+            // 
+            this.Images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("Images.ImageStream")));
+            this.Images.TransparentColor = System.Drawing.Color.Transparent;
+            this.Images.Images.SetKeyName(0, "ok");
+            this.Images.Images.SetKeyName(1, "error");
+            // 
+            // TabsResult
+            // 
+            this.TabsResult.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.TabsResult.Controls.Add(this.tabOutput);
+            this.TabsResult.Controls.Add(this.tabPreview);
+            this.TabsResult.Controls.Add(this.tabOptions);
+            this.TabsResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabsResult.ItemSize = new System.Drawing.Size(90, 22);
+            this.TabsResult.Location = new System.Drawing.Point(0, 0);
+            this.TabsResult.Margin = new System.Windows.Forms.Padding(0);
+            this.TabsResult.Name = "TabsResult";
+            this.TabsResult.Padding = new System.Drawing.Point(0, 0);
+            this.TabsResult.SelectedIndex = 0;
+            this.TabsResult.Size = new System.Drawing.Size(643, 670);
+            this.TabsResult.TabIndex = 1;
+            // 
+            // tabOutput
+            // 
+            this.tabOutput.Controls.Add(this.txtConsole);
+            this.tabOutput.Location = new System.Drawing.Point(4, 4);
+            this.tabOutput.Margin = new System.Windows.Forms.Padding(0);
+            this.tabOutput.Name = "tabOutput";
+            this.tabOutput.Size = new System.Drawing.Size(635, 492);
+            this.tabOutput.TabIndex = 0;
+            this.tabOutput.Text = "Output";
+            this.tabOutput.UseVisualStyleBackColor = true;
+            // 
+            // txtConsole
+            // 
+            this.txtConsole.BackColor = System.Drawing.Color.Black;
+            this.txtConsole.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtConsole.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConsole.ForeColor = System.Drawing.Color.LimeGreen;
+            this.txtConsole.Location = new System.Drawing.Point(0, 0);
+            this.txtConsole.Margin = new System.Windows.Forms.Padding(0);
+            this.txtConsole.Multiline = true;
+            this.txtConsole.Name = "txtConsole";
+            this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtConsole.Size = new System.Drawing.Size(635, 492);
+            this.txtConsole.TabIndex = 2;
+            this.txtConsole.WordWrap = false;
+            // 
+            // tabPreview
+            // 
+            this.tabPreview.Controls.Add(this.PreViewBrowser);
+            this.tabPreview.Location = new System.Drawing.Point(4, 4);
+            this.tabPreview.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPreview.Name = "tabPreview";
+            this.tabPreview.Size = new System.Drawing.Size(635, 492);
+            this.tabPreview.TabIndex = 1;
+            this.tabPreview.Text = "Preview";
+            this.tabPreview.UseVisualStyleBackColor = true;
+            // 
+            // PreViewBrowser
+            // 
+            this.PreViewBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PreViewBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.PreViewBrowser.Location = new System.Drawing.Point(0, 0);
+            this.PreViewBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.PreViewBrowser.Name = "PreViewBrowser";
+            this.PreViewBrowser.Size = new System.Drawing.Size(635, 492);
+            this.PreViewBrowser.TabIndex = 2;
+            // 
             // tabOptions
             // 
             this.tabOptions.Controls.Add(this.OptionsPropertyGrid);
@@ -721,16 +695,18 @@
             this.Load += new System.EventHandler(this.StressTestForm_Load);
             this.toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.BottomToolStripPanel.PerformLayout();
-            this.toolStripContainer.ContentPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.TopToolStripPanel.PerformLayout();
             this.toolStripContainer.ResumeLayout(false);
             this.toolStripContainer.PerformLayout();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
-            this.HorizontalSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.HorizontalSplitContainer)).EndInit();
-            this.HorizontalSplitContainer.ResumeLayout(false);
+            this.MainMenu.ResumeLayout(false);
+            this.MainMenu.PerformLayout();
+            this.MainToolStrip.ResumeLayout(false);
+            this.MainToolStrip.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.BottomSplitContainer.Panel1.ResumeLayout(false);
             this.BottomSplitContainer.Panel1.PerformLayout();
             this.BottomSplitContainer.Panel2.ResumeLayout(false);
@@ -740,12 +716,6 @@
             this.tabOutput.ResumeLayout(false);
             this.tabOutput.PerformLayout();
             this.tabPreview.ResumeLayout(false);
-            this.MainMenu.ResumeLayout(false);
-            this.MainMenu.PerformLayout();
-            this.MainToolStrip.ResumeLayout(false);
-            this.MainToolStrip.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.tabOptions.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -756,7 +726,7 @@
         private System.Windows.Forms.ToolStripContainer toolStripContainer;
         private System.Windows.Forms.StatusStrip statusBar;
         private System.Windows.Forms.ToolStripStatusLabel lblStatusText;
-        private System.Windows.Forms.SplitContainer HorizontalSplitContainer;
+        //private System.Windows.Forms.SplitContainer HorizontalSplitContainer;
         private System.Windows.Forms.ToolStrip MainToolStrip;
         private System.Windows.Forms.ToolStripButton tbOpen;
         private System.Windows.Forms.ToolStripStatusLabel txtProcessingTime;
