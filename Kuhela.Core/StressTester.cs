@@ -86,9 +86,9 @@ namespace Kuhela
 
         }
 
-        public  HttpRequestData CheckSite(HttpRequestData reqData = null)
-        {            
-            var result = reqData;           
+        public  HttpRequestData CheckSite(HttpRequestData reqData)
+        {
+            var result = HttpRequestData.Copy(reqData);            
 
             try
             {
@@ -99,13 +99,7 @@ namespace Kuhela
                 client.UseGZip = true;                
 
                 client.ContentType = reqData.ContentType;
-                client.Timeout = Options.RequestTimeoutMs;
-
-                var swatch = new Stopwatch();
-                swatch.Start();
-
-                //HttpResponseMessage response = null;
-                //StringContent content = null;
+                client.Timeout = Options.RequestTimeoutMs;           
 
                 if (!string.IsNullOrEmpty(reqData.RequestContent))
                 {
@@ -153,7 +147,12 @@ namespace Kuhela
                     webRequest.Headers.Add(header.Name, header.Value);
                 }
 
+
+                DateTime dt = DateTime.UtcNow;
+
                 string http = client.GetUrl(reqData.Url);
+                
+                result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
 
                 if (client.Error || client.WebResponse == null)
                 {
@@ -169,7 +168,6 @@ namespace Kuhela
                 result.StatusCode = ((int) client.WebResponse.StatusCode).ToString();
                 result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
                     
-
                 result.ResponseLength = result.ResponseLength;
 
                 StringBuilder sb = new StringBuilder();
@@ -180,9 +178,7 @@ namespace Kuhela
 
                 result.ResponseHeaders = sb.ToString();
 
-                swatch.Stop();
-                result.TimeTakenMs = swatch.ElapsedMilliseconds;
-
+                
                 if (!result.StatusCode.StartsWith("2"))
                 {
                     result.IsError = true;
@@ -237,7 +233,6 @@ namespace Kuhela
                                                    int seconds = 60)
         {
             Running = true;
-
             Results.Clear();
             
             var threads = new List<Thread>();
@@ -285,20 +280,17 @@ namespace Kuhela
                          RequestsFailed = RequestsFailed
                     });
                 }
-
-
             }
 
             Running = false;
+
             return Results;   
         }
-
-        
-
 
         private void CheckSiteThreadRunner(object requests)
         {
             List<HttpRequestData> reqs = null;
+            bool isFirstRequest = true;
 
             if (Options.RandomizeRequests)
             {
@@ -319,27 +311,36 @@ namespace Kuhela
 
             while (!CancelThreads)
             {
+
                 foreach (var req in reqs)
                 {
                     if (CancelThreads)
                         break;
                     
                     var result = CheckSite(req);
-                    
+
+                    if (isFirstRequest)
+                    {
+                        // don't record first request on thread
+                        isFirstRequest = false;
+                        continue;
+                    }
+
                     // add before so  we can see incomplete requests
                     if (result != null)
                     {
                         lock (InsertLock)
                         {
-                            Results.Add(req);
+                            Results.Add(result);
                             RequestsProcessed++;
                             if (result.IsError)
                                 RequestsFailed++;
                         }
                     }
 
-                    if (Options.DelayTimeMs == 0)
-                        Thread.Yield();
+                    if (Options.DelayTimeMs == 0)                    
+                        //Thread.Yield();
+                        Thread.Sleep(1);                    
                     else
                         Thread.Sleep(Options.DelayTimeMs);  
                 }
@@ -362,14 +363,21 @@ namespace Kuhela
             var results = resultData.ToList();
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Total Requests: " + results.Count);
-            sb.AppendLine("Failed: " +
+            sb.AppendLine("Total Requests: " + results.Count);                          
+            sb.AppendLine("        Failed: " +
                               results.Count(req => string.IsNullOrEmpty(req.StatusCode) || !req.StatusCode.StartsWith("2")));
 
             if (totalTime > 0)
             {
-                sb.AppendLine("Total Time: " + totalTime.ToString("n2") + " secs");   
-                sb.AppendLine("Req/Sec: " + ((decimal) results.Count/(decimal) totalTime).ToString("n2"));
+                sb.AppendLine("    Total Time: " + totalTime.ToString("n2") + " secs");   
+                if (results.Count > 0)
+                    sb.AppendLine("       Req/Sec:   " + ((decimal) results.Count/(decimal) totalTime).ToString("n2") + "\r\n");            
+            }
+            if (results.Count > 0)
+            {
+                sb.AppendLine(string.Format("      Avg Time: {0:n2} ms", results.Average(req => req.TimeTakenMs)));
+                sb.AppendLine(string.Format("      Min Time: {0:n2} ms", results.Min(req => req.TimeTakenMs)));
+                sb.AppendLine(string.Format("      Max Time: {0:n2} ms", results.Max(req => req.TimeTakenMs)));
             }
 
             return sb.ToString();
@@ -413,6 +421,7 @@ namespace Kuhela
             sb.AppendLine("</pre>");
 
             html = @"
+<div class='timetaken'>" + req.TimeTakenMs.ToString("n0") + @" ms</div>
 <label>Http Response</label>
 <pre>";
             
@@ -456,6 +465,13 @@ namespace Kuhela
     margin: 5px 8px;
     overflow-x: hidden;
     border-radius: 2px;
+  }
+  .timetaken
+  {
+    float: right; 
+    color: steelblue;
+    font-size: smaller;
+    padding-right: 10px;
   }
   </style>
 </head>

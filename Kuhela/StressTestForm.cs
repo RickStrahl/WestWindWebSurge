@@ -73,30 +73,32 @@ namespace Kuhela
 
 
         private static object ConsoleLog = new object();
+        private StringBuilder statusOutput = new StringBuilder();
+        private DateTime lastUpdate = DateTime.UtcNow;
 
         void StressTester_RequestProcessed(HttpRequestData req)
         {
-            Invoke(new Action<HttpRequestData>(ShowRequestProcessed), req);
+            string output = req.StatusCode + " -  " + req.HttpVerb + " " + req.Url + "(" + req.TimeTakenMs.ToString("n0") + "ms)";
+            lock (ConsoleLog)
+            {
+                statusOutput.AppendLine(output);
+                if (lastUpdate.AddMilliseconds(300) < DateTime.UtcNow)
+                {
+                    lastUpdate = DateTime.UtcNow;                    
+                    Invoke(new Action<string>(ShowRequestProcessed), statusOutput.ToString());
+                    statusOutput.Clear();
+                }
+            }                       
         }
-        void ShowRequestProcessed(HttpRequestData req)
+        void ShowRequestProcessed(string output)
         {            
-            string output = req.StatusCode + " -  " + req.HttpVerb + " " + req.Url + "(" + req.TimeTakenMs.ToString("n0") + "ms)\r\n";
-
+            txtConsole.AppendText(output);
             if (txtConsole.Text.Length > 50000)
             {
-                lock (ConsoleLog)
-                {
-                    if (txtConsole.Text.Length <= 50000)
-                    {
-                        var txt = txtConsole.Text.Substring(10000);
-                        txtConsole.Text = "";
-                        output = txt.Substring(txt.IndexOf("\r\n") + 2) + output;
-                    }
-                }
+                var txt = txtConsole.Text.Substring(5000);
+                txtConsole.Text = "";
+                txtConsole.Text = txt.Substring(txt.IndexOf("\r\n") + 2) + output;                    
             }
-
-            txtConsole.AppendText(output);
-            Application.DoEvents();
         }
 
 
@@ -195,7 +197,7 @@ namespace Kuhela
             var results = StressTester.CheckAllSites(Requests, threads, time);
 
             ShowStatus("Parsing results...");
-            Invoke(new Action<List<HttpRequestData>>(ParseResults),results);
+            BeginInvoke(new Action<List<HttpRequestData>>(ParseResults),StressTester.Results);
 
             ShowStatus("Done.");
 

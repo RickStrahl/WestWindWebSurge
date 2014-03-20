@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Westwind.Utilities;
 
 
 namespace Kuhela
@@ -34,7 +35,7 @@ namespace Kuhela
         public string StatusDescription { get; set; }
         public int ResponseLength { get; set; }
 
-        public long TimeTakenMs { get; set; }
+        public int TimeTakenMs { get; set; }
         public string ResponseHeaders { get; set; }
 
 
@@ -43,6 +44,12 @@ namespace Kuhela
             Headers = new List<HttpRequestHeader>();
             IsError = true;
             ErrorMessage = "Request is incomplete.";
+        }
+        public static HttpRequestData Copy(HttpRequestData req)
+        {
+            var reqData = new HttpRequestData();
+            DataUtils.CopyObjectData(req, reqData);
+            return reqData;
         }
 
         public string ToString()
