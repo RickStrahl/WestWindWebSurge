@@ -36,15 +36,6 @@
             this.lblStatusFilename = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtProcessingTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.HorizontalSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.TopSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.groupMain = new System.Windows.Forms.GroupBox();
-            this.txtTimeToRun = new System.Windows.Forms.TextBox();
-            this.imgLogo = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtThreads = new System.Windows.Forms.TextBox();
-            this.OptionsPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.BottomSplitContainer = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbListDisplayMode = new System.Windows.Forms.ComboBox();
@@ -71,6 +62,7 @@
             this.btnExport = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExportXml = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExportJson = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExportHtml = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kuhelaWebSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerKuhelaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,24 +80,26 @@
             this.tbExport = new System.Windows.Forms.ToolStripSplitButton();
             this.tbExportXml = new System.Windows.Forms.ToolStripMenuItem();
             this.tbExportJson = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tbExportHtml = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnExportHtml = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.tbtxtThreads = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.tbtxtTimeToRun = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
+            this.tabOptions = new System.Windows.Forms.TabPage();
+            this.OptionsPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer.SuspendLayout();
             this.statusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HorizontalSplitContainer)).BeginInit();
-            this.HorizontalSplitContainer.Panel1.SuspendLayout();
             this.HorizontalSplitContainer.Panel2.SuspendLayout();
             this.HorizontalSplitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TopSplitContainer)).BeginInit();
-            this.TopSplitContainer.Panel1.SuspendLayout();
-            this.TopSplitContainer.Panel2.SuspendLayout();
-            this.TopSplitContainer.SuspendLayout();
-            this.groupMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BottomSplitContainer)).BeginInit();
             this.BottomSplitContainer.Panel1.SuspendLayout();
             this.BottomSplitContainer.Panel2.SuspendLayout();
@@ -115,6 +109,8 @@
             this.tabPreview.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.tabOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer
@@ -127,7 +123,7 @@
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.HorizontalSplitContainer);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1272, 702);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1272, 677);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Name = "toolStripContainer";
@@ -137,8 +133,10 @@
             // 
             // toolStripContainer.TopToolStripPanel
             // 
+            this.toolStripContainer.TopToolStripPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.MainMenu);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.MainToolStrip);
+            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
             // statusBar
             // 
@@ -192,123 +190,16 @@
             // HorizontalSplitContainer.Panel1
             // 
             this.HorizontalSplitContainer.Panel1.BackColor = System.Drawing.Color.White;
-            this.HorizontalSplitContainer.Panel1.Controls.Add(this.TopSplitContainer);
-            this.HorizontalSplitContainer.Panel1MinSize = 100;
+            this.HorizontalSplitContainer.Panel1MinSize = 0;
             // 
             // HorizontalSplitContainer.Panel2
             // 
             this.HorizontalSplitContainer.Panel2.Controls.Add(this.BottomSplitContainer);
             this.HorizontalSplitContainer.Panel2MinSize = 100;
-            this.HorizontalSplitContainer.Size = new System.Drawing.Size(1272, 702);
-            this.HorizontalSplitContainer.SplitterDistance = 154;
+            this.HorizontalSplitContainer.Size = new System.Drawing.Size(1272, 677);
+            this.HorizontalSplitContainer.SplitterDistance = 0;
             this.HorizontalSplitContainer.SplitterWidth = 7;
             this.HorizontalSplitContainer.TabIndex = 0;
-            // 
-            // TopSplitContainer
-            // 
-            this.TopSplitContainer.BackColor = System.Drawing.Color.White;
-            this.TopSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TopSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.TopSplitContainer.Name = "TopSplitContainer";
-            // 
-            // TopSplitContainer.Panel1
-            // 
-            this.TopSplitContainer.Panel1.BackColor = System.Drawing.Color.White;
-            this.TopSplitContainer.Panel1.Controls.Add(this.groupMain);
-            // 
-            // TopSplitContainer.Panel2
-            // 
-            this.TopSplitContainer.Panel2.Controls.Add(this.OptionsPropertyGrid);
-            this.TopSplitContainer.Size = new System.Drawing.Size(1272, 154);
-            this.TopSplitContainer.SplitterDistance = 894;
-            this.TopSplitContainer.TabIndex = 11;
-            // 
-            // groupMain
-            // 
-            this.groupMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupMain.Controls.Add(this.txtTimeToRun);
-            this.groupMain.Controls.Add(this.imgLogo);
-            this.groupMain.Controls.Add(this.label3);
-            this.groupMain.Controls.Add(this.label9);
-            this.groupMain.Controls.Add(this.label8);
-            this.groupMain.Controls.Add(this.txtThreads);
-            this.groupMain.Location = new System.Drawing.Point(10, 0);
-            this.groupMain.Margin = new System.Windows.Forms.Padding(10, 0, 10, 10);
-            this.groupMain.Name = "groupMain";
-            this.groupMain.Size = new System.Drawing.Size(875, 149);
-            this.groupMain.TabIndex = 11;
-            this.groupMain.TabStop = false;
-            // 
-            // txtTimeToRun
-            // 
-            this.txtTimeToRun.Location = new System.Drawing.Point(262, 53);
-            this.txtTimeToRun.Name = "txtTimeToRun";
-            this.txtTimeToRun.Size = new System.Drawing.Size(67, 23);
-            this.txtTimeToRun.TabIndex = 7;
-            this.txtTimeToRun.Text = "10";
-            // 
-            // imgLogo
-            // 
-            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
-            this.imgLogo.Location = new System.Drawing.Point(16, 18);
-            this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(118, 107);
-            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgLogo.TabIndex = 10;
-            this.imgLogo.TabStop = false;
-            // 
-            // label3
-            // 
-            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Location = new System.Drawing.Point(198, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 19);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Threads:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label9
-            // 
-            this.label9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label9.Location = new System.Drawing.Point(184, 57);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 15);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Time to run:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label8.Location = new System.Drawing.Point(332, 57);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(50, 15);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "seconds";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtThreads
-            // 
-            this.txtThreads.Location = new System.Drawing.Point(262, 23);
-            this.txtThreads.Name = "txtThreads";
-            this.txtThreads.Size = new System.Drawing.Size(67, 23);
-            this.txtThreads.TabIndex = 5;
-            this.txtThreads.Text = "2";
-            // 
-            // OptionsPropertyGrid
-            // 
-            this.OptionsPropertyGrid.BackColor = System.Drawing.Color.White;
-            this.OptionsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OptionsPropertyGrid.HelpBackColor = System.Drawing.Color.White;
-            this.OptionsPropertyGrid.Location = new System.Drawing.Point(0, 0);
-            this.OptionsPropertyGrid.Name = "OptionsPropertyGrid";
-            this.OptionsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
-            this.OptionsPropertyGrid.Size = new System.Drawing.Size(374, 154);
-            this.OptionsPropertyGrid.TabIndex = 0;
-            this.OptionsPropertyGrid.ToolbarVisible = false;
             // 
             // BottomSplitContainer
             // 
@@ -325,7 +216,7 @@
             // BottomSplitContainer.Panel2
             // 
             this.BottomSplitContainer.Panel2.Controls.Add(this.TabsResult);
-            this.BottomSplitContainer.Size = new System.Drawing.Size(1272, 541);
+            this.BottomSplitContainer.Size = new System.Drawing.Size(1272, 670);
             this.BottomSplitContainer.SplitterDistance = 625;
             this.BottomSplitContainer.TabIndex = 0;
             // 
@@ -365,7 +256,7 @@
             this.ListResults.Location = new System.Drawing.Point(0, 27);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(625, 514);
+            this.ListResults.Size = new System.Drawing.Size(625, 643);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.ListResults.TabIndex = 0;
@@ -400,6 +291,7 @@
             this.TabsResult.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.TabsResult.Controls.Add(this.tabOutput);
             this.TabsResult.Controls.Add(this.tabPreview);
+            this.TabsResult.Controls.Add(this.tabOptions);
             this.TabsResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabsResult.ItemSize = new System.Drawing.Size(90, 22);
             this.TabsResult.Location = new System.Drawing.Point(0, 0);
@@ -407,7 +299,7 @@
             this.TabsResult.Name = "TabsResult";
             this.TabsResult.Padding = new System.Drawing.Point(0, 0);
             this.TabsResult.SelectedIndex = 0;
-            this.TabsResult.Size = new System.Drawing.Size(643, 541);
+            this.TabsResult.Size = new System.Drawing.Size(643, 670);
             this.TabsResult.TabIndex = 1;
             // 
             // tabOutput
@@ -416,22 +308,24 @@
             this.tabOutput.Location = new System.Drawing.Point(4, 4);
             this.tabOutput.Margin = new System.Windows.Forms.Padding(0);
             this.tabOutput.Name = "tabOutput";
-            this.tabOutput.Size = new System.Drawing.Size(635, 511);
+            this.tabOutput.Size = new System.Drawing.Size(635, 492);
             this.tabOutput.TabIndex = 0;
             this.tabOutput.Text = "Output";
             this.tabOutput.UseVisualStyleBackColor = true;
             // 
             // txtConsole
             // 
+            this.txtConsole.BackColor = System.Drawing.Color.Black;
             this.txtConsole.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtConsole.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtConsole.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConsole.ForeColor = System.Drawing.Color.LimeGreen;
             this.txtConsole.Location = new System.Drawing.Point(0, 0);
             this.txtConsole.Margin = new System.Windows.Forms.Padding(0);
             this.txtConsole.Multiline = true;
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConsole.Size = new System.Drawing.Size(635, 511);
+            this.txtConsole.Size = new System.Drawing.Size(635, 492);
             this.txtConsole.TabIndex = 2;
             this.txtConsole.WordWrap = false;
             // 
@@ -441,7 +335,7 @@
             this.tabPreview.Location = new System.Drawing.Point(4, 4);
             this.tabPreview.Margin = new System.Windows.Forms.Padding(0);
             this.tabPreview.Name = "tabPreview";
-            this.tabPreview.Size = new System.Drawing.Size(635, 511);
+            this.tabPreview.Size = new System.Drawing.Size(635, 492);
             this.tabPreview.TabIndex = 1;
             this.tabPreview.Text = "Preview";
             this.tabPreview.UseVisualStyleBackColor = true;
@@ -453,7 +347,7 @@
             this.PreViewBrowser.Location = new System.Drawing.Point(0, 0);
             this.PreViewBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.PreViewBrowser.Name = "PreViewBrowser";
-            this.PreViewBrowser.Size = new System.Drawing.Size(635, 511);
+            this.PreViewBrowser.Size = new System.Drawing.Size(635, 492);
             this.PreViewBrowser.TabIndex = 2;
             // 
             // MainMenu
@@ -528,14 +422,14 @@
             // btnStart
             // 
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(152, 22);
+            this.btnStart.Size = new System.Drawing.Size(107, 22);
             this.btnStart.Text = "&Start";
             this.btnStart.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnStop
             // 
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(152, 22);
+            this.btnStop.Size = new System.Drawing.Size(107, 22);
             this.btnStop.Text = "S&top";
             this.btnStop.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
@@ -546,22 +440,29 @@
             this.btnExportJson,
             this.btnExportHtml});
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(152, 22);
+            this.btnExport.Size = new System.Drawing.Size(107, 22);
             this.btnExport.Text = "E&xport";
             // 
             // btnExportXml
             // 
             this.btnExportXml.Name = "btnExportXml";
-            this.btnExportXml.Size = new System.Drawing.Size(152, 22);
+            this.btnExportXml.Size = new System.Drawing.Size(101, 22);
             this.btnExportXml.Text = "Xml";
             this.btnExportXml.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnExportJson
             // 
             this.btnExportJson.Name = "btnExportJson";
-            this.btnExportJson.Size = new System.Drawing.Size(152, 22);
+            this.btnExportJson.Size = new System.Drawing.Size(101, 22);
             this.btnExportJson.Text = "Json";
             this.btnExportJson.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // btnExportHtml
+            // 
+            this.btnExportHtml.Name = "btnExportHtml";
+            this.btnExportHtml.Size = new System.Drawing.Size(101, 22);
+            this.btnExportHtml.Text = "Html";
+            this.btnExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -699,30 +600,109 @@
             // tbExportXml
             // 
             this.tbExportXml.Name = "tbExportXml";
-            this.tbExportXml.Size = new System.Drawing.Size(152, 22);
+            this.tbExportXml.Size = new System.Drawing.Size(101, 22);
             this.tbExportXml.Text = "Xml";
             this.tbExportXml.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // tbExportJson
             // 
             this.tbExportJson.Name = "tbExportJson";
-            this.tbExportJson.Size = new System.Drawing.Size(152, 22);
+            this.tbExportJson.Size = new System.Drawing.Size(101, 22);
             this.tbExportJson.Text = "Json";
             this.tbExportJson.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // tbExportHtml
             // 
             this.tbExportHtml.Name = "tbExportHtml";
-            this.tbExportHtml.Size = new System.Drawing.Size(152, 22);
+            this.tbExportHtml.Size = new System.Drawing.Size(101, 22);
             this.tbExportHtml.Text = "Html";
             this.tbExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
-            // btnExportHtml
+            // toolStrip1
             // 
-            this.btnExportHtml.Name = "btnExportHtml";
-            this.btnExportHtml.Size = new System.Drawing.Size(152, 22);
-            this.btnExportHtml.Text = "Html";
-            this.btnExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1,
+            this.tbtxtThreads,
+            this.toolStripLabel2,
+            this.tbtxtTimeToRun,
+            this.toolStripLabel3,
+            this.toolStripSeparator5,
+            this.tbNoProgressEvents});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 49);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(291, 25);
+            this.toolStrip1.TabIndex = 2;
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(52, 22);
+            this.toolStripLabel1.Text = "Threads:";
+            // 
+            // tbtxtThreads
+            // 
+            this.tbtxtThreads.Name = "tbtxtThreads";
+            this.tbtxtThreads.Size = new System.Drawing.Size(30, 25);
+            this.tbtxtThreads.Text = "2";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(43, 22);
+            this.toolStripLabel2.Text = "  Time:";
+            // 
+            // tbtxtTimeToRun
+            // 
+            this.tbtxtTimeToRun.Name = "tbtxtTimeToRun";
+            this.tbtxtTimeToRun.Size = new System.Drawing.Size(40, 25);
+            this.tbtxtTimeToRun.Text = "30";
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(50, 22);
+            this.toolStripLabel3.Text = "seconds";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tbNoProgressEvents
+            // 
+            this.tbNoProgressEvents.CheckOnClick = true;
+            this.tbNoProgressEvents.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbNoProgressEvents.Image = ((System.Drawing.Image)(resources.GetObject("tbNoProgressEvents.Image")));
+            this.tbNoProgressEvents.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbNoProgressEvents.Name = "tbNoProgressEvents";
+            this.tbNoProgressEvents.Size = new System.Drawing.Size(23, 22);
+            this.tbNoProgressEvents.Text = "No Console";
+            this.tbNoProgressEvents.ToolTipText = "Don\'t show progress info - faster, can create more requests.";
+            this.tbNoProgressEvents.CheckedChanged += new System.EventHandler(this.tbNoProgressEvents_CheckedChanged);
+            // 
+            // tabOptions
+            // 
+            this.tabOptions.Controls.Add(this.OptionsPropertyGrid);
+            this.tabOptions.Location = new System.Drawing.Point(4, 4);
+            this.tabOptions.Name = "tabOptions";
+            this.tabOptions.Padding = new System.Windows.Forms.Padding(3);
+            this.tabOptions.Size = new System.Drawing.Size(635, 640);
+            this.tabOptions.TabIndex = 2;
+            this.tabOptions.Text = "Options";
+            this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // OptionsPropertyGrid
+            // 
+            this.OptionsPropertyGrid.BackColor = System.Drawing.Color.White;
+            this.OptionsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OptionsPropertyGrid.HelpBackColor = System.Drawing.Color.White;
+            this.OptionsPropertyGrid.Location = new System.Drawing.Point(3, 3);
+            this.OptionsPropertyGrid.Name = "OptionsPropertyGrid";
+            this.OptionsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
+            this.OptionsPropertyGrid.Size = new System.Drawing.Size(629, 634);
+            this.OptionsPropertyGrid.TabIndex = 1;
+            this.OptionsPropertyGrid.ToolbarVisible = false;
             // 
             // StressTestForm
             // 
@@ -748,17 +728,9 @@
             this.toolStripContainer.PerformLayout();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
-            this.HorizontalSplitContainer.Panel1.ResumeLayout(false);
             this.HorizontalSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.HorizontalSplitContainer)).EndInit();
             this.HorizontalSplitContainer.ResumeLayout(false);
-            this.TopSplitContainer.Panel1.ResumeLayout(false);
-            this.TopSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.TopSplitContainer)).EndInit();
-            this.TopSplitContainer.ResumeLayout(false);
-            this.groupMain.ResumeLayout(false);
-            this.groupMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.BottomSplitContainer.Panel1.ResumeLayout(false);
             this.BottomSplitContainer.Panel1.PerformLayout();
             this.BottomSplitContainer.Panel2.ResumeLayout(false);
@@ -772,6 +744,9 @@
             this.MainMenu.PerformLayout();
             this.MainToolStrip.ResumeLayout(false);
             this.MainToolStrip.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.tabOptions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -793,13 +768,6 @@
         private System.Windows.Forms.ColumnHeader ErrorMessage;
         private System.Windows.Forms.ColumnHeader Status;
         private System.Windows.Forms.ToolStripButton tbEditFile;
-        private System.Windows.Forms.SplitContainer TopSplitContainer;
-        private System.Windows.Forms.TextBox txtTimeToRun;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtThreads;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PropertyGrid OptionsPropertyGrid;
         private System.Windows.Forms.ToolStripStatusLabel lblStatusFilename;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbListDisplayMode;
@@ -831,14 +799,22 @@
         private System.Windows.Forms.ToolStripSplitButton tbExport;
         private System.Windows.Forms.ToolStripMenuItem tbExportXml;
         private System.Windows.Forms.ToolStripMenuItem tbExportJson;
-        private System.Windows.Forms.PictureBox imgLogo;
-        private System.Windows.Forms.GroupBox groupMain;
         private System.Windows.Forms.ToolStripMenuItem kuhelaWebSiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registerKuhelaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enterRegistrationKeyToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem btnExportHtml;
         private System.Windows.Forms.ToolStripMenuItem tbExportHtml;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripTextBox tbtxtThreads;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripTextBox tbtxtTimeToRun;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton tbNoProgressEvents;
+        private System.Windows.Forms.TabPage tabOptions;
+        private System.Windows.Forms.PropertyGrid OptionsPropertyGrid;
     }
 }
 

@@ -40,8 +40,8 @@ namespace Kuhela
             if (!string.IsNullOrEmpty(FileName))
                 lblStatusFilename.Text = "Fiddler File: " + FileName;
 
-            txtThreads.Text = App.Configuration.LastThreads.ToString();
-            txtTimeToRun.Text = App.Configuration.LastSecondsToRun.ToString();
+            tbtxtThreads.Text = App.Configuration.LastThreads.ToString();
+            tbtxtTimeToRun.Text = App.Configuration.LastSecondsToRun.ToString();
 
             LoadOptions();
 
@@ -178,8 +178,8 @@ namespace Kuhela
 
         void  StartProcessing_Internal()
         {
-            int time = int.Parse(txtTimeToRun.Text);
-            int threads = int.Parse(txtThreads.Text);
+            int time = int.Parse(tbtxtTimeToRun.Text);
+            int threads = int.Parse(tbtxtThreads.Text);
             App.Configuration.LastSecondsToRun = time;
             App.Configuration.LastThreads = threads;
 
@@ -450,6 +450,12 @@ namespace Kuhela
                     File.WriteAllText(diag.FileName, sb.ToString());
                 }
             }
+        }
+
+        private void tbNoProgressEvents_CheckedChanged(object sender, EventArgs e)
+        {
+            var button = sender as  ToolStripButton;
+            StressTester.Options.NoProgressEvents = button.Checked;
         }
 
     }

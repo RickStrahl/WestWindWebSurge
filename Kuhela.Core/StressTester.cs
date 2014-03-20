@@ -371,7 +371,7 @@ namespace Kuhela
             {
                 sb.AppendLine("    Total Time: " + totalTime.ToString("n2") + " secs");   
                 if (results.Count > 0)
-                    sb.AppendLine("       Req/Sec:   " + ((decimal) results.Count/(decimal) totalTime).ToString("n2") + "\r\n");            
+                    sb.AppendLine("       Req/Sec: " + ((decimal) results.Count/(decimal) totalTime).ToString("n2") + "\r\n");            
             }
             if (results.Count > 0)
             {
