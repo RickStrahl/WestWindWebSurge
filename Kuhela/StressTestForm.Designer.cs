@@ -457,7 +457,7 @@
             // 
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(189, 22);
-            this.btnAbout.Text = "About";
+            this.btnAbout.Text = "&About";
             this.btnAbout.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // MainToolStrip
