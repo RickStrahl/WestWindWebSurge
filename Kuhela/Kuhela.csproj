@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\TabPadding.cs" />
     <EmbeddedResource Include="FiddlerCapture.resx">
       <DependentUpon>FiddlerCapture.cs</DependentUpon>
     </EmbeddedResource>

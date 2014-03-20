@@ -22,6 +22,10 @@ namespace Kuhela
         public StressTestForm()
         {
             InitializeComponent();
+
+            // Fix 
+            //var tab = new TabPadding(this.TabsResult);
+            //var tab2 = new TabPadding(this.TabSessions);
         }
 
         private void StressTestForm_Load(object sender, EventArgs e)
@@ -38,7 +42,11 @@ namespace Kuhela
 			}
 
             if (!string.IsNullOrEmpty(FileName))
+            {
                 lblStatusFilename.Text = "Fiddler File: " + FileName;
+                Requests = StressTester.ParseFiddlerSessions(FileName);
+                RenderRequests(Requests);
+            }
 
             tbtxtThreads.Text = App.Configuration.LastThreads.ToString();
             tbtxtTimeToRun.Text = App.Configuration.LastSecondsToRun.ToString();
@@ -48,6 +56,7 @@ namespace Kuhela
             OptionsPropertyGrid.SelectedObject = StressTester.Options;
 
             cmbListDisplayMode.SelectedItem = "Errors";
+            TabsResult.SelectedTab = tabOptions;
 
             UpdateButtonStatus();
         }
@@ -121,6 +130,9 @@ namespace Kuhela
                     FileName = Path.GetFullPath(fd.FileName);
                     ShowStatus("Fiddler File: " + FileName, 2);
                     App.Configuration.FileName = FileName;
+
+                    Requests = StressTester.ParseFiddlerSessions(FileName);
+                    RenderRequests(Requests);
                 }
             }
             else if (sender == tbCapture || sender == btnCapture)
@@ -196,7 +208,7 @@ namespace Kuhela
             ShowStatus("Checking sites...");
             var results = StressTester.CheckAllSites(Requests, threads, time);
 
-            ShowStatus("Parsing results...");
+            ShowStatus("Parsing requests...");
             BeginInvoke(new Action<List<HttpRequestData>>(ParseResults),StressTester.Results);
 
             ShowStatus("Done.");
@@ -206,6 +218,8 @@ namespace Kuhela
 
         private void ParseResults(List<HttpRequestData> results)
         {
+
+            TabSessions.SelectedTab = tabResults;
 
             txtConsole.Text = StressTester.ParseResults() +
                 "\r\n-------------\r\n" +
@@ -274,6 +288,42 @@ namespace Kuhela
 
             ListResults.EndUpdate();
         }
+
+        void RenderRequests(List<HttpRequestData> requests)
+        {
+            ListRequests.BeginUpdate();
+            ListRequests.Items.Clear();
+            ListRequests.EndUpdate();
+
+            Application.DoEvents();
+
+            var filtered = requests;
+
+            ListRequests.BeginUpdate();
+            for (int i = 0; i < filtered.Count; i++)
+            {
+                var request = filtered[i];
+
+                var item = ListRequests.Items.Add(new ListViewItem()
+                {
+                    Text = request.HttpVerb,
+                    Tag = request
+                });
+
+                if (!string.IsNullOrEmpty(request.RequestContent))
+                    item.ImageKey = "upload";
+                else
+                    item.ImageKey = "download";
+
+                item.SubItems.Add(request.Url);                
+                //item.ToolTipText = request.Headers;
+            }
+
+            ListRequests.EndUpdate();
+
+            TabSessions.SelectedTab = tabRequests;
+        }
+
 
         private void StressTestForm_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -368,6 +418,25 @@ namespace Kuhela
             TabsResult.SelectedTab = tabPreview;
         }
 
+        private void ListRequests_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.Item.Tag == null)
+                return;
+
+            HttpRequestData req = e.Item.Tag as HttpRequestData;
+            if (e.Item.Tag == null)
+                return;
+
+            string html = StressTester.RequestDataToHtml(req, true);
+
+            File.WriteAllText("_preview.html", html);
+            string file = (Environment.CurrentDirectory + "/_preview.html").Replace("\\", "/");
+            PreViewBrowser.Url = new Uri(file);
+
+            TabsResult.SelectedTab = tabPreview;
+        }
+
+
         void Export(string mode)
         {
             if (mode == "xml")
@@ -457,6 +526,7 @@ namespace Kuhela
             var button = sender as  ToolStripButton;
             StressTester.Options.NoProgressEvents = button.Checked;
         }
+
 
     }
 

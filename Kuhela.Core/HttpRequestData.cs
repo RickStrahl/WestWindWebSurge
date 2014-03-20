@@ -43,7 +43,7 @@ namespace Kuhela
         {
             Headers = new List<HttpRequestHeader>();
             IsError = true;
-            ErrorMessage = "Request is incomplete.";
+            ErrorMessage = string.Empty;
         }
         public static HttpRequestData Copy(HttpRequestData req)
         {

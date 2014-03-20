@@ -88,7 +88,8 @@ namespace Kuhela
 
         public  HttpRequestData CheckSite(HttpRequestData reqData)
         {
-            var result = HttpRequestData.Copy(reqData);            
+            var result = HttpRequestData.Copy(reqData);
+            result.ErrorMessage = "Request is incomplete"; // assume not going to make it
 
             try
             {
@@ -420,21 +421,25 @@ namespace Kuhela
 
             sb.AppendLine("</pre>");
 
-            html = @"
-<div class='timetaken'>" + req.TimeTakenMs.ToString("n0") + @" ms</div>
-<label>Http Response</label>
-<pre>";
-            
-            sb.AppendLine(html);
+            if (req.TimeTakenMs > 0)
+                sb.AppendFormat("<div class='timetaken'>{0}ms</div>", req.TimeTakenMs.ToString("n0"));
 
             if (!string.IsNullOrEmpty(req.StatusCode))
-                sb.AppendLine("HTTP/1.1 " + req.StatusCode + " " + req.StatusDescription);
-            
-            sb.AppendLine(req.ResponseHeaders);
-            sb.AppendLine();
+            {
+                html = @"<label>Http Response</label>
+<pre>";
 
-            if (req.LastResponse != null)
-                sb.AppendLine(HtmlUtils.HtmlEncode(req.LastResponse.Trim()));            
+                sb.AppendLine(html);
+
+                if (!string.IsNullOrEmpty(req.StatusCode))
+                    sb.AppendLine("HTTP/1.1 " + req.StatusCode + " " + req.StatusDescription);
+
+                sb.AppendLine(req.ResponseHeaders);
+                sb.AppendLine();
+
+                if (req.LastResponse != null)
+                    sb.AppendLine(HtmlUtils.HtmlEncode(req.LastResponse.Trim()));
+            }
 
             if (!asDocument)
                 return sb.ToString();
