@@ -1,6 +1,6 @@
-copy ..\Kuhela\bin\release\WebSurge.exe
-copy ..\Kuhela\bin\release\WebSurge.Core.dll
-copy ..\Kuhela\bin\release\FiddlerCore4.dll
-copy ..\Kuhela\bin\release\Newtonsoft.json.dll
-copy ..\Kuhela\bin\release\Westwind.Utilities.dll
+copy ..\WebSurge\bin\release\WebSurge.exe
+copy ..\WebSurge\bin\release\WebSurge.Core.dll
+copy ..\WebSurge\bin\release\FiddlerCore4.dll
+copy ..\WebSurge\bin\release\Newtonsoft.json.dll
+copy ..\WebSurge\bin\release\Westwind.Utilities.dll
 pause
