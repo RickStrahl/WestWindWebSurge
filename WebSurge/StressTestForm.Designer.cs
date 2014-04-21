@@ -41,6 +41,11 @@
             this.ListRequests = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.RequestContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tbDeleteRequest = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbSaveAllRequests = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbAddRequest = new System.Windows.Forms.ToolStripMenuItem();
             this.Images = new System.Windows.Forms.ImageList(this.components);
             this.tabResults = new System.Windows.Forms.TabPage();
             this.ListResults = new System.Windows.Forms.ListView();
@@ -108,6 +113,7 @@
             this.BottomSplitContainer.SuspendLayout();
             this.TabSessions.SuspendLayout();
             this.tabRequests.SuspendLayout();
+            this.RequestContextMenu.SuspendLayout();
             this.tabResults.SuspendLayout();
             this.TabsResult.SuspendLayout();
             this.tabOutput.SuspendLayout();
@@ -230,6 +236,7 @@
             this.ListRequests.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4,
             this.columnHeader2});
+            this.ListRequests.ContextMenuStrip = this.RequestContextMenu;
             this.ListRequests.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListRequests.FullRowSelect = true;
             this.ListRequests.GridLines = true;
@@ -255,6 +262,41 @@
             // 
             this.columnHeader2.Text = "Url";
             this.columnHeader2.Width = 480;
+            // 
+            // RequestContextMenu
+            // 
+            this.RequestContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbDeleteRequest,
+            this.toolStripSeparator6,
+            this.tbSaveAllRequests,
+            this.tbAddRequest});
+            this.RequestContextMenu.Name = "RequestContextMenu";
+            this.RequestContextMenu.Size = new System.Drawing.Size(153, 98);
+            this.RequestContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.RequestContextMenu_ItemClicked);
+            // 
+            // tbDeleteRequest
+            // 
+            this.tbDeleteRequest.Name = "tbDeleteRequest";
+            this.tbDeleteRequest.Size = new System.Drawing.Size(152, 22);
+            this.tbDeleteRequest.Text = "Delete Request";
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
+            // 
+            // tbSaveAllRequests
+            // 
+            this.tbSaveAllRequests.Name = "tbSaveAllRequests";
+            this.tbSaveAllRequests.Size = new System.Drawing.Size(152, 22);
+            this.tbSaveAllRequests.Text = "&Save all to File";
+            // 
+            // tbAddRequest
+            // 
+            this.tbAddRequest.Enabled = false;
+            this.tbAddRequest.Name = "tbAddRequest";
+            this.tbAddRequest.Size = new System.Drawing.Size(152, 22);
+            this.tbAddRequest.Text = "&Add Request";
             // 
             // Images
             // 
@@ -781,6 +823,7 @@
             this.BottomSplitContainer.ResumeLayout(false);
             this.TabSessions.ResumeLayout(false);
             this.tabRequests.ResumeLayout(false);
+            this.RequestContextMenu.ResumeLayout(false);
             this.tabResults.ResumeLayout(false);
             this.tabResults.PerformLayout();
             this.TabsResult.ResumeLayout(false);
@@ -868,6 +911,11 @@
         private System.Windows.Forms.ListView ListRequests;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ContextMenuStrip RequestContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem tbDeleteRequest;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem tbSaveAllRequests;
+        private System.Windows.Forms.ToolStripMenuItem tbAddRequest;
     }
 }
 

@@ -18,10 +18,13 @@ namespace WebSurge
     {
         private const string Separator = "------------------------------------------------------------------";
         private UrlCaptureConfiguration CaptureConfiguration { get; set; }
-        public FiddlerCapture()
+        private StressTestForm MainForm;
+
+        public FiddlerCapture(StressTestForm form)
         {
             InitializeComponent();
             CaptureConfiguration = App.CaptureConfiguration;
+            MainForm = form;
         }
 
         private void FiddlerCapture_Load(object sender, EventArgs e)
@@ -139,6 +142,8 @@ namespace WebSurge
                         File.Delete(diag.FileName);
 
                     File.WriteAllText(diag.FileName, txtCapture.Text);
+
+                    MainForm.OpenFile(diag.FileName);
                 }
             }
             else if (sender == tbClear)
@@ -154,6 +159,7 @@ namespace WebSurge
         private void FiddlerCapture_FormClosing(object sender, FormClosingEventArgs e)
         {
             Stop();
+            MainForm = null; 
         }
 
 

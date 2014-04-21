@@ -25,7 +25,7 @@ namespace WebSurge
             InitializeComponent();
         }
 
-        private void OpenFile(string fileName = null)
+        public void OpenFile(string fileName = null)
         {
             if (fileName == null)
                 fileName = FileName;
@@ -130,6 +130,7 @@ namespace WebSurge
                 var fd = new OpenFileDialog()
                 {
                     DefaultExt = ".txt;.log",
+                    Filter = "Text files (*.txt)|*.txt|Log Files (*.log)|*.log|All Files (*.*)|*.*",
                     CheckFileExists = true,
                     RestoreDirectory = true,
                     FileName = "1_Full.txt",
@@ -144,7 +145,7 @@ namespace WebSurge
             }
             else if (sender == tbCapture || sender == btnCapture)
             {
-                var fiddlerForm = new FiddlerCapture();
+                var fiddlerForm = new FiddlerCapture(this);
                 fiddlerForm.Show();
             }           
             else if (sender == tbStart || sender == btnStart)
@@ -185,8 +186,33 @@ namespace WebSurge
             else if (sender == btnExit)
                 Close();
 
+            
             UpdateButtonStatus();
         }
+
+        private void RequestContextMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var item = e.ClickedItem;
+
+            // Request Context Menu
+            if (item == tbDeleteRequest)
+            {
+                if (ListRequests.SelectedItems.Count > 0)
+                {
+                    var listItem = ListRequests.SelectedItems[0];   
+                    var request = listItem.Tag as HttpRequestData;
+                    Requests.Remove(request);
+                    ListRequests.Items.Remove(listItem);
+                }
+            }
+            if (item == tbSaveAllRequests)
+            {
+                var parser = new FiddlerSessionParser();
+                parser.Save(Requests,FileName);
+            }
+
+        }
+        
 
       void  StartProcessing()
         {
@@ -425,7 +451,7 @@ namespace WebSurge
             if (e.Item.Tag == null)
                 return;
 
-            string html = StressTester.RequestDataToHtml(req, true);
+            string html = req.ToHtml(true);
 
             File.WriteAllText("_preview.html", html);
             string file = (Environment.CurrentDirectory + "/_preview.html").Replace("\\", "/");            
@@ -443,7 +469,7 @@ namespace WebSurge
             if (e.Item.Tag == null)
                 return;
 
-            string html = StressTester.RequestDataToHtml(req, true);
+            string html = req.ToHtml(true);
 
             File.WriteAllText("_preview.html", html);
             string file = (Environment.CurrentDirectory + "/_preview.html").Replace("\\", "/");
@@ -529,7 +555,7 @@ namespace WebSurge
                     StringBuilder sb = new StringBuilder();
                     foreach (var req in StressTester.Results)
                     {
-                        sb.Append(StressTester.RequestDataToHtml(req));
+                        sb.Append(req.ToHtml(true));
                     }
 
                     File.WriteAllText(diag.FileName, sb.ToString());
@@ -566,6 +592,8 @@ namespace WebSurge
                 OpenFile(FileName);
             }));
         }
+
+       
     }
 
 }

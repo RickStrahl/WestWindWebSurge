@@ -30,7 +30,7 @@ namespace WebSurge
 
             string file = File.ReadAllText(fiddlerSessionFile);
 
-            string[] requests = Regex.Split(file, @"\r\n-{5,50}\r\n");
+            string[] requests = Regex.Split(file, @"\r\n-{5,100}\r\n");
             
             //string[] requests = file.Split(new string[1] {STR_Separator},StringSplitOptions.RemoveEmptyEntries);
             foreach (string request in requests)
@@ -46,6 +46,8 @@ namespace WebSurge
 
             return httpRequests;
         }
+
+
 
         public HttpRequestData ParseRequest(string requestData)
         {
@@ -105,6 +107,28 @@ namespace WebSurge
                 .FirstOrDefault();                
 
             return reqHttp;
+        }
+
+
+        /// <summary>
+        /// Writes out the request data to disk
+        /// </summary>
+        /// <param name="requests"></param>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public bool Save(List<HttpRequestData> requests,string filename)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var request in requests)
+            {
+                sb.Append(request.ToHttpHeader());
+                sb.AppendLine(STR_Separator);                
+            }
+
+            File.WriteAllText(filename, sb.ToString());
+
+            return true;
         }
 
 
