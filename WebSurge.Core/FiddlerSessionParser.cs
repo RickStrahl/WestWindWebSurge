@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Westwind.Utilities;
@@ -29,7 +30,9 @@ namespace WebSurge
 
             string file = File.ReadAllText(fiddlerSessionFile);
 
-            string[] requests = file.Split(new string[1] {STR_Separator},StringSplitOptions.RemoveEmptyEntries);
+            string[] requests = Regex.Split(file, @"\r\n-{5,50}\r\n");
+            
+            //string[] requests = file.Split(new string[1] {STR_Separator},StringSplitOptions.RemoveEmptyEntries);
             foreach (string request in requests)
             {
                 string req = request.Trim();

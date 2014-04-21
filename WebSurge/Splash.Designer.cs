@@ -71,6 +71,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About West Wind Web Surge";
             this.TransparencyKey = System.Drawing.Color.White;
+            this.Deactivate += new System.EventHandler(this.Splash_Deactivate);
             this.Load += new System.EventHandler(this.Splash_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PictureLogo)).EndInit();
             this.ResumeLayout(false);

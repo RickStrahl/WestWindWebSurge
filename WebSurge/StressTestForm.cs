@@ -15,21 +15,36 @@ namespace WebSurge
 {
     public partial class StressTestForm : Form
     {
-        public StressTester StressTester { get; set; }
-        public string FileName { get; set;  }
-        public List<HttpRequestData> Requests { get; set; }
+        StressTester StressTester { get; set; }
+        string FileName { get; set;  }
+        List<HttpRequestData> Requests { get; set; }
+        FileSystemWatcher Watcher { get; set; }
 
         public StressTestForm()
         {
             InitializeComponent();
+        }
 
-            // Fix 
-            //var tab = new TabPadding(this.TabsResult);
-            //var tab2 = new TabPadding(this.TabSessions);
+        private void OpenFile(string fileName = null)
+        {
+            if (fileName == null)
+                fileName = FileName;
+            else
+                FileName = fileName;
+
+            lblStatusFilename.Text = "Fiddler File: " + FileName;
+            Requests = StressTester.ParseFiddlerSessions(FileName);
+            RenderRequests(Requests);
+
+            App.Configuration.FileName = FileName;
+
+            AttachWatcher(fileName);
         }
 
         private void StressTestForm_Load(object sender, EventArgs e)
         {
+            Watcher = new FileSystemWatcher();
+
             StressTester = new StressTester();
             StressTester.RequestProcessed += StressTester_RequestProcessed;
             StressTester.Progress += StressTester_Progress;
@@ -42,11 +57,7 @@ namespace WebSurge
 			}
 
             if (!string.IsNullOrEmpty(FileName))
-            {
-                lblStatusFilename.Text = "Fiddler File: " + FileName;
-                Requests = StressTester.ParseFiddlerSessions(FileName);
-                RenderRequests(Requests);
-            }
+                OpenFile(FileName);
 
             tbtxtThreads.Text = App.Configuration.LastThreads.ToString();
             tbtxtTimeToRun.Text = App.Configuration.LastSecondsToRun.ToString();
@@ -128,11 +139,7 @@ namespace WebSurge
                 if (dr != System.Windows.Forms.DialogResult.Cancel)
                 {
                     FileName = Path.GetFullPath(fd.FileName);
-                    ShowStatus("Fiddler File: " + FileName, 2);
-                    App.Configuration.FileName = FileName;
-
-                    Requests = StressTester.ParseFiddlerSessions(FileName);
-                    RenderRequests(Requests);
+                    OpenFile(FileName);
                 }
             }
             else if (sender == tbCapture || sender == btnCapture)
@@ -153,11 +160,21 @@ namespace WebSurge
             {
                 if (!string.IsNullOrEmpty(FileName))
                     ShellUtils.GoUrl(FileName);
+                AttachWatcher(FileName);
             }
             else if (sender == btnAbout)
             {
                 var splashForm = new Splash();
                 splashForm.Show();
+            }
+            else if (sender == btnGotoWebSite)
+                ShellUtils.GoUrl("http://west-wind.com/WebSurge");
+            else if (sender == btnGotoRegistration)
+                ShellUtils.GoUrl("http://store.west-wind.com/product/websurge");
+            else if (sender == btnRegistration)
+            {
+                var regForm = new UnlockKeyForm("Web Surge");
+                regForm.Show();
             }
             else if (sender == tbExportXml || sender == btnExportXml)
                 Export("xml");
@@ -170,9 +187,8 @@ namespace WebSurge
 
             UpdateButtonStatus();
         }
-        
 
-        void  StartProcessing()
+      void  StartProcessing()
         {
             txtConsole.Text = "";
             ListResults.BeginUpdate();
@@ -528,6 +544,28 @@ namespace WebSurge
         }
 
 
+        void AttachWatcher(string fileName)
+        {
+            Watcher.EnableRaisingEvents = false;
+            Watcher.Changed -= watcher_Changed;
+
+            Watcher.Filter = Path.GetFileName(fileName);
+            // monitor size change to avoid last write dupe events
+            Watcher.NotifyFilter = NotifyFilters.Size;
+            Watcher.Path = Path.GetDirectoryName(fileName);
+            Watcher.Changed += watcher_Changed;
+            Watcher.EnableRaisingEvents = true;
+        }
+
+        void watcher_Changed(object sender, FileSystemEventArgs e)
+        {            
+            var watcher = sender as FileSystemWatcher;
+            Invoke(new Action(() =>
+            {
+                Thread.Sleep(10);
+                OpenFile(FileName);
+            }));
+        }
     }
 
 }

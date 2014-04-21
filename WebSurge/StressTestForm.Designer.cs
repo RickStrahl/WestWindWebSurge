@@ -71,9 +71,9 @@
             this.btnExportJson = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExportHtml = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kuhelaWebSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registerKuhelaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enterRegistrationKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnGotoWebSite = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnGotoRegistration = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRegistration = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
@@ -88,7 +88,7 @@
             this.tbExportXml = new System.Windows.Forms.ToolStripMenuItem();
             this.tbExportJson = new System.Windows.Forms.ToolStripMenuItem();
             this.tbExportHtml = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.OptionsToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tbtxtThreads = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -115,7 +115,7 @@
             this.tabOptions.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.OptionsToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer
@@ -141,7 +141,7 @@
             this.toolStripContainer.TopToolStripPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.MainMenu);
             this.toolStripContainer.TopToolStripPanel.Controls.Add(this.MainToolStrip);
-            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            this.toolStripContainer.TopToolStripPanel.Controls.Add(this.OptionsToolStrip);
             // 
             // statusBar
             // 
@@ -540,38 +540,35 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.kuhelaWebSiteToolStripMenuItem,
-            this.registerKuhelaToolStripMenuItem,
-            this.enterRegistrationKeyToolStripMenuItem,
+            this.btnGotoWebSite,
+            this.btnGotoRegistration,
+            this.btnRegistration,
             this.toolStripSeparator4,
             this.btnAbout});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // kuhelaWebSiteToolStripMenuItem
+            // btnGotoWebSite
             // 
-            this.kuhelaWebSiteToolStripMenuItem.Enabled = false;
-            this.kuhelaWebSiteToolStripMenuItem.Name = "kuhelaWebSiteToolStripMenuItem";
-            this.kuhelaWebSiteToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.kuhelaWebSiteToolStripMenuItem.Text = "Kuhela Web Site";
-            this.kuhelaWebSiteToolStripMenuItem.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnGotoWebSite.Name = "btnGotoWebSite";
+            this.btnGotoWebSite.Size = new System.Drawing.Size(189, 22);
+            this.btnGotoWebSite.Text = "Kuhela Web Site";
+            this.btnGotoWebSite.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
-            // registerKuhelaToolStripMenuItem
+            // btnGotoRegistration
             // 
-            this.registerKuhelaToolStripMenuItem.Enabled = false;
-            this.registerKuhelaToolStripMenuItem.Name = "registerKuhelaToolStripMenuItem";
-            this.registerKuhelaToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.registerKuhelaToolStripMenuItem.Text = "Register Kuhela";
-            this.registerKuhelaToolStripMenuItem.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnGotoRegistration.Name = "btnGotoRegistration";
+            this.btnGotoRegistration.Size = new System.Drawing.Size(189, 22);
+            this.btnGotoRegistration.Text = "Register Kuhela";
+            this.btnGotoRegistration.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
-            // enterRegistrationKeyToolStripMenuItem
+            // btnRegistration
             // 
-            this.enterRegistrationKeyToolStripMenuItem.Enabled = false;
-            this.enterRegistrationKeyToolStripMenuItem.Name = "enterRegistrationKeyToolStripMenuItem";
-            this.enterRegistrationKeyToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.enterRegistrationKeyToolStripMenuItem.Text = "Enter Registration Key";
-            this.enterRegistrationKeyToolStripMenuItem.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnRegistration.Name = "btnRegistration";
+            this.btnRegistration.Size = new System.Drawing.Size(189, 22);
+            this.btnRegistration.Text = "Enter Registration Key";
+            this.btnRegistration.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // toolStripSeparator4
             // 
@@ -691,10 +688,10 @@
             this.tbExportHtml.Text = "Html";
             this.tbExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
-            // toolStrip1
+            // OptionsToolStrip
             // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OptionsToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.OptionsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.tbtxtThreads,
             this.toolStripLabel2,
@@ -702,10 +699,10 @@
             this.toolStripLabel3,
             this.toolStripSeparator5,
             this.tbNoProgressEvents});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 49);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(260, 25);
-            this.toolStrip1.TabIndex = 2;
+            this.OptionsToolStrip.Location = new System.Drawing.Point(3, 49);
+            this.OptionsToolStrip.Name = "OptionsToolStrip";
+            this.OptionsToolStrip.Size = new System.Drawing.Size(260, 25);
+            this.OptionsToolStrip.TabIndex = 2;
             // 
             // toolStripLabel1
             // 
@@ -795,8 +792,8 @@
             this.MainMenu.PerformLayout();
             this.MainToolStrip.ResumeLayout(false);
             this.MainToolStrip.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.OptionsToolStrip.ResumeLayout(false);
+            this.OptionsToolStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -843,13 +840,13 @@
         private System.Windows.Forms.ToolStripSplitButton tbExport;
         private System.Windows.Forms.ToolStripMenuItem tbExportXml;
         private System.Windows.Forms.ToolStripMenuItem tbExportJson;
-        private System.Windows.Forms.ToolStripMenuItem kuhelaWebSiteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registerKuhelaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem enterRegistrationKeyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnGotoWebSite;
+        private System.Windows.Forms.ToolStripMenuItem btnGotoRegistration;
+        private System.Windows.Forms.ToolStripMenuItem btnRegistration;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem btnExportHtml;
         private System.Windows.Forms.ToolStripMenuItem tbExportHtml;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip OptionsToolStrip;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox tbtxtThreads;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;

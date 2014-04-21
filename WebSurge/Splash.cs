@@ -34,5 +34,10 @@ namespace WebSurge
         {
             Close();
         }
+
+        private void Splash_Deactivate(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
