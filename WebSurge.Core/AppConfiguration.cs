@@ -35,6 +35,7 @@ namespace WebSurge
         public int DelayTimeMs { get; set; }
         public bool RandomizeRequests { get; set; }
         public int RequestTimeoutMs { get; set; }
+        public string AppName { get; set; }
 
         public StressTesterConfiguration()
         {
@@ -42,6 +43,7 @@ namespace WebSurge
             MaxResponseSize = 5000;
             LastSecondsToRun = 10;
             LastThreads = 2;
+            AppName = "West Wind WebSurge";
         }
     }
 

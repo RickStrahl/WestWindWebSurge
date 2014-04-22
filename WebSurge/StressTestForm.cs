@@ -243,12 +243,27 @@ namespace WebSurge
             if (Requests == null)
             {
                 ShowStatus();
-                MessageBox.Show(StressTester.ErrorMessage, "Stress Tester",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(StressTester.ErrorMessage, App.Configuration.AppName,MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
             }
 
             ShowStatus("Checking sites...");
             var results = StressTester.CheckAllSites(Requests, threads, time);
+
+            if (results == null)
+            {
+                ShowStatus("Aborted.", timeout: 5000);
+                Invoke(new Action(UpdateButtonStatus));
+
+                MessageBox.Show(StressTester.ErrorMessage, App.Configuration.AppName, 
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+
+                if (StressTester.ErrorMessage.Contains("The free version"))
+                    ShellUtils.GoUrl("http://west-wind.com/websurge/pricing.aspx");
+
+                return;
+            }
 
             ShowStatus("Parsing requests...");
             BeginInvoke(new Action<List<HttpRequestData>>(ParseResults),StressTester.Results);
@@ -573,11 +588,11 @@ namespace WebSurge
         void AttachWatcher(string fileName)
         {
             Watcher.EnableRaisingEvents = false;
-            Watcher.Changed -= watcher_Changed;
+            Watcher.Changed -= watcher_Changed;            
 
             Watcher.Filter = Path.GetFileName(fileName);
             // monitor size change to avoid last write dupe events
-            Watcher.NotifyFilter = NotifyFilters.Size;
+            Watcher.NotifyFilter = NotifyFilters.LastWrite;  // Note: Fires more than once!!!
             Watcher.Path = Path.GetDirectoryName(fileName);
             Watcher.Changed += watcher_Changed;
             Watcher.EnableRaisingEvents = true;
@@ -585,6 +600,7 @@ namespace WebSurge
 
         void watcher_Changed(object sender, FileSystemEventArgs e)
         {            
+            // this gets called more than once per update typically
             var watcher = sender as FileSystemWatcher;
             Invoke(new Action(() =>
             {

@@ -28,6 +28,12 @@ namespace WebSurge
         {
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
             this.lblVersionText.Text = "Build " + v.Major + "." + v.Minor;
+
+            var reg = UnlockKey.RegType;
+            if (reg == RegTypes.Free)
+                lblRegisterType.Text = "Free Version";
+            else if (UnlockKey.RegType == RegTypes.Professional)
+                lblRegisterType.Text = "Professional Version";
         }
 
         private void PictureLogo_Click(object sender, EventArgs e)
@@ -38,6 +44,11 @@ namespace WebSurge
         private void Splash_Deactivate(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void lblRegisterType_Click(object sender, EventArgs e)
+        {
+            ShellUtils.GoUrl("http://west-wind.com/websurge/pricing.aspx");
         }
     }
 }

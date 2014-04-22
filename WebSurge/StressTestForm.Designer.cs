@@ -102,6 +102,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -271,7 +272,7 @@
             this.tbSaveAllRequests,
             this.tbAddRequest});
             this.RequestContextMenu.Name = "RequestContextMenu";
-            this.RequestContextMenu.Size = new System.Drawing.Size(153, 98);
+            this.RequestContextMenu.Size = new System.Drawing.Size(153, 76);
             this.RequestContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.RequestContextMenu_ItemClicked);
             // 
             // tbDeleteRequest
@@ -583,6 +584,7 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnGotoWebSite,
+            this.toolStripSeparator7,
             this.btnGotoRegistration,
             this.btnRegistration,
             this.toolStripSeparator4,
@@ -595,14 +597,14 @@
             // 
             this.btnGotoWebSite.Name = "btnGotoWebSite";
             this.btnGotoWebSite.Size = new System.Drawing.Size(189, 22);
-            this.btnGotoWebSite.Text = "Kuhela Web Site";
+            this.btnGotoWebSite.Text = "WebSurge Web Site";
             this.btnGotoWebSite.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnGotoRegistration
             // 
             this.btnGotoRegistration.Name = "btnGotoRegistration";
             this.btnGotoRegistration.Size = new System.Drawing.Size(189, 22);
-            this.btnGotoRegistration.Text = "Register Kuhela";
+            this.btnGotoRegistration.Text = "Register WebSurge";
             this.btnGotoRegistration.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnRegistration
@@ -793,6 +795,11 @@
             this.tbNoProgressEvents.ToolTipText = "Don\'t show progress info - faster, can create more requests.";
             this.tbNoProgressEvents.CheckedChanged += new System.EventHandler(this.tbNoProgressEvents_CheckedChanged);
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(186, 6);
+            // 
             // StressTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -916,6 +923,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem tbSaveAllRequests;
         private System.Windows.Forms.ToolStripMenuItem tbAddRequest;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }
 

@@ -116,13 +116,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="1_Full.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="kuhela.ico" />
     <Content Include="WebSurge.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -7,9 +7,8 @@ namespace WebSurge
     {
         /// <summary>
         /// The key to unlock this application
-        /// </summary>
-        static string Key = "Kuhela_100";  
-        static string ProKey = "Kuhelo_100";  // "3bd0f6e";
+        /// </summary>        
+        static string ProKey = "Kuhela_100";  // "3bd0f6e";
 
         /// <summary>
         /// Determines whether the app is unlocked
@@ -41,6 +40,10 @@ namespace WebSurge
                 return _eRegType;
             }
         }
+
+        public static int FreeThreadLimit = 10;
+        public static int FreeSitesLimit = 20;
+
         static RegTypes _eRegType = RegTypes.Free;
 
         private static readonly object LockKey = new Object();
@@ -73,11 +76,11 @@ namespace WebSurge
                     return true;
                 }
 
-                if (Key == UnlockKey.Key)
-                {
-                    _unlocked = true;
-                    return true;
-                }
+                //if (Key == UnlockKey.Key)
+                //{
+                //    _unlocked = true;
+                //    return true;
+                //}
 
                 return false;
             }
@@ -97,16 +100,16 @@ namespace WebSurge
                 _eRegType = RegTypes.Free;
                 _unlocked = false;
 
-                if (Key != UnlockKey.Key && Key != ProKey)
+                if (Key != ProKey)
                     return false;
 
                 StreamWriter sw = new StreamWriter("Registered.key", false);
                 sw.Write(RawKey);
                 sw.Close();
 
-                if (Key == UnlockKey.Key)
-                    _unlocked = true;
-                else if (Key == ProKey)
+                //if (Key == UnlockKey.Key)
+                //    _unlocked = true;
+                if (Key == ProKey)
                     _eRegType = RegTypes.Professional;
             }
             return true;
