@@ -19,6 +19,7 @@ namespace WebSurge
         string FileName { get; set;  }
         List<HttpRequestData> Requests { get; set; }
         FileSystemWatcher Watcher { get; set; }
+        public Splash Splash { get; set; }
 
         public StressTestForm()
         {
@@ -468,8 +469,9 @@ namespace WebSurge
 
             string html = req.ToHtml(true);
 
-            File.WriteAllText("_preview.html", html);
-            string file = (Environment.CurrentDirectory + "/_preview.html").Replace("\\", "/");            
+            string outputPath = App.AppDataPath + "_preview.html";
+            File.WriteAllText(outputPath, html);
+            string file = (outputPath + "/_preview.html").Replace("\\", "/");            
             PreViewBrowser.Url = new Uri( file);
 
             TabsResult.SelectedTab = tabPreview;
@@ -486,13 +488,21 @@ namespace WebSurge
 
             string html = req.ToHtml(true);
 
-            File.WriteAllText("_preview.html", html);
-            string file = (Environment.CurrentDirectory + "/_preview.html").Replace("\\", "/");
-            PreViewBrowser.Url = new Uri(file);
+            HtmlPreview(html);
 
             TabsResult.SelectedTab = tabPreview;
         }
 
+
+        void HtmlPreview(string html)
+        {
+            
+            string outputPath = App.AppDataPath + "_preview.html";
+            
+            File.WriteAllText(outputPath, html);
+            string file = (outputPath).Replace("\\", "/");
+            PreViewBrowser.Url = new Uri(file);
+        }
 
         void Export(string mode)
         {
@@ -609,7 +619,16 @@ namespace WebSurge
             }));
         }
 
-       
+        private void StressTestForm_Shown(object sender, EventArgs e)
+        {
+            if (Splash != null)
+            {
+                new System.Threading.Timer(p => Splash.Invoke(new Action(() => Splash.Close())),
+                    null, 1000, Timeout.Infinite);
+            }
+            Application.DoEvents();            
+        }
+
     }
 
 }

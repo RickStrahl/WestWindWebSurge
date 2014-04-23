@@ -77,6 +77,7 @@
             this.btnExportHtml = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGotoWebSite = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.btnGotoRegistration = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRegistration = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -102,7 +103,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -135,11 +135,11 @@
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.BottomSplitContainer);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1272, 677);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(992, 577);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(1272, 773);
+            this.toolStripContainer.Size = new System.Drawing.Size(992, 673);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -161,7 +161,7 @@
             this.txtProcessingTime});
             this.statusBar.Location = new System.Drawing.Point(0, 0);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(1272, 22);
+            this.statusBar.Size = new System.Drawing.Size(992, 22);
             this.statusBar.TabIndex = 0;
             this.statusBar.Text = "statusStrip1";
             // 
@@ -206,8 +206,8 @@
             // BottomSplitContainer.Panel2
             // 
             this.BottomSplitContainer.Panel2.Controls.Add(this.TabsResult);
-            this.BottomSplitContainer.Size = new System.Drawing.Size(1272, 677);
-            this.BottomSplitContainer.SplitterDistance = 625;
+            this.BottomSplitContainer.Size = new System.Drawing.Size(992, 577);
+            this.BottomSplitContainer.SplitterDistance = 429;
             this.BottomSplitContainer.TabIndex = 0;
             // 
             // TabSessions
@@ -218,7 +218,7 @@
             this.TabSessions.Location = new System.Drawing.Point(0, 0);
             this.TabSessions.Name = "TabSessions";
             this.TabSessions.SelectedIndex = 0;
-            this.TabSessions.Size = new System.Drawing.Size(625, 677);
+            this.TabSessions.Size = new System.Drawing.Size(429, 577);
             this.TabSessions.TabIndex = 3;
             // 
             // tabRequests
@@ -227,7 +227,7 @@
             this.tabRequests.Location = new System.Drawing.Point(4, 24);
             this.tabRequests.Margin = new System.Windows.Forms.Padding(0);
             this.tabRequests.Name = "tabRequests";
-            this.tabRequests.Size = new System.Drawing.Size(617, 649);
+            this.tabRequests.Size = new System.Drawing.Size(421, 549);
             this.tabRequests.TabIndex = 0;
             this.tabRequests.Text = "Requests";
             this.tabRequests.UseVisualStyleBackColor = true;
@@ -245,7 +245,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(617, 649);
+            this.ListRequests.Size = new System.Drawing.Size(421, 549);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.ListRequests.TabIndex = 4;
@@ -392,7 +392,7 @@
             this.TabsResult.Name = "TabsResult";
             this.TabsResult.Padding = new System.Drawing.Point(0, 0);
             this.TabsResult.SelectedIndex = 0;
-            this.TabsResult.Size = new System.Drawing.Size(643, 677);
+            this.TabsResult.Size = new System.Drawing.Size(559, 577);
             this.TabsResult.TabIndex = 1;
             // 
             // tabOutput
@@ -401,7 +401,7 @@
             this.tabOutput.Location = new System.Drawing.Point(4, 26);
             this.tabOutput.Margin = new System.Windows.Forms.Padding(0);
             this.tabOutput.Name = "tabOutput";
-            this.tabOutput.Size = new System.Drawing.Size(635, 647);
+            this.tabOutput.Size = new System.Drawing.Size(551, 547);
             this.tabOutput.TabIndex = 0;
             this.tabOutput.Text = "Output";
             // 
@@ -418,7 +418,7 @@
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConsole.Size = new System.Drawing.Size(635, 647);
+            this.txtConsole.Size = new System.Drawing.Size(551, 547);
             this.txtConsole.TabIndex = 2;
             this.txtConsole.WordWrap = false;
             // 
@@ -475,7 +475,7 @@
             this.helpToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(1272, 24);
+            this.MainMenu.Size = new System.Drawing.Size(992, 24);
             this.MainMenu.TabIndex = 1;
             this.MainMenu.Text = "menuStrip1";
             // 
@@ -599,6 +599,11 @@
             this.btnGotoWebSite.Size = new System.Drawing.Size(189, 22);
             this.btnGotoWebSite.Text = "WebSurge Web Site";
             this.btnGotoWebSite.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(186, 6);
             // 
             // btnGotoRegistration
             // 
@@ -795,26 +800,23 @@
             this.tbNoProgressEvents.ToolTipText = "Don\'t show progress info - faster, can create more requests.";
             this.tbNoProgressEvents.CheckedChanged += new System.EventHandler(this.tbNoProgressEvents_CheckedChanged);
             // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(186, 6);
-            // 
             // StressTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1272, 773);
+            this.ClientSize = new System.Drawing.Size(992, 673);
             this.Controls.Add(this.toolStripContainer);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
-            this.MinimumSize = new System.Drawing.Size(800, 700);
+            this.MinimumSize = new System.Drawing.Size(750, 500);
             this.Name = "StressTestForm";
-            this.Text = "West Wind Web Surge";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "West Wind WebSurge";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StressTestForm_FormClosed);
             this.Load += new System.EventHandler(this.StressTestForm_Load);
+            this.Shown += new System.EventHandler(this.StressTestForm_Shown);
             this.toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.BottomToolStripPanel.PerformLayout();
             this.toolStripContainer.ContentPanel.ResumeLayout(false);

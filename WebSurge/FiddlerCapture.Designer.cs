@@ -49,11 +49,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCapture.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCapture.Location = new System.Drawing.Point(-1, 28);
+            this.txtCapture.Location = new System.Drawing.Point(-1, 32);
             this.txtCapture.Multiline = true;
             this.txtCapture.Name = "txtCapture";
             this.txtCapture.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCapture.Size = new System.Drawing.Size(782, 544);
+            this.txtCapture.Size = new System.Drawing.Size(912, 627);
             this.txtCapture.TabIndex = 1;
             // 
             // MainToolbar
@@ -70,7 +70,7 @@
             this.tbtxtProcessId});
             this.MainToolbar.Location = new System.Drawing.Point(0, 0);
             this.MainToolbar.Name = "MainToolbar";
-            this.MainToolbar.Size = new System.Drawing.Size(780, 25);
+            this.MainToolbar.Size = new System.Drawing.Size(910, 25);
             this.MainToolbar.TabIndex = 5;
             // 
             // tbCapture
@@ -146,16 +146,17 @@
             // 
             // FiddlerCapture
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(780, 571);
+            this.ClientSize = new System.Drawing.Size(910, 659);
             this.Controls.Add(this.MainToolbar);
             this.Controls.Add(this.txtCapture);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FiddlerCapture";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Kuhela Url Capture";
+            this.Text = "WebSurge Url Capture";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FiddlerCapture_FormClosing);
             this.Load += new System.EventHandler(this.FiddlerCapture_Load);
             this.MainToolbar.ResumeLayout(false);

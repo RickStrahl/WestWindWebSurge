@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Net.NetworkInformation;
+using Westwind.Utilities;
 
 namespace WebSurge
 {
@@ -65,11 +67,9 @@ namespace WebSurge
                 if (!File.Exists("Registered.key"))
                     return false;
 
-                string Key = File.ReadAllText("Registered.key");
+                string Key = File.ReadAllText("Registered.key");                
                 
-                Key = EncodeKey(Key);
-
-                if (Key == ProKey)
+                if (Key == EncodeKey(ProKey))
                 {
                     _eRegType = RegTypes.Professional;
                     _unlocked = true;
@@ -100,16 +100,15 @@ namespace WebSurge
                 _eRegType = RegTypes.Free;
                 _unlocked = false;
 
-                if (Key != ProKey)
+                if (RawKey != ProKey)
                     return false;
+                _unlocked = true;
 
-                StreamWriter sw = new StreamWriter("Registered.key", false);
-                sw.Write(RawKey);
-                sw.Close();
-
+                File.WriteAllText("Registered.key",Key);
+                
                 //if (Key == UnlockKey.Key)
                 //    _unlocked = true;
-                if (Key == ProKey)
+                if (RawKey == ProKey)
                     _eRegType = RegTypes.Professional;
             }
             return true;
@@ -122,8 +121,25 @@ namespace WebSurge
         /// <returns></returns>
         static string EncodeKey(string Key)
         {
-            string Encoded = Key; //  for now do nothing Key.GetHashCode().ToString("x");
+            var Encoded = Encryption.EncryptString(Key, GetMacAddress());
+            //string Encoded = Key; //  for now do nothing Key.GetHashCode().ToString("x");
             return Encoded;
+        }
+
+        static string GetMacAddress()
+        {
+            string macAddresses = string.Empty;
+
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    macAddresses += nic.GetPhysicalAddress().ToString();
+                    break;
+                }
+            }
+
+            return macAddresses;
         }
 
     }

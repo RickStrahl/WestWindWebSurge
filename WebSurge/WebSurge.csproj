@@ -32,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>WebSurge.ico</ApplicationIcon>
@@ -52,10 +53,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Westwind.Utilities, Version=2.51.5175.27229, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Westwind.Utilities.2.51\lib\net40\Westwind.Utilities.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FiddlerCapture.cs">
@@ -104,7 +101,6 @@
     <EmbeddedResource Include="UnlockKeyForm.resx">
       <DependentUpon>UnlockKeyForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -127,6 +123,10 @@
     <Content Include="WebSurge.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\WestwindToolkit\Westwind.Utilities\Westwind.Utilities.csproj">
+      <Project>{1c9829a8-8979-4493-863c-635726f8a61c}</Project>
+      <Name>Westwind.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebSurge.Core\WebSurge.Core.csproj">
       <Project>{9FFDE5F2-1DBF-43DF-BE64-FD543F355444}</Project>
       <Name>WebSurge.Core</Name>

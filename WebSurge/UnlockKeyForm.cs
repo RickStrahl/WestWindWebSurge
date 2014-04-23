@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
@@ -9,18 +10,18 @@ namespace WebSurge
 	/// <summary>
 	/// Summary description for UnlockForm.
 	/// </summary>
-	class UnlockKeyForm : System.Windows.Forms.Form
+	class UnlockKeyForm : Form
 	{
-		private System.Windows.Forms.Label lblRegisterText;
-        private System.Windows.Forms.Label lblNote;
-		private System.Windows.Forms.Button btnRegister;
+		private Label lblRegisterText;
+        private Label lblNote;
+		private Button btnRegister;
         
-		private System.Windows.Forms.TextBox txtKey;
+		private TextBox txtKey;
 
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		private System.ComponentModel.Container components = null;
+		private Container components = null;
         private PictureBox pictureBox1;
 
 		public string SoftwareName = "WebSurge";
@@ -111,7 +112,7 @@ namespace WebSurge
 
 		public UnlockKeyForm(string ProductName)
 		{
-			this.SoftwareName = ProductName;
+			SoftwareName = ProductName;
 			InitializeComponent();			
 		}
 
@@ -139,29 +140,29 @@ namespace WebSurge
 
         private void FormLoad(object sender, EventArgs e)
         {
-            this.lblRegisterText.Text = "Please enter the key to unlock " + this.SoftwareName;
+            lblRegisterText.Text = "Please enter the key to unlock " + SoftwareName;
             
 
             if (UnlockKey.IsRegistered())
-                this.lblNote.Text = "This copy is registered.";
+                lblNote.Text = "This copy is registered.";
             else
-                this.lblNote.Text = "This copy is not registered.";
+                lblNote.Text = "This copy is not registered.";
         }
 
-		private void btnRegister_Click(object sender, System.EventArgs e)
+		private void btnRegister_Click(object sender, EventArgs e)
 		{
-            if (UnlockKey.Register(this.txtKey.Text))
+            if (UnlockKey.Register(txtKey.Text))
             {
-                MessageBox.Show("Thank you for your registration.", this.ProductName,
+                MessageBox.Show("Thank you for your registration.", ProductName,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                Close();
             }
             else
             {
                 MessageBox.Show("Sorry, that's not the right key.\r\nMake sure you entered the value exactly as it\r\n" +
                     "appears in your confirmation.\r\n\r\n", "Software Registration",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                this.lblNote.Text = "This copy is not registered.";
+                lblNote.Text = "This copy is not registered.";
             }
 
         }
