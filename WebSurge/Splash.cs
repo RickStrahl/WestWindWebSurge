@@ -83,6 +83,7 @@ namespace WebSurge
                 if (Startup)
                     Application.ExitThread();
 
+                StressForm = null;
                 base.Close();
                 return;
             }
@@ -109,14 +110,18 @@ namespace WebSurge
 
                     Visible = false;
 
-                    if (StressForm != null)
+                    if (StressForm != null && StressForm.Visible)
                         StressForm.Invoke(new Action(() =>
                         {
-                            StressForm.TopMost = true;
-                            Application.DoEvents();
-                            StressForm.TopMost = false ;
+                            if (StressForm != null)
+                            {
+                                StressForm.TopMost = true;
+                                Application.DoEvents();
+                                StressForm.TopMost = false;
+                            }
                         }));
 
+                    StressForm = null;
                     base.Close();
 
                 }

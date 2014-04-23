@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Westwind.Utilities;
 
 namespace WebSurge
 {
@@ -16,6 +17,9 @@ namespace WebSurge
         [STAThread]
         static void Main()
         {
+            // Force config to apply im
+            var obj = App.AppDataPath;
+
             var limit = ServicePointManager.DefaultConnectionLimit;
             if (ServicePointManager.DefaultConnectionLimit < 10)
                 ServicePointManager.DefaultConnectionLimit = 200;
@@ -29,16 +33,27 @@ namespace WebSurge
             newThread.SetApartmentState(ApartmentState.STA);
             newThread.Name = "Splash";
             newThread.Start(mainForm);
-            
-            Application.Run(mainForm);
-            Application.DoEvents();            
+
+            Application.ThreadException += Application_ThreadException;            
+            Application.Run(mainForm);            
         }
-
-        public static void RunSplash(object form = null)
+        
+        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            // Force config to apply im
-            var obj = App.AppDataPath;
+            var ex = e.Exception;
 
+            App.Log(ex);
+
+            var msg = string.Format("Yikes! Something went wrong...\r\n\r\n{0}\r\n\r\nDo you want to continue?",ex.Message);
+
+            DialogResult res = MessageBox.Show(msg,App.Configuration.AppName + " Error",
+                                                MessageBoxButtons.YesNo,MessageBoxIcon.Error);
+            if (res == DialogResult.No)
+                Application.Exit();
+        } 
+
+        static void RunSplash(object form = null)
+        {
             // Splash screen flag otherwise it just displays  and doesn't unload
             var splash = new Splash(true);
             splash.StressForm = form as StressTestForm;

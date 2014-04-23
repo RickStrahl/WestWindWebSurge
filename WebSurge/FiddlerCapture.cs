@@ -23,7 +23,7 @@ namespace WebSurge
         public FiddlerCapture(StressTestForm form)
         {
             InitializeComponent();
-            CaptureConfiguration = App.CaptureConfiguration;
+            CaptureConfiguration = App.Configuration.UrlCapture;
             MainForm = form;
         }
 

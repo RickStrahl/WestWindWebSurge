@@ -37,7 +37,7 @@ namespace WebSurge
             Requests = StressTester.ParseFiddlerSessions(FileName);
             RenderRequests(Requests);
 
-            App.Configuration.FileName = FileName;
+            App.Configuration.StressTester.LastFileName = FileName;
 
             AttachWatcher(fileName);
         }
@@ -46,13 +46,17 @@ namespace WebSurge
         {
             Watcher = new FileSystemWatcher();
 
+            App.Configuration.WindowSettings.Load(this);
+
             StressTester = new StressTester();
             StressTester.RequestProcessed += StressTester_RequestProcessed;
             StressTester.Progress += StressTester_Progress;
+            
+            var config = App.Configuration.StressTester;
 
-			if(!string.IsNullOrEmpty(App.Configuration.FileName))
+			if(!string.IsNullOrEmpty(config.LastFileName))
 			{			
-				FileName = Path.GetFullPath(App.Configuration.FileName);
+				FileName = Path.GetFullPath(config.LastFileName);
 				if (!File.Exists(FileName))
 					FileName = null;
 			}
@@ -60,8 +64,8 @@ namespace WebSurge
             if (!string.IsNullOrEmpty(FileName))
                 OpenFile(FileName);
 
-            tbtxtThreads.Text = App.Configuration.LastThreads.ToString();
-            tbtxtTimeToRun.Text = App.Configuration.LastSecondsToRun.ToString();
+            tbtxtThreads.Text = config.LastThreads.ToString();
+            tbtxtTimeToRun.Text = config.LastSecondsToRun.ToString();
 
             LoadOptions();
 
@@ -72,8 +76,6 @@ namespace WebSurge
 
             UpdateButtonStatus();
         }
-
-
 
         void StressTester_Progress(ProgressInfo obj)
         {
@@ -179,14 +181,13 @@ namespace WebSurge
                 regForm.Show();
             }
             else if (sender == tbExportXml || sender == btnExportXml)
-                Export("xml");
+                Export("xml"); 
             else if (sender == tbExportJson || sender == btnExportJson)
                 Export("json");
             else if (sender == tbExportHtml || sender == btnExportHtml)
                 Export("html");
             else if (sender == btnExit)
                 Close();
-
             
             UpdateButtonStatus();
         }
@@ -233,10 +234,13 @@ namespace WebSurge
 
         void  StartProcessing_Internal()
         {
+            var config = App.Configuration.StressTester;
+
+            //int time = StringUtils.ParseInt(tbtTxtTimeToRun.Text,2)
             int time = int.Parse(tbtxtTimeToRun.Text);
             int threads = int.Parse(tbtxtThreads.Text);
-            App.Configuration.LastSecondsToRun = time;
-            App.Configuration.LastThreads = threads;
+            config.LastSecondsToRun = time;
+            config.LastThreads = threads;
 
             ShowStatus("Parsing Fiddler Sessions...");
             Requests = StressTester.ParseFiddlerSessions(FileName) as List<HttpRequestData>;
@@ -244,7 +248,7 @@ namespace WebSurge
             if (Requests == null)
             {
                 ShowStatus();
-                MessageBox.Show(StressTester.ErrorMessage, App.Configuration.AppName,MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(StressTester.ErrorMessage, App.Configuration.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -410,7 +414,7 @@ namespace WebSurge
 
         void SaveOptions()
         {
-            var config = App.Configuration;
+            var config = App.Configuration.StressTester;
             var options = StressTester.Options;
             
             config.ReplaceCookieValue = options.ReplaceCookieValue;
@@ -418,7 +422,9 @@ namespace WebSurge
             config.DelayTimeMs = options.DelayTimeMs;
             config.RandomizeRequests = options.RandomizeRequests;
             config.RequestTimeoutMs = options.RequestTimeoutMs;
-            config.FileName = FileName;
+            config.LastFileName = FileName;
+
+            App.Configuration.WindowSettings.Save(this);
 
             // Save any changed configuration settings
             App.Configuration.Write();
@@ -426,7 +432,7 @@ namespace WebSurge
 
         void LoadOptions()
         {
-            var config = App.Configuration;
+            var config = App.Configuration.StressTester;
             var options = StressTester.Options;
 
             options.ReplaceCookieValue = config.ReplaceCookieValue;
