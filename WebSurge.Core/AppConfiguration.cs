@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Westwind.Utilities;
 using Westwind.Utilities.Configuration;
 
@@ -24,7 +25,8 @@ namespace WebSurge
                 Directory.CreateDirectory(App.AppDataPath);
 
             Configuration = new WebSurgeConfiguration();
-            Configuration.Initialize();
+            Configuration.Initialize();       
+
         }
 
 
@@ -75,7 +77,33 @@ namespace WebSurge
             Provider = provider;
 
             return provider;
-        }    
+        }
+
+       
+        protected override void OnInitialize(IConfigurationProvider provider, string sectionName, object configData)
+        {
+            base.OnInitialize(provider, sectionName, configData);
+       
+            if (UrlCapture.UrlFilterExclusions.Count < 1)
+            {
+                UrlCapture.UrlFilterExclusions = new List<string>()
+                {
+                    "analytics.com",
+                    "google-syndication.com",
+                    "google.com",
+                    "live.com",
+                    "microsoft.com",
+                    "/chrome-sync/",
+                    "client=chrome-omni",
+                    "doubleclick.net",
+                    "googleads.com"
+                };
+            }
+            if (UrlCapture.ExtensionFilterExclusions.Count < 1)
+            {
+                UrlCapture.ExtensionFilterExclusions = new List<string>(".css|.js|.png|.jpg|.gif|.ico|.svg|.fon".Split('|'));
+            }
+        }
     }
     
 
@@ -102,17 +130,19 @@ namespace WebSurge
 
     public class UrlCaptureConfiguration 
     {
-        public int ProcessId; 
-        public bool IgnoreResources { get; set; }        
-        public string UrlFilterExclusions { get; set; }
-        public string ExtensionFilterExclusions { get; set; }
+
+        [XmlIgnore]   
+        [JsonIgnore]
+        public int ProcessId { get; set; } 
+        public bool IgnoreResources { get; set; }
+        public string CaptureDomain { get; set; }
+        public List<string> UrlFilterExclusions { get; set; }
+        public List<string> ExtensionFilterExclusions { get; set; }
 
         public UrlCaptureConfiguration()
         {
-            UrlFilterExclusions =
-                "analytics.com|google-syndication.com|google.com|live.com|microsoft.com|/chrome-sync/|client=chrome-omni";
-
-            ExtensionFilterExclusions = ".css|.js|.png|.jpg|.gif|.ico";
+            UrlFilterExclusions = new List<string>();
+            ExtensionFilterExclusions = new List<string>();
         }
     }
 
@@ -122,6 +152,7 @@ namespace WebSurge
         public int Top { get; set;  }
         public int Height { get; set; }
         public int Width { get; set; }
+        public int Split { get; set; }
 
         public WindowSettings()
         {
@@ -129,6 +160,7 @@ namespace WebSurge
             Top = -1;
             Width = 1000;
             Height = 700;
+            Split = 490;
         }
 
         /// <summary>
@@ -147,6 +179,12 @@ namespace WebSurge
             }
             form.Width = Width;
             form.Height = Height;
+
+            try
+            {
+                form.BottomSplitContainer.SplitterDistance = Split;
+            }
+            catch { }
         }
 
         /// <summary>
@@ -161,6 +199,12 @@ namespace WebSurge
             Left = form.Left;
             Width = form.Width;
             Height = form.Height;
+
+            try
+            {
+                Split = form.BottomSplitContainer.SplitterDistance;
+            }
+            catch { }
         }
 
         //public override string ToString()

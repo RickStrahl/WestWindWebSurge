@@ -149,6 +149,7 @@ namespace WebSurge
             else if (sender == tbCapture || sender == btnCapture)
             {
                 var fiddlerForm = new FiddlerCapture(this);
+                fiddlerForm.Owner = this;
                 fiddlerForm.Show();
             }           
             else if (sender == tbStart || sender == btnStart)
@@ -475,10 +476,7 @@ namespace WebSurge
 
             string html = req.ToHtml(true);
 
-            string outputPath = App.AppDataPath + "_preview.html";
-            File.WriteAllText(outputPath, html);
-            string file = (outputPath + "/_preview.html").Replace("\\", "/");            
-            PreViewBrowser.Url = new Uri( file);
+            HtmlPreview(html);
 
             TabsResult.SelectedTab = tabPreview;
         }

@@ -178,7 +178,7 @@
             this.lblStatusFilename.DoubleClickEnabled = true;
             this.lblStatusFilename.Name = "lblStatusFilename";
             this.lblStatusFilename.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.lblStatusFilename.Size = new System.Drawing.Size(947, 17);
+            this.lblStatusFilename.Size = new System.Drawing.Size(667, 17);
             this.lblStatusFilename.Spring = true;
             this.lblStatusFilename.Text = "No Fiddler Session File selected";
             this.lblStatusFilename.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -208,6 +208,7 @@
             this.BottomSplitContainer.Panel2.Controls.Add(this.TabsResult);
             this.BottomSplitContainer.Size = new System.Drawing.Size(992, 577);
             this.BottomSplitContainer.SplitterDistance = 429;
+            this.BottomSplitContainer.SplitterIncrement = 2;
             this.BottomSplitContainer.TabIndex = 0;
             // 
             // TabSessions
@@ -316,7 +317,7 @@
             this.tabResults.Location = new System.Drawing.Point(4, 22);
             this.tabResults.Name = "tabResults";
             this.tabResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResults.Size = new System.Drawing.Size(617, 651);
+            this.tabResults.Size = new System.Drawing.Size(421, 551);
             this.tabResults.TabIndex = 1;
             this.tabResults.Text = "Results";
             this.tabResults.UseVisualStyleBackColor = true;
@@ -335,7 +336,7 @@
             this.ListResults.Location = new System.Drawing.Point(0, 37);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(617, 614);
+            this.ListResults.Size = new System.Drawing.Size(421, 514);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.ListResults.TabIndex = 3;
@@ -428,7 +429,7 @@
             this.tabPreview.Location = new System.Drawing.Point(4, 26);
             this.tabPreview.Margin = new System.Windows.Forms.Padding(0);
             this.tabPreview.Name = "tabPreview";
-            this.tabPreview.Size = new System.Drawing.Size(635, 647);
+            this.tabPreview.Size = new System.Drawing.Size(551, 547);
             this.tabPreview.TabIndex = 1;
             this.tabPreview.Text = "Preview";
             this.tabPreview.UseVisualStyleBackColor = true;
@@ -440,7 +441,7 @@
             this.PreViewBrowser.Location = new System.Drawing.Point(0, 0);
             this.PreViewBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.PreViewBrowser.Name = "PreViewBrowser";
-            this.PreViewBrowser.Size = new System.Drawing.Size(635, 647);
+            this.PreViewBrowser.Size = new System.Drawing.Size(551, 547);
             this.PreViewBrowser.TabIndex = 2;
             // 
             // tabOptions
@@ -449,7 +450,7 @@
             this.tabOptions.Location = new System.Drawing.Point(4, 26);
             this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions.Name = "tabOptions";
-            this.tabOptions.Size = new System.Drawing.Size(635, 647);
+            this.tabOptions.Size = new System.Drawing.Size(551, 547);
             this.tabOptions.TabIndex = 2;
             this.tabOptions.Text = "Options";
             this.tabOptions.UseVisualStyleBackColor = true;
@@ -457,12 +458,13 @@
             // OptionsPropertyGrid
             // 
             this.OptionsPropertyGrid.BackColor = System.Drawing.Color.White;
+            this.OptionsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OptionsPropertyGrid.HelpBackColor = System.Drawing.Color.White;
             this.OptionsPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.OptionsPropertyGrid.Margin = new System.Windows.Forms.Padding(0);
             this.OptionsPropertyGrid.Name = "OptionsPropertyGrid";
             this.OptionsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
-            this.OptionsPropertyGrid.Size = new System.Drawing.Size(635, 622);
+            this.OptionsPropertyGrid.Size = new System.Drawing.Size(551, 547);
             this.OptionsPropertyGrid.TabIndex = 1;
             this.OptionsPropertyGrid.ToolbarVisible = false;
             // 
@@ -859,7 +861,7 @@
         private System.Windows.Forms.ToolStrip MainToolStrip;
         private System.Windows.Forms.ToolStripButton tbOpen;
         private System.Windows.Forms.ToolStripStatusLabel txtProcessingTime;
-        private System.Windows.Forms.SplitContainer BottomSplitContainer;
+        public System.Windows.Forms.SplitContainer BottomSplitContainer;
         private System.Windows.Forms.ToolTip ToolTip;
         private System.Windows.Forms.ImageList Images;
         private System.Windows.Forms.ToolStripButton tbEditFile;

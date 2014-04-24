@@ -43,7 +43,7 @@
             this.PictureLogo.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogo.Image")));
             this.PictureLogo.Location = new System.Drawing.Point(0, 0);
             this.PictureLogo.Name = "PictureLogo";
-            this.PictureLogo.Size = new System.Drawing.Size(410, 320);
+            this.PictureLogo.Size = new System.Drawing.Size(400, 320);
             this.PictureLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PictureLogo.TabIndex = 0;
             this.PictureLogo.TabStop = false;
@@ -54,7 +54,7 @@
             this.lblVersionText.BackColor = System.Drawing.Color.Black;
             this.lblVersionText.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblVersionText.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblVersionText.Location = new System.Drawing.Point(303, 288);
+            this.lblVersionText.Location = new System.Drawing.Point(295, 288);
             this.lblVersionText.Name = "lblVersionText";
             this.lblVersionText.Size = new System.Drawing.Size(88, 13);
             this.lblVersionText.TabIndex = 2;
@@ -66,7 +66,7 @@
             this.lblRegisterType.BackColor = System.Drawing.Color.Black;
             this.lblRegisterType.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblRegisterType.LinkColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRegisterType.Location = new System.Drawing.Point(319, 270);
+            this.lblRegisterType.Location = new System.Drawing.Point(311, 270);
             this.lblRegisterType.Name = "lblRegisterType";
             this.lblRegisterType.Size = new System.Drawing.Size(72, 16);
             this.lblRegisterType.TabIndex = 3;
@@ -86,7 +86,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(410, 320);
+            this.ClientSize = new System.Drawing.Size(400, 320);
             this.Controls.Add(this.lblRegisterType);
             this.Controls.Add(this.lblVersionText);
             this.Controls.Add(this.PictureLogo);

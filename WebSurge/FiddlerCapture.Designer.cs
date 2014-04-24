@@ -39,7 +39,10 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbIgnoreResources = new System.Windows.Forms.ToolStripButton();
             this.tblblProcessId = new System.Windows.Forms.ToolStripLabel();
-            this.tbtxtProcessId = new System.Windows.Forms.ToolStripTextBox();
+            this.txtProcessId = new System.Windows.Forms.ToolStripComboBox();
+            this.lblCaptureDomain = new System.Windows.Forms.ToolStripLabel();
+            this.txtCaptureDomain = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.MainToolbar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +56,7 @@
             this.txtCapture.Multiline = true;
             this.txtCapture.Name = "txtCapture";
             this.txtCapture.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCapture.Size = new System.Drawing.Size(912, 627);
+            this.txtCapture.Size = new System.Drawing.Size(779, 627);
             this.txtCapture.TabIndex = 1;
             // 
             // MainToolbar
@@ -65,12 +68,15 @@
             this.tbSave,
             this.tbClear,
             this.toolStripSeparator1,
+            this.toolStripLabel1,
             this.tbIgnoreResources,
+            this.lblCaptureDomain,
+            this.txtCaptureDomain,
             this.tblblProcessId,
-            this.tbtxtProcessId});
+            this.txtProcessId});
             this.MainToolbar.Location = new System.Drawing.Point(0, 0);
             this.MainToolbar.Name = "MainToolbar";
-            this.MainToolbar.Size = new System.Drawing.Size(910, 25);
+            this.MainToolbar.Size = new System.Drawing.Size(777, 25);
             this.MainToolbar.TabIndex = 5;
             // 
             // tbCapture
@@ -139,16 +145,35 @@
             this.tblblProcessId.Size = new System.Drawing.Size(63, 22);
             this.tblblProcessId.Text = "Process Id:";
             // 
-            // tbtxtProcessId
+            // txtProcessId
             // 
-            this.tbtxtProcessId.Name = "tbtxtProcessId";
-            this.tbtxtProcessId.Size = new System.Drawing.Size(60, 25);
+            this.txtProcessId.Name = "txtProcessId";
+            this.txtProcessId.Size = new System.Drawing.Size(150, 25);
+            this.txtProcessId.ToolTipText = "Limit capturing to a specific process on this machine";
+            // 
+            // lblCaptureDomain
+            // 
+            this.lblCaptureDomain.Name = "lblCaptureDomain";
+            this.lblCaptureDomain.Size = new System.Drawing.Size(52, 22);
+            this.lblCaptureDomain.Text = "Domain:";
+            // 
+            // txtCaptureDomain
+            // 
+            this.txtCaptureDomain.Name = "txtCaptureDomain";
+            this.txtCaptureDomain.Size = new System.Drawing.Size(150, 25);
+            this.txtCaptureDomain.ToolTipText = "Capture only content in this domain";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(38, 22);
+            this.toolStripLabel1.Text = "Filters";
             // 
             // FiddlerCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 659);
+            this.ClientSize = new System.Drawing.Size(777, 659);
             this.Controls.Add(this.MainToolbar);
             this.Controls.Add(this.txtCapture);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -178,6 +203,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tbClear;
         private System.Windows.Forms.ToolStripLabel tblblProcessId;
-        private System.Windows.Forms.ToolStripTextBox tbtxtProcessId;
+        private System.Windows.Forms.ToolStripLabel lblCaptureDomain;
+        private System.Windows.Forms.ToolStripTextBox txtCaptureDomain;
+        private System.Windows.Forms.ToolStripComboBox txtProcessId;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -29,9 +30,21 @@ namespace WebSurge
 
         private void FiddlerCapture_Load(object sender, EventArgs e)
         {
-            tbIgnoreResources.Checked = CaptureConfiguration.IgnoreResources; 
+            tbIgnoreResources.Checked = CaptureConfiguration.IgnoreResources;
+            txtCaptureDomain.Text = CaptureConfiguration.CaptureDomain;
+
             UpdateButtonStatus();
-         
+
+            try
+            {
+                var processes = Process.GetProcesses().OrderBy( p=> p.ProcessName);                
+                foreach (var process in processes)
+                {
+                    txtProcessId.Items.Add(process.ProcessName + "  - " + process.Id);
+                }
+            }
+            catch {}
+
         }
 
         private void FiddlerApplication_AfterSessionComplete(Session sess)
@@ -45,18 +58,24 @@ namespace WebSurge
                     return;
             }
 
+            if (!string.IsNullOrEmpty(CaptureConfiguration.CaptureDomain))
+            {
+                if (sess.hostname.ToLower() != CaptureConfiguration.CaptureDomain.Trim().ToLower())
+                    return;
+            }
+
             if (CaptureConfiguration.IgnoreResources)
             {
                 string url = sess.fullUrl.ToLower();
 
-                var extensions = CaptureConfiguration.ExtensionFilterExclusions.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+                var extensions = CaptureConfiguration.ExtensionFilterExclusions;
                 foreach(var ext in extensions)
                 {
                     if (url.Contains(ext))
                         return;
                 }
 
-                var filters = CaptureConfiguration.UrlFilterExclusions.Split(new char[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+                var filters = CaptureConfiguration.UrlFilterExclusions;
                 foreach (var urlFilter in filters)
                 {
                     if (url.Contains(urlFilter))
@@ -96,16 +115,25 @@ namespace WebSurge
             else
                 CaptureConfiguration.IgnoreResources = false;
 
+            
+            string strProcId = txtProcessId.Text;
+            if (strProcId.Contains('-'))
+                strProcId = strProcId.Substring(strProcId.IndexOf('-')+1).Trim();
+
+            strProcId = strProcId.Trim();
+
             int procId = 0;
-            if (!string.IsNullOrEmpty(tbtxtProcessId.Text))
+            if (!string.IsNullOrEmpty(strProcId))
             {
-                if (!int.TryParse(tbtxtProcessId.Text, out procId))
+                if (!int.TryParse(strProcId, out procId))
                     procId = 0;
             }
             CaptureConfiguration.ProcessId = procId;
-            
+            CaptureConfiguration.CaptureDomain = txtCaptureDomain.Text;
+
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;            
             FiddlerApplication.Startup(8888,true,true,true);
+
         }
 
         void Stop()
