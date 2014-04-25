@@ -112,9 +112,9 @@ namespace WebSurge
             }
 
             html = @"
-<label>Request Headers<label>
+<h3>Request Headers</h3>
 <pre>
-{0} {1} HTTP/1.1
+<b><span style='color: darkred;'>{0}</span> <a href='{1}' target='top'>{1}</a></b> HTTP/1.1
 ";
             sb.AppendFormat(html, req.HttpVerb, req.Url);
 
@@ -137,7 +137,7 @@ namespace WebSurge
 
             if (!string.IsNullOrEmpty(req.StatusCode))
             {
-                html = @"<label>Http Response</label>
+                html = @"<h3>Http Response</h3>
 <pre>";
 
                 sb.AppendLine(html);
@@ -158,13 +158,17 @@ namespace WebSurge
             html = @"<!DOCTYPE HTML>
 <html>
 <head>
-  <style>
+  <style>  
   html,body { 
     font-family: arial;
     font-size: 11pt;
     margin: 0;
     padding: 0;
+    line-spacing: 1.55;
   }   
+  body{
+     padding: 5px;
+  } 
   label {
     font-weight: bold;
     display: block;
@@ -176,7 +180,7 @@ namespace WebSurge
     border-radius: 4px;
     font-family: Consolas,monospace;
     font-weight: normal;
-    font-size: 8.25pt;
+    font-size: 12px;
     padding: 5px;
     margin: 5px 8px;
     overflow-x: hidden;
@@ -188,6 +192,11 @@ namespace WebSurge
     color: steelblue;
     font-size: smaller;
     padding-right: 10px;
+  }
+  h3 {
+    color: steelblue;
+    margin-top: 12px;
+    margin-bottom: 3px;
   }
   </style>
 </head>
