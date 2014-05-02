@@ -10,7 +10,14 @@ namespace WebSurge
         /// <summary>
         /// The key to unlock this application
         /// </summary>        
-        static string ProKey = "Kuhela_100";  // "3bd0f6e";
+        static string ProKey; 
+        static string RegisterFile;
+
+        static UnlockKey()
+        {
+            RegisterFile = App.AppDataPath + "Registered.key";
+            ProKey = "Kuhela_100";  // "3bd0f6e";
+        }
 
         /// <summary>
         /// Determines whether the app is unlocked
@@ -36,17 +43,17 @@ namespace WebSurge
             get
             {
                 if (RegisteredCalled)
-                    return _eRegType;
+                    return _regType;
 
                 IsRegistered();
-                return _eRegType;
+                return _regType;
             }
         }
 
         public static int FreeThreadLimit = 10;
         public static int FreeSitesLimit = 20;
 
-        static RegTypes _eRegType = RegTypes.Free;
+        static RegTypes _regType = RegTypes.Free;
 
         private static readonly object LockKey = new Object();
         private static bool RegisteredCalled = false;
@@ -57,21 +64,21 @@ namespace WebSurge
         /// <returns></returns>
         public static bool IsRegistered()
         {
-            RegisteredCalled = true;
-
             lock (LockKey)
-            {
+            {                
+                RegisteredCalled = true;
+                
                 _unlocked = false;
-                _eRegType = RegTypes.Free;
+                _regType = RegTypes.Free;
 
-                if (!File.Exists("Registered.key"))
+                if (!File.Exists(RegisterFile))
                     return false;
 
-                string Key = File.ReadAllText("Registered.key");                
+                string key = File.ReadAllText(RegisterFile);                
                 
-                if (Key == EncodeKey(ProKey))
+                if (key == EncodeKey(ProKey))
                 {
-                    _eRegType = RegTypes.Professional;
+                    _regType = RegTypes.Professional;
                     _unlocked = true;
                     return true;
                 }
@@ -95,21 +102,19 @@ namespace WebSurge
             lock (LockKey)
             {
                 string RawKey = Key;
-                Key = EncodeKey(Key);
-
-                _eRegType = RegTypes.Free;
+                
+                _regType = RegTypes.Free;
                 _unlocked = false;
 
                 if (RawKey != ProKey)
                     return false;
-                _unlocked = true;
 
-                File.WriteAllText("Registered.key",Key);
+                _unlocked = true;
+                Key = EncodeKey(Key);
+                File.WriteAllText(RegisterFile,Key);
                 
-                //if (Key == UnlockKey.Key)
-                //    _unlocked = true;
-                if (RawKey == ProKey)
-                    _eRegType = RegTypes.Professional;
+                //if (RawKey == ProKey)
+                _regType = RegTypes.Professional;
             }
             return true;
         }
@@ -141,7 +146,6 @@ namespace WebSurge
 
             return macAddresses;
         }
-
     }
 
     public enum RegTypes

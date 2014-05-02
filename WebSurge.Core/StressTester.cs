@@ -235,15 +235,14 @@ namespace WebSurge
         {
 
             if (UnlockKey.RegType == RegTypes.Free &&
-                threadCount > UnlockKey.FreeThreadLimit ||
-                requests.Count() > UnlockKey.FreeSitesLimit)
+                (threadCount > UnlockKey.FreeThreadLimit ||
+                requests.Count() > UnlockKey.FreeSitesLimit))
             {
                 Running = false;
                 SetError("The free version is limited to " + UnlockKey.FreeSitesLimit + " urls to check and " + UnlockKey.FreeThreadLimit + " simultaneous threads.\r\n\r\n" +
                         "Please reduce the URL or thread counts, or consider purchasing the Professional version that includes unlimited sites and threads.");                    
                 return null;
             }
-
 
             Running = true;            
             Results.Clear();

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>WestwindWebSurge</id>
+    <title>West Wind WebSurge</title>
+    <version>0.35</version>
+    <authors>Rick Strahl, West Wind Technologies</authors>
+    <owners>West Wind Technologies</owners>
+    <summary>Quick and Easy Load Testing for your Web Applications</summary>
+    <description>
+	West Wind WebSurge makes it easy to capture a series of URL requests and lets you play them back under a load that you configure. Use our built-in capture tool to capture and filter content from Web Browsers or
+	applications, use Telerik's Fiddler or manually create a session using plain text HTTP headers in a text file. Capture HTML requests, AJAX, REST and SOAP services. Once captured play back the session under load
+	by running for a specified time and number of simultaneous sessions. See summarized results and look at individual requests and failures.
+	</description>
+    <projectUrl>http://west-wind.com/websurge</projectUrl>
+    <tags>load-testing,stress-testing,web,capture,test</tags>
+    <copyright>West Wind Technologies, 1995-2014</copyright>
+    <licenseUrl>http://www.west-wind.com/websurge/pricing.aspx</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <iconUrl>http://west-wind.com/websurge/images/WebSurgeLogo128.png</iconUrl>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
