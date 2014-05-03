@@ -31,7 +31,19 @@ namespace WebSurge
         /// <summary>
         /// Set this property to stop processing requests
         /// </summary>
-        public bool CancelThreads = false;
+        public bool CancelThreads
+        {
+            get { return _CancelThreads; }
+            set
+            {
+                if (value && Running)
+                    TimeTakenForLastRunMs = (int) DateTime.UtcNow.Subtract(StartTime).TotalMilliseconds;
+
+                _CancelThreads = value;
+            }
+        }
+        private bool _CancelThreads = false;
+        
         
         /// <summary>
         /// StartTime when the request is starting.
@@ -88,7 +100,9 @@ namespace WebSurge
 
         public  HttpRequestData CheckSite(HttpRequestData reqData)
         {
+            // create a new instance
             var result = HttpRequestData.Copy(reqData);
+
             result.ErrorMessage = "Request is incomplete"; // assume not going to make it
 
             try
@@ -110,7 +124,8 @@ namespace WebSurge
                 foreach (var header in reqData.Headers)
                 {
                     var lheader = header.Name.ToLower();
-                    // skip encoding
+
+                    // Header Overrides
                     if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
                     {
                         string cookie = Options.ReplaceCookieValue;
@@ -133,7 +148,7 @@ namespace WebSurge
                         continue;
                     }
                     if (lheader == "connection")
-                    {
+                    {                        
                         //webRequest.Connection = header.Value;
                         continue;
                     }
@@ -326,9 +341,10 @@ namespace WebSurge
 
                 foreach (var req in reqs)
                 {
-                    if (CancelThreads)
+                    if (CancelThreads)                                            
                         break;
                     
+
                     var result = CheckSite(req);
 
                     if (isFirstRequest)
@@ -372,27 +388,8 @@ namespace WebSurge
             if (totalTime == 0)
                 totalTime = TimeTakenForLastRunMs/1000;
 
-            var results = resultData.ToList();
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Total Requests: " + results.Count);                          
-            sb.AppendLine("        Failed: " +
-                              results.Count(req => string.IsNullOrEmpty(req.StatusCode) || !req.StatusCode.StartsWith("2")));
-
-            if (totalTime > 0)
-            {
-                sb.AppendLine("    Total Time: " + totalTime.ToString("n2") + " secs");   
-                if (results.Count > 0)
-                    sb.AppendLine("       Req/Sec: " + ((decimal) results.Count/(decimal) totalTime).ToString("n2") + "\r\n");            
-            }
-            if (results.Count > 0)
-            {
-                sb.AppendLine(string.Format("      Avg Time: {0:n2} ms", results.Average(req => req.TimeTakenMs)));
-                sb.AppendLine(string.Format("      Min Time: {0:n2} ms", results.Min(req => req.TimeTakenMs)));
-                sb.AppendLine(string.Format("      Max Time: {0:n2} ms", results.Max(req => req.TimeTakenMs)));
-            }
-
-            return sb.ToString();
+            var parser = new ResultsParser();
+            return parser.ParseResults(resultData, totalTime);
         }
 
    

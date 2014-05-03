@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -10,19 +11,18 @@ namespace WebSurge
 
     public class HttpRequestData
     {
-        public string FullRequest { get; set; }
+        public DateTime Timestamp { get; set; }
 
         public string Url { get; set; }
         public string Host { get; set; }
         public string HttpVerb { get; set; }
         public string ContentType { get; set; }
-        
+
+        public string FullRequest { get; set; }
         public string RequestContent { get; set; }
-
-
+        
         public string Username { get; set; }
         public string Password { get; set; }
-
         public AuthenticationTypes AuthenticationType { get; set; }
 
         public List<HttpRequestHeader> Headers { get; set; }
@@ -31,26 +31,30 @@ namespace WebSurge
         public bool IsError { get; set; }
         public string ErrorMessage { get; set; }
 
+        public string ResponseHeaders { get; set; }
         public string LastResponse { get; set; }
+        
         public string StatusCode { get; set; }
         public string StatusDescription { get; set; }
         public int ResponseLength { get; set; }
 
         public int TimeTakenMs { get; set; }
-        public string ResponseHeaders { get; set; }
-
+        
 
         public HttpRequestData()
         {
+            Timestamp = DateTime.UtcNow;
             Headers = new List<HttpRequestHeader>();
             IsError = true;
             ErrorMessage = string.Empty;
         }
         public static HttpRequestData Copy(HttpRequestData req)
         {
-            var reqData = new HttpRequestData();
-            DataUtils.CopyObjectData(req, reqData);
-            return reqData;
+            return req.MemberwiseClone() as HttpRequestData;
+            
+            //var reqData = new HttpRequestData();            
+            //DataUtils.CopyObjectData(req, reqData);
+            //return reqData;
         }
 
         public string ToString()

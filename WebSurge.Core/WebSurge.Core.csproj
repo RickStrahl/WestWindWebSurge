@@ -47,16 +47,18 @@
     <Compile Include="HttpRequestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestProcessingOptions.cs" />
+    <Compile Include="ResultsParser.cs" />
     <Compile Include="StressTester.cs" />
     <Compile Include="Support\UnlockKey.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\WestwindToolkit\Westwind.Utilities\Westwind.Utilities.csproj">
+    <ProjectReference Include="..\..\WestwindToolkit\Westwind.Utilities\Westwind.Utilities.csproj">
       <Project>{1c9829a8-8979-4493-863c-635726f8a61c}</Project>
       <Name>Westwind.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
