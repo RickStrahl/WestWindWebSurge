@@ -502,12 +502,20 @@ namespace WebSurge
 
             tbCharts.Enabled = hasResults;
             btnCharts.Enabled = hasResults;
+
+            var isResultSelected = ListResults.SelectedItems.Count > 0;
+            tbTimeTakenPerUrl.Enabled = isResultSelected;
+            tbTimeTakenPerUrlChart.Enabled = isResultSelected;
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
+            
             if (e.Item.Tag == null)
                 return;
+
+            UpdateButtonStatus();
+
             HttpRequestData req = e.Item.Tag as HttpRequestData;
             if (e.Item.Tag == null)
                 return;

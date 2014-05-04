@@ -148,16 +148,14 @@ namespace WebSurge
                         continue;
                     }
                     if (lheader == "connection")
-                    {                        
-                        //webRequest.Connection = header.Value;
-                        continue;
-                    }
-                    if (lheader == "keep-alive")
                     {
-                        webRequest.KeepAlive = true;
+                        if (header.Value.ToLower() == "keep-alive")
+                            webRequest.KeepAlive = true;
+                        else if (header.Value.ToLower() == "close")
+                            webRequest.KeepAlive = false;                        
                         continue;
                     }
-                    if (lheader == "if-modified-since")
+                    if (lheader == "if-modified-since")                        
                         continue;
 
                     webRequest.Headers.Add(header.Name, header.Value);
@@ -418,7 +416,7 @@ namespace WebSurge
 
         protected void SetError()
         {
-            this.SetError("CLEAR");
+            SetError("CLEAR");
         }
 
         protected void SetError(string message)
