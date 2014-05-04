@@ -52,6 +52,11 @@
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Request = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ErrorMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ResultContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tbResultCharts = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbRequestsPerSecondChart = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbTimeTakenPerUrl = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbListDisplayMode = new System.Windows.Forms.ComboBox();
             this.TabsResult = new System.Windows.Forms.TabControl();
@@ -75,6 +80,9 @@
             this.btnExportXml = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExportJson = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExportHtml = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCharts = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRequestsPerSecondChart = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnTimeTakenPerUrlChart = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnGotoWebSite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -94,6 +102,9 @@
             this.tbExportXml = new System.Windows.Forms.ToolStripMenuItem();
             this.tbExportJson = new System.Windows.Forms.ToolStripMenuItem();
             this.tbExportHtml = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbCharts = new System.Windows.Forms.ToolStripSplitButton();
+            this.tbRequestPerSecondChart = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbTimeTakenPerUrlChart = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tbtxtThreads = new System.Windows.Forms.ToolStripTextBox();
@@ -116,6 +127,7 @@
             this.tabRequests.SuspendLayout();
             this.RequestContextMenu.SuspendLayout();
             this.tabResults.SuspendLayout();
+            this.ResultContextMenu.SuspendLayout();
             this.TabsResult.SuspendLayout();
             this.tabOutput.SuspendLayout();
             this.tabPreview.SuspendLayout();
@@ -274,7 +286,7 @@
             this.tbAddRequest});
             this.RequestContextMenu.Name = "RequestContextMenu";
             this.RequestContextMenu.Size = new System.Drawing.Size(153, 76);
-            this.RequestContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.RequestContextMenu_ItemClicked);
+            this.RequestContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
             // tbDeleteRequest
             // 
@@ -331,6 +343,7 @@
             this.Status,
             this.Request,
             this.ErrorMessage});
+            this.ListResults.ContextMenuStrip = this.ResultContextMenu;
             this.ListResults.FullRowSelect = true;
             this.ListResults.GridLines = true;
             this.ListResults.Location = new System.Drawing.Point(0, 37);
@@ -338,7 +351,6 @@
             this.ListResults.ShowItemToolTips = true;
             this.ListResults.Size = new System.Drawing.Size(421, 514);
             this.ListResults.SmallImageList = this.Images;
-            this.ListResults.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.ListResults.TabIndex = 3;
             this.ListResults.UseCompatibleStateImageBehavior = false;
             this.ListResults.View = System.Windows.Forms.View.Details;
@@ -359,6 +371,42 @@
             this.ErrorMessage.Text = "Error Message";
             this.ErrorMessage.Width = 209;
             // 
+            // ResultContextMenu
+            // 
+            this.ResultContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbResultCharts});
+            this.ResultContextMenu.Name = "ResultContextMenu";
+            this.ResultContextMenu.Size = new System.Drawing.Size(109, 26);
+            this.ResultContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
+            // 
+            // tbResultCharts
+            // 
+            this.tbResultCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbRequestsPerSecondChart,
+            this.toolStripSeparator9,
+            this.tbTimeTakenPerUrl});
+            this.tbResultCharts.Name = "tbResultCharts";
+            this.tbResultCharts.Size = new System.Drawing.Size(108, 22);
+            this.tbResultCharts.Text = "Charts";
+            this.tbResultCharts.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
+            // 
+            // tbRequestsPerSecondChart
+            // 
+            this.tbRequestsPerSecondChart.Name = "tbRequestsPerSecondChart";
+            this.tbRequestsPerSecondChart.Size = new System.Drawing.Size(183, 22);
+            this.tbRequestsPerSecondChart.Text = "Requests per Second";
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(180, 6);
+            // 
+            // tbTimeTakenPerUrl
+            // 
+            this.tbTimeTakenPerUrl.Name = "tbTimeTakenPerUrl";
+            this.tbTimeTakenPerUrl.Size = new System.Drawing.Size(183, 22);
+            this.tbTimeTakenPerUrl.Text = "Time Taken per URL";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -373,8 +421,9 @@
             // 
             this.cmbListDisplayMode.FormattingEnabled = true;
             this.cmbListDisplayMode.Items.AddRange(new object[] {
-            "Errors",
-            "Success"});
+            "All",
+            "Success",
+            "Errors"});
             this.cmbListDisplayMode.Location = new System.Drawing.Point(8, 8);
             this.cmbListDisplayMode.Name = "cmbListDisplayMode";
             this.cmbListDisplayMode.Size = new System.Drawing.Size(167, 23);
@@ -443,6 +492,8 @@
             this.PreViewBrowser.Name = "PreViewBrowser";
             this.PreViewBrowser.Size = new System.Drawing.Size(551, 547);
             this.PreViewBrowser.TabIndex = 2;
+            this.PreViewBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.PreViewBrowser_Navigating);
+            this.PreViewBrowser.NewWindow += new System.ComponentModel.CancelEventHandler(this.PreViewBrowser_NewWindow);
             // 
             // tabOptions
             // 
@@ -532,7 +583,8 @@
             this.sessionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnStart,
             this.btnStop,
-            this.btnExport});
+            this.btnExport,
+            this.btnCharts});
             this.sessionToolStripMenuItem.Name = "sessionToolStripMenuItem";
             this.sessionToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.sessionToolStripMenuItem.Text = "Session";
@@ -540,14 +592,14 @@
             // btnStart
             // 
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(107, 22);
+            this.btnStart.Size = new System.Drawing.Size(108, 22);
             this.btnStart.Text = "&Start";
             this.btnStart.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnStop
             // 
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(107, 22);
+            this.btnStop.Size = new System.Drawing.Size(108, 22);
             this.btnStop.Text = "S&top";
             this.btnStop.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
@@ -558,7 +610,7 @@
             this.btnExportJson,
             this.btnExportHtml});
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(107, 22);
+            this.btnExport.Size = new System.Drawing.Size(108, 22);
             this.btnExport.Text = "E&xport";
             // 
             // btnExportXml
@@ -581,6 +633,28 @@
             this.btnExportHtml.Size = new System.Drawing.Size(101, 22);
             this.btnExportHtml.Text = "Html";
             this.btnExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // btnCharts
+            // 
+            this.btnCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnRequestsPerSecondChart,
+            this.btnTimeTakenPerUrlChart});
+            this.btnCharts.Name = "btnCharts";
+            this.btnCharts.Size = new System.Drawing.Size(108, 22);
+            this.btnCharts.Text = "Charts";
+            this.btnCharts.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
+            // 
+            // btnRequestsPerSecondChart
+            // 
+            this.btnRequestsPerSecondChart.Name = "btnRequestsPerSecondChart";
+            this.btnRequestsPerSecondChart.Size = new System.Drawing.Size(183, 22);
+            this.btnRequestsPerSecondChart.Text = "Requests per Second";
+            // 
+            // btnTimeTakenPerUrlChart
+            // 
+            this.btnTimeTakenPerUrlChart.Name = "btnTimeTakenPerUrlChart";
+            this.btnTimeTakenPerUrlChart.Size = new System.Drawing.Size(183, 22);
+            this.btnTimeTakenPerUrlChart.Text = "Time taken per URL";
             // 
             // helpToolStripMenuItem
             // 
@@ -644,11 +718,12 @@
             this.tbStart,
             this.tbStop,
             this.toolStripSeparator3,
-            this.tbExport});
+            this.tbExport,
+            this.tbCharts});
             this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainToolStrip.Location = new System.Drawing.Point(3, 24);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(452, 25);
+            this.MainToolStrip.Size = new System.Drawing.Size(525, 25);
             this.MainToolStrip.TabIndex = 0;
             // 
             // tbOpen
@@ -738,6 +813,31 @@
             this.tbExportHtml.Size = new System.Drawing.Size(101, 22);
             this.tbExportHtml.Text = "Html";
             this.tbExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // tbCharts
+            // 
+            this.tbCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbRequestPerSecondChart,
+            this.tbTimeTakenPerUrlChart});
+            this.tbCharts.Image = ((System.Drawing.Image)(resources.GetObject("tbCharts.Image")));
+            this.tbCharts.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbCharts.Name = "tbCharts";
+            this.tbCharts.Size = new System.Drawing.Size(73, 22);
+            this.tbCharts.Text = "Charts";
+            this.tbCharts.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
+            // 
+            // tbRequestPerSecondChart
+            // 
+            this.tbRequestPerSecondChart.Name = "tbRequestPerSecondChart";
+            this.tbRequestPerSecondChart.Size = new System.Drawing.Size(183, 22);
+            this.tbRequestPerSecondChart.Text = "Requests per Second";
+            this.tbRequestPerSecondChart.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
+            // 
+            // tbTimeTakenPerUrlChart
+            // 
+            this.tbTimeTakenPerUrlChart.Name = "tbTimeTakenPerUrlChart";
+            this.tbTimeTakenPerUrlChart.Size = new System.Drawing.Size(183, 22);
+            this.tbTimeTakenPerUrlChart.Text = "Time taken per URL";
             // 
             // OptionsToolStrip
             // 
@@ -837,6 +937,7 @@
             this.RequestContextMenu.ResumeLayout(false);
             this.tabResults.ResumeLayout(false);
             this.tabResults.PerformLayout();
+            this.ResultContextMenu.ResumeLayout(false);
             this.TabsResult.ResumeLayout(false);
             this.tabOutput.ResumeLayout(false);
             this.tabOutput.PerformLayout();
@@ -928,6 +1029,17 @@
         private System.Windows.Forms.ToolStripMenuItem tbSaveAllRequests;
         private System.Windows.Forms.ToolStripMenuItem tbAddRequest;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ContextMenuStrip ResultContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem tbResultCharts;
+        private System.Windows.Forms.ToolStripMenuItem tbRequestsPerSecondChart;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem tbTimeTakenPerUrl;
+        private System.Windows.Forms.ToolStripMenuItem btnCharts;
+        private System.Windows.Forms.ToolStripMenuItem btnRequestsPerSecondChart;
+        private System.Windows.Forms.ToolStripMenuItem btnTimeTakenPerUrlChart;
+        private System.Windows.Forms.ToolStripSplitButton tbCharts;
+        private System.Windows.Forms.ToolStripMenuItem tbRequestPerSecondChart;
+        private System.Windows.Forms.ToolStripMenuItem tbTimeTakenPerUrlChart;
     }
 }
 

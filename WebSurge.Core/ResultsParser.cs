@@ -33,11 +33,47 @@ namespace WebSurge
             return sb.ToString();
         }
 
-        public IEnumerable<int> TimeLineDataForIndividualRequest(IEnumerable<HttpRequestData> resultData, string url)
+        public IEnumerable<TimeTakenResult> TimeLineDataForIndividualRequest(IEnumerable<HttpRequestData> resultData, string url)
         {
-            return resultData.OrderBy(rd => rd.Timestamp)
-                             .Select(rd => rd.TimeTakenMs);
+            var count = 0;
+            return resultData.Where(rd=> rd.Url.ToLower() == url.ToLower())
+                             .OrderBy(rd => rd.Timestamp)
+                             .Select(rd => new TimeTakenResult()
+                             {                       
+                                 OrigId = rd.Id,
+                                 RequestNo = count++, 
+                                 TimeTaken = rd.TimeTakenMs,
+                                 IsError = rd.IsError
+                             }).ToList();
         }
 
+        public IEnumerable<RequestsPerSecondResult> RequestsPerSecond(IEnumerable<HttpRequestData> resultData, string url = null)
+        {
+            
+            if (!string.IsNullOrEmpty(url))
+                resultData = resultData.Where(rd => rd.Url.ToLower() == url.ToLower());
+
+
+            DateTime startTime = resultData.First().Timestamp;
+            var res = resultData.OrderBy(rd=> rd.Timestamp)
+                            .GroupBy(rd => (int) rd.Timestamp.Subtract(startTime).TotalSeconds,rd => rd,
+                                           (second, rd) => new RequestsPerSecondResult() { Second = second, Requests = rd.Count() });                                     
+                        
+            return res.ToList();
+        }
+    }
+
+    public class RequestsPerSecondResult
+    {        
+        public int Second { get; set; }
+        public int Requests { get; set; }
+    }
+
+    public class TimeTakenResult
+    {
+        public long OrigId { get; set; }
+        public int RequestNo { get; set; }
+        public int TimeTaken { get; set;  }
+        public bool IsError { get; set;  }
     }
 }

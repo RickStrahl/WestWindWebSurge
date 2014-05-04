@@ -52,15 +52,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ParserTests.cs" />
+    <Compile Include="FiddlerParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultsParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kuhela.Core\WebSurge.Core.csproj">
+    <ProjectReference Include="..\WebSurge.Core\WebSurge.Core.csproj">
       <Project>{9FFDE5F2-1DBF-43DF-BE64-FD543F355444}</Project>
       <Name>WebSurge.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Kuhela\WebSurge.csproj">
+    <ProjectReference Include="..\WebSurge\WebSurge.csproj">
       <Project>{978f07c6-754b-43cf-9e3c-73d2aa716074}</Project>
       <Name>WebSurge</Name>
     </ProjectReference>

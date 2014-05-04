@@ -11,6 +11,7 @@ namespace WebSurge
 
     public class HttpRequestData
     {
+        public long Id { get; set; }
         public DateTime Timestamp { get; set; }
 
         public string Url { get; set; }
@@ -27,7 +28,6 @@ namespace WebSurge
 
         public List<HttpRequestHeader> Headers { get; set; }
 
-
         public bool IsError { get; set; }
         public string ErrorMessage { get; set; }
 
@@ -43,6 +43,7 @@ namespace WebSurge
 
         public HttpRequestData()
         {
+            Id = DataUtils.GenerateUniqueNumericId();
             Timestamp = DateTime.UtcNow;
             Headers = new List<HttpRequestHeader>();
             IsError = true;
@@ -50,8 +51,11 @@ namespace WebSurge
         }
         public static HttpRequestData Copy(HttpRequestData req)
         {
-            return req.MemberwiseClone() as HttpRequestData;
-            
+
+            var rnew = req.MemberwiseClone() as HttpRequestData;
+            rnew.Timestamp = DateTime.UtcNow;
+            return rnew;
+
             //var reqData = new HttpRequestData();            
             //DataUtils.CopyObjectData(req, reqData);
             //return reqData;
@@ -118,7 +122,7 @@ namespace WebSurge
             html = @"
 <h3>Request Headers</h3>
 <pre>
-<b><span style='color: darkred;'>{0}</span> <a href='{1}' target='top'>{1}</a></b> HTTP/1.1
+<b><span style='color: darkred;'>{0}</span> <a href='{1}'>{1}</a></b> HTTP/1.1
 ";
             sb.AppendFormat(html, req.HttpVerb, req.Url);
 
@@ -207,7 +211,7 @@ namespace WebSurge
 <body>
 ";
             return html + sb + "</body></html>";
-        }
+        }        
     }
 
 

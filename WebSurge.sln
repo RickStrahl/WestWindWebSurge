@@ -25,20 +25,20 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSurge", "http://localhos
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_13344"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\westwind\WebSurge\"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\westwind\WebSurge\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_13344\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_13344"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\westwind\WebSurge\"
+		Release.AspNetCompiler.PhysicalPath = "..\..\westwind\WebSurge\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_13344\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\..\..\westwind\WebSurge\"
+		SlnRelativePath = "..\..\westwind\WebSurge\"
 	EndProjectSection
 EndProject
 Global

@@ -16,7 +16,7 @@ namespace WebSurge
     public partial class StressTestForm : Form
     {
         StressTester StressTester { get; set; }
-        string FileName { get; set;  }
+        string FileName { get; set; }
         List<HttpRequestData> Requests { get; set; }
         FileSystemWatcher Watcher { get; set; }
         public Splash Splash { get; set; }
@@ -51,15 +51,15 @@ namespace WebSurge
             StressTester = new StressTester();
             StressTester.RequestProcessed += StressTester_RequestProcessed;
             StressTester.Progress += StressTester_Progress;
-            
+
             var config = App.Configuration.StressTester;
 
-			if(!string.IsNullOrEmpty(config.LastFileName))
-			{			
-				FileName = Path.GetFullPath(config.LastFileName);
-				if (!File.Exists(FileName))
-					FileName = null;
-			}
+            if (!string.IsNullOrEmpty(config.LastFileName))
+            {
+                FileName = Path.GetFullPath(config.LastFileName);
+                if (!File.Exists(FileName))
+                    FileName = null;
+            }
 
             if (!string.IsNullOrEmpty(FileName))
                 OpenFile(FileName);
@@ -79,7 +79,11 @@ namespace WebSurge
 
         void StressTester_Progress(ProgressInfo obj)
         {
-            BeginInvoke(new Action<ProgressInfo>(ShowProgress), obj);
+            try
+            {
+                BeginInvoke(new Action<ProgressInfo>(ShowProgress), obj);
+            }
+            catch { }
         }
 
         void ShowProgress(ProgressInfo progress)
@@ -89,8 +93,8 @@ namespace WebSurge
                           progress.SecondsProcessed + " of " +
                           progress.TotalSecondsToProcessed + " secs ";
             if (progress.SecondsProcessed > 0)
-                text +=  "| " + progress.RequestsProcessed/progress.SecondsProcessed + " req/sec ";
-                          
+                text += "| " + progress.RequestsProcessed / progress.SecondsProcessed + " req/sec ";
+
             ShowStatus(text, 3);
         }
 
@@ -107,20 +111,20 @@ namespace WebSurge
                 statusOutput.AppendLine(output);
                 if (lastUpdate.AddMilliseconds(300) < DateTime.UtcNow)
                 {
-                    lastUpdate = DateTime.UtcNow;                    
+                    lastUpdate = DateTime.UtcNow;
                     Invoke(new Action<string>(ShowRequestProcessed), statusOutput.ToString());
                     statusOutput.Clear();
                 }
-            }                       
+            }
         }
         void ShowRequestProcessed(string output)
-        {            
+        {
             txtConsole.AppendText(output);
             if (txtConsole.Text.Length > 50000)
             {
                 var txt = txtConsole.Text.Substring(5000);
                 txtConsole.Text = "";
-                txtConsole.Text = txt.Substring(txt.IndexOf("\r\n") + 2) + output;                    
+                txtConsole.Text = txt.Substring(txt.IndexOf("\r\n") + 2) + output;
             }
         }
 
@@ -151,7 +155,7 @@ namespace WebSurge
                 var fiddlerForm = new FiddlerCapture(this);
                 fiddlerForm.Owner = this;
                 fiddlerForm.Show();
-            }           
+            }
             else if (sender == tbStart || sender == btnStart)
             {
                 StartProcessing();
@@ -182,42 +186,68 @@ namespace WebSurge
                 regForm.Show();
             }
             else if (sender == tbExportXml || sender == btnExportXml)
-                Export("xml"); 
+                Export("xml");
             else if (sender == tbExportJson || sender == btnExportJson)
                 Export("json");
             else if (sender == tbExportHtml || sender == btnExportHtml)
                 Export("html");
-            else if (sender == btnExit)
-                Close();
-            
-            UpdateButtonStatus();
-        }
 
-        private void RequestContextMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            var item = e.ClickedItem;
+            if (sender == tbTimeTakenPerUrl || sender == tbTimeTakenPerUrlChart || sender == btnTimeTakenPerUrlChart)
+            {
+                if (ListResults.SelectedItems.Count > 0)
+                {
+                    var listItem = ListResults.SelectedItems[0];
+                    var request = listItem.Tag as HttpRequestData;
+                    var form = new ChartForm(StressTester.Results, request.Url, ChartTypes.TimeTakenPerRequest);
+                    form.Show();
+                }
+            }
+            if (sender == tbRequestsPerSecondChart || sender == tbRequestPerSecondChart || sender == btnRequestsPerSecondChart)
+            {
+                if (StressTester.Results.Count() > 0)
+                {
+                    var form = new ChartForm(StressTester.Results, null, ChartTypes.RequestsPerSecond);
+                    form.Show();
+                }
+            }
 
-            // Request Context Menu
-            if (item == tbDeleteRequest)
+
+
+            if (sender == tbDeleteRequest)
             {
                 if (ListRequests.SelectedItems.Count > 0)
                 {
-                    var listItem = ListRequests.SelectedItems[0];   
+                    var listItem = ListRequests.SelectedItems[0];
                     var request = listItem.Tag as HttpRequestData;
                     Requests.Remove(request);
                     ListRequests.Items.Remove(listItem);
                 }
             }
-            if (item == tbSaveAllRequests)
+            if (sender == tbSaveAllRequests)
             {
                 var parser = new FiddlerSessionParser();
-                parser.Save(Requests,FileName);
+                parser.Save(Requests, FileName);
             }
 
-        }
-        
+            else if (sender == btnExit)
+                Close();
 
-      void  StartProcessing()
+            UpdateButtonStatus();
+        }
+
+
+        /// <summary>
+        /// Translates context menu clicks to ButtonHandler clicks
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ContextMenuItemClickedToButtonHandler_Click(object sender, ToolStripItemClickedEventArgs e)
+        {
+            ButtonHandler_Click(e.ClickedItem, e);
+        }
+
+
+        void StartProcessing()
         {
             txtConsole.Text = "";
             ListResults.BeginUpdate();
@@ -233,7 +263,7 @@ namespace WebSurge
             td.Start();
         }
 
-        void  StartProcessing_Internal()
+        void StartProcessing_Internal()
         {
             var config = App.Configuration.StressTester;
 
@@ -261,7 +291,7 @@ namespace WebSurge
                 ShowStatus("Aborted.", timeout: 5000);
                 Invoke(new Action(UpdateButtonStatus));
 
-                MessageBox.Show(StressTester.ErrorMessage, App.Configuration.AppName, 
+                MessageBox.Show(StressTester.ErrorMessage, App.Configuration.AppName,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
 
@@ -272,7 +302,7 @@ namespace WebSurge
             }
 
             ShowStatus("Parsing requests...");
-            BeginInvoke(new Action<List<HttpRequestData>>(ParseResults),StressTester.Results);
+            BeginInvoke(new Action<List<HttpRequestData>>(ParseResults), StressTester.Results);
 
             ShowStatus("Done.");
 
@@ -307,41 +337,39 @@ namespace WebSurge
 
             List<HttpRequestData> filtered = null;
             int count = 0;
-            if (results.Count == 0)
-            {
-                filtered = results;
-            }
-            else if (cmbListDisplayMode.SelectedItem == "Errors")
+            filtered = results;
+
+            if (cmbListDisplayMode.SelectedItem == "Errors")
             {
                 filtered = results.Where(rq => rq.StatusCode == null || !rq.StatusCode.StartsWith("2")).Take(1000).ToList();
-
-                if (filtered.Count == 0)
-                {
-                    cmbListDisplayMode.SelectedItem = "Success";
-                    filtered = results.Where(rq => rq.StatusCode!= null && rq.StatusCode.StartsWith("2")).Take(1000).ToList();
-                }
             }
-            else
+            else if (cmbListDisplayMode.SelectedItem == "Success")
             {
                 filtered = results.Where(rq => rq.StatusCode != null && rq.StatusCode.StartsWith("2")).Take(1000).ToList();
             }
 
+            if (filtered.Count == 0)
+            {
+                cmbListDisplayMode.SelectedItem = "All";
+                filtered = results;
+            }
+
             ListResults.BeginUpdate();
-            for (int i= 0; i < filtered.Count; i++)
+            for (int i = 0; i < filtered.Count; i++)
             {
                 var request = filtered[i];
 
                 var item = ListResults.Items.Add(new ListViewItem()
                 {
-                     Text = request.StatusCode, 
-                     Tag = request,                      
+                    Text = request.StatusCode,
+                    Tag = request,
                 });
                 if (!request.IsError)
                     item.ImageKey = "ok";
                 else
                     item.ImageKey = "error";
 
-                item.SubItems.Add(request.HttpVerb + " " + request.Url);                 
+                item.SubItems.Add(request.HttpVerb + " " + request.Url);
                 item.SubItems.Add(request.ErrorMessage);
                 var resp = request.LastResponse ?? string.Empty;
                 if (resp.Length > 1001)
@@ -378,7 +406,7 @@ namespace WebSurge
                 else
                     item.ImageKey = "download";
 
-                item.SubItems.Add(request.Url);                
+                item.SubItems.Add(request.Url);
                 //item.ToolTipText = request.Headers;
             }
 
@@ -396,10 +424,16 @@ namespace WebSurge
 
         public void ShowStatus(string text = null, int panelId = 1, int timeout = 0)
         {
-            var action = new Action<string, int>(StatusTest_Internal);            
-            
+            var action = new Action<string, int>(StatusTest_Internal);
+
             if (timeout == 0)
-                Invoke(action,text,panelId);            
+            {
+                try
+                {
+                    Invoke(action, text, panelId);
+                }
+                catch { }
+            }
         }
 
         public void StatusTest_Internal(string text, int panelId = 1)
@@ -417,7 +451,7 @@ namespace WebSurge
         {
             var config = App.Configuration.StressTester;
             var options = StressTester.Options;
-            
+
             config.ReplaceCookieValue = options.ReplaceCookieValue;
             config.MaxResponseSize = options.MaxResponseSize;
             config.DelayTimeMs = options.DelayTimeMs;
@@ -462,15 +496,19 @@ namespace WebSurge
             tbStop.Enabled = StressTester.Running;
             btnStop.Enabled = tbStop.Enabled;
 
-            btnExport.Enabled = StressTester.Results.Count > 0;
-            tbExport.Enabled = btnExport.Enabled;
+            var hasResults = StressTester.Results.Count > 0;
+            btnExport.Enabled = hasResults;
+            tbExport.Enabled = hasResults;
+
+            tbCharts.Enabled = hasResults;
+            btnCharts.Enabled = hasResults;
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             if (e.Item.Tag == null)
                 return;
-            HttpRequestData req =  e.Item.Tag as HttpRequestData;
+            HttpRequestData req = e.Item.Tag as HttpRequestData;
             if (e.Item.Tag == null)
                 return;
 
@@ -500,9 +538,9 @@ namespace WebSurge
 
         void HtmlPreview(string html)
         {
-            
+
             string outputPath = App.AppDataPath + "_preview.html";
-            
+
             File.WriteAllText(outputPath, html);
             string file = (outputPath).Replace("\\", "/");
             PreViewBrowser.Url = new Uri(file);
@@ -532,7 +570,7 @@ namespace WebSurge
 
                     if (SerializationUtils.SerializeObject(StressTester.Results, diag.FileName, false))
                         ShellUtils.GoUrl(diag.FileName);
-                }                
+                }
             }
             else if (mode == "json")
             {
@@ -594,7 +632,7 @@ namespace WebSurge
 
         private void tbNoProgressEvents_CheckedChanged(object sender, EventArgs e)
         {
-            var button = sender as  ToolStripButton;
+            var button = sender as ToolStripButton;
             StressTester.Options.NoProgressEvents = button.Checked;
         }
 
@@ -602,7 +640,7 @@ namespace WebSurge
         void AttachWatcher(string fileName)
         {
             Watcher.EnableRaisingEvents = false;
-            Watcher.Changed -= watcher_Changed;            
+            Watcher.Changed -= watcher_Changed;
 
             Watcher.Filter = Path.GetFileName(fileName);
             // monitor size change to avoid last write dupe events
@@ -613,12 +651,12 @@ namespace WebSurge
         }
 
         void watcher_Changed(object sender, FileSystemEventArgs e)
-        {            
+        {
             // this gets called more than once per update typically
             var watcher = sender as FileSystemWatcher;
             Invoke(new Action(() =>
             {
-                Thread.Sleep(10);
+                Thread.Sleep(1);
                 OpenFile(FileName);
             }));
         }
@@ -630,8 +668,35 @@ namespace WebSurge
                 new System.Threading.Timer(p => Splash.Invoke(new Action(() => Splash.Close())),
                     null, 1000, Timeout.Infinite);
             }
-            Application.DoEvents();            
+            Application.DoEvents();
         }
+
+        private void PreViewBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            string url = e.Url.ToString();
+
+            if (string.IsNullOrEmpty(url) || url.StartsWith("file://"))  
+                return;
+
+            // use OS browser rather
+            ShellUtils.GoUrl(url.ToString());
+            e.Cancel = true;
+        }
+
+        private void PreViewBrowser_NewWindow(object sender, CancelEventArgs e)
+        {
+            string url = PreViewBrowser.StatusText;
+            if (string.IsNullOrEmpty(url) || url.StartsWith("file://"))
+                return;
+
+            // use OS browser rather
+            ShellUtils.GoUrl(url.ToString());
+            e.Cancel = true;
+
+            e.Cancel = true;
+        }
+
+
 
     }
 
