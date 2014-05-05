@@ -260,7 +260,6 @@
             this.ListRequests.ShowItemToolTips = true;
             this.ListRequests.Size = new System.Drawing.Size(421, 549);
             this.ListRequests.SmallImageList = this.Images;
-            this.ListRequests.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
             this.ListRequests.View = System.Windows.Forms.View.Details;
@@ -326,10 +325,10 @@
             this.tabResults.Controls.Add(this.ListResults);
             this.tabResults.Controls.Add(this.label1);
             this.tabResults.Controls.Add(this.cmbListDisplayMode);
-            this.tabResults.Location = new System.Drawing.Point(4, 24);
+            this.tabResults.Location = new System.Drawing.Point(4, 22);
             this.tabResults.Name = "tabResults";
             this.tabResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResults.Size = new System.Drawing.Size(421, 549);
+            this.tabResults.Size = new System.Drawing.Size(421, 551);
             this.tabResults.TabIndex = 1;
             this.tabResults.Text = "Results";
             this.tabResults.UseVisualStyleBackColor = true;
@@ -350,7 +349,7 @@
             this.ListResults.Location = new System.Drawing.Point(0, 37);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(421, 512);
+            this.ListResults.Size = new System.Drawing.Size(421, 514);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.TabIndex = 3;
             this.ListResults.UseCompatibleStateImageBehavior = false;
