@@ -53,27 +53,6 @@
     <ApplicationIcon>WebSurge.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.Data.v13.2, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v13.2, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v13.2, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.2, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.2.UI, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.2, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FiddlerCore4">
       <HintPath>..\Lib\FiddlerCore4.dll</HintPath>
     </Reference>
@@ -89,19 +68,22 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\packages\ZedGraph.5.1.6\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartFormZed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChartFormZed.Designer.cs">
+      <DependentUpon>ChartFormZed.cs</DependentUpon>
+    </Compile>
     <Compile Include="FiddlerCapture.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FiddlerCapture.Designer.cs">
       <DependentUpon>FiddlerCapture.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ChartForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChartForm.Designer.cs">
-      <DependentUpon>ChartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
@@ -121,11 +103,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utilities\TabPadding.cs" />
+    <EmbeddedResource Include="ChartFormZed.resx">
+      <DependentUpon>ChartFormZed.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FiddlerCapture.resx">
       <DependentUpon>FiddlerCapture.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChartForm.resx">
-      <DependentUpon>ChartForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Splash.resx">
@@ -167,6 +149,7 @@
     <Content Include="1_Full.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="License-LGPL.txt" />
     <Content Include="WebSurge.ico" />
   </ItemGroup>
   <ItemGroup>

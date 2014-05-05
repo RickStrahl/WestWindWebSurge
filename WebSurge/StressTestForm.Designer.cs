@@ -723,7 +723,7 @@
             this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainToolStrip.Location = new System.Drawing.Point(3, 24);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(525, 25);
+            this.MainToolStrip.Size = new System.Drawing.Size(598, 25);
             this.MainToolStrip.TabIndex = 0;
             // 
             // tbOpen
@@ -731,8 +731,8 @@
             this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
             this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(77, 22);
-            this.tbOpen.Text = "Open File";
+            this.tbOpen.Size = new System.Drawing.Size(98, 22);
+            this.tbOpen.Text = "Open Session";
             this.tbOpen.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // tbEditFile
@@ -740,8 +740,8 @@
             this.tbEditFile.Image = ((System.Drawing.Image)(resources.GetObject("tbEditFile.Image")));
             this.tbEditFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbEditFile.Name = "tbEditFile";
-            this.tbEditFile.Size = new System.Drawing.Size(68, 22);
-            this.tbEditFile.Text = "Edit File";
+            this.tbEditFile.Size = new System.Drawing.Size(89, 22);
+            this.tbEditFile.Text = "Edit Session";
             this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // tbCapture

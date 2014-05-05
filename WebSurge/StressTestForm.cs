@@ -198,7 +198,7 @@ namespace WebSurge
                 {
                     var listItem = ListResults.SelectedItems[0];
                     var request = listItem.Tag as HttpRequestData;
-                    var form = new ChartForm(StressTester.Results, request.Url, ChartTypes.TimeTakenPerRequest);
+                    var form = new ChartFormZed(StressTester.Results, request.Url, ChartTypes.TimeTakenPerRequest);
                     form.Show();
                 }
             }
@@ -206,7 +206,7 @@ namespace WebSurge
             {
                 if (StressTester.Results.Count() > 0)
                 {
-                    var form = new ChartForm(StressTester.Results, null, ChartTypes.RequestsPerSecond);
+                    var form = new ChartFormZed(StressTester.Results, null, ChartTypes.RequestsPerSecond);
                     form.Show();
                 }
             }
@@ -400,6 +400,7 @@ namespace WebSurge
                     Text = request.HttpVerb,
                     Tag = request
                 });
+                
 
                 if (!string.IsNullOrEmpty(request.RequestContent))
                     item.ImageKey = "upload";
