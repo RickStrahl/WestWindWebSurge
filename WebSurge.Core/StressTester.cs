@@ -192,8 +192,8 @@ namespace WebSurge
 
                 result.ResponseHeaders = sb.ToString();
 
-                
-                if (!result.StatusCode.StartsWith("2"))
+                char statusCode = result.StatusCode[0];
+                if (statusCode == '4' || statusCode == '5') 
                 {
                     result.IsError = true;
                     result.ErrorMessage = webResponse.StatusDescription;
