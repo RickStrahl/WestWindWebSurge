@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -217,12 +218,62 @@ namespace WebSurge
             {
                 if (ListRequests.SelectedItems.Count > 0)
                 {
-                    var listItem = ListRequests.SelectedItems[0];
-                    var request = listItem.Tag as HttpRequestData;
-                    Requests.Remove(request);
-                    ListRequests.Items.Remove(listItem);
+                    foreach (ListViewItem listItem in ListRequests.SelectedItems)
+                    {                        
+                        var request = listItem.Tag as HttpRequestData;
+                        Requests.Remove(request);
+                        ListRequests.Items.Remove(listItem);
+                    }
                 }
             }
+            if (sender == tbEditRequest)
+            {
+                if (ListRequests.SelectedItems.Count > 0)
+                {
+                    var listItem = ListRequests.SelectedItems[0];
+                    var request = listItem.Tag as HttpRequestData;
+                    txtHttpMethod.Text = request.HttpVerb;
+                    txtRequestUrl.Text = request.Url;
+                    txtRequestUrl.Tag = request;
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var hd in request.Headers)
+                    {
+                        sb.AppendLine(hd.Name + ": " + hd.Value);
+                    }
+                    txtRequestHeaders.Text = sb.ToString();
+                    txtRequestContent.Text = request.RequestContent;
+                    TabsResult.SelectedTab = tabRequest;
+                }                
+            }
+            if (sender == tbAddRequest)
+            {
+                txtHttpMethod.Text = "GET";
+                txtRequestUrl.Text = "http://";
+                txtRequestUrl.Tag = null;
+                txtRequestHeaders.Text = "Accept:*/*\r\nAccept-Encoding:gzip,deflate";
+                txtRequestContent.Text = string.Empty;
+                TabsResult.SelectedTab = tabRequest;                
+            }
+            if (sender == btnSaveRequest)
+            {
+                var req = txtRequestUrl.Tag as HttpRequestData;
+                bool isNew = false;
+                if (req == null)
+                {
+                    req = new HttpRequestData();
+                    isNew = true;
+                }
+
+                req.Url = txtRequestUrl.Text;
+                req.HttpVerb = txtHttpMethod.Text;
+                req.RequestContent = txtRequestContent.Text;
+
+                if (isNew)
+                    Requests.Add(req);
+                RenderRequests(Requests);
+            }
+
+        
             if (sender == tbSaveAllRequests)
             {
                 var parser = new FiddlerSessionParser();
@@ -499,7 +550,7 @@ namespace WebSurge
 
             var hasResults = StressTester.Results.Count > 0;
             btnExport.Enabled = hasResults;
-            tbExport.Enabled = hasResults;
+            tbExport.Enabled = hasResults;            
 
             tbCharts.Enabled = hasResults;
             btnCharts.Enabled = hasResults;
@@ -705,6 +756,7 @@ namespace WebSurge
             e.Cancel = true;
         }
 
+  
 
 
     }

@@ -42,10 +42,11 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RequestContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tbEditRequest = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbAddRequest = new System.Windows.Forms.ToolStripMenuItem();
             this.tbDeleteRequest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tbSaveAllRequests = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbAddRequest = new System.Windows.Forms.ToolStripMenuItem();
             this.Images = new System.Windows.Forms.ImageList(this.components);
             this.tabResults = new System.Windows.Forms.TabPage();
             this.ListResults = new System.Windows.Forms.ListView();
@@ -64,6 +65,15 @@
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tabPreview = new System.Windows.Forms.TabPage();
             this.PreViewBrowser = new System.Windows.Forms.WebBrowser();
+            this.tabRequest = new System.Windows.Forms.TabPage();
+            this.lblRequestContent = new System.Windows.Forms.Label();
+            this.txtRequestContent = new System.Windows.Forms.TextBox();
+            this.btnSaveRequest = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtRequestHeaders = new System.Windows.Forms.TextBox();
+            this.txtRequestUrl = new System.Windows.Forms.TextBox();
+            this.lblUrl = new System.Windows.Forms.Label();
+            this.txtHttpMethod = new System.Windows.Forms.ComboBox();
             this.tabOptions = new System.Windows.Forms.TabPage();
             this.OptionsPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
@@ -131,6 +141,7 @@
             this.TabsResult.SuspendLayout();
             this.tabOutput.SuspendLayout();
             this.tabPreview.SuspendLayout();
+            this.tabRequest.SuspendLayout();
             this.tabOptions.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.MainToolStrip.SuspendLayout();
@@ -254,6 +265,7 @@
             this.ListRequests.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListRequests.FullRowSelect = true;
             this.ListRequests.GridLines = true;
+            this.ListRequests.HideSelection = false;
             this.ListRequests.Location = new System.Drawing.Point(0, 0);
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
@@ -279,13 +291,26 @@
             // RequestContextMenu
             // 
             this.RequestContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbEditRequest,
+            this.tbAddRequest,
             this.tbDeleteRequest,
             this.toolStripSeparator6,
-            this.tbSaveAllRequests,
-            this.tbAddRequest});
+            this.tbSaveAllRequests});
             this.RequestContextMenu.Name = "RequestContextMenu";
-            this.RequestContextMenu.Size = new System.Drawing.Size(153, 76);
+            this.RequestContextMenu.Size = new System.Drawing.Size(153, 120);
             this.RequestContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
+            // 
+            // tbEditRequest
+            // 
+            this.tbEditRequest.Name = "tbEditRequest";
+            this.tbEditRequest.Size = new System.Drawing.Size(152, 22);
+            this.tbEditRequest.Text = "Edit Request";
+            // 
+            // tbAddRequest
+            // 
+            this.tbAddRequest.Name = "tbAddRequest";
+            this.tbAddRequest.Size = new System.Drawing.Size(152, 22);
+            this.tbAddRequest.Text = "&Add Request";
             // 
             // tbDeleteRequest
             // 
@@ -303,13 +328,6 @@
             this.tbSaveAllRequests.Name = "tbSaveAllRequests";
             this.tbSaveAllRequests.Size = new System.Drawing.Size(152, 22);
             this.tbSaveAllRequests.Text = "&Save all to File";
-            // 
-            // tbAddRequest
-            // 
-            this.tbAddRequest.Enabled = false;
-            this.tbAddRequest.Name = "tbAddRequest";
-            this.tbAddRequest.Size = new System.Drawing.Size(152, 22);
-            this.tbAddRequest.Text = "&Add Request";
             // 
             // Images
             // 
@@ -434,6 +452,7 @@
             // 
             this.TabsResult.Controls.Add(this.tabOutput);
             this.TabsResult.Controls.Add(this.tabPreview);
+            this.TabsResult.Controls.Add(this.tabRequest);
             this.TabsResult.Controls.Add(this.tabOptions);
             this.TabsResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabsResult.ItemSize = new System.Drawing.Size(90, 22);
@@ -494,6 +513,118 @@
             this.PreViewBrowser.TabIndex = 2;
             this.PreViewBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.PreViewBrowser_Navigating);
             this.PreViewBrowser.NewWindow += new System.ComponentModel.CancelEventHandler(this.PreViewBrowser_NewWindow);
+            // 
+            // tabRequest
+            // 
+            this.tabRequest.Controls.Add(this.lblRequestContent);
+            this.tabRequest.Controls.Add(this.txtRequestContent);
+            this.tabRequest.Controls.Add(this.btnSaveRequest);
+            this.tabRequest.Controls.Add(this.label2);
+            this.tabRequest.Controls.Add(this.txtRequestHeaders);
+            this.tabRequest.Controls.Add(this.txtRequestUrl);
+            this.tabRequest.Controls.Add(this.lblUrl);
+            this.tabRequest.Controls.Add(this.txtHttpMethod);
+            this.tabRequest.Location = new System.Drawing.Point(4, 26);
+            this.tabRequest.Name = "tabRequest";
+            this.tabRequest.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRequest.Size = new System.Drawing.Size(551, 547);
+            this.tabRequest.TabIndex = 3;
+            this.tabRequest.Text = "Request";
+            this.tabRequest.UseVisualStyleBackColor = true;
+            // 
+            // lblRequestContent
+            // 
+            this.lblRequestContent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblRequestContent.Location = new System.Drawing.Point(4, 333);
+            this.lblRequestContent.Name = "lblRequestContent";
+            this.lblRequestContent.Size = new System.Drawing.Size(130, 20);
+            this.lblRequestContent.TabIndex = 7;
+            this.lblRequestContent.Text = "Content:";
+            this.lblRequestContent.UseCompatibleTextRendering = true;
+            // 
+            // txtRequestContent
+            // 
+            this.txtRequestContent.AcceptsReturn = true;
+            this.txtRequestContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRequestContent.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRequestContent.Location = new System.Drawing.Point(5, 356);
+            this.txtRequestContent.Multiline = true;
+            this.txtRequestContent.Name = "txtRequestContent";
+            this.txtRequestContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtRequestContent.Size = new System.Drawing.Size(538, 143);
+            this.txtRequestContent.TabIndex = 6;
+            // 
+            // btnSaveRequest
+            // 
+            this.btnSaveRequest.BackColor = System.Drawing.Color.Transparent;
+            this.btnSaveRequest.Location = new System.Drawing.Point(5, 512);
+            this.btnSaveRequest.Name = "btnSaveRequest";
+            this.btnSaveRequest.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveRequest.TabIndex = 5;
+            this.btnSaveRequest.Text = "Save";
+            this.btnSaveRequest.UseVisualStyleBackColor = false;
+            this.btnSaveRequest.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(5, 92);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(130, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Headers:";
+            this.label2.UseCompatibleTextRendering = true;
+            // 
+            // txtRequestHeaders
+            // 
+            this.txtRequestHeaders.AcceptsReturn = true;
+            this.txtRequestHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRequestHeaders.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRequestHeaders.Location = new System.Drawing.Point(6, 115);
+            this.txtRequestHeaders.Multiline = true;
+            this.txtRequestHeaders.Name = "txtRequestHeaders";
+            this.txtRequestHeaders.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtRequestHeaders.Size = new System.Drawing.Size(538, 203);
+            this.txtRequestHeaders.TabIndex = 3;
+            // 
+            // txtRequestUrl
+            // 
+            this.txtRequestUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRequestUrl.Location = new System.Drawing.Point(6, 60);
+            this.txtRequestUrl.Name = "txtRequestUrl";
+            this.txtRequestUrl.Size = new System.Drawing.Size(537, 23);
+            this.txtRequestUrl.TabIndex = 2;
+            // 
+            // lblUrl
+            // 
+            this.lblUrl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblUrl.Location = new System.Drawing.Point(3, 40);
+            this.lblUrl.Name = "lblUrl";
+            this.lblUrl.Size = new System.Drawing.Size(45, 20);
+            this.lblUrl.TabIndex = 1;
+            this.lblUrl.Text = " Url:";
+            this.lblUrl.UseCompatibleTextRendering = true;
+            // 
+            // txtHttpMethod
+            // 
+            this.txtHttpMethod.FormattingEnabled = true;
+            this.txtHttpMethod.Items.AddRange(new object[] {
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "HEAD",
+            "TRACE",
+            "OPTIONS",
+            "PATCH"});
+            this.txtHttpMethod.Location = new System.Drawing.Point(6, 10);
+            this.txtHttpMethod.Name = "txtHttpMethod";
+            this.txtHttpMethod.Size = new System.Drawing.Size(152, 23);
+            this.txtHttpMethod.TabIndex = 0;
+            this.txtHttpMethod.Text = "GET";
             // 
             // tabOptions
             // 
@@ -723,7 +854,7 @@
             this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainToolStrip.Location = new System.Drawing.Point(3, 24);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(598, 25);
+            this.MainToolStrip.Size = new System.Drawing.Size(567, 25);
             this.MainToolStrip.TabIndex = 0;
             // 
             // tbOpen
@@ -942,6 +1073,8 @@
             this.tabOutput.ResumeLayout(false);
             this.tabOutput.PerformLayout();
             this.tabPreview.ResumeLayout(false);
+            this.tabRequest.ResumeLayout(false);
+            this.tabRequest.PerformLayout();
             this.tabOptions.ResumeLayout(false);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
@@ -1040,6 +1173,16 @@
         private System.Windows.Forms.ToolStripSplitButton tbCharts;
         private System.Windows.Forms.ToolStripMenuItem tbRequestPerSecondChart;
         private System.Windows.Forms.ToolStripMenuItem tbTimeTakenPerUrlChart;
+        private System.Windows.Forms.TabPage tabRequest;
+        private System.Windows.Forms.Button btnSaveRequest;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtRequestHeaders;
+        private System.Windows.Forms.TextBox txtRequestUrl;
+        private System.Windows.Forms.Label lblUrl;
+        private System.Windows.Forms.ComboBox txtHttpMethod;
+        private System.Windows.Forms.ToolStripMenuItem tbEditRequest;
+        private System.Windows.Forms.Label lblRequestContent;
+        private System.Windows.Forms.TextBox txtRequestContent;
     }
 }
 
