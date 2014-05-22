@@ -102,7 +102,6 @@
     <Compile Include="UnlockKeyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Utilities\TabPadding.cs" />
     <EmbeddedResource Include="ChartFormZed.resx">
       <DependentUpon>ChartFormZed.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,6 +176,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

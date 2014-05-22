@@ -74,49 +74,54 @@ namespace WebSurge
                 .Select(hd => hd.Value).LastOrDefault();
         }
 
-        public void ParseHttpHeader(string headerText)
+        public void ParseHttpHeaders(string headerText)
         {
             if (string.IsNullOrEmpty(headerText))
             {
                 Headers.Clear();
                 return;
             }
-            ParseHttpHeader(StringUtils.GetLines(headerText));
+            ParseHttpHeaders(StringUtils.GetLines(headerText));
         }
 
-        public void ParseHttpHeader(string[] lines)
+        public void ParseHttpHeaders(string[] lines)
         {
+            Headers.Clear();
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
                 if (string.IsNullOrEmpty(line))
                     continue;
 
-                var tokens = line.Split(new string[2] { ": ",":" }, StringSplitOptions.RemoveEmptyEntries);
-                if (tokens.Length > 1)
+                int idx = line.IndexOf(':');
+                if (idx < 0 || line.Length < idx + 2)
+                    continue;
+
+                string header = line.Substring(0, idx);
+                string value = line.Substring(idx + 1);
+
+                var hd = new HttpRequestHeader
                 {
-                    var hd = new HttpRequestHeader
-                    {
-                        Name = tokens[0],
-                        Value = tokens[1]
-                    };
-                    var name = hd.Name.ToLower();
+                    Name = header,
+                    Value = value
+                };
+                var name = hd.Name.ToLower();
 
-                    if (name == "host")
-                    {
-                        Host = hd.Value;
-                        continue;
-                    }
-                    if (name == "content-type")
-                    {
-                        ContentType = hd.Value;
-                        continue;
-                    }
-                    if (name == "content-length")
-                        continue; // client adds this
-
-                    Headers.Add(hd);
+                // ignore host header - host is part of url
+                if (name == "host")
+                {
+                    Host = hd.Value;
+                    continue;
                 }
+                if (name == "content-type")
+                {
+                    ContentType = hd.Value;
+                    continue;
+                }
+                if (name == "content-length")
+                    continue; // HTTP client adds this automatically
+
+                Headers.Add(hd);
             }
         }
 
@@ -140,7 +145,10 @@ namespace WebSurge
             foreach (var header in req.Headers)
             {
                 sb.AppendLine(header.Name + ": " + header.Value);
-            }            
+            }
+
+             if (!string.IsNullOrEmpty(req.RequestContent))
+                 sb.AppendLine("\r\n" + req.RequestContent);
 
             return sb.ToString();            
         }
@@ -211,47 +219,7 @@ namespace WebSurge
             html = @"<!DOCTYPE HTML>
 <html>
 <head>
-  <style>  
-  html,body { 
-    font-family: arial;
-    font-size: 11pt;
-    margin: 0;
-    padding: 0;
-    line-spacing: 1.55;
-  }   
-  body{
-     padding: 5px;
-  } 
-  label {
-    font-weight: bold;
-    display: block;
-    margin-top: 10px;
-  }
-  pre {
-    background: #eeeeee;
-    border: 1px solid silver;
-    border-radius: 4px;
-    font-family: Consolas,monospace;
-    font-weight: normal;
-    font-size: 12px;
-    padding: 5px;
-    margin: 5px 8px;
-    overflow-x: hidden;
-    border-radius: 2px;
-  }
-  .timetaken
-  {
-    float: right; 
-    color: steelblue;
-    font-size: smaller;
-    padding-right: 10px;
-  }
-  h3 {
-    color: steelblue;
-    margin-top: 12px;
-    margin-bottom: 3px;
-  }
-  </style>
+    <link href='WebSurge.css' type='text/css' rel='stylesheet' />
 </head>
 <body>
 ";

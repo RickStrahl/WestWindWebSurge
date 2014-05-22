@@ -37,12 +37,12 @@
             this.tbSave = new System.Windows.Forms.ToolStripButton();
             this.tbClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tbIgnoreResources = new System.Windows.Forms.ToolStripButton();
-            this.tblblProcessId = new System.Windows.Forms.ToolStripLabel();
-            this.txtProcessId = new System.Windows.Forms.ToolStripComboBox();
             this.lblCaptureDomain = new System.Windows.Forms.ToolStripLabel();
             this.txtCaptureDomain = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.tblblProcessId = new System.Windows.Forms.ToolStripLabel();
+            this.txtProcessId = new System.Windows.Forms.ToolStripComboBox();
             this.MainToolbar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,7 +76,7 @@
             this.txtProcessId});
             this.MainToolbar.Location = new System.Drawing.Point(0, 0);
             this.MainToolbar.Name = "MainToolbar";
-            this.MainToolbar.Size = new System.Drawing.Size(777, 25);
+            this.MainToolbar.Size = new System.Drawing.Size(777, 27);
             this.MainToolbar.TabIndex = 5;
             // 
             // tbCapture
@@ -84,7 +84,7 @@
             this.tbCapture.Image = ((System.Drawing.Image)(resources.GetObject("tbCapture.Image")));
             this.tbCapture.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbCapture.Name = "tbCapture";
-            this.tbCapture.Size = new System.Drawing.Size(69, 22);
+            this.tbCapture.Size = new System.Drawing.Size(69, 24);
             this.tbCapture.Text = "Capture";
             this.tbCapture.ToolTipText = "Start capturing HTTP requests.";
             this.tbCapture.Click += new System.EventHandler(this.ButtonHandler);
@@ -94,7 +94,7 @@
             this.tbStop.Image = ((System.Drawing.Image)(resources.GetObject("tbStop.Image")));
             this.tbStop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbStop.Name = "tbStop";
-            this.tbStop.Size = new System.Drawing.Size(96, 22);
+            this.tbStop.Size = new System.Drawing.Size(96, 24);
             this.tbStop.Text = "Stop Capture";
             this.tbStop.ToolTipText = "Stop capturing HTTP Requests";
             this.tbStop.Click += new System.EventHandler(this.ButtonHandler);
@@ -102,14 +102,14 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // tbSave
             // 
             this.tbSave.Image = ((System.Drawing.Image)(resources.GetObject("tbSave.Image")));
             this.tbSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbSave.Name = "tbSave";
-            this.tbSave.Size = new System.Drawing.Size(51, 22);
+            this.tbSave.Size = new System.Drawing.Size(51, 24);
             this.tbSave.Text = "Save";
             this.tbSave.ToolTipText = "Saves captured URLs to a file";
             this.tbSave.Click += new System.EventHandler(this.ButtonHandler);
@@ -119,7 +119,7 @@
             this.tbClear.Image = ((System.Drawing.Image)(resources.GetObject("tbClear.Image")));
             this.tbClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbClear.Name = "tbClear";
-            this.tbClear.Size = new System.Drawing.Size(54, 22);
+            this.tbClear.Size = new System.Drawing.Size(54, 24);
             this.tbClear.Text = "Clear";
             this.tbClear.ToolTipText = "Clears the captured Urls";
             this.tbClear.Click += new System.EventHandler(this.ButtonHandler);
@@ -127,7 +127,13 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(38, 24);
+            this.toolStripLabel1.Text = "Filters";
             // 
             // tbIgnoreResources
             // 
@@ -136,38 +142,32 @@
             this.tbIgnoreResources.Image = ((System.Drawing.Image)(resources.GetObject("tbIgnoreResources.Image")));
             this.tbIgnoreResources.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbIgnoreResources.Name = "tbIgnoreResources";
-            this.tbIgnoreResources.Size = new System.Drawing.Size(23, 22);
+            this.tbIgnoreResources.Size = new System.Drawing.Size(23, 24);
             this.tbIgnoreResources.ToolTipText = "Ignore Images, CSS and JavaScript links";
-            // 
-            // tblblProcessId
-            // 
-            this.tblblProcessId.Name = "tblblProcessId";
-            this.tblblProcessId.Size = new System.Drawing.Size(63, 22);
-            this.tblblProcessId.Text = "Process Id:";
-            // 
-            // txtProcessId
-            // 
-            this.txtProcessId.Name = "txtProcessId";
-            this.txtProcessId.Size = new System.Drawing.Size(150, 25);
-            this.txtProcessId.ToolTipText = "Limit capturing to a specific process on this machine";
             // 
             // lblCaptureDomain
             // 
             this.lblCaptureDomain.Name = "lblCaptureDomain";
-            this.lblCaptureDomain.Size = new System.Drawing.Size(52, 22);
+            this.lblCaptureDomain.Size = new System.Drawing.Size(52, 24);
             this.lblCaptureDomain.Text = "Domain:";
             // 
             // txtCaptureDomain
             // 
             this.txtCaptureDomain.Name = "txtCaptureDomain";
-            this.txtCaptureDomain.Size = new System.Drawing.Size(150, 25);
+            this.txtCaptureDomain.Size = new System.Drawing.Size(150, 27);
             this.txtCaptureDomain.ToolTipText = "Capture only content in this domain";
             // 
-            // toolStripLabel1
+            // tblblProcessId
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(38, 22);
-            this.toolStripLabel1.Text = "Filters";
+            this.tblblProcessId.Name = "tblblProcessId";
+            this.tblblProcessId.Size = new System.Drawing.Size(63, 24);
+            this.tblblProcessId.Text = "Process Id:";
+            // 
+            // txtProcessId
+            // 
+            this.txtProcessId.Name = "txtProcessId";
+            this.txtProcessId.Size = new System.Drawing.Size(150, 23);
+            this.txtProcessId.ToolTipText = "Limit capturing to a specific process on this machine";
             // 
             // FiddlerCapture
             // 

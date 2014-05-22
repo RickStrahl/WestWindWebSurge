@@ -73,7 +73,7 @@ namespace WebSurge
             if (lines.Length > 0)
             {
                 lines[0] = string.Empty;
-                reqHttp.ParseHttpHeader(lines);
+                reqHttp.ParseHttpHeaders(lines);
             }
 
             reqHttp.Host = reqHttp.Headers

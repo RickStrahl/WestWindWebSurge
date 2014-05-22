@@ -59,9 +59,37 @@ namespace WebSurge
         public StressTesterConfiguration StressTester {get; set;}
         public UrlCaptureConfiguration UrlCapture {get; set;}
         public WindowSettings WindowSettings { get; set; }
+        public List<string> RecentFiles { get; set; }
+        public string LastFileName
+        {
+            get { return _LastFileName; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    _LastFileName = null;
+                    return;
+                }
+                _LastFileName = value;
+                
+                var match = RecentFiles.FirstOrDefault(s => s.ToLower() == value.ToLower());
+                if (match != null)
+                    RecentFiles.Remove(match);
+
+                RecentFiles.Insert(0, value);
+
+                RecentFiles = new List<string>( RecentFiles.Distinct().Take(10) );
+
+                
+            }
+        }
+        private string _LastFileName;
+
+        
 
         public WebSurgeConfiguration()
         {
+            RecentFiles = new List<string>();
             StressTester = new StressTesterConfiguration();
             UrlCapture = new UrlCaptureConfiguration();
             WindowSettings = new WindowSettings();
@@ -110,7 +138,7 @@ namespace WebSurge
 
     public class StressTesterConfiguration
     {
-        public string LastFileName { get; set; }        
+      
         public string ReplaceCookieValue { get; set; }
         
         public string ReplaceDomain { get; set; }
@@ -124,7 +152,6 @@ namespace WebSurge
 
         public StressTesterConfiguration()
         {
-            LastFileName = Path.GetFullPath("1_Full.txt");
             MaxResponseSize = 5000;
             LastSecondsToRun = 10;
             LastThreads = 2;            

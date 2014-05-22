@@ -17,7 +17,18 @@ namespace WebSurge
     public partial class StressTestForm : Form
     {
         StressTester StressTester { get; set; }
-        string FileName { get; set; }
+
+        private string FileName
+        {
+            get { return _FileName; }
+            set
+            {
+                _FileName = value; 
+                lblStatusFilename.Text = "Session File: " + value;                
+            }
+        }
+        private string _FileName;
+
         List<HttpRequestData> Requests { get; set; }
         FileSystemWatcher Watcher { get; set; }
         public Splash Splash { get; set; }
@@ -34,14 +45,14 @@ namespace WebSurge
             else
                 FileName = fileName;
 
-            lblStatusFilename.Text = "Fiddler File: " + FileName;
             Requests = StressTester.ParseFiddlerSessions(FileName);
             RenderRequests(Requests);
 
-            App.Configuration.StressTester.LastFileName = FileName;
+            App.Configuration.LastFileName = FileName;
 
             AttachWatcher(fileName);
         }
+
 
         private void StressTestForm_Load(object sender, EventArgs e)
         {
@@ -55,9 +66,9 @@ namespace WebSurge
 
             var config = App.Configuration.StressTester;
 
-            if (!string.IsNullOrEmpty(config.LastFileName))
+            if (!string.IsNullOrEmpty(App.Configuration.LastFileName))
             {
-                FileName = Path.GetFullPath(config.LastFileName);
+                FileName = Path.GetFullPath(App.Configuration.LastFileName);
                 if (!File.Exists(FileName))
                     FileName = null;
             }
@@ -74,6 +85,8 @@ namespace WebSurge
 
             cmbListDisplayMode.SelectedItem = "Errors";
             TabsResult.SelectedTab = tabOptions;
+
+            AddRecentFiles();
 
             UpdateButtonStatus();
         }
@@ -220,7 +233,7 @@ namespace WebSurge
 
 
 
-            if (sender == tbDeleteRequest)
+            if (sender == tbDeleteRequest || sender == tbDeleteRequest2)
             {
                 if (ListRequests.SelectedItems.Count > 0)
                 {
@@ -232,7 +245,7 @@ namespace WebSurge
                     }
                 }
             }
-            if (sender == tbEditRequest)
+            if (sender == tbEditRequest || sender == tbEditRequest2)
             {
                 if (ListRequests.SelectedItems.Count > 0)
                 {
@@ -242,13 +255,13 @@ namespace WebSurge
                     TabsResult.SelectedTab = tabRequest;
                 }                
             }
-            if (sender == tbAddRequest)
+            if (sender == tbAddRequest || sender == tbAddRequest2)
             {
                 txtRequestUrl.Tag = null; 
                 
                 txtHttpMethod.Text = "GET";
                 txtRequestUrl.Text = "http://";                
-                txtRequestHeaders.Text = "Accept: */*\r\nAccept-Encoding: gzip,deflate";
+                txtRequestHeaders.Text = "Accept-Encoding: gzip,deflate";
                 txtRequestContent.Text = string.Empty;
                 TabsResult.SelectedTab = tabRequest;                
             }
@@ -263,12 +276,49 @@ namespace WebSurge
 
                 RenderRequests(Requests);
             }
+            if (sender == btnRunRequest)
+            {
+                var req = txtRequestUrl.Tag as HttpRequestData;
+                req = SaveRequest(req);
+
+                var reqResult = StressTester.CheckSite(req);
+
+                string html = reqResult.ToHtml(true);
+                HtmlPreview(html);
+                TabsResult.SelectedTab = tabPreview;
+            }
 
         
-            if (sender == tbSaveAllRequests)
+            if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2)
             {
                 var parser = new FiddlerSessionParser();
-                parser.Save(Requests, FileName);
+
+                var path = App.AppDataPath;
+                if (!string.IsNullOrEmpty(FileName))
+                    path = Path.GetDirectoryName(FileName);
+
+                var file = string.Empty;
+                if (!string.IsNullOrEmpty(FileName))
+                    file = Path.GetFileName(FileName);
+
+                SaveFileDialog sd = new SaveFileDialog
+                {
+                    Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                    FilterIndex = 1,
+                    FileName = file,
+                    CheckFileExists = false,
+                    AutoUpgradeEnabled = true,
+                    CheckPathExists = true,
+                    InitialDirectory = path,
+                    RestoreDirectory = true
+                };
+
+                var result = sd.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    FileName = sd.FileName;
+                    parser.Save(Requests, sd.FileName);
+                }
             }
 
             else if (sender == btnExit)
@@ -458,7 +508,7 @@ namespace WebSurge
 
             ListRequests.EndUpdate();
 
-            TabSessions.SelectedTab = tabRequests;
+            TabSessions.SelectedTab = tabSession;
         }
 
 
@@ -504,7 +554,7 @@ namespace WebSurge
             config.DelayTimeMs = options.DelayTimeMs;
             config.RandomizeRequests = options.RandomizeRequests;
             config.RequestTimeoutMs = options.RequestTimeoutMs;
-            config.LastFileName = FileName;
+            App.Configuration.LastFileName = FileName;
 
             App.Configuration.WindowSettings.Save(this);
 
@@ -545,7 +595,7 @@ namespace WebSurge
             request.Url = txtRequestUrl.Text;
             request.HttpVerb = txtHttpMethod.Text;
             request.RequestContent = txtRequestContent.Text;
-            request.ParseHttpHeader(txtRequestHeaders.Text);
+            request.ParseHttpHeaders(txtRequestHeaders.Text);
 
 
 
@@ -582,6 +632,13 @@ namespace WebSurge
             var isResultSelected = ListResults.SelectedItems.Count > 0;
             tbTimeTakenPerUrl.Enabled = isResultSelected;
             tbTimeTakenPerUrlChart.Enabled = isResultSelected;
+
+            var isRequestSelected = ListRequests.SelectedItems.Count > 0;
+            tbEditRequest.Enabled = isRequestSelected;
+            tbEditRequest2.Enabled = isRequestSelected;
+            tbDeleteRequest.Enabled = isRequestSelected;
+            tbDeleteRequest2.Enabled = isRequestSelected;
+
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -597,7 +654,6 @@ namespace WebSurge
                 return;
 
             string html = req.ToHtml(true);
-
             HtmlPreview(html);
 
             TabsResult.SelectedTab = tabPreview;
@@ -607,6 +663,8 @@ namespace WebSurge
         {
             if (e.Item.Tag == null)
                 return;
+
+            UpdateButtonStatus();
 
             HttpRequestData req = e.Item.Tag as HttpRequestData;
             if (e.Item.Tag == null)
@@ -618,7 +676,7 @@ namespace WebSurge
             LoadRequest(req);
 
             if (TabsResult.SelectedTab != tabPreview && TabsResult.SelectedTab != tabRequest)
-                TabsResult.SelectedTab = tabPreview;
+                TabsResult.SelectedTab = tabPreview;            
         }
 
 
@@ -786,7 +844,49 @@ namespace WebSurge
             e.Cancel = true;
         }
 
-  
+        private void ListRequests_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (ListRequests.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem listItem in ListRequests.SelectedItems)
+                    {
+                        var request = listItem.Tag as HttpRequestData;
+                        Requests.Remove(request);
+                        ListRequests.Items.Remove(listItem);
+                    }
+                }                
+            }
+        }
+
+        
+        void AddRecentFiles(object sender = null, CancelEventArgs e = null)
+        {
+            RecentFilesContextMenu.Items.Clear();
+            int x = 0;
+            foreach (var s in App.Configuration.RecentFiles)
+            {
+                if (!File.Exists(s))
+                    continue;
+
+                var btn = new ToolStripMenuItem
+                {
+                    Text = s,
+                    Name = "RecentFile_" + x
+                };
+
+                btn.Click +=
+                    (snd, args) =>
+                    {
+                        var bt = snd as ToolStripMenuItem;
+                        OpenFile(bt.Text);
+                    };
+
+                RecentFilesContextMenu.Items.Add(btn);
+                x++;
+            }
+        }
 
 
     }
