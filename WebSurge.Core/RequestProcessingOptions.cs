@@ -47,6 +47,14 @@ public class RequestProcessingOptions
     [Description("Delay time added after each request to simulate user 'wait times' before going on.")]
     public int DelayTimeMs { get; set;  }
 
+    /// <summary>
+    /// Allows you to replace the domain and port number of the
+    /// Http request with the one specified here. Allows you to 
+    /// easily switch between multiple machines like dev, staging and live.
+    /// </summary>
+    [Description("Allows you to replace the domain and port number and optional base path of URL to handle running in different environments without changing the original captured URL. Strips url from :// to first / (or end of string) and replaces with your string. Lets you switch between multiple machines like dev, staging and live.")]
+    public string ReplaceDomain { get; set; }
+
     public RequestProcessingOptions()
     {
         RequestTimeoutMs = 20000;

@@ -67,38 +67,13 @@ namespace WebSurge
                 return null;
             }
 
-
             if (reqHttp.HttpVerb != "GET")
-                reqHttp.RequestContent = StringUtils.ExtractString(fullHeader, "\r\n\r\n", "\r\nHTTP", false, true);            
+                reqHttp.RequestContent = StringUtils.ExtractString(fullHeader, "\r\n\r\n", "\r\nHTTP", false, true);
 
-            for (int i = 1; i < lines.Length; i++)
+            if (lines.Length > 0)
             {
-                string line = lines[i];
-                var tokens = line.Split(new String[1] { ": " },StringSplitOptions.RemoveEmptyEntries);
-                if (tokens.Length > 1)
-                {
-                    var hd = new HttpRequestHeader
-                    {
-                        Name = tokens[0],
-                        Value = tokens[1]
-                    };
-                    var name = hd.Name.ToLower();
-
-                    if (name == "host")
-                    {
-                        reqHttp.Host = hd.Value;
-                        continue;
-                    }
-                    if (name == "content-type")
-                    {
-                        reqHttp.ContentType = hd.Value;
-                        continue;
-                    }                    
-                    if (name == "content-length")                        
-                        continue;  // client adds this
-
-                    reqHttp.Headers.Add(hd);
-                }
+                lines[0] = string.Empty;
+                reqHttp.ParseHttpHeader(lines);
             }
 
             reqHttp.Host = reqHttp.Headers
@@ -108,6 +83,8 @@ namespace WebSurge
 
             return reqHttp;
         }
+
+       
 
 
         /// <summary>

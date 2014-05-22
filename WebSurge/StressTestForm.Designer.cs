@@ -124,6 +124,8 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -297,7 +299,7 @@
             this.toolStripSeparator6,
             this.tbSaveAllRequests});
             this.RequestContextMenu.Name = "RequestContextMenu";
-            this.RequestContextMenu.Size = new System.Drawing.Size(153, 120);
+            this.RequestContextMenu.Size = new System.Drawing.Size(153, 98);
             this.RequestContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
             // tbEditRequest
@@ -667,7 +669,9 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnOpen,
+            this.btnClose,
             this.btnEditFile,
+            this.toolStripSeparator10,
             this.btnCapture,
             this.toolStripSeparator2,
             this.btnExit});
@@ -678,34 +682,34 @@
             // btnOpen
             // 
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(116, 22);
-            this.btnOpen.Text = "&Open";
+            this.btnOpen.Size = new System.Drawing.Size(152, 22);
+            this.btnOpen.Text = "&Open Session";
             this.btnOpen.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnEditFile
             // 
             this.btnEditFile.Name = "btnEditFile";
-            this.btnEditFile.Size = new System.Drawing.Size(116, 22);
-            this.btnEditFile.Text = "&Edit";
+            this.btnEditFile.Size = new System.Drawing.Size(152, 22);
+            this.btnEditFile.Text = "&Edit Session";
             this.btnEditFile.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnCapture
             // 
             this.btnCapture.Name = "btnCapture";
-            this.btnCapture.Size = new System.Drawing.Size(116, 22);
+            this.btnCapture.Size = new System.Drawing.Size(152, 22);
             this.btnCapture.Text = "&Capture";
             this.btnCapture.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(113, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             this.toolStripSeparator2.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnExit
             // 
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(116, 22);
+            this.btnExit.Size = new System.Drawing.Size(152, 22);
             this.btnExit.Text = "E&xit";
             this.btnExit.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
@@ -1033,6 +1037,18 @@
             this.tbNoProgressEvents.ToolTipText = "Don\'t show progress info - faster, can create more requests.";
             this.tbNoProgressEvents.CheckedChanged += new System.EventHandler(this.tbNoProgressEvents_CheckedChanged);
             // 
+            // btnClose
+            // 
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(152, 22);
+            this.btnClose.Text = "C&lose Session";
+            this.btnClose.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(149, 6);
+            // 
             // StressTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1183,6 +1199,8 @@
         private System.Windows.Forms.ToolStripMenuItem tbEditRequest;
         private System.Windows.Forms.Label lblRequestContent;
         private System.Windows.Forms.TextBox txtRequestContent;
+        private System.Windows.Forms.ToolStripMenuItem btnClose;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
     }
 }
 

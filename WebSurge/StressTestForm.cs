@@ -94,7 +94,7 @@ namespace WebSurge
                           progress.SecondsProcessed + " of " +
                           progress.TotalSecondsToProcessed + " secs ";
             if (progress.SecondsProcessed > 0)
-                text += "| " + progress.RequestsProcessed / progress.SecondsProcessed + " req/sec ";
+                text += "| " + progress.RequestsProcessed / progress.SecondsProcessed + " request/sec ";
 
             ShowStatus(text, 3);
         }
@@ -148,8 +148,14 @@ namespace WebSurge
                 if (dr != System.Windows.Forms.DialogResult.Cancel)
                 {
                     FileName = Path.GetFullPath(fd.FileName);
-                    OpenFile(FileName);
+                    OpenFile(FileName);                    
                 }
+            }
+            else if (sender == btnClose)
+            {
+                Requests = null;
+                RenderRequests(Requests);
+                
             }
             else if (sender == tbCapture || sender == btnCapture)
             {
@@ -232,44 +238,29 @@ namespace WebSurge
                 {
                     var listItem = ListRequests.SelectedItems[0];
                     var request = listItem.Tag as HttpRequestData;
-                    txtHttpMethod.Text = request.HttpVerb;
-                    txtRequestUrl.Text = request.Url;
-                    txtRequestUrl.Tag = request;
-                    StringBuilder sb = new StringBuilder();
-                    foreach (var hd in request.Headers)
-                    {
-                        sb.AppendLine(hd.Name + ": " + hd.Value);
-                    }
-                    txtRequestHeaders.Text = sb.ToString();
-                    txtRequestContent.Text = request.RequestContent;
+                    LoadRequest(request);
                     TabsResult.SelectedTab = tabRequest;
                 }                
             }
             if (sender == tbAddRequest)
             {
+                txtRequestUrl.Tag = null; 
+                
                 txtHttpMethod.Text = "GET";
-                txtRequestUrl.Text = "http://";
-                txtRequestUrl.Tag = null;
-                txtRequestHeaders.Text = "Accept:*/*\r\nAccept-Encoding:gzip,deflate";
+                txtRequestUrl.Text = "http://";                
+                txtRequestHeaders.Text = "Accept: */*\r\nAccept-Encoding: gzip,deflate";
                 txtRequestContent.Text = string.Empty;
                 TabsResult.SelectedTab = tabRequest;                
             }
             if (sender == btnSaveRequest)
             {
                 var req = txtRequestUrl.Tag as HttpRequestData;
-                bool isNew = false;
-                if (req == null)
-                {
-                    req = new HttpRequestData();
-                    isNew = true;
-                }
-
-                req.Url = txtRequestUrl.Text;
-                req.HttpVerb = txtHttpMethod.Text;
-                req.RequestContent = txtRequestContent.Text;
+                bool isNew = req == null;
+                req = SaveRequest(req);
 
                 if (isNew)
                     Requests.Add(req);
+
                 RenderRequests(Requests);
             }
 
@@ -324,8 +315,8 @@ namespace WebSurge
             config.LastSecondsToRun = time;
             config.LastThreads = threads;
 
-            ShowStatus("Parsing Fiddler Sessions...");
-            Requests = StressTester.ParseFiddlerSessions(FileName) as List<HttpRequestData>;
+            //ShowStatus("Parsing Fiddler Sessions...");
+            //Requests = StressTester.ParseFiddlerSessions(FileName) as List<HttpRequestData>;
 
             if (Requests == null)
             {
@@ -437,6 +428,9 @@ namespace WebSurge
             ListRequests.Items.Clear();
             ListRequests.EndUpdate();
 
+            if (requests == null)
+                return;
+
             Application.DoEvents();
 
             var filtered = requests;
@@ -505,6 +499,7 @@ namespace WebSurge
             var options = StressTester.Options;
 
             config.ReplaceCookieValue = options.ReplaceCookieValue;
+            config.ReplaceDomain = options.ReplaceDomain;
             config.MaxResponseSize = options.MaxResponseSize;
             config.DelayTimeMs = options.DelayTimeMs;
             config.RandomizeRequests = options.RandomizeRequests;
@@ -526,6 +521,35 @@ namespace WebSurge
             options.MaxResponseSize = config.MaxResponseSize;
             options.DelayTimeMs = config.DelayTimeMs;
             options.RandomizeRequests = config.RandomizeRequests;
+        }
+
+        void LoadRequest(HttpRequestData request)
+        {            
+            txtHttpMethod.Text = request.HttpVerb;
+            txtRequestUrl.Text = request.Url;
+            txtRequestUrl.Tag = request;
+            StringBuilder sb = new StringBuilder();
+            foreach (var hd in request.Headers)
+            {
+                sb.AppendLine(hd.Name + ": " + hd.Value);
+            }
+            txtRequestHeaders.Text = sb.ToString();
+            txtRequestContent.Text = request.RequestContent;            
+        }
+
+        HttpRequestData SaveRequest(HttpRequestData request)
+        {                        
+            if (request == null)
+                request = new HttpRequestData();                
+
+            request.Url = txtRequestUrl.Text;
+            request.HttpVerb = txtHttpMethod.Text;
+            request.RequestContent = txtRequestContent.Text;
+            request.ParseHttpHeader(txtRequestHeaders.Text);
+
+
+
+            return request;
         }
 
         private void cmbListDisplayMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -589,10 +613,12 @@ namespace WebSurge
                 return;
 
             string html = req.ToHtml(true);
-
             HtmlPreview(html);
 
-            TabsResult.SelectedTab = tabPreview;
+            LoadRequest(req);
+
+            if (TabsResult.SelectedTab != tabPreview && TabsResult.SelectedTab != tabRequest)
+                TabsResult.SelectedTab = tabPreview;
         }
 
 
@@ -725,7 +751,11 @@ namespace WebSurge
         {
             if (Splash != null)
             {
-                new System.Threading.Timer(p => Splash.Invoke(new Action(() => Splash.Close())),
+                new System.Threading.Timer(p => Splash.Invoke(new Action(() =>
+                {
+                    if (Splash != null)
+                        Splash.Close();
+                })),
                     null, 1000, Timeout.Infinite);
             }
             Application.DoEvents();

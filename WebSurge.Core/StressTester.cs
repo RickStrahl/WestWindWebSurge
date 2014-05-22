@@ -108,7 +108,14 @@ namespace WebSurge
             try
             {
                 var client = new Westwind.Utilities.InternetTools.HttpClient();
-                client.CreateWebRequestObject(reqData.Url);
+                
+                if (!string.IsNullOrEmpty(Options.ReplaceDomain))
+                {
+                    var host = StringUtils.ExtractString(result.Url, "://", "/", false, true);
+                    result.Url = result.Url.Replace(host, Options.ReplaceDomain);
+                }
+                
+                client.CreateWebRequestObject(result.Url);
                 var webRequest = client.WebRequest;
                 client.WebRequest.Method = reqData.HttpVerb;
                 client.UseGZip = true;                
@@ -278,7 +285,7 @@ namespace WebSurge
             var lastProgress = DateTime.UtcNow.AddSeconds(-10);
             while (!CancelThreads)
             {
-                if (DateTime.UtcNow.Subtract(StartTime).TotalSeconds  > seconds)
+                if (DateTime.UtcNow.Subtract(StartTime).TotalSeconds  > seconds + 1)
                 {
                     TimeTakenForLastRunMs = (int) DateTime.UtcNow.Subtract(StartTime).TotalMilliseconds;
                     

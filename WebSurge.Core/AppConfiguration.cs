@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -109,8 +110,10 @@ namespace WebSurge
 
     public class StressTesterConfiguration
     {
-        public string LastFileName { get; set; }
+        public string LastFileName { get; set; }        
         public string ReplaceCookieValue { get; set; }
+        
+        public string ReplaceDomain { get; set; }
         public int MaxResponseSize { get; set; }
         public int LastThreads { get; set; }
         public int LastSecondsToRun { get; set; }

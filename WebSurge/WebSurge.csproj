@@ -109,7 +109,6 @@
     <EmbeddedResource Include="FiddlerCapture.resx">
       <DependentUpon>FiddlerCapture.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>

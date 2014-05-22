@@ -74,6 +74,51 @@ namespace WebSurge
                 .Select(hd => hd.Value).LastOrDefault();
         }
 
+        public void ParseHttpHeader(string headerText)
+        {
+            if (string.IsNullOrEmpty(headerText))
+            {
+                Headers.Clear();
+                return;
+            }
+            ParseHttpHeader(StringUtils.GetLines(headerText));
+        }
+
+        public void ParseHttpHeader(string[] lines)
+        {
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                if (string.IsNullOrEmpty(line))
+                    continue;
+
+                var tokens = line.Split(new string[2] { ": ",":" }, StringSplitOptions.RemoveEmptyEntries);
+                if (tokens.Length > 1)
+                {
+                    var hd = new HttpRequestHeader
+                    {
+                        Name = tokens[0],
+                        Value = tokens[1]
+                    };
+                    var name = hd.Name.ToLower();
+
+                    if (name == "host")
+                    {
+                        Host = hd.Value;
+                        continue;
+                    }
+                    if (name == "content-type")
+                    {
+                        ContentType = hd.Value;
+                        continue;
+                    }
+                    if (name == "content-length")
+                        continue; // client adds this
+
+                    Headers.Add(hd);
+                }
+            }
+        }
 
          /// <summary>
         /// Parses a single HttpRequestData object to HTML
