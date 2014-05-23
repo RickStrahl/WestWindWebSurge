@@ -291,8 +291,7 @@ namespace WebSurge
                     
                     CancelThreads = true;
 
-                    Thread.Sleep(3000);
-                    Console.WriteLine("Aborting threads");
+                    Thread.Sleep(3000);                    
                     foreach (var thread in threads)
                         thread.Abort();
                     Thread.Sleep(1000);

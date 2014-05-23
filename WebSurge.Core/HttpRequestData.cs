@@ -44,6 +44,7 @@ namespace WebSurge
         public HttpRequestData()
         {
             Id = DataUtils.GenerateUniqueNumericId();
+            HttpVerb = "GET";
             Timestamp = DateTime.UtcNow;
             Headers = new List<HttpRequestHeader>();
             IsError = true;
@@ -223,7 +224,7 @@ namespace WebSurge
 </head>
 <body>
 ";
-            return html + sb + "</body></html>";
+            return html + sb + "</body>\r\n</html>";
         }        
     }
 

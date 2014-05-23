@@ -166,9 +166,11 @@ namespace WebSurge
             }
             else if (sender == btnClose)
             {
-                Requests = null;
+                Requests = new List<HttpRequestData>();                
                 RenderRequests(Requests);
+                TabSessions.SelectedTab = tabSession; 
                 
+                RenderResults(Requests);
             }
             else if (sender == tbCapture || sender == btnCapture)
             {
