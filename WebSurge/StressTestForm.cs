@@ -29,7 +29,19 @@ namespace WebSurge
         }
         private string _FileName;
 
-        List<HttpRequestData> Requests { get; set; }
+        private List<HttpRequestData> Requests
+        {
+            get
+            {
+                if (_Requests == null)
+                    _Requests = new List<HttpRequestData>();
+
+                return _Requests;
+            }
+            set { _Requests = value; }
+        }
+        List<HttpRequestData> _Requests;
+
         FileSystemWatcher Watcher { get; set; }
         public Splash Splash { get; set; }
 
@@ -46,6 +58,8 @@ namespace WebSurge
                 FileName = fileName;
 
             Requests = StressTester.ParseFiddlerSessions(FileName);
+            if (Requests == null)
+                Requests = new List<HttpRequestData>();
             RenderRequests(Requests);
 
             App.Configuration.LastFileName = FileName;
@@ -56,7 +70,7 @@ namespace WebSurge
 
         private void StressTestForm_Load(object sender, EventArgs e)
         {
-            Watcher = new FileSystemWatcher();
+            Watcher = new FileSystemWatcher();            
 
             App.Configuration.WindowSettings.Load(this);
 
@@ -75,6 +89,8 @@ namespace WebSurge
 
             if (!string.IsNullOrEmpty(FileName))
                 OpenFile(FileName);
+            else
+                Requests = new List<HttpRequestData>();
 
             tbtxtThreads.Text = config.LastThreads.ToString();
             tbtxtTimeToRun.Text = config.LastSecondsToRun.ToString();
@@ -166,7 +182,8 @@ namespace WebSurge
             }
             else if (sender == btnClose)
             {
-                Requests = new List<HttpRequestData>();                
+                Requests = new List<HttpRequestData>();
+                FileName = null;
                 RenderRequests(Requests);
                 TabSessions.SelectedTab = tabSession; 
                 
@@ -283,6 +300,7 @@ namespace WebSurge
                 var req = txtRequestUrl.Tag as HttpRequestData;
                 req = SaveRequest(req);
 
+                StressTester.CancelThreads = false;
                 var reqResult = StressTester.CheckSite(req);
 
                 string html = reqResult.ToHtml(true);
@@ -621,7 +639,7 @@ namespace WebSurge
             tbEditFile.Enabled = !string.IsNullOrEmpty(FileName);
             btnEditFile.Enabled = tbEditFile.Enabled;
 
-            tbStart.Enabled = !StressTester.Running && !string.IsNullOrEmpty(FileName);
+            tbStart.Enabled = !StressTester.Running && Requests.Count > 0;
             btnStart.Enabled = tbStart.Enabled;
 
             tbStop.Enabled = StressTester.Running;
@@ -643,7 +661,6 @@ namespace WebSurge
             tbEditRequest2.Enabled = isRequestSelected;
             tbDeleteRequest.Enabled = isRequestSelected;
             tbDeleteRequest2.Enabled = isRequestSelected;
-
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
