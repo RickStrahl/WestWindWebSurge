@@ -344,12 +344,13 @@ namespace WebSurge
         void StartProcessing()
         {
             txtConsole.Text = "";
+            Application.DoEvents();
+
             ListResults.BeginUpdate();
             ListResults.Items.Clear();
             ListResults.EndUpdate();
 
             TabsResult.SelectedTab = tabOutput;
-
             Application.DoEvents();
 
             StressTester.Running = true;
@@ -441,11 +442,13 @@ namespace WebSurge
             {
                 filtered = results.Where(rq => rq.StatusCode != null && rq.StatusCode.StartsWith("2")).Take(1000).ToList();
             }
+            else if (cmbListDisplayMode.SelectedItem == "All")
+                filtered = results.Take(1000).ToList();
 
             if (filtered.Count == 0)
             {
                 cmbListDisplayMode.SelectedItem = "All";
-                filtered = results;
+                filtered = results.Take(1000).ToList();
             }
 
             ListResults.BeginUpdate();

@@ -8,14 +8,16 @@ namespace WebSurge
 {
     public class ResultsParser
     {
-        public string ParseResults(IEnumerable<HttpRequestData> resultData, int totalTime)
+        public string ParseResults(IEnumerable<HttpRequestData> resultData, int totalTime, int threads)
         {
             var results = resultData.ToList();
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Total Requests: " + results.Count);
+            sb.AppendLine("Total Requests: " + results.Count.ToString("n0"));            
+            if (threads > 0)
+                sb.AppendLine("       Threads: " + threads);    
             sb.AppendLine("        Failed: " +
-                              results.Count(req => string.IsNullOrEmpty(req.StatusCode) || !req.StatusCode.StartsWith("2")));
+                              results.Count(req => string.IsNullOrEmpty(req.StatusCode) || !req.StatusCode.StartsWith("2")).ToString("n0"));
 
             if (totalTime > 0)
             {

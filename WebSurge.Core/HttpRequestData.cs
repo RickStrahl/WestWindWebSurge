@@ -99,7 +99,7 @@ namespace WebSurge
                     continue;
 
                 string header = line.Substring(0, idx);
-                string value = line.Substring(idx + 1);
+                string value = line.Substring(idx + 1).Trim();
 
                 var hd = new HttpRequestHeader
                 {
@@ -149,9 +149,9 @@ namespace WebSurge
             }
 
              if (!string.IsNullOrEmpty(req.RequestContent))
-                 sb.AppendLine("\r\n" + req.RequestContent);
+                 sb.AppendLine("\r\n" + HtmlUtils.HtmlEncode(req.RequestContent));
 
-            return sb.ToString();            
+            return sb.ToString().Trim();            
         }
     
 
@@ -187,10 +187,12 @@ namespace WebSurge
             {
                 sb.AppendLine(header.Name + ": " + header.Value);
             }
-            sb.AppendLine();
 
             if (!string.IsNullOrEmpty(req.RequestContent))
-                sb.AppendLine(req.RequestContent);
+            {
+                sb.AppendLine();
+                sb.AppendLine(HtmlUtils.HtmlEncode(req.RequestContent.Trim()));
+            }
 
             sb.AppendLine("</pre>");
 
@@ -207,11 +209,10 @@ namespace WebSurge
                 if (!string.IsNullOrEmpty(req.StatusCode))
                     sb.AppendLine("HTTP/1.1 " + req.StatusCode + " " + req.StatusDescription);
 
-                sb.AppendLine(req.ResponseHeaders);
-                sb.AppendLine();
+                sb.AppendLine(req.ResponseHeaders);                
 
                 if (req.LastResponse != null)
-                    sb.AppendLine(HtmlUtils.HtmlEncode(req.LastResponse.Trim()));
+                    sb.Append(HtmlUtils.HtmlEncode(req.LastResponse.Trim()));
             }
 
             if (!asDocument)

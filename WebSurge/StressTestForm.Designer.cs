@@ -1132,7 +1132,7 @@
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(52, 22);
-            this.toolStripLabel1.Text = "Threads:";
+            this.toolStripLabel1.Text = "ThreadsUsed:";
             // 
             // tbtxtThreads
             // 

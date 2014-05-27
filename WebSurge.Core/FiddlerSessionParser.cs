@@ -48,7 +48,6 @@ namespace WebSurge
         }
 
 
-
         public HttpRequestData ParseRequest(string requestData)
         {
             var reqHttp = new HttpRequestData();      

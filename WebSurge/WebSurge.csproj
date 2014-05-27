@@ -147,7 +147,6 @@
     <Content Include="1_Full.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="License-LGPL.txt" />
     <Content Include="WebSurge.ico" />
   </ItemGroup>
   <ItemGroup>

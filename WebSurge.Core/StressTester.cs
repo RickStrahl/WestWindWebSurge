@@ -27,6 +27,11 @@ namespace WebSurge
         /// batch processing tasks.
         /// </summary>
         public int TimeTakenForLastRunMs { get; set; }
+
+        /// <summary>
+        /// Last number of threads used
+        /// </summary>
+        public int ThreadsUsed { get; set; }
         
         /// <summary>
         /// Set this property to stop processing requests
@@ -250,9 +255,11 @@ namespace WebSurge
         /// <param name="seconds"></param>
         /// <returns></returns>
         public List<HttpRequestData> CheckAllSites(IEnumerable<HttpRequestData> requests, 
-                                                   int threadCount = 1, 
+                                                   int threadCount = 2, 
                                                    int seconds = 60)
         {
+
+            this.ThreadsUsed = threadCount;
 
             if (UnlockKey.RegType == RegTypes.Free &&
                 (threadCount > UnlockKey.FreeThreadLimit ||
@@ -317,6 +324,8 @@ namespace WebSurge
 
             return Results;   
         }
+
+        
 
         private void CheckSiteThreadRunner(object requests)
         {
@@ -393,7 +402,7 @@ namespace WebSurge
                 totalTime = TimeTakenForLastRunMs/1000;
 
             var parser = new ResultsParser();
-            return parser.ParseResults(resultData, totalTime);
+            return parser.ParseResults(resultData, totalTime, ThreadsUsed);
         }
 
    
