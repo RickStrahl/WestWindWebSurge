@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Westwind.Utilities;
+using Timer = System.Threading.Timer;
 
 namespace WebSurge
 {
@@ -65,6 +66,7 @@ namespace WebSurge
             App.Configuration.LastFileName = FileName;
 
             AttachWatcher(fileName);
+            UpdateButtonStatus();
         }
 
 
@@ -174,7 +176,7 @@ namespace WebSurge
                     Title = "Open Fiddler Capture File"
                 };
                 var dr = fd.ShowDialog();
-                if (dr != System.Windows.Forms.DialogResult.Cancel)
+                if (dr != DialogResult.Cancel)
                 {
                     FileName = Path.GetFullPath(fd.FileName);
                     OpenFile(FileName);                    
@@ -295,17 +297,12 @@ namespace WebSurge
 
                 RenderRequests(Requests);
             }
-            if (sender == btnRunRequest)
+            if (sender == btnRunRequest || sender == tbRunRequest)
             {
                 var req = txtRequestUrl.Tag as HttpRequestData;
                 req = SaveRequest(req);
 
-                StressTester.CancelThreads = false;
-                var reqResult = StressTester.CheckSite(req);
-
-                string html = reqResult.ToHtml(true);
-                HtmlPreview(html);
-                TabsResult.SelectedTab = tabPreview;
+                TestSiteUrl(req);
             }
 
         
@@ -334,7 +331,7 @@ namespace WebSurge
                 };
 
                 var result = sd.ShowDialog();
-                if (result == System.Windows.Forms.DialogResult.OK)
+                if (result == DialogResult.OK)
                 {
                     FileName = sd.FileName;
                     parser.Save(Requests, sd.FileName);
@@ -345,6 +342,20 @@ namespace WebSurge
                 Close();
 
             UpdateButtonStatus();
+        }
+
+        private void TestSiteUrl(HttpRequestData req)
+        {
+            Cursor = Cursors.WaitCursor;
+
+            StressTester.CancelThreads = false;
+            var reqResult = StressTester.CheckSite(req);
+
+            string html = reqResult.ToHtml(true);
+            HtmlPreview(html);
+            TabsResult.SelectedTab = tabPreview;
+
+            Cursor = Cursors.Default;
         }
 
 
@@ -620,8 +631,6 @@ namespace WebSurge
             request.RequestContent = txtRequestContent.Text;
             request.ParseHttpHeaders(txtRequestHeaders.Text);
 
-
-
             return request;
         }
 
@@ -641,6 +650,7 @@ namespace WebSurge
 
             tbStart.Enabled = !StressTester.Running && Requests.Count > 0;
             btnStart.Enabled = tbStart.Enabled;
+            
 
             tbStop.Enabled = StressTester.Running;
             btnStop.Enabled = tbStop.Enabled;
@@ -656,11 +666,14 @@ namespace WebSurge
             tbTimeTakenPerUrl.Enabled = isResultSelected;
             tbTimeTakenPerUrlChart.Enabled = isResultSelected;
 
+            tbSaveAllRequests.Enabled = Requests.Count > 0;
+            tbSaveAllRequests2.Enabled = tbSaveAllRequests.Enabled;
+
             var isRequestSelected = ListRequests.SelectedItems.Count > 0;
             tbEditRequest.Enabled = isRequestSelected;
             tbEditRequest2.Enabled = isRequestSelected;
             tbDeleteRequest.Enabled = isRequestSelected;
-            tbDeleteRequest2.Enabled = isRequestSelected;
+            tbDeleteRequest2.Enabled = isRequestSelected;            
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -729,7 +742,7 @@ namespace WebSurge
                 };
                 var res = diag.ShowDialog();
 
-                if (res == System.Windows.Forms.DialogResult.OK)
+                if (res == DialogResult.OK)
                 {
                     if (File.Exists(diag.FileName))
                         File.Delete(diag.FileName);
@@ -753,7 +766,7 @@ namespace WebSurge
                 };
                 var res = diag.ShowDialog();
 
-                if (res == System.Windows.Forms.DialogResult.OK)
+                if (res == DialogResult.OK)
                 {
                     if (File.Exists(diag.FileName))
                         File.Delete(diag.FileName);
@@ -780,7 +793,7 @@ namespace WebSurge
                     FileName = "KuhelaResults.html"
                 };
                 var res = diag.ShowDialog();
-                if (res == System.Windows.Forms.DialogResult.OK)
+                if (res == DialogResult.OK)
                 {
                     if (File.Exists(diag.FileName))
                         File.Delete(diag.FileName);
@@ -831,7 +844,7 @@ namespace WebSurge
         {
             if (Splash != null)
             {
-                new System.Threading.Timer(p => Splash.Invoke(new Action(() =>
+                new Timer(p => Splash.Invoke(new Action(() =>
                 {
                     if (Splash != null)
                         Splash.Close();
@@ -902,7 +915,7 @@ namespace WebSurge
                     (snd, args) =>
                     {
                         var bt = snd as ToolStripMenuItem;
-                        OpenFile(bt.Text);
+                        OpenFile(bt.Text);                        
                     };
 
                 RecentFilesContextMenu.Items.Add(btn);

@@ -230,6 +230,11 @@ namespace WebSurge
             Width = form.Width;
             Height = form.Height;
 
+            if (Top < 0)
+                Top = 0;
+            if (Left < 0)
+                Left = 0;
+
             try
             {
                 Split = form.BottomSplitContainer.SplitterDistance;

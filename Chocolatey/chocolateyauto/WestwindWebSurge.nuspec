@@ -3,18 +3,16 @@
   <metadata>
     <id>WestwindWebSurge</id>
     <title>West Wind WebSurge</title>
-    <version>0.45</version>
+    <version>0.50</version>
     <authors>Rick Strahl, West Wind Technologies</authors>
     <owners>West Wind Technologies</owners>
     <summary>Quick and Easy Load Testing for your Web Applications</summary>
     <description>	
 	West Wind WebSurge is a quick and easy Web load testing tool that makes short work of capturing or entering a series of Web requests and playing them back under load. The goal is to make the process easy with minimal setup so you can quickly and frequently test a site for load characteristics.
 	
-	Use our built-in capture tool to capture and filter content from Web Browsers or Windows
-	applications, use Telerik's Fiddler or manually create sessions using plain text HTTP headers in a text file. All HTTP request data is stored as plain HTTP headers, so it's easy to create, edit or generate test sessions.
+	Use our built-in capture tool to capture and filter content from Web Browsers or Windows applications, use Telerik's Fiddler or manually create sessions using plain text HTTP headers in a text file. All HTTP request data is stored as plain HTTP headers, so it's easy to create, edit or generate test sessions.
 	
-	Capture HTML requests, AJAX, REST and SOAP services. Capture and provide POST data, custom headers - anything HTTP supports you can use in your session. Once captured play back the session under load
-	by running for a specified time and number of simultaneous sessions. See summarized results, a few simple  graphs and examine individual requests and failures.
+	Capture HTML requests, AJAX, REST and SOAP services. Capture and provide POST data, custom headers - anything HTTP supports you can use in your session. Once captured play back the session under load by running for a specified time and number of simultaneous sessions. See summarized results, a few simple  graphs and examine individual requests and failures.
 	</description>
     <projectUrl>http://west-wind.com/websurge</projectUrl>
     <tags>load-testing,stress-testing,web,capture,test</tags>

@@ -169,8 +169,10 @@ namespace WebSurge
 
             if (!string.IsNullOrEmpty(req.ErrorMessage))
             {
-                sb.AppendLine(@"<label>Error Message</label>");
-                sb.AppendLine(req.ErrorMessage);
+                sb.AppendLine("<div class='error-display'>");
+                sb.AppendLine(@"<div class='error-header'>Error Message</div>");
+                sb.AppendLine(@"<div>" + req.ErrorMessage + "</div>");
+                sb.AppendLine("</div>");
             }
 
             html = @"
@@ -206,8 +208,12 @@ namespace WebSurge
 
                 sb.AppendLine(html);
 
+
+                string cssClass = req.StatusCode.CompareTo("399") >0  ? "error-response" : "success-response";
+
+
                 if (!string.IsNullOrEmpty(req.StatusCode))
-                    sb.AppendLine("HTTP/1.1 " + req.StatusCode + " " + req.StatusDescription);
+                    sb.AppendFormat("<div class='{0}'>HTTP/1.1 {1} {2}</div>",cssClass,req.StatusCode,req.StatusDescription);
 
                 sb.AppendLine(req.ResponseHeaders);                
 

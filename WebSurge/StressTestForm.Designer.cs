@@ -43,7 +43,9 @@
             this.tbEditRequest2 = new System.Windows.Forms.ToolStripButton();
             this.tbDeleteRequest2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbCapture = new System.Windows.Forms.ToolStripButton();
             this.tbSaveAllRequests2 = new System.Windows.Forms.ToolStripButton();
+            this.tbEditFile = new System.Windows.Forms.ToolStripButton();
             this.ListRequests = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -89,7 +91,6 @@
             this.btnOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRecentSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.RecentFilesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.btnEditFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -114,8 +115,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
-            this.tbEditFile = new System.Windows.Forms.ToolStripButton();
-            this.tbCapture = new System.Windows.Forms.ToolStripButton();
+            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
@@ -136,6 +136,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tbRunRequest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -278,7 +279,9 @@
             this.tbEditRequest2,
             this.tbDeleteRequest2,
             this.toolStripSeparator11,
-            this.tbSaveAllRequests2});
+            this.tbCapture,
+            this.tbSaveAllRequests2,
+            this.tbEditFile});
             this.SessionToolStrip.Location = new System.Drawing.Point(0, 0);
             this.SessionToolStrip.Name = "SessionToolStrip";
             this.SessionToolStrip.Size = new System.Drawing.Size(421, 25);
@@ -319,15 +322,33 @@
             this.toolStripSeparator11.Name = "toolStripSeparator11";
             this.toolStripSeparator11.Size = new System.Drawing.Size(6, 25);
             // 
+            // tbCapture
+            // 
+            this.tbCapture.Image = ((System.Drawing.Image)(resources.GetObject("tbCapture.Image")));
+            this.tbCapture.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbCapture.Name = "tbCapture";
+            this.tbCapture.Size = new System.Drawing.Size(69, 22);
+            this.tbCapture.Text = "Capture";
+            this.tbCapture.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
             // tbSaveAllRequests2
             // 
             this.tbSaveAllRequests2.Image = ((System.Drawing.Image)(resources.GetObject("tbSaveAllRequests2.Image")));
             this.tbSaveAllRequests2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbSaveAllRequests2.Name = "tbSaveAllRequests2";
-            this.tbSaveAllRequests2.Size = new System.Drawing.Size(93, 22);
-            this.tbSaveAllRequests2.Text = "Save Session";
+            this.tbSaveAllRequests2.Size = new System.Drawing.Size(51, 22);
+            this.tbSaveAllRequests2.Text = "Save";
             this.tbSaveAllRequests2.ToolTipText = "Save session to disk";
             this.tbSaveAllRequests2.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // tbEditFile
+            // 
+            this.tbEditFile.Image = ((System.Drawing.Image)(resources.GetObject("tbEditFile.Image")));
+            this.tbEditFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbEditFile.Name = "tbEditFile";
+            this.tbEditFile.Size = new System.Drawing.Size(47, 22);
+            this.tbEditFile.Text = "Edit";
+            this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // ListRequests
             // 
@@ -345,7 +366,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(422, 526);
+            this.ListRequests.Size = new System.Drawing.Size(422, 527);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -370,11 +391,12 @@
             this.tbAddRequest,
             this.toolStripSeparator8,
             this.tbEditRequest,
+            this.tbRunRequest,
             this.tbDeleteRequest,
             this.toolStripSeparator6,
             this.tbSaveAllRequests});
             this.RequestContextMenu.Name = "RequestContextMenu";
-            this.RequestContextMenu.Size = new System.Drawing.Size(153, 104);
+            this.RequestContextMenu.Size = new System.Drawing.Size(153, 126);
             this.RequestContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
             // tbAddRequest
@@ -788,19 +810,9 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
-            this.RecentFilesContextMenu.OwnerItem = this.btnRecentSessions;
+            this.RecentFilesContextMenu.OwnerItem = this.tbOpen;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
-            // 
-            // tbOpen
-            // 
-            this.tbOpen.DropDown = this.RecentFilesContextMenu;
-            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
-            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(110, 22);
-            this.tbOpen.Text = "Open Session";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnEditFile
             // 
@@ -975,8 +987,6 @@
             this.MainToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbOpen,
-            this.tbEditFile,
-            this.tbCapture,
             this.toolStripSeparator1,
             this.tbStart,
             this.tbStop,
@@ -986,26 +996,18 @@
             this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainToolStrip.Location = new System.Drawing.Point(3, 24);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(579, 25);
+            this.MainToolStrip.Size = new System.Drawing.Size(421, 25);
             this.MainToolStrip.TabIndex = 0;
             // 
-            // tbEditFile
+            // tbOpen
             // 
-            this.tbEditFile.Image = ((System.Drawing.Image)(resources.GetObject("tbEditFile.Image")));
-            this.tbEditFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbEditFile.Name = "tbEditFile";
-            this.tbEditFile.Size = new System.Drawing.Size(89, 22);
-            this.tbEditFile.Text = "Edit Session";
-            this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler_Click);
-            // 
-            // tbCapture
-            // 
-            this.tbCapture.Image = ((System.Drawing.Image)(resources.GetObject("tbCapture.Image")));
-            this.tbCapture.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbCapture.Name = "tbCapture";
-            this.tbCapture.Size = new System.Drawing.Size(69, 22);
-            this.tbCapture.Text = "Capture";
-            this.tbCapture.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbOpen.DropDown = this.RecentFilesContextMenu;
+            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
+            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(110, 22);
+            this.tbOpen.Text = "Open Session";
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // toolStripSeparator1
             // 
@@ -1157,6 +1159,12 @@
             this.tbNoProgressEvents.Text = "No Console";
             this.tbNoProgressEvents.ToolTipText = "Don\'t show progress info - faster, can create more requests.";
             this.tbNoProgressEvents.CheckedChanged += new System.EventHandler(this.tbNoProgressEvents_CheckedChanged);
+            // 
+            // tbRunRequest
+            // 
+            this.tbRunRequest.Name = "tbRunRequest";
+            this.tbRunRequest.Size = new System.Drawing.Size(152, 22);
+            this.tbRunRequest.Text = "Test Request";
             // 
             // StressTestForm
             // 
@@ -1323,6 +1331,7 @@
         private System.Windows.Forms.ToolStripButton tbEditFile;
         private System.Windows.Forms.ToolStripSplitButton tbOpen;
         private System.Windows.Forms.Button btnRunRequest;
+        private System.Windows.Forms.ToolStripMenuItem tbRunRequest;
     }
 }
 
