@@ -77,8 +77,8 @@ namespace WebSurge
 
 
             pane.LineType = LineType.Normal;
-            pane.XAxis.Title.Text = "Second of Test";
-            pane.YAxis.Title.Text = "request/second";
+            pane.XAxis.Title.Text = "second of test";
+            pane.YAxis.Title.Text = "requests / second";
             pane.Chart.Fill = new Fill(Color.LightYellow, Color.PaleGoldenrod, 45.0F);
             Chart.IsShowPointValues = true;
             Chart.GraphPane.LineType = LineType.Normal;

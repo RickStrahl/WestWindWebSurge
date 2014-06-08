@@ -25,9 +25,14 @@ namespace WebSurge.Cli
 
         [Option('r', "randomize", HelpText = "Randomize requests in the Session file.")]
         public bool RandomizeRequests { get; set; }
+        [Option('w', "warmup", HelpText="Number of seconds used for warmup")]
+        public int WarmupSeconds { get; set; }
 
-        [Option('y', "silent", HelpText = "Silent operation - output only results.")]
-        public bool Silent { get; set; }
+        /// <summary>
+        /// -1 not silent. 0 means silent, 1 means no detail 2 means no summary
+        /// </summary>
+        [Option('y', "silent", HelpText = "Silent operation - output only results. use y surpresses all, y1 surpresses detail only, y2 surpresses summary only",DefaultValue = 1)]
+        public int Silent { get; set; }
 
 
         [HelpOption]
@@ -39,7 +44,7 @@ namespace WebSurge.Cli
             sb.AppendLine("West Wind WebSurge v" + Program.GetVersion());            
 
             string options = @"------------------------
-usage:   WebSurgeCli <SessionFile|Url> -sXX -tXX -dXX -r -y
+usage:   WebSurgeCli <SessionFile|Url> -sXX -tXX -dXX -r -yX
 
 Parameters:
 -----------
@@ -55,11 +60,13 @@ Value Options:
 -s          Number of seconds to run the test (10)
 -t          Number of simultaneous threads to run (2)
 -d          Per request delay (0)
+-y          Display mode for progress (1)
+            0 - No progress, 1 - no request detail, 
+            2 - no progress summary, 3 - show all
 
 Switches:
 ---------
 -r          Randomize order of requests in Session file
--y          Silent operation - output only results
 
 Examples:
 ---------
@@ -74,6 +81,7 @@ WebSurgeCli http://localhost/testpage/  -s20 -t10
 
         public CommandLineOptions()
         {
+            Silent = 1;
             Time = 10;
             Threads = 2;
         }

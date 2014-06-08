@@ -16,6 +16,7 @@ namespace WebSurge.Cli
     {
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             var options = new CommandLineOptions();
 
             if (!CommandLine.Parser.Default.ParseArguments(args, options))
@@ -27,7 +28,7 @@ namespace WebSurge.Cli
                 (options.SessionFile.StartsWith("http://") || options.SessionFile.StartsWith("https://")))
             {
                 options.Url = options.SessionFile;
-                options.SessionFile = null;
+                options.SessionFile = null;                
             }
             
             
@@ -61,22 +62,31 @@ namespace WebSurge.Cli
 
             stressTester.Options.DelayTimeMs = options.DelayTimeMs;
             stressTester.Options.RandomizeRequests = options.RandomizeRequests;
+            stressTester.Options.WarmupSeconds = options.WarmupSeconds;
+            
 
-            if (!options.Silent)
-            {
+            if (options.Silent != 0 && options.Silent != 1)
+                stressTester.RequestProcessed += stressTester_RequestProcessed;
+
+            if (options.Silent != 0  && options.Silent != 2)            
                 stressTester.Progress += stressTester_Progress;
-                //stressTester.RequestProcessed += stressTester_RequestProcessed;
-            }
 
+            
+           
+
+            Console.ForegroundColor = ConsoleColor.Green;
             var results = stressTester.CheckAllSites(requests,threads,time);
+            Console.ForegroundColor = ConsoleColor.White;
 
             string resultText = stressTester.ParseResults(results);
 
-            if (!options.Silent)
+            if (options.Silent != 0)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine();
                 Console.WriteLine("Summary:");
                 Console.WriteLine("--------");
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
             if (options.SessionFile != null)
@@ -89,24 +99,46 @@ namespace WebSurge.Cli
             Console.WriteLine(resultText);            
         }
 
+        private static object consoleLock = new object();
         static void stressTester_RequestProcessed(HttpRequestData req )
         {
             string output = req.StatusCode + " -  " + req.HttpVerb + " " + req.Url + "(" + req.TimeTakenMs.ToString("n0") + "ms)";
-            Console.WriteLine(output);
+            lock (consoleLock)
+            {
+                if (req.IsError)
+                    Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(output);
+                if (req.IsError)
+                    Console.ForegroundColor = ConsoleColor.Green;
+            }
         }
 
+        private static object consoleLock2 = new object();
+        private static int lastFailed = 0;
         static void stressTester_Progress(ProgressInfo progress)
         {            
             if (progress.SecondsProcessed < 1)
                 return;
 
+            
             string text = progress.RequestsProcessed.ToString("n0") +
                           " requests, " + progress.RequestsFailed.ToString("n0") + " failed | " +
                           progress.SecondsProcessed + " of " +
                           progress.TotalSecondsToProcessed + " secs " +            
                             "| " + progress.RequestsProcessed / progress.SecondsProcessed + " request/sec ";
+            lock (consoleLock2)
+            {
+                if (progress.RequestsFailed > lastFailed)
+                    Console.ForegroundColor = ConsoleColor.Red;
 
-            Console.WriteLine(text);           
+                Console.WriteLine(text);
+
+                if (progress.RequestsFailed > lastFailed)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    lastFailed = progress.RequestsFailed;
+                }
+            }
         }
 
         static void WriteError(string message)
