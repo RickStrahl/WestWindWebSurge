@@ -70,13 +70,16 @@ namespace WebSurge
         /// </summary>
         private int RequestsFailed;
 
-
         /// <summary>
         /// Results list Insert Lock
         /// </summary>
         static readonly object InsertLock = new object();
         
 
+        /// <summary>
+        /// Event fired after each request that provides the
+        /// current request.
+        /// </summary>
         public event Action<HttpRequestData> RequestProcessed;
         public void OnRequestProcessed(HttpRequestData request)
         {
@@ -84,6 +87,11 @@ namespace WebSurge
                 RequestProcessed(request);
         }
 
+        /// <summary>
+        /// Event fired in intervals to provides progress information
+        /// on the test. Provides a progress structure with fields
+        /// with summary request data.
+        /// </summary>
         public event Action<ProgressInfo> Progress;
         public void OnProgress(ProgressInfo progressInfo)
         {
@@ -100,15 +108,21 @@ namespace WebSurge
             StartTime = new DateTime(1900, 1,1);
             
             Results = new List<HttpRequestData>();
-
         }
 
-        public  HttpRequestData CheckSite(HttpRequestData reqData)
+        /// <summary>
+        /// Checks an individual site and returns a new HttpRequestData object
+        /// </summary>
+        /// <param name="reqData"></param>
+        /// <returns></returns>
+        public HttpRequestData CheckSite(HttpRequestData reqData)
         {
             // create a new instance
             var result = HttpRequestData.Copy(reqData);
 
             result.ErrorMessage = "Request is incomplete"; // assume not going to make it
+
+            result.IsWarmupRequest =  StartTime.AddSeconds(Options.WarmupSeconds) > DateTime.UtcNow;
 
             try
             {
@@ -122,7 +136,8 @@ namespace WebSurge
                 
                 client.CreateWebRequestObject(result.Url);
                 var webRequest = client.WebRequest;
-                client.WebRequest.Method = reqData.HttpVerb;
+
+                webRequest.Method = reqData.HttpVerb;
                 client.UseGZip = true;                
 
                 client.ContentType = reqData.ContentType;
@@ -137,7 +152,8 @@ namespace WebSurge
                 {
                     var lheader = header.Name.ToLower();
 
-                    // Header Overrides
+                    // Header Overrides that fail if you try to set them
+                    // directly in HTTP
                     if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
                     {
                         string cookie = Options.ReplaceCookieValue;
@@ -168,7 +184,7 @@ namespace WebSurge
                         continue;
                     }
                     if (lheader == "if-modified-since")                        
-                        continue;
+                        continue;                    
 
                     webRequest.Headers.Add(header.Name, header.Value);
                 }
@@ -178,13 +194,17 @@ namespace WebSurge
 
                 string http = client.GetUrl(reqData.Url);
                 
-                result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
-
+                result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;                
+                
                 if (client.Error || client.WebResponse == null)
                 {
                     result.ErrorMessage = client.ErrorMessage;
                     return result;
                 }
+
+                //// don't notify
+                //if (result.IsWarmupRequest)
+                //    return result;
 
                 var webResponse = client.WebResponse;
 
@@ -228,6 +248,8 @@ namespace WebSurge
 
                 return result;
             }
+            // these will occur on shutdown - don't log since they will return
+            // unstable results - just ignore
             catch (ThreadAbortException ex)
             {
                 return null;
@@ -278,7 +300,9 @@ namespace WebSurge
             CancelThreads = false;
             RequestsProcessed = 0;
             RequestsFailed = 0;
-            
+
+            // add warmup seconds to the request
+            seconds += Options.WarmupSeconds;
             
             for (int i = 0; i < threadCount; i++)
             {
@@ -289,7 +313,7 @@ namespace WebSurge
 
             StartTime = DateTime.UtcNow;
 
-            var lastProgress = DateTime.UtcNow.AddSeconds(-10);
+            var lastProgress = DateTime.UtcNow.AddSeconds(-10);            
             while (!CancelThreads)
             {
                 if (DateTime.UtcNow.Subtract(StartTime).TotalSeconds  > seconds + 1)
@@ -307,20 +331,46 @@ namespace WebSurge
                 }
                 Thread.Sleep(100);
 
-                if (DateTime.UtcNow.Subtract(lastProgress).TotalMilliseconds > 900)
+                if (DateTime.UtcNow.Subtract(lastProgress).TotalMilliseconds > 950)
                 {
                     lastProgress = DateTime.UtcNow;
+                    
                     OnProgress(new ProgressInfo() 
                     {
                          SecondsProcessed = (int) DateTime.UtcNow.Subtract(StartTime).TotalSeconds,
                          TotalSecondsToProcessed = seconds,
                          RequestsProcessed = RequestsProcessed,
-                         RequestsFailed = RequestsFailed
+                         RequestsFailed = RequestsFailed,                         
                     });
+                    
                 }
             }
 
             Running = false;
+
+            seconds = seconds - Options.WarmupSeconds;
+
+            // strip off WarmupSeconds
+            var results = Results.Where(res => !res.IsWarmupRequest);
+
+            var result = results.FirstOrDefault();
+            var min =  StartTime;
+            if (result != null)
+            {
+                min = result.Timestamp;                
+                min = TimeUtils.Truncate(min, DateTimeResolution.Second);
+            }
+            var max = min.AddSeconds(seconds + 1).AddMilliseconds(-1);
+
+            Results = results.Where(res => res.Timestamp > min && res.Timestamp < max).ToList();
+
+            if (Results.Count > 0)
+            {
+                max = Results.Max(res => res.Timestamp);
+                TimeTakenForLastRunMs = (int) TimeUtils.Truncate(max).Subtract(min).TotalMilliseconds;
+            }
+            else
+                TimeTakenForLastRunMs = (int) TimeUtils.Truncate(DateTime.UtcNow).Subtract(min).TotalMilliseconds;
 
             return Results;   
         }
@@ -462,7 +512,7 @@ namespace WebSurge
         public int SecondsProcessed { get; set; }
         public int TotalSecondsToProcessed { get; set; }
         public int RequestsProcessed { get; set; }
-        public int RequestsFailed { get; set; }
+        public int RequestsFailed { get; set; }        
     }
 }
 

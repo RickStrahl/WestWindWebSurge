@@ -164,7 +164,7 @@ namespace WebSurge
                 };
                 var res = diag.ShowDialog();
 
-                if (res == System.Windows.Forms.DialogResult.OK)
+                if (res == DialogResult.OK)
                 {
                     if (File.Exists(diag.FileName))
                         File.Delete(diag.FileName);

@@ -55,11 +55,18 @@ public class RequestProcessingOptions
     [Description("Allows you to replace the domain and port number and optional base path of URL to handle running in different environments without changing the original captured URL. Strips url from :// to first / (or end of string) and replaces with your string. Lets you switch between multiple machines like dev, staging and live.")]
     public string ReplaceDomain { get; set; }
 
+
+    /// <summary>
+    /// Seconds to run requests before logging actual requests. Use to warm up the Web server.
+    /// </summary>
+    [Description("Seconds to run requests before logging actual requests. Use to warm up the Web server.")]
+    public int WarmupSeconds { get; set;  }
+
+
     public RequestProcessingOptions()
     {
         RequestTimeoutMs = 20000;
         MaxResponseSize = 2000;
-        DelayTimeMs = 0;
-        
+        DelayTimeMs = 0;        
     }
 }

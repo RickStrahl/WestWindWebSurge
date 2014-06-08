@@ -15,6 +15,14 @@ namespace WebSurge
         public const string STR_Separator = "\r\n------------------------------------------------------------------\r\n";
 
 
+        /// <summary>
+        /// This method parses a Fiddler Session file that's in basic HTTP header
+        /// format. To see what this format looks like create a session in the
+        /// UI then Save it to disk. The persistence format is plain text and
+        /// using the simple to understand, natural HTTP header format.
+        /// </summary>
+        /// <param name="fiddlerSessionFile"></param>
+        /// <returns></returns>
         public List<HttpRequestData> Parse(string fiddlerSessionFile = null)
         {
             if (fiddlerSessionFile == null)
@@ -48,6 +56,13 @@ namespace WebSurge
         }
 
 
+        /// <summary>
+        /// Parses an individual requests in HTTP header format.
+        /// Expects the URL to be part of the first HTTP header line:
+        /// 
+        /// </summary>
+        /// <param name="requestData"></param>
+        /// <returns></returns>
         public HttpRequestData ParseRequest(string requestData)
         {
             var reqHttp = new HttpRequestData();      

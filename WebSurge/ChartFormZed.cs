@@ -16,24 +16,49 @@ namespace WebSurge
         private string Url;
         private IEnumerable<HttpRequestData> Results;
         private ChartTypes ChartType;
+        public Form ParentForm;
 
-        public ChartFormZed(IEnumerable<HttpRequestData> data, string url = null, ChartTypes chartType = ChartTypes.TimeTakenPerRequest)
+        public ChartFormZed(IEnumerable<HttpRequestData> data, string url = null, ChartTypes chartType = ChartTypes.TimeTakenPerRequest, Form parentForm = null)
         {
             InitializeComponent();
 
             Url = url;
             Results = data;
             ChartType = chartType;
+            ParentForm = null;
 
             Text = "WebSurge - Request Times Taken";
         }
 
-        private void RequestTimeTakenChart_Load(object sender, EventArgs e)
+        bool _isFirstPaint = true;
+        protected override void OnPaint(PaintEventArgs e)
         {            
+            if (!_isFirstPaint)
+                return;
+
+            _isFirstPaint = false;
+            RenderChart();
+        }
+
+        private void RequestTimeTakenChart_Load(object sender, EventArgs e)
+        {
+            // moved to OnPaint() for better perceived performance
+        }
+
+        private void RenderChart()
+        {
+            if (ParentForm != null)
+                ParentForm.Cursor = Cursors.WaitCursor;
+
+            Cursor = Cursors.WaitCursor;
+
             if (ChartType == ChartTypes.TimeTakenPerRequest)
                 RenderTimeTaken();
             else if (ChartType == ChartTypes.RequestsPerSecond)
                 RenderRequestsPerSecond();
+
+            if (ParentForm != null)
+                ParentForm.Cursor = Cursors.Default;
         }
 
         private void RenderRequestsPerSecond()
@@ -67,10 +92,15 @@ namespace WebSurge
 
             var curve = pane.AddCurve("",series,Color.Green);
             
-            curve.Line.Width = 2.0F;
+            curve.Line.Width = 4.0F;
             curve.Line.IsAntiAlias = true;
+            curve.Line.Fill = new Fill(Color.White, Color.Green, 45F);
             curve.Symbol.Fill = new Fill(Color.LightYellow);
             curve.Symbol.Size = 4;
+
+            // activate the cardinal spline smoothing
+            curve.Line.IsSmooth = true;
+            curve.Line.SmoothTension = 0.5F;
 
             // Force refresh of chart
             pane.AxisChange();

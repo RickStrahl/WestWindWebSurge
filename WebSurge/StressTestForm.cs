@@ -126,9 +126,15 @@ namespace WebSurge
                           progress.TotalSecondsToProcessed + " secs ";
             if (progress.SecondsProcessed > 0)
                 text += "| " + progress.RequestsProcessed / progress.SecondsProcessed + " request/sec ";
+            
+            if (progress.RequestsFailed > 0)
+                txtProcessingTime.ForeColor = Color.Red;
+            else
+                txtProcessingTime.ForeColor = Color.DarkGreen;
 
             ShowStatus(text, 3);
         }
+
 
 
         private static object ConsoleLog = new object();
@@ -141,7 +147,7 @@ namespace WebSurge
             lock (ConsoleLog)
             {
                 statusOutput.AppendLine(output);
-                if (lastUpdate.AddMilliseconds(300) < DateTime.UtcNow)
+                if (lastUpdate.AddMilliseconds(250) < DateTime.UtcNow)
                 {
                     lastUpdate = DateTime.UtcNow;
                     Invoke(new Action<string>(ShowRequestProcessed), statusOutput.ToString());
@@ -152,6 +158,8 @@ namespace WebSurge
         void ShowRequestProcessed(string output)
         {
             txtConsole.AppendText(output);
+
+            // truncate output
             if (txtConsole.Text.Length > 50000)
             {
                 var txt = txtConsole.Text.Substring(5000);
@@ -240,6 +248,7 @@ namespace WebSurge
                     var listItem = ListResults.SelectedItems[0];
                     var request = listItem.Tag as HttpRequestData;
                     var form = new ChartFormZed(StressTester.Results, request.Url, ChartTypes.TimeTakenPerRequest);
+                    form.ParentForm = this;
                     form.Show();
                 }
             }
@@ -248,6 +257,7 @@ namespace WebSurge
                 if (StressTester.Results.Count() > 0)
                 {
                     var form = new ChartFormZed(StressTester.Results, null, ChartTypes.RequestsPerSecond);
+                    form.ParentForm = this;
                     form.Show();
                 }
             }
@@ -430,7 +440,11 @@ namespace WebSurge
 
             ShowStatus("Done.");
 
-            Invoke(new Action(UpdateButtonStatus));
+            try
+            {
+                Invoke(new Action(UpdateButtonStatus));
+            }
+            catch { }           
         }
 
         private void ParseResults(List<HttpRequestData> results)
@@ -548,6 +562,11 @@ namespace WebSurge
 
         private void StressTestForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (StressTester != null)
+            {                
+                StressTester.CancelThreads = true;                
+            }
+
             SaveOptions();
 
         }
@@ -582,14 +601,9 @@ namespace WebSurge
             var config = App.Configuration.StressTester;
             var options = StressTester.Options;
 
-            config.ReplaceCookieValue = options.ReplaceCookieValue;
-            config.ReplaceDomain = options.ReplaceDomain;
-            config.MaxResponseSize = options.MaxResponseSize;
-            config.DelayTimeMs = options.DelayTimeMs;
-            config.RandomizeRequests = options.RandomizeRequests;
-            config.RequestTimeoutMs = options.RequestTimeoutMs;
-            App.Configuration.LastFileName = FileName;
+            DataUtils.CopyObjectData(options, config);
 
+            App.Configuration.LastFileName = FileName;
             App.Configuration.WindowSettings.Save(this);
 
             // Save any changed configuration settings
@@ -601,10 +615,7 @@ namespace WebSurge
             var config = App.Configuration.StressTester;
             var options = StressTester.Options;
 
-            options.ReplaceCookieValue = config.ReplaceCookieValue;
-            options.MaxResponseSize = config.MaxResponseSize;
-            options.DelayTimeMs = config.DelayTimeMs;
-            options.RandomizeRequests = config.RandomizeRequests;
+            DataUtils.CopyObjectData(config, options);
         }
 
         void LoadRequest(HttpRequestData request)

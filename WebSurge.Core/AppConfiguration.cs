@@ -139,8 +139,7 @@ namespace WebSurge
     public class StressTesterConfiguration
     {
       
-        public string ReplaceCookieValue { get; set; }
-        
+        public string ReplaceCookieValue { get; set; }        
         public string ReplaceDomain { get; set; }
         public int MaxResponseSize { get; set; }
         public int LastThreads { get; set; }
@@ -148,13 +147,15 @@ namespace WebSurge
         public int DelayTimeMs { get; set; }
         public bool RandomizeRequests { get; set; }
         public int RequestTimeoutMs { get; set; }
+        public int WarmupSeconds { get; set;  }        
         
 
         public StressTesterConfiguration()
         {
             MaxResponseSize = 5000;
             LastSecondsToRun = 10;
-            LastThreads = 2;            
+            LastThreads = 2;
+            WarmupSeconds = 2;            
         }    
     }
 
