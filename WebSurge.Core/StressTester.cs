@@ -183,6 +183,20 @@ namespace WebSurge
                             webRequest.KeepAlive = false;                        
                         continue;
                     }
+                    if (lheader == "proxy-connection")
+                        continue;  // TODO: Figure out what to do with this one
+                    if (lheader == "transafer-encoding")
+                    {
+                        webRequest.TransferEncoding = header.Value;
+                        continue;
+                    }
+                    if (lheader == "date")                        
+                        continue;
+                    if (lheader == "expect")
+                    {
+                        //webRequest.Expect = header.Value;
+                        continue;
+                    }
                     if (lheader == "if-modified-since")                        
                         continue;                    
 
@@ -192,7 +206,7 @@ namespace WebSurge
 
                 DateTime dt = DateTime.UtcNow;
 
-                string http = client.GetUrl(reqData.Url);
+                string httpOutput = client.GetUrl(reqData.Url);
                 
                 result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;                
                 
@@ -238,8 +252,8 @@ namespace WebSurge
                 result.IsError = false;
                 result.ErrorMessage = null;
 
-                result.LastResponse = http;
-
+                result.LastResponse = httpOutput;
+                
                 if (Options.MaxResponseSize > 0 && result.LastResponse.Length > Options.MaxResponseSize)
                     result.LastResponse = result.LastResponse.Substring(0, Options.MaxResponseSize);
 
@@ -422,6 +436,12 @@ namespace WebSurge
                     {
                         lock (InsertLock)
                         {
+                            // don't log request detail data for non errors
+                            if (!result.IsError && Results.Count > 3000)
+                            {
+                                result.LastResponse = null;                                
+                            }
+
                             Results.Add(result);
                             RequestsProcessed++;
                             if (result.IsError)
@@ -466,7 +486,7 @@ namespace WebSurge
         public List<HttpRequestData> ParseFiddlerSessions(string fileName)
         {
             var parser = new FiddlerSessionParser();
-            var requestDataList = parser.Parse(fileName);
+            var requestDataList = parser.ParseFile(fileName);
             if (requestDataList == null)
             {
                 SetError(parser.ErrorMessage);

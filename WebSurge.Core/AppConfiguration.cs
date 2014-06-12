@@ -155,6 +155,7 @@ namespace WebSurge
             MaxResponseSize = 5000;
             LastSecondsToRun = 10;
             LastThreads = 2;
+            RequestTimeoutMs = 5000;
             WarmupSeconds = 2;            
         }    
     }

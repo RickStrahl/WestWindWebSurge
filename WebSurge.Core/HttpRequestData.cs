@@ -52,14 +52,9 @@ namespace WebSurge
         }
         public static HttpRequestData Copy(HttpRequestData req)
         {
-
             var rnew = req.MemberwiseClone() as HttpRequestData;
             rnew.Timestamp = DateTime.UtcNow;
-            return rnew;
-
-            //var reqData = new HttpRequestData();            
-            //DataUtils.CopyObjectData(req, reqData);
-            //return reqData;
+            return rnew;     
         }
 
         public string ToString()

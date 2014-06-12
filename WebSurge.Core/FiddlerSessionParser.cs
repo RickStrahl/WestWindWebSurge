@@ -23,7 +23,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="fiddlerSessionFile"></param>
         /// <returns></returns>
-        public List<HttpRequestData> Parse(string fiddlerSessionFile = null)
+        public List<HttpRequestData> ParseFile(string fiddlerSessionFile = null)
         {
             if (fiddlerSessionFile == null)
                 fiddlerSessionFile = Path.GetFullPath("1_Full.txt");
@@ -33,13 +33,29 @@ namespace WebSurge
                 SetError("File doesn't exist.");
                 return null;
             }
-
-            var httpRequests = new List<HttpRequestData>();
-
-            string file = File.ReadAllText(fiddlerSessionFile);
-
-            string[] requests = Regex.Split(file, @"\r\n-{5,100}\r\n");
             
+            
+            string fileText = File.ReadAllText(fiddlerSessionFile);
+            if (string.IsNullOrEmpty(fileText))
+            {
+                SetError("Couldn't read Session file data.");
+                return null;
+            }
+            
+            return Parse(fileText);
+        }
+
+        /// <summary>
+        /// Parses a Fiddler Session from a string.
+        /// </summary>
+        /// <param name="sessionString">Http Headers string for multiple requests</param>
+        /// <returns>List of HTTP requests or null on failure</returns>
+        public List<HttpRequestData> Parse(string sessionString)
+        {
+            var httpRequests = new List<HttpRequestData>();            
+
+            string[] requests = Regex.Split(sessionString, @"\r\n-{5,100}\r\n");
+
             //string[] requests = file.Split(new string[1] {STR_Separator},StringSplitOptions.RemoveEmptyEntries);
             foreach (string request in requests)
             {
@@ -54,6 +70,7 @@ namespace WebSurge
 
             return httpRequests;
         }
+        
 
 
         /// <summary>

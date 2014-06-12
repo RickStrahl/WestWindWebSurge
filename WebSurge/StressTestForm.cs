@@ -58,6 +58,8 @@ namespace WebSurge
             else
                 FileName = fileName;
 
+            Requests.Clear();
+
             Requests = StressTester.ParseFiddlerSessions(FileName);
             if (Requests == null)
                 Requests = new List<HttpRequestData>();
@@ -347,7 +349,11 @@ namespace WebSurge
                     parser.Save(Requests, sd.FileName);
                 }
             }
-
+            
+            else if (sender == btnHelp)
+                System.Windows.Forms.Help.ShowHelp(this,"websurge.chm",HelpNavigator.TableOfContents);
+            else if(sender == btnHelpIndex)
+                System.Windows.Forms.Help.ShowHelp(this, "websurge.chm", HelpNavigator.KeywordIndex);
             else if (sender == btnExit)
                 Close();
 
