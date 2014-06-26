@@ -115,6 +115,10 @@
             this.btnGotoRegistration = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRegistration = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFeedback = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnBugReport = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnShowErrorLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.btnGotoWebSite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -371,7 +375,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(423, 531);
+            this.ListRequests.Size = new System.Drawing.Size(423, 535);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -955,6 +959,10 @@
             this.btnGotoRegistration,
             this.btnRegistration,
             this.toolStripSeparator12,
+            this.btnFeedback,
+            this.btnBugReport,
+            this.btnShowErrorLog,
+            this.toolStripSeparator13,
             this.btnGotoWebSite,
             this.toolStripSeparator4,
             this.btnAbout});
@@ -966,57 +974,83 @@
             // 
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.ShortcutKeyDisplayString = "F1";
-            this.btnHelp.Size = new System.Drawing.Size(189, 22);
+            this.btnHelp.Size = new System.Drawing.Size(214, 22);
             this.btnHelp.Text = "Help";
             this.btnHelp.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnHelpIndex
             // 
             this.btnHelpIndex.Name = "btnHelpIndex";
-            this.btnHelpIndex.Size = new System.Drawing.Size(189, 22);
+            this.btnHelpIndex.Size = new System.Drawing.Size(214, 22);
             this.btnHelpIndex.Text = "Index";
             this.btnHelpIndex.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(211, 6);
             // 
             // btnGotoRegistration
             // 
             this.btnGotoRegistration.Name = "btnGotoRegistration";
-            this.btnGotoRegistration.Size = new System.Drawing.Size(189, 22);
+            this.btnGotoRegistration.Size = new System.Drawing.Size(214, 22);
             this.btnGotoRegistration.Text = "Register WebSurge";
             this.btnGotoRegistration.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // btnRegistration
             // 
             this.btnRegistration.Name = "btnRegistration";
-            this.btnRegistration.Size = new System.Drawing.Size(189, 22);
+            this.btnRegistration.Size = new System.Drawing.Size(214, 22);
             this.btnRegistration.Text = "Enter Registration Key";
             this.btnRegistration.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(211, 6);
+            // 
+            // btnFeedback
+            // 
+            this.btnFeedback.Name = "btnFeedback";
+            this.btnFeedback.Size = new System.Drawing.Size(214, 22);
+            this.btnFeedback.Text = "Feedback and Suggestions";
+            this.btnFeedback.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // btnBugReport
+            // 
+            this.btnBugReport.Name = "btnBugReport";
+            this.btnBugReport.Size = new System.Drawing.Size(214, 22);
+            this.btnBugReport.Text = "Report a Bug";
+            this.btnBugReport.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // btnShowErrorLog
+            // 
+            this.btnShowErrorLog.Name = "btnShowErrorLog";
+            this.btnShowErrorLog.Size = new System.Drawing.Size(214, 22);
+            this.btnShowErrorLog.Text = "Show Error Log";
+            this.btnShowErrorLog.Click += new System.EventHandler(this.ButtonHandler_Click);
+            // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(211, 6);
             // 
             // btnGotoWebSite
             // 
             this.btnGotoWebSite.Name = "btnGotoWebSite";
-            this.btnGotoWebSite.Size = new System.Drawing.Size(189, 22);
+            this.btnGotoWebSite.Size = new System.Drawing.Size(214, 22);
             this.btnGotoWebSite.Text = "WebSurge Web Site";
             this.btnGotoWebSite.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(186, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(211, 6);
             // 
             // btnAbout
             // 
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(189, 22);
+            this.btnAbout.Size = new System.Drawing.Size(214, 22);
             this.btnAbout.Text = "&About";
             this.btnAbout.Click += new System.EventHandler(this.ButtonHandler_Click);
             // 
@@ -1146,7 +1180,7 @@
             this.tbNoProgressEvents});
             this.OptionsToolStrip.Location = new System.Drawing.Point(3, 49);
             this.OptionsToolStrip.Name = "OptionsToolStrip";
-            this.OptionsToolStrip.Size = new System.Drawing.Size(273, 25);
+            this.OptionsToolStrip.Size = new System.Drawing.Size(242, 25);
             this.OptionsToolStrip.TabIndex = 2;
             // 
             // toolStripLabel2
@@ -1375,6 +1409,10 @@
         private System.Windows.Forms.ToolStripMenuItem btnHelp;
         private System.Windows.Forms.ToolStripMenuItem btnHelpIndex;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem btnFeedback;
+        private System.Windows.Forms.ToolStripMenuItem btnBugReport;
+        private System.Windows.Forms.ToolStripMenuItem btnShowErrorLog;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
     }
 }
 

@@ -349,7 +349,58 @@ namespace WebSurge
                     parser.Save(Requests, sd.FileName);
                 }
             }
-            
+            else if (sender == btnFeedback)
+            {
+                string msg = 
+@"We really appreciate your feedback, good and bad!
+
+Please use our message board to post any feedback about
+what doesn't work quite the way you'd like it to, or 
+to request functionality that's not there at the moment.
+Comments about what you like or how WebSurge is helping
+you get your job done are also very welcome. 
+
+Your feedback is important and helps us improve WebSurge
+so please don't be shy. 
+
+It takes a only a few seconds to create an account 
+to post a message. We want to hear from you and we
+reply to all messages promptly with frank discussions.
+
+Thank you!";
+
+                var res = MessageBox.Show(msg, App.Configuration.AppName + " Bug Report",MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Information);
+                if (res == DialogResult.OK)
+                    ShellUtils.GoUrl("http://west-wind.com/wwThreads/default.asp?forum=West%20Wind%20WebSurge");
+            }
+            else if (sender == btnBugReport)
+            {
+                string msg =
+@"Please use our message board to post a bug report or
+enhancement request. When describing your issue, please
+provide as much detail as possible, and if possible 
+provide steps to reproduce the behavior, so we can
+replicate and fix the issue as quickly as possible.
+
+You can also look at the error log by using the
+Help Menu | Show Error Log menu option. You can
+copy and paste the relevant section or all of the 
+file into the message. 
+
+It takes a only a few seconds to create an account 
+to post a message. We want to hear from you and we
+reply to all messages promptly with frank discussions.";
+
+                var res =  MessageBox.Show(msg, App.Configuration.AppName + " Feedback", MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Information);
+                if (res == System.Windows.Forms.DialogResult.OK)
+                    ShellUtils.GoUrl("http://west-wind.com/wwThreads/default.asp?forum=West%20Wind%20WebSurge");
+            }
+            else if (sender == btnShowErrorLog)
+            {
+                ShellUtils.GoUrl(App.AppDataPath + "WebSurgeErrors.log");
+            }
             else if (sender == btnHelp)
                 System.Windows.Forms.Help.ShowHelp(this,"websurge.chm",HelpNavigator.TableOfContents);
             else if(sender == btnHelpIndex)
