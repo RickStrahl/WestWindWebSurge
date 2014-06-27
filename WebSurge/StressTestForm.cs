@@ -737,11 +737,16 @@ reply to all messages promptly with frank discussions.";
             tbSaveAllRequests.Enabled = Requests.Count > 0;
             tbSaveAllRequests2.Enabled = tbSaveAllRequests.Enabled;
 
+            tbNoProgressEvents.Checked = StressTester.Options.NoProgressEvents;
+
             var isRequestSelected = ListRequests.SelectedItems.Count > 0;
             tbEditRequest.Enabled = isRequestSelected;
             tbEditRequest2.Enabled = isRequestSelected;
             tbDeleteRequest.Enabled = isRequestSelected;
-            tbDeleteRequest2.Enabled = isRequestSelected;            
+            tbDeleteRequest2.Enabled = isRequestSelected;
+
+            btnShowErrorLog.Enabled = File.Exists(App.AppLogFile) &&
+                                    new FileInfo(App.AppLogFile).Length > 0;
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)

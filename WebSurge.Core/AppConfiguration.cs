@@ -17,6 +17,7 @@ namespace WebSurge
     {
         public static WebSurgeConfiguration Configuration { get; set; }        
         public static string AppDataPath { get; set; }
+        public static string AppLogFile { get; set;  }
 
         static App()
         {
@@ -24,6 +25,7 @@ namespace WebSurge
               "\\West Wind Technologies\\WebSurge\\";
             if (!Directory.Exists(App.AppDataPath))
                 Directory.CreateDirectory(App.AppDataPath);
+            AppLogFile = AppDataPath + "WebSurgeErrors.log";
 
             Configuration = new WebSurgeConfiguration();
             Configuration.Initialize();       
@@ -37,6 +39,8 @@ namespace WebSurge
         /// <param name="ex"></param>
         public static void Log(Exception ex)
         {
+            ex = ex.GetBaseException();
+
             var msg = ex.Message + "\r\n---\r\n" + ex.Source + "\r\n" + ex.StackTrace;
             Log(msg);
         }
@@ -147,7 +151,9 @@ namespace WebSurge
         public int DelayTimeMs { get; set; }
         public bool RandomizeRequests { get; set; }
         public int RequestTimeoutMs { get; set; }
-        public int WarmupSeconds { get; set;  }        
+        public int WarmupSeconds { get; set;  }
+        public bool CaptureMinimalResponseData { get; set; }
+        public bool NoProgressEvents { get; set;  }
         
 
         public StressTesterConfiguration()

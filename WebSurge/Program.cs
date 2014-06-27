@@ -41,10 +41,12 @@ namespace WebSurge
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             var ex = e.Exception;
-
             App.Log(ex);
 
-            var msg = string.Format("Yikes! Something went wrong...\r\n\r\n{0}\r\n\r\nDo you want to continue?",ex.Message);
+            var msg = string.Format("Yikes! Something went wrong...\r\n\r\n{0}\r\n" +
+                "The error has been recorded and written to a log file and you can\r\n" +
+                "review the details or report the error via Help | Show Error Log\r\n\r\n" +
+                "Do you want to continue?",ex.Message);
 
             DialogResult res = MessageBox.Show(msg,App.Configuration.AppName + " Error",
                                                 MessageBoxButtons.YesNo,MessageBoxIcon.Error);

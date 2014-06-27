@@ -2,7 +2,36 @@
 
 public class RequestProcessingOptions
 {
-    
+    /// <summary>
+    /// If true no progress information events are fired
+    /// </summary>
+    [Description("If true no progress events are fired. Slightly speeds up operation but provides no UI progress.")]
+    [Category("Performance")]
+    public bool NoProgressEvents { get; set; }
+
+    /// <summary>
+    /// Optional delay time between requests. 0 means
+    /// no delay.
+    /// </summary>
+    [Description("Delay time added after each request to simulate user 'wait times' before going on.")]
+    [Category("Performance")]
+    public int DelayTimeMs { get; set; }
+
+
+
+    [Description("Use this option if you plan on capturing large numbers of requests - high transaction count or long running requests. This option will capture only the basic request information necesary to calculate results and discard headers and response body.")]
+    [Category("Minimize Memory")]
+    public bool CaptureMinimalResponseData { get; set; }
+
+    /// <summary>
+    /// Max size of the response that's retained.
+    /// Defaults to 2,000 bytes.
+    /// </summary>
+    [Description("The maximum size of the response to capture.")]
+    [Category("Minimize Memory")]
+    public int MaxResponseSize { get; set; }
+
+
     /// <summary>
     /// A cookie value that is replaced instead of the 'real'
     /// cookie header sent in the request.
@@ -11,6 +40,7 @@ public class RequestProcessingOptions
     /// necessary.
     /// </summary>
     [Description("A cookie value that is replaced instead of the captured cookie of the captured trace.\r\n\r\nUse to force custom auth cookies to an existing session that has expired cookies.")]
+    [Category("Header Replacement")]
     public string ReplaceCookieValue { get; set;  }
 
 
@@ -21,6 +51,7 @@ public class RequestProcessingOptions
     /// </summary>
     [Description("Allows you to replace the domain and port number and optional base path of URL to handle running in different environments without changing the original captured URL.\r\n" +
         "For example, say you captured original urls from 'YourLiveDomain.com', but now you want to test on 'YourTestDomain.com' - you can set  this property to 'YourTestDomain.com' and all testing will replace that domain. You can also inject a virtual path so a valid replacement might be 'localhost/myapp' for local testing under a virtual directory.")]
+    [Category("Header Replacement")]
     public string ReplaceDomain { get; set; }
 
     /// <summary>
@@ -29,43 +60,22 @@ public class RequestProcessingOptions
     /// run requests sequentially in the same order
     /// </summary>
     [Description("Determines whether the captured session is played back in random order. If false session is played back in the order captured.")]
+    [Category("Operation")]
     public bool RandomizeRequests { get; set; }
 
-    /// <summary>
-    /// Max size of the response that's retained.
-    /// Defaults to 2,000 bytes.
-    /// </summary>
-    [Description("The maximum size of the response to capture.")]
-    public int MaxResponseSize { get; set; }
-    
     /// <summary>
     /// The request timeout in milliseconds
     /// </summary>
     [Description("Max time a request can take before it's considered failed.")]
-    public int RequestTimeoutMs { get; set;  }
-
-    /// <summary>
-    /// If true no progress information events are fired
-    /// </summary>
-    [Description("If true no progress events are fired. Slightly speeds up operation but provides no UI progress.")]
-    public bool NoProgressEvents { get; set; }
-
-    /// <summary>
-    /// Optional delay time between requests. 0 means
-    /// no delay.
-    /// </summary>
-    [Description("Delay time added after each request to simulate user 'wait times' before going on.")]
-    public int DelayTimeMs { get; set;  }
-    
-    [Description("Use this option if you plan on capturing large numbers of requests - high transaction count or long running requests. This option will capture only the basic request information necesary to calculate results and toss out headers and response body.")]
-    public bool CaptureMinimalResponseData { get; set; }
+    [Category("Operation")]
+    public int RequestTimeoutMs { get; set; }
 
     /// <summary>
     /// Seconds to run requests before logging actual requests. Use to warm up the Web server.
     /// </summary>
     [Description("Seconds to run requests before logging actual requests. Use to warm up the Web server.")]
-    public int WarmupSeconds { get; set;  }
-
+    [Category("Operation")]
+    public int WarmupSeconds { get; set; }
 
     public RequestProcessingOptions()
     {

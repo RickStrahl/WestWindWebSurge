@@ -185,7 +185,7 @@ namespace WebSurge
                     }
                     if (lheader == "proxy-connection")
                         continue;  // TODO: Figure out what to do with this one
-                    if (lheader == "transafer-encoding")
+                    if (lheader == "transfer-encoding")
                     {
                         webRequest.TransferEncoding = header.Value;
                         continue;
@@ -216,10 +216,6 @@ namespace WebSurge
                     return result;
                 }
 
-                //// don't notify
-                //if (result.IsWarmupRequest)
-                //    return result;
-
                 var webResponse = client.WebResponse;
 
                 if (CancelThreads)
@@ -230,20 +226,12 @@ namespace WebSurge
                     
                 result.ResponseLength = result.ResponseLength;
 
-                StringBuilder sb = new StringBuilder();
-                foreach (string key in webResponse.Headers.Keys)
-                {
-                    sb.AppendLine( key + ": " + webResponse.Headers[key]);
-                }
-
-                result.ResponseHeaders = sb.ToString();
-
                 char statusCode = result.StatusCode[0];
-                if (statusCode == '4' || statusCode == '5') 
+                if (statusCode == '4' || statusCode == '5')
                 {
                     result.IsError = true;
                     result.ErrorMessage = webResponse.StatusDescription;
-                    
+
                     if (!CancelThreads)
                         OnRequestProcessed(result);
 
@@ -252,8 +240,18 @@ namespace WebSurge
                 result.IsError = false;
                 result.ErrorMessage = null;
 
+
+                StringBuilder sb = new StringBuilder();
+                foreach (string key in webResponse.Headers.Keys)
+                {
+                    sb.AppendLine(key + ": " + webResponse.Headers[key]);
+                }
+
+                result.ResponseHeaders = sb.ToString();
+
+
                 result.LastResponse = httpOutput;
-                
+
                 if (Options.MaxResponseSize > 0 && result.LastResponse.Length > Options.MaxResponseSize)
                     result.LastResponse = result.LastResponse.Substring(0, Options.MaxResponseSize);
 
@@ -439,7 +437,14 @@ namespace WebSurge
                             // don't log request detail data for non errors
                             if (!result.IsError && Results.Count > 3000)
                             {
-                                result.LastResponse = null;                                
+                                result.LastResponse = null;
+                                if (Options.CaptureMinimalResponseData)
+                                {
+                                    result.Headers = null;
+                                    result.ResponseHeaders = null;
+                                    result.FullRequest = null;
+                                    result.RequestContent = null;
+                                }
                             }
 
                             Results.Add(result);

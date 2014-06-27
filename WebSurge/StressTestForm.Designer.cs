@@ -779,7 +779,7 @@
             this.OptionsPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.OptionsPropertyGrid.Margin = new System.Windows.Forms.Padding(0);
             this.OptionsPropertyGrid.Name = "OptionsPropertyGrid";
-            this.OptionsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
+            this.OptionsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
             this.OptionsPropertyGrid.Size = new System.Drawing.Size(551, 547);
             this.OptionsPropertyGrid.TabIndex = 1;
             this.OptionsPropertyGrid.ToolbarVisible = false;
