@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WebSurge.Core;
 using Westwind.Utilities;
 using Timer = System.Threading.Timer;
 
@@ -322,7 +323,7 @@ namespace WebSurge
             {
                 var parser = new FiddlerSessionParser();
 
-                var path = App.AppDataPath;
+                var path = App.UserDataPath;
                 if (!string.IsNullOrEmpty(FileName))
                     path = Path.GetDirectoryName(FileName);
 
@@ -396,11 +397,13 @@ reply to all messages promptly with frank discussions.";
                     MessageBoxIcon.Information);
                 if (res == System.Windows.Forms.DialogResult.OK)
                     ShellUtils.GoUrl("http://west-wind.com/wwThreads/default.asp?forum=West%20Wind%20WebSurge");
-            }
+            }                
             else if (sender == btnShowErrorLog)
             {
-                ShellUtils.GoUrl(App.AppDataPath + "WebSurgeErrors.log");
+                ShellUtils.GoUrl(App.UserDataPath + "WebSurgeErrors.log");
             }
+            else if (sender == btnCheckForNewVersion)
+                CheckForNewVersion(true);
             else if (sender == btnHelp)
                 System.Windows.Forms.Help.ShowHelp(this,"websurge.chm",HelpNavigator.TableOfContents);
             else if(sender == btnHelpIndex)
@@ -625,7 +628,12 @@ reply to all messages promptly with frank discussions.";
             }
 
             SaveOptions();
+        }
 
+
+        private void StressTestForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CheckForNewVersion(false);
         }
 
         public void ShowStatus(string text = null, int panelId = 1, int timeout = 0)
@@ -745,8 +753,8 @@ reply to all messages promptly with frank discussions.";
             tbDeleteRequest.Enabled = isRequestSelected;
             tbDeleteRequest2.Enabled = isRequestSelected;
 
-            btnShowErrorLog.Enabled = File.Exists(App.AppLogFile) &&
-                                    new FileInfo(App.AppLogFile).Length > 0;
+            btnShowErrorLog.Enabled = File.Exists(App.LogFile) &&
+                                    new FileInfo(App.LogFile).Length > 0;
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -791,7 +799,7 @@ reply to all messages promptly with frank discussions.";
         void HtmlPreview(string html)
         {
 
-            string outputPath = App.AppDataPath + "_preview.html";
+            string outputPath = App.UserDataPath + "_preview.html";
 
             File.WriteAllText(outputPath, html);
             string file = (outputPath).Replace("\\", "/");
@@ -996,6 +1004,34 @@ reply to all messages promptly with frank discussions.";
             }
         }
 
+        public void CheckForNewVersion(bool force = false)
+        {
+            var updater = new ApplicationUpdater(typeof(Program));
+            //updater.LastCheck = DateTime.UtcNow.AddDays(-50);
+            if (updater.NewVersionAvailable(!force))
+            {
+                if (MessageBox.Show(updater.VersionInfo.Detail + "\r\n" +
+                    "Do you want to download and install this version?",
+                    updater.VersionInfo.Title,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    updater.DownloadProgressChanged += updater_DownloadProgressChanged;
+                    ShowStatus("Downloading Update - Version " + updater.VersionInfo.Version);
+                    updater.Download();
+                    updater.ExecuteDownloadedFile();
+                    ShowStatus("Download completed.");
+                    Application.Exit();
+                }
+            }
+            App.Configuration.CheckForUpdates.LastUpdateCheck = DateTime.UtcNow.Date;            
+        }
+
+        void updater_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
+        {
+            ShowStatus("Downloading Update: " + (e.BytesReceived/1000).ToString("n0") + "kb  of  " +
+                            (e.TotalBytesToReceive/1000).ToString("n0") + "kb");
+        }
 
     }
 

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfiguration.cs" />
+    <Compile Include="ApplicationUpdater.cs" />
     <Compile Include="FiddlerSessionParser.cs" />
     <Compile Include="HttpRequestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

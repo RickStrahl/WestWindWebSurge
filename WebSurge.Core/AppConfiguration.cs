@@ -16,16 +16,22 @@ namespace WebSurge
     public class App
     {
         public static WebSurgeConfiguration Configuration { get; set; }        
-        public static string AppDataPath { get; set; }
-        public static string AppLogFile { get; set;  }
+        
+        public static string UserDataPath { get; set; }
+        public static string LogFile { get; set;  }
+        public static string VersionCheckUrl { get; set; }
+        public static string InstallerDownloadUrl { get; set; }        
 
         static App()
         {
-            AppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+            UserDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
               "\\West Wind Technologies\\WebSurge\\";
-            if (!Directory.Exists(App.AppDataPath))
-                Directory.CreateDirectory(App.AppDataPath);
-            AppLogFile = AppDataPath + "WebSurgeErrors.log";
+            if (!Directory.Exists(App.UserDataPath))
+                Directory.CreateDirectory(App.UserDataPath);
+            
+            LogFile = UserDataPath + "WebSurgeErrors.log";
+            VersionCheckUrl = "http://west-wind.com/files/WebSurge_Version.xml";
+            InstallerDownloadUrl = "http://west-wind.com/files/WebsurgeSetup.exe";
 
             Configuration = new WebSurgeConfiguration();
             Configuration.Initialize();       
@@ -53,7 +59,7 @@ namespace WebSurge
         {
             var text = msg + 
             "\r\n\r\n---------------------------\r\n\r\n";
-            StringUtils.LogString(msg, App.AppDataPath + "WebSurgeErrors.log");
+            StringUtils.LogString(msg, App.UserDataPath + "WebSurgeErrors.log");
         }
     }
 
@@ -64,6 +70,8 @@ namespace WebSurge
         public UrlCaptureConfiguration UrlCapture {get; set;}
         public WindowSettings WindowSettings { get; set; }
         public List<string> RecentFiles { get; set; }
+        public CheckForUpdates CheckForUpdates { get; set; }
+
         public string LastFileName
         {
             get { return _LastFileName; }
@@ -97,6 +105,7 @@ namespace WebSurge
             StressTester = new StressTesterConfiguration();
             UrlCapture = new UrlCaptureConfiguration();
             WindowSettings = new WindowSettings();
+            CheckForUpdates = new CheckForUpdates();
 
             AppName = "West Wind WebSurge";
         }
@@ -105,7 +114,7 @@ namespace WebSurge
         {
             var provider = new JsonFileConfigurationProvider<WebSurgeConfiguration>()
             {
-                JsonConfigurationFile = App.AppDataPath + "WebSurgeConfiguration.json"
+                JsonConfigurationFile = App.UserDataPath + "WebSurgeConfiguration.json"
             };
             Provider = provider;
 
@@ -263,5 +272,17 @@ namespace WebSurge
 
         //    return StringSerializer.Deserialize<WindowSettings>(text);
         //}
+    }
+
+    public class CheckForUpdates
+    {
+        public int Days { get; set; }
+        public DateTime LastUpdateCheck { get; set; }
+
+        public CheckForUpdates()
+        {
+            Days = 10;
+            LastUpdateCheck = DateTime.UtcNow.Date;
+        }
     }
 }

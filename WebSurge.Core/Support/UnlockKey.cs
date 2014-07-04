@@ -15,7 +15,7 @@ namespace WebSurge
 
         static UnlockKey()
         {
-            RegisterFile = App.AppDataPath + "Registered.key";
+            RegisterFile = App.UserDataPath + "Registered.key";
             ProKey = "Kuhela_100";  // "3bd0f6e";
         }
 

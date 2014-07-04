@@ -5,11 +5,12 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WebSurge.Core;
 using Westwind.Utilities;
 
 namespace WebSurge
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
@@ -18,7 +19,7 @@ namespace WebSurge
         static void Main()
         {
             // Force config to apply im
-            var obj = App.AppDataPath;
+            var obj = App.UserDataPath;
 
             var limit = ServicePointManager.DefaultConnectionLimit;
             if (ServicePointManager.DefaultConnectionLimit < 10)
@@ -32,10 +33,10 @@ namespace WebSurge
             Thread newThread = new Thread(RunSplash);
             newThread.SetApartmentState(ApartmentState.STA);
             newThread.Name = "Splash";
-            newThread.Start(mainForm);
+            newThread.Start(mainForm);            
 
             Application.ThreadException += Application_ThreadException;            
-            Application.Run(mainForm);            
+            Application.Run(mainForm);
         }
         
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
