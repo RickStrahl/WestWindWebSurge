@@ -454,6 +454,10 @@ reply to all messages promptly with frank discussions.";
             ListResults.EndUpdate();
 
             TabsResult.SelectedTab = tabOutput;
+                        
+            TestResultBrowser.Visible = false;
+            txtConsole.Visible = true;
+
             Application.DoEvents();
 
             StressTester.Running = true;
@@ -515,6 +519,11 @@ reply to all messages promptly with frank discussions.";
         {
 
             TabSessions.SelectedTab = tabResults;
+
+            var html = new ResultsParser().UrlSummaryReportHtml(StressTester.Results,
+                StressTester.ThreadsUsed, StressTester.TimeTakenForLastRunMs/1000);
+
+            HtmlPreview(html, false,"_results.html");
 
             txtConsole.Text = StressTester.ParseResults() +
                 "\r\n-------------\r\n" +
@@ -800,14 +809,26 @@ reply to all messages promptly with frank discussions.";
         }
 
 
-        void HtmlPreview(string html, bool showInBrowser = false)
+        void HtmlPreview(string html, bool showInBrowser = false, string fileName = "_preview.html")
         {
-            string outputPath = App.UserDataPath + "_preview.html";
+            fileName = fileName.ToLower();
+
+            string outputPath = App.UserDataPath + fileName;
             File.WriteAllText(outputPath, html);
             string file = (outputPath).Replace("\\", "/");
 
             if (!showInBrowser)
-                PreViewBrowser.Url = new Uri(file);
+            {
+                // _results.html is rendered into the output tab
+                if (fileName == "_results.html")
+                {
+                    TestResultBrowser.Url = new Uri(file);
+                    TestResultBrowser.Visible = true;
+                    txtConsole.Visible = false;
+                }
+                else
+                    PreViewBrowser.Url = new Uri(file);
+            }
             else
                 ShellUtils.GoUrl(file);
         }

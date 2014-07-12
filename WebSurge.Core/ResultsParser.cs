@@ -97,11 +97,11 @@ namespace WebSurge
         public IEnumerable<UrlSummary> UrlSummary(IEnumerable<HttpRequestData> resultData, int totalTimeTaken)
         {
             var urls = resultData
-                .OrderBy(res => res.Url)
-                .GroupBy(res => res.Url, rs => rs, (key, uls) =>
+                .OrderBy(res => res.Url + res.HttpVerb)
+                .GroupBy(res => res.HttpVerb +  " " + res.Url, rs => rs, (key, uls) =>
                     new UrlSummary()
                     {
-                        Url = key,
+                        Url = key,                        
                         Results = new TestResult()
                         {
                             TimeTakenSecs = totalTimeTaken,
@@ -197,6 +197,7 @@ namespace WebSurge
     public class UrlSummary
     {
         public string Url { get; set; }
+        public string HttpVerb { get; set;  }
         public TestResult Results { get; set; }
     }
 

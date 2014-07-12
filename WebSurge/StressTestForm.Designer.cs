@@ -93,7 +93,6 @@
             this.btnOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRecentSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.RecentFilesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.btnEditFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -126,6 +125,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
@@ -147,6 +147,7 @@
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Help = new System.Windows.Forms.HelpProvider();
+            this.TestResultBrowser = new System.Windows.Forms.WebBrowser();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -377,7 +378,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(423, 541);
+            this.ListRequests.Size = new System.Drawing.Size(423, 543);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -516,7 +517,7 @@
             this.tbResultCharts,
             this.btnResultsReport});
             this.ResultContextMenu.Name = "ResultContextMenu";
-            this.ResultContextMenu.Size = new System.Drawing.Size(153, 70);
+            this.ResultContextMenu.Size = new System.Drawing.Size(144, 48);
             this.ResultContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
             // tbResultCharts
@@ -526,7 +527,7 @@
             this.toolStripSeparator9,
             this.tbTimeTakenPerUrl});
             this.tbResultCharts.Name = "tbResultCharts";
-            this.tbResultCharts.Size = new System.Drawing.Size(152, 22);
+            this.tbResultCharts.Size = new System.Drawing.Size(143, 22);
             this.tbResultCharts.Text = "Charts";
             this.tbResultCharts.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
@@ -550,7 +551,7 @@
             // btnResultsReport
             // 
             this.btnResultsReport.Name = "btnResultsReport";
-            this.btnResultsReport.Size = new System.Drawing.Size(152, 22);
+            this.btnResultsReport.Size = new System.Drawing.Size(143, 22);
             this.btnResultsReport.Text = "Show Results";
             // 
             // label1
@@ -595,6 +596,7 @@
             // tabOutput
             // 
             this.tabOutput.Controls.Add(this.txtConsole);
+            this.tabOutput.Controls.Add(this.TestResultBrowser);
             this.tabOutput.Location = new System.Drawing.Point(4, 26);
             this.tabOutput.Margin = new System.Windows.Forms.Padding(0);
             this.tabOutput.Name = "tabOutput";
@@ -838,19 +840,9 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
-            this.RecentFilesContextMenu.OwnerItem = this.btnRecentSessions;
+            this.RecentFilesContextMenu.OwnerItem = this.tbOpen;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
-            // 
-            // tbOpen
-            // 
-            this.tbOpen.DropDown = this.RecentFilesContextMenu;
-            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
-            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(110, 22);
-            this.tbOpen.Text = "Open Session";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // btnEditFile
             // 
@@ -1098,6 +1090,16 @@
             this.MainToolStrip.Size = new System.Drawing.Size(421, 25);
             this.MainToolStrip.TabIndex = 0;
             // 
+            // tbOpen
+            // 
+            this.tbOpen.DropDown = this.RecentFilesContextMenu;
+            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
+            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(110, 22);
+            this.tbOpen.Text = "Open Session";
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -1252,6 +1254,16 @@
             // Help
             // 
             this.Help.HelpNamespace = "WebSurge.chm";
+            // 
+            // TestResultBrowser
+            // 
+            this.TestResultBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TestResultBrowser.Location = new System.Drawing.Point(0, 0);
+            this.TestResultBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.TestResultBrowser.Name = "TestResultBrowser";
+            this.TestResultBrowser.Size = new System.Drawing.Size(551, 547);
+            this.TestResultBrowser.TabIndex = 3;
+            this.TestResultBrowser.Visible = false;
             // 
             // StressTestForm
             // 
@@ -1433,6 +1445,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnCheckForNewVersion;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem btnResultsReport;
+        private System.Windows.Forms.WebBrowser TestResultBrowser;
     }
 }
 
