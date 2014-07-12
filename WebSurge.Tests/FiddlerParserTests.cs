@@ -12,7 +12,7 @@ namespace WebSurge.Tests
         [TestMethod]
         public void TestParser()
         {
-            FiddlerSessionParser parser = new FiddlerSessionParser();
+            SessionParser parser = new SessionParser();
             var httpRequests = parser.ParseFile();
 
             Assert.IsNotNull(httpRequests);
@@ -34,7 +34,7 @@ namespace WebSurge.Tests
         //[TestMethod]
         //public async Task TestCheckSiteAsync()
         //{
-        //    FiddlerSessionParser parser = new FiddlerSessionParser();
+        //    SessionParser parser = new SessionParser();
         //    var httpRequests = parser.Parse();
 
         //    Assert.IsNotNull(httpRequests);
@@ -56,7 +56,7 @@ namespace WebSurge.Tests
         [TestMethod]
         public void CheckSiteSyncTest()
         {
-            FiddlerSessionParser parser = new FiddlerSessionParser();
+            SessionParser parser = new SessionParser();
             var httpRequests = parser.ParseFile();
 
             Assert.IsNotNull(httpRequests);
@@ -78,7 +78,7 @@ namespace WebSurge.Tests
         //[TestMethod]
         //public async Task TestAllSitesAsyncTest()
         //{
-        //    FiddlerSessionParser parser = new FiddlerSessionParser();
+        //    SessionParser parser = new SessionParser();
         //    var httpRequests = parser.Parse();
 
         //    var tester = new StressTester();
@@ -111,7 +111,7 @@ namespace WebSurge.Tests
         [TestMethod]
         public void TestAllSitesThreadsTest()
         {
-            FiddlerSessionParser parser = new FiddlerSessionParser();
+            SessionParser parser = new SessionParser();
             var httpRequests = parser.ParseFile();
 
             var tester = new StressTester();

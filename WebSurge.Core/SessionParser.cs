@@ -10,7 +10,7 @@ using Westwind.Utilities;
 
 namespace WebSurge
 {
-    public class FiddlerSessionParser
+    public class SessionParser
     {
         public const string STR_Separator = "\r\n------------------------------------------------------------------\r\n";
 

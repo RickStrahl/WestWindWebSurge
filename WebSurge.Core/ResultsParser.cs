@@ -94,21 +94,25 @@ namespace WebSurge
             return res.ToList();
         }
 
-        public IEnumerable<UrlSummary> UrlSummary(IEnumerable<HttpRequestData> resultData, int totalTimeTaken)
+        public IEnumerable<UrlSummary> UrlSummary(IEnumerable<HttpRequestData> resultData, int totalTimeTakenSecs)
         {
+            // avoid divide by 0 error - assume at least 1 second
+            if (totalTimeTakenSecs == 0)
+                totalTimeTakenSecs = 1;
+
             var urls = resultData
-                .OrderBy(res => res.Url + res.HttpVerb)
+                .OrderBy(res => res.HttpVerb)
                 .GroupBy(res => res.HttpVerb +  " " + res.Url, rs => rs, (key, uls) =>
                     new UrlSummary()
                     {
                         Url = key,                        
                         Results = new TestResult()
                         {
-                            TimeTakenSecs = totalTimeTaken,
+                            TimeTakenSecs = totalTimeTakenSecs,
                             TotalRequests = uls.Count(),
                             FailedRequests = uls.Count(u => u.IsError),
                             SuccessRequests = uls.Count(u => !u.IsError),
-                            RequestsPerSecond = ((decimal) uls.Count()/(decimal) totalTimeTaken),
+                            RequestsPerSecond = ((decimal) uls.Count()/(decimal) totalTimeTakenSecs),
                             MinRequestTimeMs   = uls.Min( u=> u.TimeTakenMs),
                             MaxRequestTimeMs = uls.Max(u => u.TimeTakenMs),
                             AvgRequestTimeMs = (decimal) uls.Average(u=> u.TimeTakenMs),                            
@@ -117,26 +121,10 @@ namespace WebSurge
 
 
             return urls.ToList();
-
-            ////var list = new List<UrlSummary>();
-
-            //foreach (var url in urls)
-            //{
-            //    var res = new UrlSummary();
-            //    url = url.
-            //    .Select(new UrlSummary()
-            //    {
-            //         Results = new TestResult()
-            //         {
-            //               SuccessRequests = resultData.
-            //         }
-            //    });
-            //}                           
-
         }
 
         
-        public string UrlSummaryReportHtml(IEnumerable<HttpRequestData> resultData, int totalTimeTaken, int threadCount)
+        public string ResultReportHtml(IEnumerable<HttpRequestData> resultData, int totalTimeTaken, int threadCount)
         {
             var urlSummary = UrlSummary(resultData, totalTimeTaken);
             var testResult = ParseResults(resultData, totalTimeTaken, threadCount);

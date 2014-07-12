@@ -223,8 +223,17 @@ namespace WebSurge
 
                 result.StatusCode = ((int) client.WebResponse.StatusCode).ToString();
                 result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
-                    
-                result.ResponseLength = result.ResponseLength;
+
+                result.ResponseLength = (int) client.WebResponse.ContentLength;
+                result.LastResponse = httpOutput;
+
+                StringBuilder sb = new StringBuilder();
+                foreach (string key in webResponse.Headers.Keys)
+                {
+                    sb.AppendLine(key + ": " + webResponse.Headers[key]);
+                }
+
+                result.ResponseHeaders = sb.ToString();
 
                 char statusCode = result.StatusCode[0];
                 if (statusCode == '4' || statusCode == '5')
@@ -239,18 +248,8 @@ namespace WebSurge
                 }
                 result.IsError = false;
                 result.ErrorMessage = null;
+                
 
-
-                StringBuilder sb = new StringBuilder();
-                foreach (string key in webResponse.Headers.Keys)
-                {
-                    sb.AppendLine(key + ": " + webResponse.Headers[key]);
-                }
-
-                result.ResponseHeaders = sb.ToString();
-
-
-                result.LastResponse = httpOutput;
 
                 if (Options.MaxResponseSize > 0 && result.LastResponse.Length > Options.MaxResponseSize)
                     result.LastResponse = result.LastResponse.Substring(0, Options.MaxResponseSize);
@@ -488,9 +487,9 @@ namespace WebSurge
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public List<HttpRequestData> ParseFiddlerSessions(string fileName)
+        public List<HttpRequestData> ParseSessionFile(string fileName)
         {
-            var parser = new FiddlerSessionParser();
+            var parser = new SessionParser();
             var requestDataList = parser.ParseFile(fileName);
             if (requestDataList == null)
             {

@@ -61,7 +61,7 @@ namespace WebSurge
 
             Requests.Clear();
 
-            Requests = StressTester.ParseFiddlerSessions(FileName);
+            Requests = StressTester.ParseSessionFile(FileName);
             if (Requests == null)
                 Requests = new List<HttpRequestData>();
             RenderRequests(Requests);
@@ -267,7 +267,7 @@ namespace WebSurge
             if (sender == btnResultsReport)
             {
                 var rp = new ResultsParser();
-                var html = rp.UrlSummaryReportHtml(StressTester.Results, StressTester.TimeTakenForLastRunMs / 1000,StressTester.ThreadsUsed);                
+                var html = rp.ResultReportHtml(StressTester.Results, StressTester.TimeTakenForLastRunMs / 1000,StressTester.ThreadsUsed);                
                 HtmlPreview(html,false);
             }
 
@@ -325,7 +325,7 @@ namespace WebSurge
         
             if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2)
             {
-                var parser = new FiddlerSessionParser();
+                var parser = new SessionParser();
 
                 var path = App.UserDataPath;
                 if (!string.IsNullOrEmpty(FileName))
@@ -476,7 +476,7 @@ reply to all messages promptly with frank discussions.";
             config.LastThreads = threads;
 
             //ShowStatus("Parsing Fiddler Sessions...");
-            //Requests = StressTester.ParseFiddlerSessions(FileName) as List<HttpRequestData>;
+            //Requests = StressTester.ParseSessionFile(FileName) as List<HttpRequestData>;
 
             if (Requests == null)
             {
@@ -520,7 +520,7 @@ reply to all messages promptly with frank discussions.";
 
             TabSessions.SelectedTab = tabResults;
 
-            var html = new ResultsParser().UrlSummaryReportHtml(StressTester.Results,
+            var html = new ResultsParser().ResultReportHtml(StressTester.Results,
                 StressTester.ThreadsUsed, StressTester.TimeTakenForLastRunMs/1000);
 
             HtmlPreview(html, false,"_results.html");

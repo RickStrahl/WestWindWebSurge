@@ -36,7 +36,7 @@ namespace WebSurge.Cli
 
             List<HttpRequestData> requests;
             if (!string.IsNullOrEmpty(options.SessionFile))
-                requests = stressTester.ParseFiddlerSessions(options.SessionFile);
+                requests = stressTester.ParseSessionFile(options.SessionFile);
             else
             {
                 if (string.IsNullOrEmpty(options.Url))
