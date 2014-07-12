@@ -477,10 +477,10 @@ namespace WebSurge
                 totalTime = TimeTakenForLastRunMs/1000;
 
             var parser = new ResultsParser();
-            return parser.ParseResults(resultData, totalTime, ThreadsUsed);
+            return parser.ParseResultsToString(resultData, totalTime, ThreadsUsed);
         }
 
-   
+        
 
         /// <summary>
         /// Parses Fiddler Session Trace files into a list of HttpRequestData
@@ -667,7 +667,7 @@ namespace WebSurge
                 result.StatusCode = ((int)response.StatusCode).ToString();
 
                 swatch.Stop();
-                result.TimeTakenMs = swatch.ElapsedMilliseconds;
+                result.TimeTakenSecs = swatch.ElapsedMilliseconds;
 
                 HttpResponseMessage msg;
 

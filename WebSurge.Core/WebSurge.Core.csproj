@@ -54,6 +54,10 @@
     <Compile Include="Support\UnlockKey.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Westwind.RazorHosting\Westwind.RazorHosting\Westwind.RazorHosting.csproj">
+      <Project>{abf048cf-ead5-40b7-aed2-b367e8579590}</Project>
+      <Name>Westwind.RazorHosting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WestwindToolkit\Westwind.Utilities\Westwind.Utilities.csproj">
       <Project>{1c9829a8-8979-4493-863c-635726f8a61c}</Project>
       <Name>Westwind.Utilities</Name>

@@ -47,7 +47,7 @@ namespace WebSurge.Tests
         //        Assert.IsNotNull(res, "No Result Returned.");
         //        Assert.IsNotNull(res.IsError, res.ErrorMessage);
 
-        //        Console.WriteLine(res.StatusCode + " " + res.Url + " " + res.TimeTakenMs.ToString("n0") +  " " + res.ErrorMessage) ;
+        //        Console.WriteLine(res.StatusCode + " " + res.Url + " " + res.TimeTakenSecs.ToString("n0") +  " " + res.ErrorMessage) ;
         //        //Console.WriteLine(res.LastResponse);
         //    }
 
@@ -103,7 +103,7 @@ namespace WebSurge.Tests
         //    {
         //        count++;
         //        Console.WriteLine(count + ". " + result.Url);
-        //        Console.WriteLine("\t" + result.StatusCode + "  " + result.TimeTakenMs.ToString("n0") + "ms " + result.ErrorMessage);
+        //        Console.WriteLine("\t" + result.StatusCode + "  " + result.TimeTakenSecs.ToString("n0") + "ms " + result.ErrorMessage);
         //    }
         //}
 

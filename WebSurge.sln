@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge", "WebSurge\WebSurge.csproj", "{978F07C6-754B-43CF-9E3C-73D2AA716074}"
 EndProject
@@ -40,6 +40,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSurge", "http://localhos
 		Release.AspNetCompiler.Debug = "False"
 		SlnRelativePath = "..\..\westwind\WebSurge\"
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Westwind.RazorHosting", "..\Libraries\Westwind.RazorHosting\Westwind.RazorHosting\Westwind.RazorHosting.csproj", "{ABF048CF-EAD5-40B7-AED2-B367E8579590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,14 @@ Global
 		{146632EB-0D60-40CE-882D-67D54488BC63}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{146632EB-0D60-40CE-882D-67D54488BC63}.SandBox|Any CPU.ActiveCfg = Debug|Any CPU
 		{146632EB-0D60-40CE-882D-67D54488BC63}.SandBox|Any CPU.Build.0 = Debug|Any CPU
+		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Deploy|Any CPU.Build.0 = Debug|Any CPU
+		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.SandBox|Any CPU.ActiveCfg = Release|Any CPU
+		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.SandBox|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

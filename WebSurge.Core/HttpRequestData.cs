@@ -180,10 +180,13 @@ namespace WebSurge
             if (!string.IsNullOrEmpty(req.ContentType))
                 sb.AppendLine("Content-type: " + req.ContentType);
 
-            foreach (var header in req.Headers)
+            if (req.Headers != null)
             {
-                sb.AppendLine(header.Name + ": " + header.Value);
-            }
+                foreach (var header in req.Headers)
+                {
+                    sb.AppendLine(header.Name + ": " + header.Value);
+                }
+            }            
 
             if (!string.IsNullOrEmpty(req.RequestContent))
             {

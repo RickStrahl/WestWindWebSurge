@@ -30,63 +30,63 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
-            this.PictureLogo = new System.Windows.Forms.PictureBox();
-            this.lblVersionText = new System.Windows.Forms.Label();
-            this.lblRegisterType = new System.Windows.Forms.LinkLabel();
             this.StartupTimer = new System.Windows.Forms.Timer(this.components);
+            this.PictureLogo = new System.Windows.Forms.PictureBox();
+            this.lblRegisterType = new System.Windows.Forms.LinkLabel();
+            this.lblVersionText = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PictureLogo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // PictureLogo
-            // 
-            this.PictureLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PictureLogo.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogo.Image")));
-            this.PictureLogo.Location = new System.Drawing.Point(0, 0);
-            this.PictureLogo.Name = "PictureLogo";
-            this.PictureLogo.Size = new System.Drawing.Size(400, 320);
-            this.PictureLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PictureLogo.TabIndex = 0;
-            this.PictureLogo.TabStop = false;
-            this.PictureLogo.Click += new System.EventHandler(this.PictureLogo_Click);
-            // 
-            // lblVersionText
-            // 
-            this.lblVersionText.BackColor = System.Drawing.Color.Black;
-            this.lblVersionText.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.lblVersionText.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblVersionText.Location = new System.Drawing.Point(295, 288);
-            this.lblVersionText.Name = "lblVersionText";
-            this.lblVersionText.Size = new System.Drawing.Size(88, 13);
-            this.lblVersionText.TabIndex = 2;
-            this.lblVersionText.Text = "Version 0.10";
-            this.lblVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblRegisterType
-            // 
-            this.lblRegisterType.BackColor = System.Drawing.Color.Black;
-            this.lblRegisterType.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.lblRegisterType.LinkColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRegisterType.Location = new System.Drawing.Point(311, 270);
-            this.lblRegisterType.Name = "lblRegisterType";
-            this.lblRegisterType.Size = new System.Drawing.Size(72, 16);
-            this.lblRegisterType.TabIndex = 3;
-            this.lblRegisterType.TabStop = true;
-            this.lblRegisterType.Text = "Professional";
-            this.lblRegisterType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblRegisterType.VisitedLinkColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRegisterType.Click += new System.EventHandler(this.lblRegisterType_Click);
             // 
             // StartupTimer
             // 
             this.StartupTimer.Interval = 4000;
             this.StartupTimer.Tick += new System.EventHandler(this.StartupTimer_Tick);
             // 
+            // PictureLogo
+            // 
+            this.PictureLogo.BackColor = System.Drawing.Color.Black;
+            this.PictureLogo.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogo.Image")));
+            this.PictureLogo.Location = new System.Drawing.Point(-18, -16);
+            this.PictureLogo.Name = "PictureLogo";
+            this.PictureLogo.Size = new System.Drawing.Size(364, 320);
+            this.PictureLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PictureLogo.TabIndex = 0;
+            this.PictureLogo.TabStop = false;
+            this.PictureLogo.Click += new System.EventHandler(this.PictureLogo_Click);
+            // 
+            // lblRegisterType
+            // 
+            this.lblRegisterType.BackColor = System.Drawing.Color.Black;
+            this.lblRegisterType.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.lblRegisterType.LinkColor = System.Drawing.Color.WhiteSmoke;
+            this.lblRegisterType.Location = new System.Drawing.Point(261, 14);
+            this.lblRegisterType.Name = "lblRegisterType";
+            this.lblRegisterType.Size = new System.Drawing.Size(72, 16);
+            this.lblRegisterType.TabIndex = 5;
+            this.lblRegisterType.TabStop = true;
+            this.lblRegisterType.Text = "Professional";
+            this.lblRegisterType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblRegisterType.VisitedLinkColor = System.Drawing.Color.WhiteSmoke;
+            this.lblRegisterType.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblRegisterType_LinkClicked);
+            // 
+            // lblVersionText
+            // 
+            this.lblVersionText.BackColor = System.Drawing.Color.Black;
+            this.lblVersionText.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.lblVersionText.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblVersionText.Location = new System.Drawing.Point(198, 32);
+            this.lblVersionText.Name = "lblVersionText";
+            this.lblVersionText.Size = new System.Drawing.Size(136, 13);
+            this.lblVersionText.TabIndex = 4;
+            this.lblVersionText.Text = "Version 0.10";
+            this.lblVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Splash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(400, 320);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(345, 304);
             this.Controls.Add(this.lblRegisterType);
             this.Controls.Add(this.lblVersionText);
             this.Controls.Add(this.PictureLogo);
@@ -108,9 +108,9 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox PictureLogo;
-        private System.Windows.Forms.Label lblVersionText;
-        private System.Windows.Forms.LinkLabel lblRegisterType;
         private System.Windows.Forms.Timer StartupTimer;
+        private System.Windows.Forms.PictureBox PictureLogo;
+        private System.Windows.Forms.LinkLabel lblRegisterType;
+        private System.Windows.Forms.Label lblVersionText;
     }
 }

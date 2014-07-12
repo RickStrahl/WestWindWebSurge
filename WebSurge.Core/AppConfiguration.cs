@@ -20,7 +20,8 @@ namespace WebSurge
         public static string UserDataPath { get; set; }
         public static string LogFile { get; set;  }
         public static string VersionCheckUrl { get; set; }
-        public static string InstallerDownloadUrl { get; set; }        
+        public static string InstallerDownloadUrl { get; set; }
+        public static string WebHomeUrl { get; set; }
 
         static App()
         {
@@ -32,6 +33,7 @@ namespace WebSurge
             LogFile = UserDataPath + "WebSurgeErrors.log";
             VersionCheckUrl = "http://west-wind.com/files/WebSurge_Version.xml";
             InstallerDownloadUrl = "http://west-wind.com/files/WebsurgeSetup.exe";
+            WebHomeUrl = "http://west-wind.com/websurge";
 
             Configuration = new WebSurgeConfiguration();
             Configuration.Initialize();       

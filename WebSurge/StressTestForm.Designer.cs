@@ -68,6 +68,7 @@
             this.tbRequestsPerSecondChart = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.tbTimeTakenPerUrl = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnResultsReport = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbListDisplayMode = new System.Windows.Forms.ComboBox();
             this.TabsResult = new System.Windows.Forms.TabControl();
@@ -121,6 +122,8 @@
             this.btnShowErrorLog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.btnGotoWebSite = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCheckForNewVersion = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -144,8 +147,6 @@
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Help = new System.Windows.Forms.HelpProvider();
-            this.btnCheckForNewVersion = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -305,7 +306,7 @@
             this.tbAddRequest2.Size = new System.Drawing.Size(51, 22);
             this.tbAddRequest2.Text = "New";
             this.tbAddRequest2.ToolTipText = "Create a new request";
-            this.tbAddRequest2.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbAddRequest2.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbEditRequest2
             // 
@@ -315,7 +316,7 @@
             this.tbEditRequest2.Size = new System.Drawing.Size(47, 22);
             this.tbEditRequest2.Text = "Edit";
             this.tbEditRequest2.ToolTipText = "Edit selected request";
-            this.tbEditRequest2.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbEditRequest2.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbDeleteRequest2
             // 
@@ -325,7 +326,7 @@
             this.tbDeleteRequest2.Size = new System.Drawing.Size(60, 22);
             this.tbDeleteRequest2.Text = "Delete";
             this.tbDeleteRequest2.ToolTipText = "Delete selected requests";
-            this.tbDeleteRequest2.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbDeleteRequest2.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator11
             // 
@@ -339,7 +340,7 @@
             this.tbCapture.Name = "tbCapture";
             this.tbCapture.Size = new System.Drawing.Size(69, 22);
             this.tbCapture.Text = "Capture";
-            this.tbCapture.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbCapture.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbSaveAllRequests2
             // 
@@ -349,7 +350,7 @@
             this.tbSaveAllRequests2.Size = new System.Drawing.Size(51, 22);
             this.tbSaveAllRequests2.Text = "Save";
             this.tbSaveAllRequests2.ToolTipText = "Save session to disk";
-            this.tbSaveAllRequests2.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbSaveAllRequests2.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbEditFile
             // 
@@ -358,7 +359,7 @@
             this.tbEditFile.Name = "tbEditFile";
             this.tbEditFile.Size = new System.Drawing.Size(47, 22);
             this.tbEditFile.Text = "Edit";
-            this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // ListRequests
             // 
@@ -376,7 +377,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(423, 537);
+            this.ListRequests.Size = new System.Drawing.Size(423, 541);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -512,9 +513,10 @@
             // ResultContextMenu
             // 
             this.ResultContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbResultCharts});
+            this.tbResultCharts,
+            this.btnResultsReport});
             this.ResultContextMenu.Name = "ResultContextMenu";
-            this.ResultContextMenu.Size = new System.Drawing.Size(109, 26);
+            this.ResultContextMenu.Size = new System.Drawing.Size(153, 70);
             this.ResultContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
             // tbResultCharts
@@ -524,7 +526,7 @@
             this.toolStripSeparator9,
             this.tbTimeTakenPerUrl});
             this.tbResultCharts.Name = "tbResultCharts";
-            this.tbResultCharts.Size = new System.Drawing.Size(108, 22);
+            this.tbResultCharts.Size = new System.Drawing.Size(152, 22);
             this.tbResultCharts.Text = "Charts";
             this.tbResultCharts.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
@@ -544,6 +546,12 @@
             this.tbTimeTakenPerUrl.Name = "tbTimeTakenPerUrl";
             this.tbTimeTakenPerUrl.Size = new System.Drawing.Size(183, 22);
             this.tbTimeTakenPerUrl.Text = "Time Taken per URL";
+            // 
+            // btnResultsReport
+            // 
+            this.btnResultsReport.Name = "btnResultsReport";
+            this.btnResultsReport.Size = new System.Drawing.Size(152, 22);
+            this.btnResultsReport.Text = "Show Results";
             // 
             // label1
             // 
@@ -662,7 +670,7 @@
             this.btnRunRequest.TabIndex = 8;
             this.btnRunRequest.Text = "Test";
             this.btnRunRequest.UseVisualStyleBackColor = true;
-            this.btnRunRequest.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnRunRequest.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // lblRequestContent
             // 
@@ -698,7 +706,7 @@
             this.btnSaveRequest.TabIndex = 5;
             this.btnSaveRequest.Text = "&Save";
             this.btnSaveRequest.UseVisualStyleBackColor = false;
-            this.btnSaveRequest.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnSaveRequest.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // label2
             // 
@@ -818,7 +826,7 @@
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(158, 22);
             this.btnOpen.Text = "&Open Session";
-            this.btnOpen.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnOpen.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnRecentSessions
             // 
@@ -842,21 +850,21 @@
             this.tbOpen.Name = "tbOpen";
             this.tbOpen.Size = new System.Drawing.Size(110, 22);
             this.tbOpen.Text = "Open Session";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // btnEditFile
             // 
             this.btnEditFile.Name = "btnEditFile";
             this.btnEditFile.Size = new System.Drawing.Size(158, 22);
             this.btnEditFile.Text = "&Edit Session File";
-            this.btnEditFile.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnEditFile.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnClose
             // 
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(158, 22);
             this.btnClose.Text = "C&lose Session";
-            this.btnClose.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnClose.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator10
             // 
@@ -868,20 +876,20 @@
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(158, 22);
             this.btnCapture.Text = "&Capture Session";
-            this.btnCapture.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnCapture.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(155, 6);
-            this.toolStripSeparator2.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.toolStripSeparator2.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnExit
             // 
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(158, 22);
             this.btnExit.Text = "E&xit";
-            this.btnExit.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnExit.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // sessionToolStripMenuItem
             // 
@@ -899,14 +907,14 @@
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(108, 22);
             this.btnStart.Text = "&Start";
-            this.btnStart.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnStart.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnStop
             // 
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(108, 22);
             this.btnStop.Text = "S&top";
-            this.btnStop.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnStop.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnExport
             // 
@@ -923,21 +931,21 @@
             this.btnExportXml.Name = "btnExportXml";
             this.btnExportXml.Size = new System.Drawing.Size(101, 22);
             this.btnExportXml.Text = "Xml";
-            this.btnExportXml.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnExportXml.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnExportJson
             // 
             this.btnExportJson.Name = "btnExportJson";
             this.btnExportJson.Size = new System.Drawing.Size(101, 22);
             this.btnExportJson.Text = "Json";
-            this.btnExportJson.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnExportJson.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnExportHtml
             // 
             this.btnExportHtml.Name = "btnExportHtml";
             this.btnExportHtml.Size = new System.Drawing.Size(101, 22);
             this.btnExportHtml.Text = "Html";
-            this.btnExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnExportHtml.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnCharts
             // 
@@ -988,14 +996,14 @@
             this.btnHelp.ShortcutKeyDisplayString = "F1";
             this.btnHelp.Size = new System.Drawing.Size(214, 22);
             this.btnHelp.Text = "Help";
-            this.btnHelp.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnHelp.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnHelpIndex
             // 
             this.btnHelpIndex.Name = "btnHelpIndex";
             this.btnHelpIndex.Size = new System.Drawing.Size(214, 22);
             this.btnHelpIndex.Text = "Index";
-            this.btnHelpIndex.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnHelpIndex.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator7
             // 
@@ -1007,14 +1015,14 @@
             this.btnGotoRegistration.Name = "btnGotoRegistration";
             this.btnGotoRegistration.Size = new System.Drawing.Size(214, 22);
             this.btnGotoRegistration.Text = "Register WebSurge";
-            this.btnGotoRegistration.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnGotoRegistration.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnRegistration
             // 
             this.btnRegistration.Name = "btnRegistration";
             this.btnRegistration.Size = new System.Drawing.Size(214, 22);
             this.btnRegistration.Text = "Enter Registration Key";
-            this.btnRegistration.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnRegistration.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator12
             // 
@@ -1026,21 +1034,21 @@
             this.btnFeedback.Name = "btnFeedback";
             this.btnFeedback.Size = new System.Drawing.Size(214, 22);
             this.btnFeedback.Text = "Feedback and Suggestions";
-            this.btnFeedback.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnFeedback.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnBugReport
             // 
             this.btnBugReport.Name = "btnBugReport";
             this.btnBugReport.Size = new System.Drawing.Size(214, 22);
             this.btnBugReport.Text = "Report a Bug";
-            this.btnBugReport.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnBugReport.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnShowErrorLog
             // 
             this.btnShowErrorLog.Name = "btnShowErrorLog";
             this.btnShowErrorLog.Size = new System.Drawing.Size(214, 22);
             this.btnShowErrorLog.Text = "Show Error Log";
-            this.btnShowErrorLog.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnShowErrorLog.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator13
             // 
@@ -1052,14 +1060,26 @@
             this.btnGotoWebSite.Name = "btnGotoWebSite";
             this.btnGotoWebSite.Size = new System.Drawing.Size(214, 22);
             this.btnGotoWebSite.Text = "WebSurge Web Site";
-            this.btnGotoWebSite.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnGotoWebSite.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // btnCheckForNewVersion
+            // 
+            this.btnCheckForNewVersion.Name = "btnCheckForNewVersion";
+            this.btnCheckForNewVersion.Size = new System.Drawing.Size(214, 22);
+            this.btnCheckForNewVersion.Text = "Check for new Version";
+            this.btnCheckForNewVersion.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(211, 6);
             // 
             // btnAbout
             // 
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(214, 22);
             this.btnAbout.Text = "&About";
-            this.btnAbout.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.btnAbout.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // MainToolStrip
             // 
@@ -1090,7 +1110,7 @@
             this.tbStart.Name = "tbStart";
             this.tbStart.Size = new System.Drawing.Size(51, 22);
             this.tbStart.Text = "Start";
-            this.tbStart.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbStart.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbStop
             // 
@@ -1099,7 +1119,7 @@
             this.tbStop.Name = "tbStop";
             this.tbStop.Size = new System.Drawing.Size(51, 22);
             this.tbStop.Text = "Stop";
-            this.tbStop.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbStop.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator3
             // 
@@ -1123,21 +1143,21 @@
             this.tbExportXml.Name = "tbExportXml";
             this.tbExportXml.Size = new System.Drawing.Size(101, 22);
             this.tbExportXml.Text = "Xml";
-            this.tbExportXml.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbExportXml.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbExportJson
             // 
             this.tbExportJson.Name = "tbExportJson";
             this.tbExportJson.Size = new System.Drawing.Size(101, 22);
             this.tbExportJson.Text = "Json";
-            this.tbExportJson.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbExportJson.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbExportHtml
             // 
             this.tbExportHtml.Name = "tbExportHtml";
             this.tbExportHtml.Size = new System.Drawing.Size(101, 22);
             this.tbExportHtml.Text = "Html";
-            this.tbExportHtml.Click += new System.EventHandler(this.ButtonHandler_Click);
+            this.tbExportHtml.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbCharts
             // 
@@ -1232,18 +1252,6 @@
             // Help
             // 
             this.Help.HelpNamespace = "WebSurge.chm";
-            // 
-            // btnCheckForNewVersion
-            // 
-            this.btnCheckForNewVersion.Name = "btnCheckForNewVersion";
-            this.btnCheckForNewVersion.Size = new System.Drawing.Size(214, 22);
-            this.btnCheckForNewVersion.Text = "Check for new Version";
-            this.btnCheckForNewVersion.Click += new System.EventHandler(this.ButtonHandler_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(211, 6);
             // 
             // StressTestForm
             // 
@@ -1424,6 +1432,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem btnCheckForNewVersion;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem btnResultsReport;
     }
 }
 

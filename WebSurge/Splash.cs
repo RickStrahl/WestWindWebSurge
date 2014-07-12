@@ -33,14 +33,17 @@ namespace WebSurge
             if (Startup)
                 StartupTimer.Enabled = true;
 
+            string bitNess = Environment.Is64BitProcess ? "64 bit" : "32 bit";
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            lblVersionText.Text = "Build " + v.Major + "." + v.Minor;
+            lblVersionText.Text = "Build " + v.Major + "." + v.Minor + " - " + bitNess ;
 
             var reg = UnlockKey.RegType;
             if (reg == RegTypes.Free)
                 lblRegisterType.Text = "Free";
             else if (UnlockKey.RegType == RegTypes.Professional)
                 lblRegisterType.Text = "Professional";
+
+            
 
             Top -= 50;
             TopMost = true;
@@ -128,6 +131,11 @@ namespace WebSurge
             };
 
             timer.Start();
+        }
+
+        private void lblRegisterType_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {            
+            ShellUtils.GoUrl(App.WebHomeUrl + "/pricing.aspx");
         }
     }
 }

@@ -172,7 +172,7 @@ namespace WebSurge
         }
 
 
-        private void ButtonHandler_Click(object sender, EventArgs e)
+        private void ButtonHandler(object sender, EventArgs e)
         {
 
             if (sender == tbOpen || sender == btnOpen || sender == txtProcessingTime)
@@ -264,8 +264,12 @@ namespace WebSurge
                     form.Show();
                 }
             }
-
-
+            if (sender == btnResultsReport)
+            {
+                var rp = new ResultsParser();
+                var html = rp.UrlSummaryReportHtml(StressTester.Results, StressTester.TimeTakenForLastRunMs / 1000,StressTester.ThreadsUsed);                
+                HtmlPreview(html,false);
+            }
 
             if (sender == tbDeleteRequest || sender == tbDeleteRequest2)
             {
@@ -436,7 +440,7 @@ reply to all messages promptly with frank discussions.";
         /// <param name="e"></param>
         private void ContextMenuItemClickedToButtonHandler_Click(object sender, ToolStripItemClickedEventArgs e)
         {
-            ButtonHandler_Click(e.ClickedItem, e);
+            ButtonHandler(e.ClickedItem, e);
         }
 
 
@@ -796,14 +800,16 @@ reply to all messages promptly with frank discussions.";
         }
 
 
-        void HtmlPreview(string html)
+        void HtmlPreview(string html, bool showInBrowser = false)
         {
-
             string outputPath = App.UserDataPath + "_preview.html";
-
             File.WriteAllText(outputPath, html);
             string file = (outputPath).Replace("\\", "/");
-            PreViewBrowser.Url = new Uri(file);
+
+            if (!showInBrowser)
+                PreViewBrowser.Url = new Uri(file);
+            else
+                ShellUtils.GoUrl(file);
         }
 
         void Export(string mode)
