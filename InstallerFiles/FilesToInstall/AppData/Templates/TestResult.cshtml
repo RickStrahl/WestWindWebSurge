@@ -10,8 +10,9 @@
         <title>Url Summary</title>
         <style>
             body {                
-                font-size: 10.25pt;
-                font-family: 'Segoe UI';                           
+                font-size: 11pt;
+                font-family: 'Segoe UI',Arial; 
+				padding: 0 10;
             }
              #ReportDate {
                  color: steelblue;                                  
@@ -21,7 +22,7 @@
                  font-size: 0.925em;
              }
              #ResultsTable td {
-                 padding: 2px;
+                 padding: 1px;
              }
              #ResultsTable td:first-child {
                  text-align: right;
@@ -35,11 +36,14 @@
             }
             .item-detail {
                 margin: 5px 20px;                
-                line-height: 1.3em;
+                line-height: 1.2em;
             }
             .item-detail tr {
-                font-size: 0.8em;
+                font-size: 0.9em;
             }
+			.item-detail td {
+				padding: 1px;
+			}
             .url {
                 font-weight: bold;
                 font-size: 0.9em;
@@ -59,7 +63,7 @@
             }
         </style>
     </head>
-<body style="padding: 0 10px;">
+<body>
         <h3>Test Results</h3>
         <hr />
         <div id="ReportDate" class="small pull-right">@DateTime.Now.ToString("MMM dd, yyyy") @@ @DateTime.Now.ToString("t")</div>

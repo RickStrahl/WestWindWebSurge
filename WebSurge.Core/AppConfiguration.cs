@@ -26,7 +26,7 @@ namespace WebSurge
         static App()
         {
             UserDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-              "\\West Wind Technologies\\WebSurge\\";
+              "\\West Wind WebSurge\\";
             if (!Directory.Exists(App.UserDataPath))
                 Directory.CreateDirectory(App.UserDataPath);
             
