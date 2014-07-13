@@ -225,7 +225,7 @@ namespace WebSurge
             html = @"<!DOCTYPE HTML>
 <html>
 <head>
-    <link href='WebSurge.css' type='text/css' rel='stylesheet' />
+    <link href='css/WebSurge.css' type='text/css' rel='stylesheet' />
 </head>
 <body>
 ";

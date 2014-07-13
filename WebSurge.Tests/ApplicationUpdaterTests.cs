@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebSurge;
 using WebSurge.Core;
-using Westwind.Utilities;
 
 namespace SimpleStressTester.Tests
 {
@@ -55,7 +54,7 @@ namespace SimpleStressTester.Tests
         }
 
         [TestMethod]
-        public async Task DownloadFileWithEvents()
+        public void DownloadFileWithEvents()
         {
             var updater = new ApplicationUpdater(typeof(Program));
             updater.DownloadProgressChanged += updater_DownloadProgressChanged;

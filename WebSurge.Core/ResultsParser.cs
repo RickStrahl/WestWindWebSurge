@@ -14,6 +14,10 @@ namespace WebSurge
 
         public TestResult ParseResults(IEnumerable<HttpRequestData> resultData, int totalTimeSecs, int threads)
         {
+            // avoid divide by zero errors
+            if (totalTimeSecs < 1)
+                totalTimeSecs = 1;
+            
             var results = resultData.ToList();
 
             var res = new TestResult()
@@ -101,7 +105,6 @@ namespace WebSurge
                 totalTimeTakenSecs = 1;
 
             var urls = resultData
-                .OrderBy(res => res.HttpVerb)
                 .GroupBy(res => res.HttpVerb +  " " + res.Url, rs => rs, (key, uls) =>
                     new UrlSummary()
                     {
@@ -118,6 +121,7 @@ namespace WebSurge
                             AvgRequestTimeMs = (decimal) uls.Average(u=> u.TimeTakenMs),                            
                         }
                     });
+
 
 
             return urls.ToList();

@@ -3,24 +3,27 @@
   <metadata>
     <id>WestwindWebSurge</id>
     <title>West Wind WebSurge</title>
-    <version>0.55</version>
+    <version>0.60</version>
     <authors>Rick Strahl, West Wind Technologies</authors>
     <owners>West Wind Technologies</owners>
     <summary>Quick and Easy Load Testing for your Web Applications</summary>
     <description>	
-	West Wind WebSurge is a quick and easy Web load testing tool that makes short work of capturing or entering a series of Web requests and playing them back under load. The goal is to make the process easy with minimal setup so you can quickly and frequently test a site for load characteristics.
+	West Wind WebSurge is an easy to use Web load testing tool that makes short work of capturing or entering a series of Web requests and playing them back under load. The goal is to make the process easy with minimal set up so you can quickly and frequently test a site for load characteristics.
 	
-	Use our built-in capture tool to capture and filter content from Web Browsers or Windows applications, use Telerik's Fiddler or manually create sessions using plain text HTTP headers in a text file. All HTTP request data is stored as plain HTTP headers, so it's easy to create, edit or generate test sessions.
+	Use our built-in Web capture tool to capture and filter Web sessions from Web Browsers or Windows applications, use Telerik's Fiddler or manually create sessions using plain text HTTP headers in a text file. All HTTP request data is stored as plain HTTP headers, so it's easy to create, edit or generate test sessions manually of via code.
 	
-	Capture HTML requests, AJAX, REST and SOAP services. Capture and provide POST data, custom headers - anything HTTP supports you can use in your session. Once captured play back the session under load by running for a specified time and number of simultaneous sessions. See summarized results, a few simple  graphs and examine individual requests and failures.
+	Capture HTML requests, AJAX, REST and SOAP services. Capture SSL requests and provide POST data, custom headers - anything HTTP supports you can use in your session. Once captured play back the session under load by running for a specified time and number of simultaneous sessions. See summarized results, a few simple  graphs and examine individual requests and failures. Finally a command line tool is available to automate load tests from the command prompt or with shell scripts.
 	</description>
     <projectUrl>http://west-wind.com/websurge</projectUrl>
-    <tags>load-testing,stress-testing,web,capture,test</tags>
+    <tags>load-testing,stress-testing,web-test,capture,test</tags>
     <copyright>West Wind Technologies, 1995-2014</copyright>
     <licenseUrl>http://www.west-wind.com/websurge/pricing.aspx</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <iconUrl>http://west-wind.com/websurge/images/WebSurgeLogo128.png</iconUrl>
-    <releaseNotes></releaseNotes>
+	<releaseNotes>
+	This version adds a new test results display that shows summary and per url stats. Memory usage has also been optimized to support larger test sets. Versions going forward also check for new versions online and offer to download the latest version at
+	program shutdown.
+	</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />

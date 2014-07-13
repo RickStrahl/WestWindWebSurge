@@ -49,7 +49,7 @@ namespace WebSurge
         {
             ex = ex.GetBaseException();
 
-            var msg = ex.Message + "\r\n---\r\n" + ex.Source + "\r\n" + ex.StackTrace;
+            var msg = ex.Message + "\r\n---\r\n" + ex.Source + "\r\n" + ex.StackTrace + "\r\n";
             Log(msg);
         }
 

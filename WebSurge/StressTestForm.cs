@@ -264,13 +264,6 @@ namespace WebSurge
                     form.Show();
                 }
             }
-            if (sender == btnResultsReport)
-            {
-                var rp = new ResultsParser();
-                var html = rp.ResultReportHtml(StressTester.Results, StressTester.TimeTakenForLastRunMs / 1000,StressTester.ThreadsUsed);                
-                HtmlPreview(html,false);
-            }
-
             if (sender == tbDeleteRequest || sender == tbDeleteRequest2)
             {
                 if (ListRequests.SelectedItems.Count > 0)
@@ -299,6 +292,8 @@ namespace WebSurge
                 
                 txtHttpMethod.Text = "GET";
                 txtRequestUrl.Text = "http://";                
+
+
                 txtRequestHeaders.Text = "Accept-Encoding: gzip,deflate";
                 txtRequestContent.Text = string.Empty;
                 TabsResult.SelectedTab = tabRequest;                
@@ -321,7 +316,15 @@ namespace WebSurge
 
                 TestSiteUrl(req);
             }
+            if (sender == btnOpenInDefaultBrowser)
+            {
+                var context = ((ToolStripItem) sender).GetCurrentParent() as ContextMenuStrip;
+                if (context == null)
+                    return;
 
+                var browser = context.SourceControl as WebBrowser;
+                ShellUtils.GoUrl(browser.Url.ToString());                
+            }
         
             if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2)
             {
@@ -373,7 +376,6 @@ to post a message. We want to hear from you and we
 reply to all messages promptly with frank discussions.
 
 Thank you!";
-
                 var res = MessageBox.Show(msg, App.Configuration.AppName + " Bug Report",MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Information);
                 if (res == DialogResult.OK)
@@ -405,6 +407,10 @@ reply to all messages promptly with frank discussions.";
             else if (sender == btnShowErrorLog)
             {
                 ShellUtils.GoUrl(App.UserDataPath + "WebSurgeErrors.log");
+            }
+            else if (sender == this.btnGotoSettingsFolder)
+            {
+                ShellUtils.GoUrl(App.UserDataPath);
             }
             else if (sender == btnCheckForNewVersion)
                 CheckForNewVersion(true);
@@ -524,10 +530,6 @@ reply to all messages promptly with frank discussions.";
                 StressTester.ThreadsUsed, StressTester.TimeTakenForLastRunMs/1000);
 
             HtmlPreview(html, false,"_results.html");
-
-            txtConsole.Text = StressTester.ParseResults() +
-                "\r\n-------------\r\n" +
-                txtConsole.Text;
 
             Application.DoEvents();
 

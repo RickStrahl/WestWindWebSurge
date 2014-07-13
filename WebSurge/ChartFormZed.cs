@@ -16,7 +16,7 @@ namespace WebSurge
         private string Url;
         private IEnumerable<HttpRequestData> Results;
         private ChartTypes ChartType;
-        public Form ParentForm;
+        public new Form ParentForm;
 
         public ChartFormZed(IEnumerable<HttpRequestData> data, string url = null, ChartTypes chartType = ChartTypes.TimeTakenPerRequest, Form parentForm = null)
         {
