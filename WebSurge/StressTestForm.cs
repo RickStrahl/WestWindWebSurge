@@ -527,7 +527,7 @@ reply to all messages promptly with frank discussions.";
             TabSessions.SelectedTab = tabResults;
 
             var html = new ResultsParser().ResultReportHtml(StressTester.Results,
-                StressTester.ThreadsUsed, StressTester.TimeTakenForLastRunMs/1000);
+                StressTester.TimeTakenForLastRunMs/1000,StressTester.ThreadsUsed);
 
             HtmlPreview(html, false,"_results.html");
 

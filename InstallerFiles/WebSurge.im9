@@ -2580,14 +2580,14 @@ project Flags=0x20 {
 						}
 						folder ProgramGroupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=1 {
 							str Name: Default="<ProductName>";
+							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
+								str Title: Default="West Wind Web Monitor";
+								str Description: Default="West Wind Web Monitor";
+							}
 							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>\\WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
 								str Title: Default="West Wind Web Monitor (Task Tray)";
 								str Description: Default="Runs West Wind Web Monitor in Task Tray operation mode";
 								str Arguments: Default="-trayicon";
-							}
-							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
-								str Title: Default="West Wind Web Monitor";
-								str Description: Default="West Wind Web Monitor";
 							}
 						}
 						folder StartupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=0 {
@@ -2878,7 +2878,7 @@ project Flags=0x20 {
 								str Name: Default=FeatureControl;
 								regkey RegistryKey1_3541A92959C3AE7A: Flags=0x0, InstallAction=0, RemoveAction=1, RegView=0, AccessLevel=0 {
 									str Name: Default=FEATURE_BROWSER_EMULATION;
-									regval reg_WebSurge_exe: Flags=0x0, Type=4, InstallAction=1, RemoveAction=0, Separator=";" {
+									regval reg_WebSurge_exe: Flags=0x0, Type=4, InstallAction=5, RemoveAction=0, Separator=";" {
 										str Name: Default=WebSurge.exe;
 										str Data: Default=10999;
 									}
