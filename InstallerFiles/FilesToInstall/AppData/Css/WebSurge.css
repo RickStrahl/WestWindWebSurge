@@ -25,13 +25,15 @@ footer, header, hgroup, menu, nav, section {
 	outline: 0;
 }
 html, body {
-    height: 100%; 
-}
-body 
-{
+   height: 100%;
+}           
+body {
     background: white;
-	color: black;
-	line-height: 1.35;
+    color: black;
+    line-height: 1.35;
+    font-size: 11pt;
+    font-family: Verdana,'Segoe UI',Arial;
+    padding: 0 10px;
 }
 ol, ul {
 	list-style: disc;
@@ -73,10 +75,11 @@ html,body {
   font-size: 11pt;
   margin: 0;
   padding: 0;
-    line-height: 1.4em;
+  line-height: 1.4em;    
 }   
 body{
    padding: 5px;
+   
 } 
 label {
   font-weight: bold;
@@ -85,8 +88,9 @@ label {
 }
 .error-display{ 
    margin: 5px 8px;
-   padding: 7px;
+   padding: 7px;   
    background: khaki; 
+   background: linear-gradient(to bottom, Cornsilk 0%, Khaki 100%); /* W3C */
    border: 2px solid darkred;
    border-radius: 4px;
 }
@@ -95,18 +99,26 @@ label {
    font-weight: bold;
    margin-bottom: 5px;
 }
+.error-message {
+    padding-left: 18px;
+    color: #4b5151;
+    font-weight: bold;
+}
 pre {
-  background: whitesmoke;
-  border: 1px solid silver;
-  border-radius: 4px;
-  font-family: Consolas,monospace;
-  font-weight: normal;
-  font-size: 12px;
-  padding: 7px;
-  margin: 5px 8px;
-  overflow-x: hidden;
-  border-radius: 2px;
-  line-height: 1.3em;
+    border: 1px solid silver;
+    border-radius: 4px;
+    font-family: Consolas,monospace;
+    font-weight: normal;
+    font-size: 13px;
+    padding: 7px;
+    margin: 5px 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: 2px;
+    line-height: 1.3em;
+    background: whitesmoke;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, #eeeeee 100%); /* W3C */
 }
 .timetaken
 {

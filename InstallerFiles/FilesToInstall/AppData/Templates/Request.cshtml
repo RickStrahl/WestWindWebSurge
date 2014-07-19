@@ -1,0 +1,48 @@
+@using WebSurge
+@model HttpRequestData
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link href='css/WebSurge.css' type='text/css' rel='stylesheet' />
+    <link href='css/font-awesome.css' type='text/css' rel='stylesheet' />
+</head>
+<body>
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class='error-display'>
+            <div class="error-header"><i class="fa fa-exclamation-circle"></i> Request Failed</div>
+            <div class="error-message">@Model.ErrorMessage</div>
+        </div>
+    }
+
+    <h3>Request Headers</h3>
+    <pre>
+<b><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a></b> HTTP/1.1
+@foreach(HttpRequestHeader header in @Model.Headers)
+{ 
+<text>@header.Name: @header.Value</text>
+}
+</pre>
+
+
+@if (@Model.TimeTakenMs > 0)
+{
+    <div class='timetaken'>@(Model.TimeTakenMs)ms</div>
+
+    <h3>Http Response</h3>
+    <pre>
+    @if (!string.IsNullOrEmpty(Model.StatusCode)) 
+    { 
+            @{ string cssClass = Model.StatusCode.CompareTo("399") > 0 ? "error-response" : "success-response"; }
+<span class="@cssClass">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</span>                
+    }                                                                                               
+<text>@Model.ResponseHeaders</text>    
+    @if (Model.LastResponse != null)
+    {
+<text>@Model.LastResponse.Trim()</text>
+    }
+    </pre>
+}
+</body>
+
+</html>
