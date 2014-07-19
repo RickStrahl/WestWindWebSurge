@@ -11,11 +11,10 @@ namespace WebSurge
 {
     public class StressTester
     {
-
         /// <summary>
         /// Options that determine how requests are setup and configured
         /// </summary>
-        public RequestProcessingOptions Options { get; set; }
+        public StressTesterConfiguration Options { get; set; }
         
         /// <summary>
         /// List of result request objects with data filled in.
@@ -74,7 +73,20 @@ namespace WebSurge
         /// Results list Insert Lock
         /// </summary>
         static readonly object InsertLock = new object();
-        
+
+        /// <summary>
+        /// Instance of a results parser
+        /// </summary>
+        public ResultsParser ResultsParser
+        {
+            get
+            {
+                if (_parser == null)
+                    _parser = new ResultsParser();
+                return _parser;
+            }
+        }
+        private ResultsParser _parser;
 
         /// <summary>
         /// Event fired after each request that provides the
@@ -99,11 +111,11 @@ namespace WebSurge
                 Progress(progressInfo);
         }
 
-        public StressTester(RequestProcessingOptions options = null)
+        public StressTester(StressTesterConfiguration options = null)
         {
             Options = options;
             if (options == null)
-                Options = new RequestProcessingOptions();
+                Options = new StressTesterConfiguration();
             Options.MaxResponseSize = 5000;
             StartTime = new DateTime(1900, 1,1);
             
@@ -421,37 +433,15 @@ namespace WebSurge
 
                     var result = CheckSite(req);
 
+                    // don't record first request on thread
                     if (isFirstRequest)
-                    {
-                        // don't record first request on thread
+                    {                        
                         isFirstRequest = false;
                         continue;
                     }
-
-                    // add before so  we can see incomplete requests
+                    
                     if (result != null)
-                    {
-                        lock (InsertLock)
-                        {
-                            // don't log request detail data for non errors
-                            if (!result.IsError && Results.Count > 3000)
-                            {
-                                result.LastResponse = null;
-                                if (Options.CaptureMinimalResponseData)
-                                {
-                                    result.Headers = null;
-                                    result.ResponseHeaders = null;
-                                    result.FullRequest = null;
-                                    result.RequestContent = null;
-                                }
-                            }
-
-                            Results.Add(result);
-                            RequestsProcessed++;
-                            if (result.IsError)
-                                RequestsFailed++;
-                        }
-                    }
+                        WriteResult(result);
 
                     if (Options.DelayTimeMs == 0)                    
                         //Thread.Yield();
@@ -459,6 +449,36 @@ namespace WebSurge
                     else
                         Thread.Sleep(Options.DelayTimeMs);  
                 }
+            }
+        }
+
+        /// <summary>
+        /// Writes the actual result to the storage container
+        /// </summary>
+        /// <param name="result"></param>
+        public virtual void WriteResult(HttpRequestData result)
+        {
+            lock (InsertLock)
+            {
+                // don't log request detail data for non errors
+                if (!result.IsError && Results.Count > 3000)
+                {
+                    result.LastResponse = null;
+                    if (Options.CaptureMinimalResponseData)
+                    {
+                        result.Headers = null;
+                        result.ResponseHeaders = null;
+                        result.FullRequest = null;
+                        result.RequestContent = null;
+                    }
+                }
+
+                Results.Add(result);
+
+                RequestsProcessed++;
+                
+                if (result.IsError)
+                    RequestsFailed++;
             }
         }
 
@@ -474,9 +494,8 @@ namespace WebSurge
                 resultData = Results;
             if (totalTime == 0)
                 totalTime = TimeTakenForLastRunMs/1000;
-
-            var parser = new ResultsParser();
-            return parser.ParseResultsToString(resultData, totalTime, ThreadsUsed);
+            
+            return ResultsParser.ParseResultsToString(resultData, totalTime, ThreadsUsed);
         }
 
         

@@ -56,18 +56,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfiguration.cs" />
-    <Compile Include="ApplicationUpdater.cs" />
+    <Compile Include="Configuration\App.cs" />
+    <Compile Include="Configuration\WebSurgeConfiguration.cs" />
+    <Compile Include="Support\ApplicationUpdater.cs" />
+    <Compile Include="Configuration\CheckForUpdates.cs" />
+    <Compile Include="Configuration\StressTesterConfiguration.cs" />
+    <Compile Include="Configuration\UrlCaptureConfiguration.cs" />
+    <Compile Include="Configuration\WindowSettings.cs" />
+    <Compile Include="ResultsParser.cs" />
     <Compile Include="SessionParser.cs" />
     <Compile Include="HttpRequestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestProcessingOptions.cs" />
-    <Compile Include="ResultsParser.cs" />
     <Compile Include="StressTester.cs" />
     <Compile Include="Support\UnlockKey.cs" />
+    <Compile Include="Support\TemplateRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

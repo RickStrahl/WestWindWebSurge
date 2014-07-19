@@ -128,7 +128,9 @@ namespace WebSurge
         }
 
         
-        public string ResultReportHtml(IEnumerable<HttpRequestData> resultData, int totalTimeTaken, int threadCount)
+        public string ResultReportHtml(IEnumerable<HttpRequestData> resultData, 
+                                       int totalTimeTaken, 
+                                       int threadCount)
         {
             var urlSummary = UrlSummary(resultData, totalTimeTaken);
             var testResult = ParseResults(resultData, totalTimeTaken, threadCount);
@@ -138,46 +140,47 @@ namespace WebSurge
                 TestResult = testResult,
                 UrlSummary = urlSummary
             };
-            return RenderTemplate("TestResult.cshtml",model);
-        }
-
-
-        private Dictionary<string, string> compiledTemplates = new Dictionary<string, string>();
-        private RazorEngine<RazorTemplateBase> host = CreateHost();
-
-        private static RazorEngine<RazorTemplateBase> CreateHost()
-        {
-            var host = new RazorEngine<RazorTemplateBase>();
-
-            // add this assembly
-            host.AddAssemblyFromType(typeof(ResultsParser));            
             
-            return host;
+            return TemplateRenderer.RenderTemplate("TestResult.cshtml",model);
         }
 
-        private string RenderTemplate(string templateName, object model)
-        {            
-            string compiledId = null;
-            if (compiledTemplates.Keys.Contains(templateName))
-                compiledId = compiledTemplates[templateName];
-            else
-            {
-                string template = File.ReadAllText(App.UserDataPath + "Templates\\" + templateName);                
-                compiledId = host.CompileTemplate(template);
 
-                if (compiledId == null)
-                    return "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";                    
+        //private Dictionary<string, string> compiledTemplates = new Dictionary<string, string>();
+        //private RazorEngine<RazorTemplateBase> host = CreateHost();
+
+        //private static RazorEngine<RazorTemplateBase> CreateHost()
+        //{
+        //    var host = new RazorEngine<RazorTemplateBase>();
+
+        //    // add this assembly
+        //    host.AddAssemblyFromType(typeof(ResultsParser));            
+            
+        //    return host;
+        //}
+
+        //private string RenderTemplate(string templateName, object model)
+        //{            
+        //    string compiledId = null;
+        //    if (compiledTemplates.Keys.Contains(templateName))
+        //        compiledId = compiledTemplates[templateName];
+        //    else
+        //    {
+        //        string template = File.ReadAllText(App.UserDataPath + "Templates\\" + templateName);                
+        //        compiledId = host.CompileTemplate(template);
+
+        //        if (compiledId == null)
+        //            return "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";                    
                 
-                compiledTemplates.Add(template, compiledId);
-            }
+        //        compiledTemplates.Add(templateName, compiledId);
+        //    }
 
-            string result = host.RenderTemplateFromAssembly(compiledId,model);
+        //    string result = host.RenderTemplateFromAssembly(compiledId,model);
 
-            if (result == null)
-                result = "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";
+        //    if (result == null)
+        //        result = "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 
     public class TestResultView

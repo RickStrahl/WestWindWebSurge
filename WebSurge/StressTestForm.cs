@@ -200,7 +200,7 @@ namespace WebSurge
                 RenderRequests(Requests);
                 TabSessions.SelectedTab = tabSession; 
                 
-                RenderResults(Requests);
+                RenderResultList(Requests);
             }
             else if (sender == tbCapture || sender == btnCapture)
             {
@@ -431,7 +431,8 @@ reply to all messages promptly with frank discussions.";
             StressTester.CancelThreads = false;
             var reqResult = StressTester.CheckSite(req);
 
-            string html = reqResult.ToHtml(true);
+            string html = TemplateRenderer.RenderTemplate("Request.cshtml", reqResult);
+            //string html = reqResult.ToHtml(true);
             HtmlPreview(html);
             TabsResult.SelectedTab = tabPreview;
 
@@ -526,18 +527,18 @@ reply to all messages promptly with frank discussions.";
 
             TabSessions.SelectedTab = tabResults;
 
-            var html = new ResultsParser().ResultReportHtml(StressTester.Results,
+            var html = StressTester.ResultsParser.ResultReportHtml(StressTester.Results,
                 StressTester.TimeTakenForLastRunMs/1000,StressTester.ThreadsUsed);
 
             HtmlPreview(html, false,"_results.html");
 
             Application.DoEvents();
 
-            RenderResults(results);
+            RenderResultList(results);
         }
 
 
-        void RenderResults(List<HttpRequestData> results)
+        void RenderResultList(List<HttpRequestData> results)
         {
             ListResults.BeginUpdate();
             ListResults.Items.Clear();
@@ -677,12 +678,7 @@ reply to all messages promptly with frank discussions.";
         }
 
         void SaveOptions()
-        {
-            var config = App.Configuration.StressTester;
-            var options = StressTester.Options;
-
-            DataUtils.CopyObjectData(options, config);
-
+        {            
             App.Configuration.LastFileName = FileName;
             App.Configuration.WindowSettings.Save(this);
 
@@ -692,10 +688,7 @@ reply to all messages promptly with frank discussions.";
 
         void LoadOptions()
         {
-            var config = App.Configuration.StressTester;
-            var options = StressTester.Options;
-
-            DataUtils.CopyObjectData(config, options);
+            StressTester.Options = App.Configuration.StressTester;            
         }
 
         void LoadRequest(HttpRequestData request)
@@ -727,7 +720,7 @@ reply to all messages promptly with frank discussions.";
 
         private void cmbListDisplayMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RenderResults(StressTester.Results);
+            RenderResultList(StressTester.Results);
         }
 
 
@@ -773,8 +766,7 @@ reply to all messages promptly with frank discussions.";
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            
+        {            
             if (e.Item.Tag == null)
                 return;
 
@@ -784,7 +776,8 @@ reply to all messages promptly with frank discussions.";
             if (e.Item.Tag == null)
                 return;
 
-            string html = req.ToHtml(true);
+            string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
+            //string html = req.ToHtml(true);
             HtmlPreview(html);
 
             TabsResult.SelectedTab = tabPreview;
@@ -801,7 +794,10 @@ reply to all messages promptly with frank discussions.";
             if (e.Item.Tag == null)
                 return;
 
-            string html = req.ToHtml(true);
+            string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
+            //StressTester.ResultsParser.ResultReportHtml
+            //string html = req.ToHtml(true);
+
             HtmlPreview(html);
 
             LoadRequest(req);
