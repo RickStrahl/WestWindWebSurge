@@ -1,23 +1,48 @@
 @using WebSurge
 @model HttpRequestData
+@{
+    string previewButtonText = Model.GetOutputType();    
+}
 <!DOCTYPE HTML>
 <html>
 <head>
     <link href='css/WebSurge.css' type='text/css' rel='stylesheet' />
     <link href='css/font-awesome.css' type='text/css' rel='stylesheet' />
+    <style>
+        body {
+            padding: 10px;
+        }
+         .header {
+             margin-bottom: 0;
+             font-size: 1.2em;
+             padding: 4px 10px;
+         }
+        pre {            
+            margin: 0;
+            margin-bottom: 25px;
+            padding-top: 5px;       
+        }
+        .first-line {
+            font-size: 1.07em;
+            font-weight: bold;
+            line-height: 1.7em;
+        }
+    </style>
 </head>
 <body>
     @if (!string.IsNullOrEmpty(Model.ErrorMessage))
     {
         <div class='error-display'>
-            <div class="error-header"><i class="fa fa-exclamation-circle"></i> Request Failed</div>
-            <div class="error-message">@Model.ErrorMessage</div>
-        </div>
+            <div class="error-header" >
+                <div style="float: left;"><i class="fa fa-exclamation-circle"></i></div>
+                <div style="padding-left: 25px;">@Model.ErrorMessage</div>
+            </div>
+        </div>                
     }
 
-    <h3>Request Headers</h3>
-    <pre>
-<b><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a></b> HTTP/1.1
+                <div class="header"><i class="fa fa-upload"></i> Request Headers</div>
+                <pre class="grey-gradient">
+<b class="first-line"><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</b>
 @foreach(HttpRequestHeader header in @Model.Headers)
 { 
 <text>@header.Name: @header.Value</text>
@@ -25,24 +50,31 @@
 </pre>
 
 
-@if (@Model.TimeTakenMs > 0)
-{
-    <div class='timetaken'>@(Model.TimeTakenMs)ms</div>
+                @if (@Model.StatusCode != null)
+    {
 
-    <h3>Http Response</h3>
-    <pre>
+
+                    <div class="header">
+                        <i class="fa fa-download"></i> Http Response
+                        <div class='timetaken'>
+                            @(Model.TimeTakenMs)ms  @if (previewButtonText != null)
+            { <text>|</text> <a href="app://preview/">Show @previewButtonText</a> }
+                        </div>
+                    </div>
+
+                    <pre class="grey-gradient">
     @if (!string.IsNullOrEmpty(Model.StatusCode)) 
     { 
-            @{ string cssClass = Model.StatusCode.CompareTo("399") > 0 ? "error-response" : "success-response"; }
-<span class="@cssClass">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</span>                
+        @{ string cssClass = Model.StatusCode.CompareTo("399") > 0 ? "error-response" : "success-response"; }
+<span class="@cssClass first-line">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</span>                
     }                                                                                               
 <text>@Model.ResponseHeaders</text>    
     @if (Model.LastResponse != null)
     {
 <text>@Model.LastResponse.Trim()</text>
     }
-    </pre>
-}
-</body>
+</pre>
+    }
+    </body>
 
 </html>

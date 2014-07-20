@@ -3,6 +3,7 @@
 @{
     var result = Model.TestResult;
 }
+<!DOCTYPE HTML>
 <html>
     <head>
         <link href='css/WebSurge.css' type='text/css' rel='stylesheet' />
@@ -12,13 +13,12 @@
             body {                
                 font-size: 11pt;
                 font-family: 'Segoe UI',Arial; 
-				padding: 0 10;
+				padding: 0;
             }
              #ReportDate {
                  color: steelblue;                                  
              }
-             #ResultsTable {
-                 margin: 10px 35px;
+             #ResultsTable {                 
                  font-size: 0.925em;
              }
              #ResultsTable td {
@@ -64,10 +64,10 @@
         </style>
     </head>
 <body>
-        <h3>Test Results</h3>
-        <hr />
-        <div id="ReportDate" class="small pull-right">@DateTime.Now.ToString("MMM dd, yyyy") @@ @DateTime.Now.ToString("t")</div>
-
+    <div class="header" style="margin-top: 0"><i class="fa fa-flag-checkered"></i> Test Results</div>
+    
+    <div id="ReportDate" class="small pull-right">@DateTime.Now.ToString("MMM dd, yyyy") @@ @DateTime.Now.ToString("t")</div>
+    <div class="content grey-gradient" style="padding: 10px 40px 20px ">
         <table id="ResultsTable">
             <tr>
                 <td>Total Requests:</td>
@@ -114,9 +114,12 @@
                 <td></td>
             </tr>
         </table>
+    </div>
 
-        <h3>Url Summary</h3>
-        <hr />
+    <div class="header" style="margin-top: 0"><i class="fa fa-bars"></i> Url Summary</div>
+    
+    <div class="content grey-gradient">
+
         @foreach (var urlItem in Model.UrlSummary)
         {
             var mainClass = "success";
@@ -145,11 +148,12 @@
                     <table>
                         <tr>
                             <td style="width: 125px;">
-                                <i class="fa fa-check-circle success"></i> Success:  @urlItem.Results.SuccessRequests &nbsp;&nbsp;
+                                <i class="fa fa-check-circle success"></i> Success: @urlItem.Results.SuccessRequests.ToString("n0") &nbsp; &nbsp;                                
                             </td>
                             <td style="width: 125px;">
-                                <i class="fa fa-times-circle failed"></i> Failed: @urlItem.Results.FailedRequests &nbsp;&nbsp;
+                                <i class="fa fa-times-circle failed"></i> Failed: @urlItem.Results.FailedRequests.ToString("n0") &nbsp;&nbsp;
                             </td>
+
                             <td>
                                 avg: @(urlItem.Results.AvgRequestTimeMs.ToString("n0"))ms &nbsp;&nbsp;
                             </td>
@@ -163,8 +167,8 @@
                     </table>
                 </div>
             </div>
-
-
         }
+    </div>        
 </body>
+
 </html>

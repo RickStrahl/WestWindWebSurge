@@ -8,5 +8,5 @@ Version=9012
 Default=1033
 
 [Configs]
-TSUConfiguration1=00000441|130502179001829079|Build succeeded|WebSurge\TSUConfiguration1\WebSurgeSetup.exe|0.61b
+ProductionInstall=00000441|130503216519352774|Build succeeded|WebSurge\ProductionInstall\WebSurgeSetup.exe|0.61b
 

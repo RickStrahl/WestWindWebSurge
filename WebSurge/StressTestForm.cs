@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using WebSurge.Core;
 using Westwind.Utilities;
 using Timer = System.Threading.Timer;
@@ -19,6 +21,8 @@ namespace WebSurge
     public partial class StressTestForm : Form
     {
         StressTester StressTester { get; set; }
+
+        HttpRequestData ActiveRequest { get; set;  }
 
         private string FileName
         {
@@ -325,6 +329,7 @@ namespace WebSurge
                 var browser = context.SourceControl as WebBrowser;
                 ShellUtils.GoUrl(browser.Url.ToString());                
             }
+
         
             if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2)
             {
@@ -429,9 +434,9 @@ reply to all messages promptly with frank discussions.";
             Cursor = Cursors.WaitCursor;
 
             StressTester.CancelThreads = false;
-            var reqResult = StressTester.CheckSite(req);
+            ActiveRequest = StressTester.CheckSite(req);            
 
-            string html = TemplateRenderer.RenderTemplate("Request.cshtml", reqResult);
+            string html = TemplateRenderer.RenderTemplate("Request.cshtml", ActiveRequest);
             //string html = reqResult.ToHtml(true);
             HtmlPreview(html);
             TabsResult.SelectedTab = tabPreview;
@@ -776,6 +781,8 @@ reply to all messages promptly with frank discussions.";
             if (e.Item.Tag == null)
                 return;
 
+            ActiveRequest = req;
+
             string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
             //string html = req.ToHtml(true);
             HtmlPreview(html);
@@ -793,6 +800,8 @@ reply to all messages promptly with frank discussions.";
             HttpRequestData req = e.Item.Tag as HttpRequestData;
             if (e.Item.Tag == null)
                 return;
+
+            ActiveRequest = req;
 
             string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
             //StressTester.ResultsParser.ResultReportHtml
@@ -964,8 +973,37 @@ reply to all messages promptly with frank discussions.";
         {
             string url = e.Url.ToString();
 
-            if (string.IsNullOrEmpty(url) || url.StartsWith("file://"))  
+            if (string.IsNullOrEmpty(url) || url.StartsWith("file://") )
                 return;
+
+            if (url.StartsWith("app://"))
+            {
+                var tokens = url.Replace("app://", "").Split('/');
+                if (tokens != null && tokens.Length > 0)
+                {
+                    e.Cancel = true;
+                    string action = tokens[0];
+                    
+                    // app://preview/id
+                    if (action == "preview")
+                    {
+                        string outputType = ActiveRequest.GetOutputType();
+                        if (outputType == null)
+                            return;
+
+                        if (outputType == "html")
+                            HtmlPreview(ActiveRequest.LastResponse);
+                        else if (outputType == "json")                        
+                            HtmlPreview("<pre>" + HtmlUtils.HtmlEncode(JValue.Parse(ActiveRequest.LastResponse).ToString(Formatting.Indented)) + "</pre>");
+                        else if (outputType == "xml")                                                 
+                            HtmlPreview(ActiveRequest.LastResponse, false, "_preview.xml");
+                        
+                        return;
+                    }                    
+                }
+                
+            }
+
 
             // use OS browser rather
             ShellUtils.GoUrl(url.ToString());
@@ -979,7 +1017,7 @@ reply to all messages promptly with frank discussions.";
                 return;
 
             // use OS browser rather
-            ShellUtils.GoUrl(url.ToString());
+            ShellUtils.GoUrl(url);
             e.Cancel = true;
 
             e.Cancel = true;
@@ -1057,6 +1095,7 @@ reply to all messages promptly with frank discussions.";
             ShowStatus("Downloading Update: " + (e.BytesReceived/1000).ToString("n0") + "kb  of  " +
                             (e.TotalBytesToReceive/1000).ToString("n0") + "kb");
         }
+
 
     }
 

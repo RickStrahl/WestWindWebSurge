@@ -62,14 +62,64 @@ namespace WebSurge
             return HttpVerb + " " + Url;
         }
 
+        /// <summary>
+        /// Returns a Request HTTP header.
+        /// </summary>
+        /// <param name="headerName">Request HTTP header to return. Not case sensitive.</param>
+        /// <returns>header value or null</returns>
         public string GetHeader(string headerName)
         {
             headerName = headerName.ToLower();
             return Headers
                 .Where(hd => hd.Name.ToLower() == headerName)
-                .Select(hd => hd.Value).LastOrDefault();
+                .Select(hd => hd.Value)
+                .LastOrDefault();
         }
 
+        /// <summary>
+        /// Retrieves the specified response HTTP header.
+        /// Null if not found or the request hasn't been processed yet.
+        /// </summary>
+        /// <param name="headerName">Name of the HTTP header to retrieve. Not case sensitive</param>
+        /// <returns>header value or null</returns>
+        public string GetResponseHeader(string headerName)
+        {
+            if (ResponseHeaders == null)
+                return null;
+
+            string headerLine = StringUtils.ExtractString(ResponseHeaders, headerName + ": ", "\r\n", true, true, false);
+            if (headerLine == null)
+                return null;
+
+            return headerLine;
+        }
+
+        /// <summary>
+        /// Returns the output type of the response based on the content type.
+        /// Supported types:
+        /// Html, Xml, Json
+        /// </summary>
+        /// <returns></returns>
+        public string GetOutputType()
+        {
+            string ct = GetResponseHeader("Content-Type");
+            if (ct == null)
+                return null;
+            if (ct.Contains("text/html"))
+                return "html";
+            if (ct.Contains("text/xml") || ct.Contains("application/xml"))
+                return "xml";
+            if (ct.Contains("application/json"))
+                return "json";
+
+            return null;
+        }
+
+        /// <summary>
+        /// Parses Request HTTP headers from a string into the 
+        /// Headers property of this class
+        /// </summary>
+        /// <param name="headerText">Full set of Http Request Headers</param>
         public void ParseHttpHeaders(string headerText)
         {
             if (string.IsNullOrEmpty(headerText))
@@ -80,6 +130,11 @@ namespace WebSurge
             ParseHttpHeaders(StringUtils.GetLines(headerText));
         }
 
+        /// <summary>
+        /// Parses Request Http Headers from an array of strings
+        /// into the Headers property of this class.
+        /// </summary>
+        /// <param name="lines">Array of Http Headers to parse in header: value format</param>
         public void ParseHttpHeaders(string[] lines)
         {
             Headers.Clear();
@@ -121,8 +176,9 @@ namespace WebSurge
             }
         }
 
-         /// <summary>
-        /// Parses a single HttpRequestData object to HTML
+        /// <summary>
+        /// Parses a single HttpRequestData object to HTML.
+        /// Creates Request headers and content only - no response data.
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
@@ -131,7 +187,7 @@ namespace WebSurge
             var req = this;
 
             StringBuilder sb = new StringBuilder();
-            
+
             var html = "{0} {1} HTTP/1.1\r\n";
             sb.AppendFormat(html, req.HttpVerb, req.Url);
 
@@ -143,12 +199,12 @@ namespace WebSurge
                 sb.AppendLine(header.Name + ": " + header.Value);
             }
 
-             if (!string.IsNullOrEmpty(req.RequestContent))
-                 sb.AppendLine("\r\n" + HtmlUtils.HtmlEncode(req.RequestContent));
+            if (!string.IsNullOrEmpty(req.RequestContent))
+                sb.AppendLine("\r\n" + HtmlUtils.HtmlEncode(req.RequestContent));
 
-            return sb.ToString().Trim();            
+            return sb.ToString().Trim();
         }
-    
+
 
         /// <summary>
         /// Parses a single HttpRequestData object to HTML
@@ -157,7 +213,10 @@ namespace WebSurge
         /// <returns></returns>
         public string ToHtml(bool asDocument = true)
         {
-            var req = this;
+            
+            //return TemplateRenderer.RenderTemplate("Request.cshtml", this);
+
+            HttpRequestData req = this;
 
             StringBuilder sb = new StringBuilder();
             string html = "";
@@ -186,7 +245,7 @@ namespace WebSurge
                 {
                     sb.AppendLine(header.Name + ": " + header.Value);
                 }
-            }            
+            }
 
             if (!string.IsNullOrEmpty(req.RequestContent))
             {
@@ -207,13 +266,13 @@ namespace WebSurge
                 sb.AppendLine(html);
 
 
-                string cssClass = req.StatusCode.CompareTo("399") >0  ? "error-response" : "success-response";
+                string cssClass = req.StatusCode.CompareTo("399") > 0 ? "error-response" : "success-response";
 
 
                 if (!string.IsNullOrEmpty(req.StatusCode))
-                    sb.AppendFormat("<div class='{0}'>HTTP/1.1 {1} {2}</div>",cssClass,req.StatusCode,req.StatusDescription);
+                    sb.AppendFormat("<div class='{0}'>HTTP/1.1 {1} {2}</div>", cssClass, req.StatusCode, req.StatusDescription);
 
-                sb.AppendLine(req.ResponseHeaders);                
+                sb.AppendLine(req.ResponseHeaders);
 
                 if (req.LastResponse != null)
                     sb.Append(HtmlUtils.HtmlEncode(req.LastResponse.Trim()));
@@ -231,6 +290,7 @@ namespace WebSurge
 ";
             return html + sb + "</body>\r\n</html>";
         }        
+
     }
 
 

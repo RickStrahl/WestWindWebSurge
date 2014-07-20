@@ -154,9 +154,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="1_Full.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="WebSurge.ico" />
   </ItemGroup>
   <ItemGroup>

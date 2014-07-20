@@ -21,17 +21,21 @@ namespace WebSurge
         public int DelayTimeMs { get; set; }
 
         [Description("Use this option if you plan on capturing large numbers of requests - " +
-                     "high transaction count or long running requests. This option will capture only " +
-                     "the basic request information necesary to calculate " +
-                     "results and discard headers and response body.")]
+                     "high transaction counts or long running tests. This option will capture full responses " + 
+                     "for the first few thousand records and then capture only the basic request " + 
+                     "information necesary to calculate results and discard headers and response body " +
+                     "for sucess requests. Failures continue to capture in full size.")]
         [Category("Minimize Memory")]
         public bool CaptureMinimalResponseData { get; set; }
 
         /// <summary>
         /// Max size of the response that's retained.
-        /// Defaults to 2,000 bytes.
+        /// Default captures full response (0).
         /// </summary>
-        [Description("The maximum size of the response to capture.")]
+        [Description(
+            "The maximum size of the response to capture. Use this to limit the byte size " +
+            "of response captures to limit memory usage while capturing for large test runs. " + 
+            "Set to 0 to capture the full response which is the default.")]
         [Category("Minimize Memory")]
         public int MaxResponseSize { get; set; }
 
@@ -113,12 +117,11 @@ Use to force custom auth cookies to an existing session that has expired cookies
 
         public StressTesterConfiguration()
         {
-            RequestTimeoutMs = 20000;
-            MaxResponseSize = 2000;
+            RequestTimeoutMs = 15000;
+            MaxResponseSize = 0;
             DelayTimeMs = 0;
 
-            MaxResponseSize = 5000;
-            RequestTimeoutMs = 5000;
+            MaxResponseSize = 0;            
             WarmupSeconds = 2;
 
             LastSecondsToRun = 10;

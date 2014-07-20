@@ -34,6 +34,7 @@ body {
     font-size: 11pt;
     font-family: Verdana,'Segoe UI',Arial;
     padding: 0 10px;
+    margin: 0;
 }
 ol, ul {
 	list-style: disc;
@@ -76,28 +77,22 @@ html,body {
   margin: 0;
   padding: 0;
   line-height: 1.4em;    
-}   
-body{
-   padding: 5px;
-   
 } 
 label {
   font-weight: bold;
   display: block;
   margin-top: 10px;
 }
-.error-display{ 
-   margin: 5px 8px;
+.error-display{    
    padding: 7px;   
    background: khaki; 
    background: linear-gradient(to bottom, Cornsilk 0%, Khaki 100%); /* W3C */
-   border: 2px solid darkred;
-   border-radius: 4px;
+   border: 1px solid khaki;
+    box-shadow: 4px 4px 5px #7c7c7c;
 }
 .error-header{
    color: darkred;
-   font-weight: bold;
-   margin-bottom: 5px;
+   font-weight: bold;   
 }
 .error-message {
     padding-left: 18px;
@@ -105,45 +100,60 @@ label {
     font-weight: bold;
 }
 pre {
-    border: 1px solid silver;
-    border-radius: 4px;
+    border: 1px solid silver;    
     font-family: Consolas,monospace;
     font-weight: normal;
     font-size: 13px;
     padding: 7px;
     margin: 5px 8px;
     overflow-x: auto;
-    overflow-y: hidden;
-    border-radius: 2px;
+    overflow-y: hidden;     
     line-height: 1.3em;
-    background: whitesmoke;
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, #eeeeee 100%); /* W3C */
 }
 .timetaken
 {
-  float: right; 
-  color: steelblue;
-  font-size: smaller;
-  padding-right: 10px;
+    float: right;
+    padding-top: 3px;
+  color: steelblue;    
+  font-family: Arial;
+    font-size: 8pt;
+    font-weight: normal;
+    color: white;
+}
+.timetaken a, .timetaken a:visited {
+    text-decoration: none;
+    color: cornsilk;
+}
+.timetaken a:hover {
+    text-decoration: underline;    
 }
 .success-response{
-   color: darkgreen;
+   color: #00a000;
    font-weight: bold;
 }
 .error-response{
    color: red;
-   font-weight: bold;
+   font-weight: bold;   
 }
-
-
-
 h3 {
   color: steelblue;
   margin-top: 12px;
   margin-bottom: 3px;
+  font-size: 1.3em;
+}
+.header {
+    padding: 5px 10px;
+    background: steelblue;
+    color: white;
+    margin-top: 12px;
+    margin-bottom: 10px;    
+    font-weight: bold;
     font-size: 1.3em;
 }
+.content {
+    padding: 0 10px;
+}
+
 h2 {
     color: Teal;
     font-size: 1.3em;
@@ -164,4 +174,10 @@ hr {
 .pull-right {
     float: right;
     text-align: right;
+    padding-right: 5px;
+}
+.grey-gradient {
+    background: whitesmoke;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, #eeeeee 100%); /* W3C */
 }
