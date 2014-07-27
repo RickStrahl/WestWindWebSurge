@@ -8,7 +8,7 @@ or create HTTP content and play it back easily under load with simple results th
 let you frequently stress test Web applications for load
 characteristics during development, testing and in production. 
 
-<img src="screenshot.png" />
+<img src="Screenshot.png" />
 
 **Features:**
 
