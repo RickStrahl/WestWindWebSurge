@@ -43,11 +43,13 @@ characteristics during development, testing and in production.
 * .NET 4.5
 
 **License:**
-This tool is open source, but it is a licensed product that may require licensing fees. 
-This means the full source code is available in public and available for modification,
-but usage of the product is governed by a partially commercial license.
 
-Please check this link for [Licensing and Pricing information](http://west-wind.com/websurge/pricing.aspx).
+This tool is open source, but it is a licensed product that may require paid for license. 
+This means the full source code is available in public and available for modification,
+but both free and commercial versions of the product are available.
+
+Please check this link for 
+[Licensing and Pricing information](http://west-wind.com/websurge/pricing.aspx).
 
 
 
