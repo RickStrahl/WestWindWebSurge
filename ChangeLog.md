@@ -1,5 +1,22 @@
 #West Wind WebSurge Change Log
 
+
+###Version 0.65b
+<i><small>not released yet</small></i>
+
+* **Add SSL Cert Installation for HTTP Capture**<br />
+Added support to install the required Fiddler SSL capture certificate 
+directly from within the application. As before WebSurge works
+with existing Fiddler certificate installations, but if you don't
+have Fiddler installed you can now enable the interception 
+certificate directly from within WebSurge's capture screen.
+
+* **Additional Error Logging**<br />
+The application error handler now logs a number of 
+additional errors including hard crash errors. Slight
+error log format updates to make errors easier to read.
+
+
 ###Version 0.61b
 <i><small>July 21st, 2014</small></i>
 

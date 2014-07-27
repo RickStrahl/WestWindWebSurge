@@ -20,6 +20,7 @@ namespace WebSurge
         private const string Separator = "------------------------------------------------------------------";
         private UrlCaptureConfiguration CaptureConfiguration { get; set; }
         private StressTestForm MainForm;
+        bool isFirstSslRequest;
 
         public FiddlerCapture(StressTestForm form)
         {
@@ -44,11 +45,12 @@ namespace WebSurge
                 }
             }
             catch {}
-
+        
         }
 
         private void FiddlerApplication_AfterSessionComplete(Session sess)
         {
+            // Ignore HTTPS connect requests
             if (sess.RequestMethod == "CONNECT")
                 return;
 
@@ -69,7 +71,7 @@ namespace WebSurge
                 string url = sess.fullUrl.ToLower();
 
                 var extensions = CaptureConfiguration.ExtensionFilterExclusions;
-                foreach(var ext in extensions)
+                foreach (var ext in extensions)
                 {
                     if (url.Contains(ext))
                         return;
@@ -81,32 +83,116 @@ namespace WebSurge
                     if (url.Contains(urlFilter))
                         return;
                 }
-
             }
 
-            BeginInvoke(new Action<Session>((session) =>
+            if (sess == null || sess.oRequest == null || sess.oRequest.headers == null)
+                return;
+
+            string headers = sess.oRequest.headers.ToString();
+            var reqBody = Encoding.UTF8.GetString(sess.RequestBody);
+
+            // if you wanted to capture the response
+            //string respHeaders = session.oResponse.headers.ToString();
+            //var respBody = Encoding.UTF8.GetString(session.ResponseBody);
+
+            // replace the HTTP line to inject full URL
+            string firstLine = sess.RequestMethod + " " + sess.fullUrl + " " + sess.oRequest.headers.HTTPVersion;
+            int at = headers.IndexOf("\r\n");
+            if (at < 0)
+                return;
+            headers = firstLine + "\r\n" + headers.Substring(at + 1);
+
+            string output = headers + "\r\n" +
+                            (!string.IsNullOrEmpty(reqBody) ? reqBody + "\r\n" : string.Empty) +
+                            Separator + "\r\n\r\n";
+
+            // must marshal to UI thread
+            BeginInvoke(new Action<string>((text) =>
             {
-                var reqText = Encoding.UTF8.GetString(session.RequestBody);
-                //var respText = Encoding.UTF8.GetString(session.ResponseBody);
-
-                string headers = session.oRequest.headers.ToString();
-                
-                // replace the HTTP line
-                string firstLine = sess.RequestMethod + " " + sess.fullUrl + " " + sess.oRequest.headers.HTTPVersion;
-                var lines = new List<string>(StringUtils.GetLines(headers));
-                lines.RemoveAt(0);
-                lines.Insert(0, firstLine);
-                headers = string.Join("\r\n", lines);
-                
-
-                txtCapture.AppendText(headers + "\r\n"  +                                      
-                                      (!string.IsNullOrEmpty(reqText) ? reqText + "\r\n" : string.Empty) +                                      
-                                      Separator + "\r\n\r\n");
+                try
+                {
+                    txtCapture.AppendText(text);
+                }
+                catch (Exception e)
+                {
+                    App.Log(e);
+                }
 
                 UpdateButtonStatus();
-            }),sess);
+            }), output);
 
         }
+
+        //private void FiddlerApplication_AfterSessionComplete(Session sess)
+        //{
+        //    if (sess.RequestMethod == "CONNECT")
+        //        return;
+
+        //    if (CaptureConfiguration.ProcessId > 0)
+        //    {
+        //        if (sess.LocalProcessID != 0 && sess.LocalProcessID != CaptureConfiguration.ProcessId)
+        //            return;
+        //    }
+
+        //    if (!string.IsNullOrEmpty(CaptureConfiguration.CaptureDomain))
+        //    {
+        //        if (sess.hostname.ToLower() != CaptureConfiguration.CaptureDomain.Trim().ToLower())
+        //            return;
+        //    }
+
+        //    if (CaptureConfiguration.IgnoreResources)
+        //    {
+        //        string url = sess.fullUrl.ToLower();
+
+        //        var extensions = CaptureConfiguration.ExtensionFilterExclusions;
+        //        foreach(var ext in extensions)
+        //        {
+        //            if (url.Contains(ext))
+        //                return;
+        //        }
+
+        //        var filters = CaptureConfiguration.UrlFilterExclusions;
+        //        foreach (var urlFilter in filters)
+        //        {
+        //            if (url.Contains(urlFilter))
+        //                return;
+        //        }
+        //    }
+
+        //    // must marshal to UI thread
+        //    BeginInvoke(new Action<Session>((session) =>
+        //    {
+        //        try
+        //        {
+
+        //            if (session== null || session.oRequest == null || session.oRequest.headers == null)
+        //                return;
+
+        //            var reqText = Encoding.UTF8.GetString(session.RequestBody);
+        //            //var respText = Encoding.UTF8.GetString(session.ResponseBody);
+
+        //            string headers = session.oRequest.headers.ToString();
+
+        //            // replace the HTTP line
+        //            string firstLine = sess.RequestMethod + " " + sess.fullUrl + " " + sess.oRequest.headers.HTTPVersion;
+        //            var lines = new List<string>(StringUtils.GetLines(headers));
+        //            lines.RemoveAt(0);
+        //            lines.Insert(0, firstLine);
+        //            headers = string.Join("\r\n", lines);  
+
+        //            txtCapture.AppendText(headers + "\r\n"  +                                      
+        //                                  (!string.IsNullOrEmpty(reqText) ? reqText + "\r\n" : string.Empty) +                                      
+        //                                  Separator + "\r\n\r\n");
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            App.Log(e);
+        //        }
+
+        //        UpdateButtonStatus();
+        //    }),sess);
+
+        //}
 
         void Start()
         {
@@ -114,7 +200,6 @@ namespace WebSurge
                 CaptureConfiguration.IgnoreResources = true;
             else
                 CaptureConfiguration.IgnoreResources = false;
-
             
             string strProcId = txtProcessId.Text;
             if (strProcId.Contains('-'))
@@ -133,9 +218,9 @@ namespace WebSurge
 
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;            
             FiddlerApplication.Startup(8888,true,true,true);
-
         }
 
+        
         void Stop()
         {
             FiddlerApplication.AfterSessionComplete -= FiddlerApplication_AfterSessionComplete;
@@ -143,6 +228,32 @@ namespace WebSurge
             if (FiddlerApplication.IsStarted())
                 FiddlerApplication.Shutdown();            
         }
+
+
+
+public static bool InstallCertificate()
+{
+    if (!CertMaker.rootCertExists())
+    {
+        if (!CertMaker.createRootCert())
+            return false;
+
+        if (!CertMaker.trustRootCert())
+            return false;
+    }
+
+    return true;
+}
+
+public static bool UninstallCertificate()
+{
+    if (CertMaker.rootCertExists())
+    {
+        if (!CertMaker.removeFiddlerGeneratedCerts(true))
+            return false;
+    }
+    return true;
+}
 
         private void ButtonHandler(object sender, EventArgs e)
         {
@@ -178,6 +289,14 @@ namespace WebSurge
             {
                 txtCapture.Text = string.Empty;
             }
+            else if (sender == btnInstallSslCert)
+            {
+                Cursor = Cursors.WaitCursor;
+                InstallCertificate();
+                Cursor = Cursors.Default;
+            }
+            else if (sender == btnUninstallSslCert)
+                UninstallCertificate();
 
             UpdateButtonStatus();
         }
@@ -198,6 +317,9 @@ namespace WebSurge
             tbSave.Enabled = txtCapture.Text.Length > 0;
             tbClear.Enabled = tbSave.Enabled;
 
+            btnInstallSslCert.Enabled = !CertMaker.rootCertExists();
+            btnUninstallSslCert.Enabled = !btnInstallSslCert.Enabled;
+            
             CaptureConfiguration.IgnoreResources = tbIgnoreResources.Checked;
         }
 

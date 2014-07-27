@@ -10,10 +10,13 @@ copy ..\..\WebSurge\bin\release\Westwind.RazorHosting.dll
 copy ..\..\WebSurge\bin\release\System.Web.Razor.dll
 copy ..\..\WebSurge\bin\release\Zed*.dll
 
+copy ..\..\WebSurge\bin\release\MakeCert.exe
+
 copy ..\..\WebSurgeCli\bin\release\WebSurgeCli.exe
 copy ..\..\WebSurgeCli\bin\release\WebSurgeCli.pdb
 copy ..\..\WebSurgeCli\bin\release\WebSurgeCli.exe.config
 copy ..\..\WebSurgeCli\bin\release\CommandLine.dll
+
 
 copy "%AppData%\West Wind WebSurge\css\*.*" AppData\css
 copy "%AppData%\West Wind WebSurge\css\fonts\*.*" AppData\css\fonts

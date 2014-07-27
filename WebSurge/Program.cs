@@ -33,10 +33,17 @@ namespace WebSurge
             Thread newThread = new Thread(RunSplash);
             newThread.SetApartmentState(ApartmentState.STA);
             newThread.Name = "Splash";
-            newThread.Start(mainForm);            
+            newThread.Start(mainForm);
 
-            Application.ThreadException += Application_ThreadException;            
-            Application.Run(mainForm);
+            Application.ThreadException += Application_ThreadException;
+            try
+            {
+                Application.Run(mainForm);
+            }
+            catch (Exception ex)
+            {
+                Application_ThreadException(null, new ThreadExceptionEventArgs(ex));
+            } 
         }
         
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

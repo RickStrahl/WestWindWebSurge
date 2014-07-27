@@ -1,51 +1,69 @@
-#West Wind Simple Stress Tester
-**A simple stress testing utility using Fiddler Session Capture Files**
+#West Wind WebSurge
+**Quick and easy load testing for your Web applications**
 
-This small Windows application allows you to select a Fiddler Session file.
-You can also create these Session files with plain text, using raw HTTP
-requests along with a standard request separator. However, using Fiddler 
-is the easiest way to capture requests.
+<img src="WebSurgeLogo.png" style="float: left; margin: 0 5px 5px 0" />
+WebSurge is a Windows Utility that makes it easy to stress test Web
+applications by capturing one or more URLs in a Session and playing them back under 
+load. The goal of this tool is to make it drop dead quick and easy to capture
+or create HTTP content and play it back easily under load with simple results that
+let you frequently stress test Web applications for load
+characteristics during development, testing and in production. 
 
-You can pick up Fiddler from:
-[Download Fiddler](http://www.telerik.com/download/fiddler) 
+![West Wind WebSurge Screenshot](screenshot.png)
 
-Here's what the tool looks like:
+**Features:**
 
-![Fiddler Stress Tester UI](https://bytebucket.org/rstrahl/west-wind-simple-stress-tester/raw/93d2006bfff9b5dd8f8aff65a77c78c89f5995d9/SimpleStressTester.png?token=6fc228988ed4d15e5d892f62f33983dab42d0191)
+* Easy to set up, easy to run tests
+* Built-in capture tool
+* Or create requests individually
+* Capture sessions from your browser
+* Capture sessions from Windows clients
+* Import sessions from Fiddler
+* Manually create session as text
+* Complete HTTP and SSL Support
+* Test HTML, AJAX, REST and SOAP Services
+* Simple summarized results
+* Export results to Xml,Json,Html, Raw Headers
+* Test locally and within your Firewall/VPN
+* Optional Command Line Interface
 
-To use Fiddler for capturing Sessions for this tool:
 
-* Open Fiddler
-* Open your browsers and navigate through a Session
-* Go back into Fiddler and stop capturing requests
-* In Fiddler's List window select all requests you want to replay
-* Right click | Save | Selected Session | As Text
-* Save the file to disk
 
-Then use the Simple Stress Tester to run a load test:
+**More info:**
 
-* Open the Fiddler Stress Tester tool
-* Click Open and select the captured Session file you saved
-* Set the Number of Threads to run to set the load for your tests
-* Set the time to set to the number of seconds to run
-* Optionally use the options on the top right to modify the test behavior
-* Click the Start button to start the test
+* [WebSurge Product Page](http://west-wind.com/websurge/)
+* [Getting started with WebSurge Video](https://www.youtube.com/watch?v=TSfWYcr6q5o)
+* [Introducing WebSurge Blog Post](http://weblog.west-wind.com/posts/2014/Jul/15/West-Wind-WebSurge-an-easy-way-to-Load-Test-Web-Applications)
+* [Licensing](http://west-wind.com/websurge/pricing.aspx)
+* [Download](http://www.west-wind.com/files/WebSurgeSetup.zip) or
+  [install from Chocolatey](http://chocolatey.org/packages/WestwindWebSurge)
 
-The test then runs through your captured requests by running as many 
-thread as you specified simultaneously for each of the sessions you captured.
-Each thread iterates through the full session and then starts over for the
-specified amount of time.
+**Requirements:**
 
-The results are summarized at the top of the output window. 
+* Windows Vista, 7, 8, 8.1, 2008, 2012
+* .NET 4.5
 
-The results view on the right lets you see each of the requests that was
-sent to the server up to the first 1000 requests for each success and 
-error requests. You can select an item and a preview pane displays the
-request detail for that request, so you can review headers and content bodies
-for both requests and responses. 
+**License:**
+This tool is open source, but it is a licensed product that may require licensing fees. 
+This means the full source code is available in public and available for modification,
+but usage of the product is governed by a partially commercial license.
 
-Note that compressed content is automatically decompressed and may not match
-in length to the content length returned in the headers.
+Please check this link for [Licensing and Pricing information](http://west-wind.com/websurge/pricing.aspx).
+
+
+
+###Request Capturing
+One important part for stress testing is making it easy to create URL requests
+to test under load. To this effect WebSurge provides a number of ways to capture
+
+
+You can capture content using the built-in capture tool, you can create
+URL request manually using the built in Request editor and tester, or 
+you can use the simple text file format that simply describes raw HTTP
+headers to create request by hand, via code generation or by exporting
+captured requests from the popular Fiddler HTTP Proxy tool.
+
+Once a Session has been created you specify a length of a test 
 
 
 ##Requirements
