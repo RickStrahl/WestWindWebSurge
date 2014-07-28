@@ -44,11 +44,11 @@ characteristics during development, testing and in production.
 
 **License:**
 
-This tool is open source, but it is a licensed product that may require paid for license. 
-This means the full source code is available in public and available for modification,
+This tool is open source, but it is a licensed product that may require a paid license. 
+This means the full source code is available and available for modification,
 but both free and commercial versions of the product are available.
 
-Please check this link for 
+Please check this link for additional
 [Licensing and Pricing information](http://west-wind.com/websurge/pricing.aspx).
 
 All source code is copyright West Wind Technologies, regardless of changes made.
