@@ -96,7 +96,7 @@ namespace WebSurge
                 return;
 
             string headers = sess.oRequest.headers.ToString();
-            var reqBody = Encoding.UTF8.GetString(sess.RequestBody);
+            var reqBody = sess.GetRequestBodyAsString();
 
             // if you wanted to capture the response
             //string respHeaders = session.oResponse.headers.ToString();
@@ -113,7 +113,7 @@ namespace WebSurge
                             (!string.IsNullOrEmpty(reqBody) ? reqBody + "\r\n" : string.Empty) +
                             Separator + "\r\n\r\n";
 
-            // must marshal to UI thread
+            // must marshal and synchronize to UI thread
             BeginInvoke(new Action<string>((text) =>
             {
                 try

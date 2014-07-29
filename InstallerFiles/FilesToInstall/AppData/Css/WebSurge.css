@@ -109,6 +109,7 @@ pre {
     overflow-x: auto;
     overflow-y: hidden;     
     line-height: 1.3em;
+	white-space: pre-wrap;
 }
 .timetaken
 {

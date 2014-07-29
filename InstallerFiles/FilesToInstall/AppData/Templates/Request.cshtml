@@ -47,7 +47,8 @@
 { 
 <text>@header.Name: @header.Value</text>
 }
-</pre>
+@if(!string.IsNullOrEmpty(Model.RequestContent) )
+{<div>@("\r\n" + Model.RequestContent)</div>}</pre>
 
 
                 @if (@Model.StatusCode != null)

@@ -3,7 +3,7 @@
   <metadata>
     <id>WestwindWebSurge</id>
     <title>West Wind WebSurge</title>
-    <version>0.61</version>
+    <version>0.65</version>
     <authors>Rick Strahl, West Wind Technologies</authors>
     <owners>West Wind Technologies</owners>
     <summary>Quick and Easy Load Testing for your Web Applications</summary>
@@ -19,7 +19,7 @@ Capture HTML requests, AJAX, REST and SOAP services. Capture SSL requests, provi
     <licenseUrl>http://www.west-wind.com/websurge/pricing.aspx</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <iconUrl>http://west-wind.com/websurge/images/WebSurgeLogo128.png</iconUrl>
-	<releaseNotes>This version adds a new test results display that shows summary and per url stats. Memory usage has also been optimized to support larger test sets. Versions going forward also check for new versions online and offer to download the latest version at
+	<releaseNotes>This version adds native support for registering SSL Capture certificate, a new style of rendering for request/response preview and Test Results using user customizable templates and a few small UI updates related to displaying and applying of options.
 	program shutdown.
 	</releaseNotes>
   </metadata>

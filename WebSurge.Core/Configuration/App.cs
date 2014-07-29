@@ -19,8 +19,8 @@ namespace WebSurge
         {
             UserDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
                            "\\West Wind WebSurge\\";
-            if (!Directory.Exists(App.UserDataPath))
-                Directory.CreateDirectory(App.UserDataPath);
+            if (!Directory.Exists(UserDataPath))
+                Directory.CreateDirectory(UserDataPath);
 
             LogFile = UserDataPath + "WebSurgeErrors.log";
             VersionCheckUrl = "http://west-wind.com/files/WebSurge_Version.xml";
@@ -53,7 +53,7 @@ namespace WebSurge
         {
             var text = msg +
                        "\r\n\r\n---------------------------\r\n\r\n";
-            StringUtils.LogString(msg, App.UserDataPath + "WebSurgeErrors.log");
+            StringUtils.LogString(msg, UserDataPath + "WebSurgeErrors.log");
         }
     }
 }

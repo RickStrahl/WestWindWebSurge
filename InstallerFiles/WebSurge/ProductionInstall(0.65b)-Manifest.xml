@@ -4,8 +4,8 @@
 <Tarma:TinManifest
 	xmlns:Tarma="http://www.tarma.com/specs/xmlns-tin9"
 	Version="9012"
-	Created="2014-07-29 02:17:39"
-	GUID="{703DC2B7-28AE-4427-9D99-C458714A0558}"
+	Created="2014-07-29 12:54:00"
+	GUID="{53A7A6BE-503D-4262-9BDC-BCCB52D06151}"
 >
 	<InstallFile
 		Name="font_awesome.css_D8B72C364BE32603"
@@ -21,7 +21,7 @@
 		Modified="2014-01-07 02:52:16"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0xCA18DB30E48F4FE4"
+		ObID="0x14F7AA2AE1B2A326"
 	/>
 	<InstallFile
 		Name="font_awesome.min.css_F53438B6ED27563D"
@@ -37,7 +37,7 @@
 		Modified="2014-01-07 02:53:24"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x68EF2271A412A3E2"
+		ObID="0x65FFA7D00B10DFF9"
 	/>
 	<InstallFile
 		Name="FontAwesome.otf_77FBFDB43DAC9C42"
@@ -54,7 +54,7 @@
 		Modified="2014-01-07 02:51:36"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x5C03485563DB84EC"
+		ObID="0x832605603549A524"
 	/>
 	<InstallFile
 		Name="fontawesome_webfont.eot_3C3D9FD10D4A1C18"
@@ -70,7 +70,7 @@
 		Modified="2014-01-07 02:51:36"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0xD30143F406019754"
+		ObID="0xAF9683B06B077FF8"
 	/>
 	<InstallFile
 		Name="fontawesome_webfont.svg_202417856236BCF1"
@@ -86,7 +86,7 @@
 		Modified="2014-01-07 02:51:36"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x5E8DA300305FF6A4"
+		ObID="0xDFBBEEBEF95ACE58"
 	/>
 	<InstallFile
 		Name="fontawesome_webfont.ttf_3825340D0C874F9C"
@@ -103,7 +103,7 @@
 		Modified="2014-01-07 02:51:36"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x45C7F57F50098EC7"
+		ObID="0xD2E247F7797A6846"
 	/>
 	<InstallFile
 		Name="fontawesome_webfont.woff_7442865F7BFCFFE8"
@@ -119,7 +119,7 @@
 		Modified="2014-01-07 02:51:36"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0xE8323D6D75F50242"
+		ObID="0xAC365D85CAB11250"
 	/>
 	<InstallFile
 		Name="WebSurge.css_6F45B6F028F0BD90"
@@ -130,12 +130,12 @@
 		Component="none (implies all platforms &amp; languages)"
 		SourcePath="C:\projects2010\WebSurge\InstallerFiles\FilesToInstall\AppData\Css\WebSurge.css"
 		FileType="ANSI text"
-		FileSize="3825"
+		FileSize="3850"
 		Created="2014-07-20 02:27:28"
-		Modified="2014-07-19 18:40:20"
+		Modified="2014-07-29 12:48:00"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0xB32A91FF053E5B62"
+		ObID="0x529B388FB8489310"
 	/>
 	<InstallFile
 		Name="Registered.txt_FD8C589BA2F90190"
@@ -151,7 +151,7 @@
 		Modified="2014-07-20 02:27:28"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x77E2E1F09DFC72B8"
+		ObID="0x9293AB4AE17A80CA"
 	/>
 	<InstallFile
 		Name="Request.cshtml_EE2BD45CE3ECB5A3"
@@ -162,12 +162,12 @@
 		Component="none (implies all platforms &amp; languages)"
 		SourcePath="C:\projects2010\WebSurge\InstallerFiles\FilesToInstall\AppData\Templates\Request.cshtml"
 		FileType="ANSI markup text"
-		FileSize="2574"
+		FileSize="2670"
 		Created="2014-07-20 02:27:28"
-		Modified="2014-07-19 18:57:56"
+		Modified="2014-07-29 12:48:48"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x94ECF4193FB1C0A2"
+		ObID="0xC588B9C8C58B9C61"
 	/>
 	<InstallFile
 		Name="TestResult.cshtml_6CE340B17C0CF625"
@@ -183,7 +183,43 @@
 		Modified="2014-07-19 18:50:22"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0xF1BEA4FF0D3217C"
+		ObID="0xEF24952F429A22AD"
+	/>
+	<InstallFile
+		Name="BCMakeCert.dll_403A8BDECC058A57"
+		InstallPath="&lt;INSTALLXDIR&gt;\BCMakeCert.dll"
+		InstallAction="Install if newer"
+		RemoveAction="Remove always"
+		Registration="No registration"
+		Component="none (implies all platforms &amp; languages)"
+		SourcePath="C:\projects2010\WebSurge\InstallerFiles\FilesToInstall\BCMakeCert.dll"
+		FileType="PE32"
+		FileSize="540672"
+		Created="2014-07-29 12:23:06"
+		Modified="2014-07-12 01:13:39"
+		SourceAttributes="A"
+		InstallAttributes="(none)"
+		ProductVersion="2.0.5.0"
+		FileVersion="2.0.5.0"
+		ObID="0xC4BBE67EDE9BB075"
+	/>
+	<InstallFile
+		Name="CertMaker.dll_33A8AB0C87A4DB3A"
+		InstallPath="&lt;INSTALLXDIR&gt;\CertMaker.dll"
+		InstallAction="Install if newer"
+		RemoveAction="Remove always"
+		Registration="No registration"
+		Component="none (implies all platforms &amp; languages)"
+		SourcePath="C:\projects2010\WebSurge\InstallerFiles\FilesToInstall\CertMaker.dll"
+		FileType="PE32"
+		FileSize="28160"
+		Created="2014-07-29 12:23:06"
+		Modified="2014-07-12 01:13:39"
+		SourceAttributes="A"
+		InstallAttributes="(none)"
+		ProductVersion="4.4.8.0"
+		FileVersion="4.4.8.0"
+		ObID="0x8D03050C27D0905F"
 	/>
 	<InstallFile
 		Name="CommandLine.dll_774DCE46EDB946AB"
@@ -201,7 +237,7 @@
 		InstallAttributes="(none)"
 		ProductVersion="1.9.71.0"
 		FileVersion="1.9.71.2"
-		ObID="0x5D2529EBC6F82954"
+		ObID="0xB74C3155BA7AB9C3"
 	/>
 	<InstallFile
 		Name="FiddlerCore4.dll_3610D5DD981363F4"
@@ -219,25 +255,7 @@
 		InstallAttributes="(none)"
 		ProductVersion="4.4.8.4"
 		FileVersion="4.4.8.4"
-		ObID="0x1C0EEDC8CF242F82"
-	/>
-	<InstallFile
-		Name="makecert.exe_C656751FB61B5F68"
-		InstallPath="&lt;INSTALLXDIR&gt;\makecert.exe"
-		InstallAction="Install if newer"
-		RemoveAction="Remove always"
-		Registration="No registration"
-		Component="none (implies all platforms &amp; languages)"
-		SourcePath="C:\projects2010\WebSurge\InstallerFiles\FilesToInstall\makecert.exe"
-		FileType="PE32"
-		FileSize="55632"
-		Created="2014-07-26 13:44:27"
-		Modified="2014-07-27 03:21:25"
-		SourceAttributes="A"
-		InstallAttributes="(none)"
-		ProductVersion="6.1.7600.16385"
-		FileVersion="6.1.7600.16385"
-		ObID="0x2DBD3F6194410D3F"
+		ObID="0x170B2D60A7D4EF25"
 	/>
 	<InstallFile
 		Name="Newtonsoft.Json.dll_9FF055DFDAD7BCEA"
@@ -255,7 +273,7 @@
 		InstallAttributes="(none)"
 		ProductVersion="6.0.2.16931"
 		FileVersion="6.0.2.16931"
-		ObID="0x9A22DD78242C05C3"
+		ObID="0xCB3675573ABC26CB"
 	/>
 	<InstallFile
 		Name="System.Web.Razor.dll_3876ABDB49332027"
@@ -273,7 +291,7 @@
 		InstallAttributes="(none)"
 		ProductVersion="3.0.11001.0"
 		FileVersion="3.0.11001.0"
-		ObID="0x10F4DF5E0D2496B5"
+		ObID="0xA5CA6D6CE9191160"
 	/>
 	<InstallFile
 		Name="websurge.chm_45B366CDCBD5AD44"
@@ -289,7 +307,7 @@
 		Modified="2014-07-20 02:27:28"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x70D638D3F4A427E1"
+		ObID="0x14B8ACBB55E6996C"
 	/>
 	<InstallFile
 		Name="WebSurge.Core.dll_43447BBCDE1AEFD0"
@@ -302,12 +320,12 @@
 		FileType="PE32"
 		FileSize="56832"
 		Created="2014-07-20 02:27:28"
-		Modified="2014-07-29 02:16:59"
+		Modified="2014-07-29 12:52:03"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
 		ProductVersion="0.65.0.0"
 		FileVersion="0.65.0.0"
-		ObID="0xFECE3EF00674FBDB"
+		ObID="0x1E9A9A41E5173763"
 	/>
 	<InstallFile
 		Name="WebSurge.Core.pdb_AC34878A914505F4"
@@ -318,12 +336,12 @@
 		Component="none (implies all platforms &amp; languages)"
 		SourcePath="C:\projects2010\WebSurge\InstallerFiles\FilesToInstall\WebSurge.Core.pdb"
 		FileType="Unknown [00706462]"
-		FileSize="77312"
+		FileSize="85504"
 		Created="2014-07-20 02:27:28"
-		Modified="2014-07-29 02:16:59"
+		Modified="2014-07-29 12:52:03"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x31F5DA633A7333AA"
+		ObID="0x849909E1F09E6537"
 	/>
 	<InstallFile
 		Name="WebSurge.exe.config_40E64B0EC6739C54"
@@ -339,7 +357,7 @@
 		Modified="2014-05-04 15:52:02"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x811DDAFC07E56347"
+		ObID="0x52CB6E37063BC3FB"
 	/>
 	<InstallFile
 		Name="WebSurge.exe_41FAFF5E99C2BBFA"
@@ -352,12 +370,12 @@
 		FileType="PE32"
 		FileSize="1251328"
 		Created="2014-07-20 02:27:28"
-		Modified="2014-07-29 02:17:00"
+		Modified="2014-07-29 12:52:04"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
 		ProductVersion="0.65.0.0"
 		FileVersion="0.65.0.0"
-		ObID="0xEF9461E44AD275F8"
+		ObID="0x815773A732B8234C"
 	/>
 	<InstallFile
 		Name="WebSurge.pdb_3F7109E443FD0A3A"
@@ -368,12 +386,12 @@
 		Component="none (implies all platforms &amp; languages)"
 		SourcePath="C:\projects2010\WebSurge\InstallerFiles\FilesToInstall\WebSurge.pdb"
 		FileType="Unknown [00706462]"
-		FileSize="87552"
+		FileSize="95744"
 		Created="2014-07-20 02:27:28"
-		Modified="2014-07-29 02:17:00"
+		Modified="2014-07-29 12:52:04"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x13C9DEB832151017"
+		ObID="0xA18C1A335D391EC5"
 	/>
 	<InstallFile
 		Name="WebSurgeCli.exe.config_6A51F6D90B679993"
@@ -389,7 +407,7 @@
 		Modified="2014-05-26 23:27:32"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x9E8F2A5EA6F74F4"
+		ObID="0x9417ABCA40B865C2"
 	/>
 	<InstallFile
 		Name="WebSurgeCli.exe_0740DFF71CE587F9"
@@ -402,12 +420,12 @@
 		FileType="PE32"
 		FileSize="30208"
 		Created="2014-07-20 02:27:28"
-		Modified="2014-07-29 01:59:00"
+		Modified="2014-07-29 12:53:10"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
 		ProductVersion="0.65.0.0"
 		FileVersion="0.65.0.0"
-		ObID="0xEAEEAA2B2F1150D9"
+		ObID="0x9BEC094C6DD1BB32"
 	/>
 	<InstallFile
 		Name="WebSurgeCli.pdb_1B0C1C6C7142A028"
@@ -420,10 +438,10 @@
 		FileType="Unknown [00706462]"
 		FileSize="17920"
 		Created="2014-07-20 02:27:28"
-		Modified="2014-07-29 01:58:59"
+		Modified="2014-07-29 12:53:10"
 		SourceAttributes="A"
 		InstallAttributes="(none)"
-		ObID="0x17B6CEA2A34C3C0D"
+		ObID="0x5EA43AA7E4A27FB4"
 	/>
 	<InstallFile
 		Name="Westwind.RazorHosting.dll_B7BBFD42826E5BB1"
@@ -441,7 +459,7 @@
 		InstallAttributes="(none)"
 		ProductVersion="3.0.0.0"
 		FileVersion="3.0.0.0"
-		ObID="0xBC52CC79932DF7FB"
+		ObID="0x53FF504E530685C6"
 	/>
 	<InstallFile
 		Name="Westwind.Utilities.dll_43A84EC2CB6A6BC7"
@@ -459,7 +477,7 @@
 		InstallAttributes="(none)"
 		ProductVersion="2.55.0.0"
 		FileVersion="2.55.0.0"
-		ObID="0x5ED71CB6EDABB87D"
+		ObID="0xD822BFA8363EA288"
 	/>
 	<InstallFile
 		Name="ZedGraph.dll_CC3A91E350AE40BC"
@@ -477,6 +495,6 @@
 		InstallAttributes="(none)"
 		ProductVersion="5.1.6.417"
 		FileVersion="5.1.6.417"
-		ObID="0x42D27355C8F3A99B"
+		ObID="0x3CC45989C3C24C8D"
 	/>
 </Tarma:TinManifest>

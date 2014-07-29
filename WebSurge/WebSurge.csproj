@@ -157,7 +157,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="makecert.exe" />
     <Content Include="WebSurge.ico" />
   </ItemGroup>
   <ItemGroup>

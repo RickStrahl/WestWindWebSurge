@@ -125,7 +125,7 @@ namespace WebSurge.Cli
                           " requests, " + progress.RequestsFailed.ToString("n0") + " failed | " +
                           progress.SecondsProcessed + " of " +
                           progress.TotalSecondsToProcessed + " secs " +            
-                            "| " + progress.RequestsProcessed / progress.SecondsProcessed + " request/sec ";
+                            "| " + progress.RequestsProcessed / progress.SecondsProcessed + " requests/sec ";
             lock (consoleLock2)
             {
                 if (progress.RequestsFailed > lastFailed)

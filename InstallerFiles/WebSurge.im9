@@ -2583,14 +2583,14 @@ project Flags=0x20 {
 						}
 						folder ProgramGroupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=1 {
 							str Name: Default="<ProductName>";
-							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
-								str Title: Default="West Wind Web Monitor";
-								str Description: Default="West Wind Web Monitor";
-							}
 							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>\\WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
 								str Title: Default="West Wind Web Monitor (Task Tray)";
 								str Description: Default="Runs West Wind Web Monitor in Task Tray operation mode";
 								str Arguments: Default="-trayicon";
+							}
+							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
+								str Title: Default="West Wind Web Monitor";
+								str Description: Default="West Wind Web Monitor";
 							}
 						}
 						folder StartupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=0 {
@@ -2702,14 +2702,17 @@ project Flags=0x20 {
 			}
 			folder INSTALLXDIR: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=1 {
 				str Name: Default="<ProductName>";
+				file BCMakeCert.dll_403A8BDECC058A57: Flags=0x0, Path="FilesToInstall\\BCMakeCert.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
+					str Name: Default=BCMakeCert.dll;
+				}
+				file CertMaker.dll_33A8AB0C87A4DB3A: Flags=0x0, Path="FilesToInstall\\CertMaker.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
+					str Name: Default=CertMaker.dll;
+				}
 				file CommandLine.dll_774DCE46EDB946AB: Flags=0x0, Path="FilesToInstall\\CommandLine.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=CommandLine.dll;
 				}
 				file FiddlerCore4.dll_3610D5DD981363F4: Flags=0x0, Path="FilesToInstall\\FiddlerCore4.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=FiddlerCore4.dll;
-				}
-				file makecert.exe_C656751FB61B5F68: Flags=0x0, Path="FilesToInstall\\makecert.exe", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=2000, Packaging=0 {
-					str Name: Default=makecert.exe;
 				}
 				file Newtonsoft.Json.dll_9FF055DFDAD7BCEA: Flags=0x0, Path="FilesToInstall\\Newtonsoft.Json.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=Newtonsoft.Json.dll;

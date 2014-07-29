@@ -10,7 +10,8 @@ copy ..\..\WebSurge\bin\release\Westwind.RazorHosting.dll
 copy ..\..\WebSurge\bin\release\System.Web.Razor.dll
 copy ..\..\WebSurge\bin\release\Zed*.dll
 
-copy ..\..\WebSurge\bin\release\MakeCert.exe
+copy ..\..\WebSurge\bin\release\certmaker.dll
+copy ..\..\WebSurge\bin\release\bcmakecert.dll
 
 copy ..\..\WebSurgeCli\bin\release\WebSurgeCli.exe
 copy ..\..\WebSurgeCli\bin\release\WebSurgeCli.pdb

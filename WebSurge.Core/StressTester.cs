@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Westwind.Utilities.InternetTools;
 
 namespace WebSurge
 {
@@ -138,7 +139,7 @@ namespace WebSurge
 
             try
             {
-                var client = new Westwind.Utilities.InternetTools.HttpClient();
+                var client = new HttpClient();
                 
                 if (!string.IsNullOrEmpty(Options.ReplaceDomain))
                 {
@@ -304,7 +305,7 @@ namespace WebSurge
                                                    int seconds = 60)
         {
 
-            this.ThreadsUsed = threadCount;
+            ThreadsUsed = threadCount;
 
             if (UnlockKey.RegType == RegTypes.Free &&
                 (threadCount > UnlockKey.FreeThreadLimit ||
