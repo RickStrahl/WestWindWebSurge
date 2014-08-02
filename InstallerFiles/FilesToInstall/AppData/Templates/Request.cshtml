@@ -16,66 +16,80 @@
              margin-bottom: 0;
              font-size: 1.2em;
              padding: 4px 10px;
-         }
-        pre {            
-            margin: 0;
+        }
+        pre,.code {            
+			margin: 0;
             margin-bottom: 25px;
             padding-top: 5px;       
-        }
-        .first-line {
-            font-size: 1.07em;
+        }    
+		
+		.code>div {
+			margin: 0 0 1px 0;
+			padding: 0;
+		}
+		.first-line {            
+			font-size: 1.07em;
             font-weight: bold;
-            line-height: 1.7em;
+			padding: 5px 0px 8px 0;
+			margin-bottom: 5px;
+			border-bottom: 1px solid lightgrey;
         }
+		.wrapline {
+		   text-indent: -31px;
+		   padding-left: 31px !important;
+		}
     </style>
 </head>
 <body>
     @if (!string.IsNullOrEmpty(Model.ErrorMessage))
     {
         <div class='error-display'>
-            <div class="error-header" >
+            <div class="error-header">
                 <div style="float: left;"><i class="fa fa-exclamation-circle"></i></div>
                 <div style="padding-left: 25px;">@Model.ErrorMessage</div>
             </div>
-        </div>                
+        </div>
     }
 
-                <div class="header"><i class="fa fa-upload"></i> Request Headers</div>
-                <pre class="grey-gradient">
-<b class="first-line"><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</b>
-@foreach(HttpRequestHeader header in @Model.Headers)
-{ 
-<text>@header.Name: @header.Value</text>
-}
-@if(!string.IsNullOrEmpty(Model.RequestContent) )
-{<div>@("\r\n" + Model.RequestContent)</div>}</pre>
+    <div class="header"><i class="fa fa-upload"></i> Request Headers</div>
+
+    <pre class="grey-gradient">
+<div class="first-line wrapline"><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@{
+            foreach(HttpRequestHeader header in @Model.Headers)
+			{ 			    
+<text>@header.Name: @header.Value</text>}
+		
+			if(!string.IsNullOrEmpty(Model.RequestContent))
+{
+<text>
+    
+@(Model.GetRequestContentAsString())</text>}}
+</pre>
 
 
-                @if (@Model.StatusCode != null)
+    @if (@Model.StatusCode != null)
     {
 
 
-                    <div class="header">
-                        <i class="fa fa-download"></i> Http Response
-                        <div class='timetaken'>
-                            @(Model.TimeTakenMs)ms  @if (previewButtonText != null)
-            { <text>|</text> <a href="app://preview/">Show @previewButtonText</a> }
-                        </div>
-                    </div>
+        <div class="header">
+            <i class="fa fa-download"></i> Http Response
+            <div class='timetaken'>
+                @(Model.TimeTakenMs)ms  @if (previewButtonText != null)
+                { <text>|</text> <a href="app://preview/">Show @previewButtonText</a> }
+            </div>
+        </div>
 
-                    <pre class="grey-gradient">
+        <pre class="grey-gradient">
     @if (!string.IsNullOrEmpty(Model.StatusCode)) 
     { 
         @{ string cssClass = Model.StatusCode.CompareTo("399") > 0 ? "error-response" : "success-response"; }
-<span class="@cssClass first-line">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</span>                
-    }                                                                                               
-<text>@Model.ResponseHeaders</text>    
-    @if (Model.LastResponse != null)
+<div class="@cssClass first-line wrapline">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>}@Model.ResponseHeaders
+    @if (Model.ResponseContent != null)
     {
-<text>@Model.LastResponse.Trim()</text>
+<text>@Model.ResponseContent.Trim()</text>
     }
 </pre>
     }
-    </body>
+</body>
 
 </html>

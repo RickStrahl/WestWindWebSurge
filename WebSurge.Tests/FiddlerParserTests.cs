@@ -48,7 +48,7 @@ namespace WebSurge.Tests
         //        Assert.IsNotNull(res.IsError, res.ErrorMessage);
 
         //        Console.WriteLine(res.StatusCode + " " + res.Url + " " + res.TimeTakenSecs.ToString("n0") +  " " + res.ErrorMessage) ;
-        //        //Console.WriteLine(res.LastResponse);
+        //        //Console.WriteLine(res.ResponseContent);
         //    }
 
         //}
@@ -70,7 +70,7 @@ namespace WebSurge.Tests
                 Assert.IsNotNull(res.IsError, res.ErrorMessage);
 
                 Console.WriteLine(res.StatusCode + " " + res.Url + " " + res.TimeTakenMs.ToString("n0") + " " + res.ErrorMessage);
-                //Console.WriteLine(res.LastResponse);
+                //Console.WriteLine(res.ResponseContent);
             }
 
         }
@@ -152,7 +152,7 @@ namespace WebSurge.Tests
 
             Console.WriteLine(resp.StatusCode);
             Console.WriteLine(resp.TimeTakenMs);
-            Console.WriteLine(resp.LastResponse);
+            Console.WriteLine(resp.ResponseContent);
         }
 
     }

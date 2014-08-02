@@ -99,7 +99,7 @@ label {
     color: #4b5151;
     font-weight: bold;
 }
-pre {
+pre, .code {
     border: 1px solid silver;    
     font-family: Consolas,monospace;
     font-weight: normal;
@@ -110,6 +110,10 @@ pre {
     overflow-y: hidden;     
     line-height: 1.3em;
 	white-space: pre-wrap;
+}
+.code{
+   .display: block;  
+   white-space: normal;
 }
 .timetaken
 {

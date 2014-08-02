@@ -32,7 +32,7 @@ namespace WebSurge
         public string ErrorMessage { get; set; }
 
         public string ResponseHeaders { get; set; }
-        public string LastResponse { get; set; }
+        public string ResponseContent { get; set; }
         
         public string StatusCode { get; set; }
         public string StatusDescription { get; set; }
@@ -115,6 +115,46 @@ namespace WebSurge
             return null;
         }
 
+
+        /// <summary>
+        /// Reliably returns the request content as a string.
+        /// If the content is binary the result is returned
+        /// </summary>
+        /// <returns></returns>
+        public string GetRequestContentAsString()
+        {
+            if (RequestContent == null)
+                return null;
+
+            if (RequestContent.StartsWith("b64_"))
+            {
+                var enc = Encoding.GetEncoding(1252);
+                var data = Convert.FromBase64String(RequestContent.Replace("b64_",""));
+                return enc.GetString(data);
+            }
+            return RequestContent;
+        }
+
+        /// <summary>
+        /// Reliably returns a string from response content. Note string 
+        /// may be truncated if binary data is in the result and it contains
+        /// nulls.
+        /// </summary>
+        /// <returns></returns>
+        public string GetResponseContentAsString()
+        {
+            if (ResponseContent == null)
+                return null;
+            
+            if (ResponseContent.StartsWith("b64_"))
+            {
+                var enc = Encoding.GetEncoding(1252);
+                var data = Convert.FromBase64String(ResponseContent.Replace("b64_",""));
+                return enc.GetString(data);
+            }
+            return ResponseContent;
+        }
+
         /// <summary>
         /// Parses Request HTTP headers from a string into the 
         /// Headers property of this class
@@ -177,7 +217,7 @@ namespace WebSurge
         }
 
         /// <summary>
-        /// Parses a single HttpRequestData object to HTML.
+        /// Parses a single HttpRequestData object to a string.
         /// Creates Request headers and content only - no response data.
         /// </summary>
         /// <param name="req"></param>
@@ -200,7 +240,7 @@ namespace WebSurge
             }
 
             if (!string.IsNullOrEmpty(req.RequestContent))
-                sb.AppendLine("\r\n" + HtmlUtils.HtmlEncode(req.RequestContent));
+                sb.AppendLine("\r\n" + req.RequestContent);
 
             return sb.ToString().Trim();
         }
@@ -274,8 +314,8 @@ namespace WebSurge
 
                 sb.AppendLine(req.ResponseHeaders);
 
-                if (req.LastResponse != null)
-                    sb.Append(HtmlUtils.HtmlEncode(req.LastResponse.Trim()));
+                if (req.ResponseContent != null)
+                    sb.Append(HtmlUtils.HtmlEncode(req.ResponseContent.Trim()));
             }
 
             if (!asDocument)

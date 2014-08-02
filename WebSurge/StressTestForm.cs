@@ -592,7 +592,7 @@ reply to all messages promptly with frank discussions.";
 
                 item.SubItems.Add(request.HttpVerb + " " + request.Url);
                 item.SubItems.Add(request.ErrorMessage);
-                var resp = request.LastResponse ?? string.Empty;
+                var resp = request.ResponseContent ?? string.Empty;
                 if (resp.Length > 1001)
                     resp.Substring(0, 1000);
                 item.ToolTipText = resp;
@@ -992,11 +992,11 @@ reply to all messages promptly with frank discussions.";
                             return;
 
                         if (outputType == "html")
-                            HtmlPreview(ActiveRequest.LastResponse);
+                            HtmlPreview(ActiveRequest.ResponseContent);
                         else if (outputType == "json")                        
-                            HtmlPreview("<pre>" + HtmlUtils.HtmlEncode(JValue.Parse(ActiveRequest.LastResponse).ToString(Formatting.Indented)) + "</pre>");
+                            HtmlPreview("<pre>" + HtmlUtils.HtmlEncode(JValue.Parse(ActiveRequest.ResponseContent).ToString(Formatting.Indented)) + "</pre>");
                         else if (outputType == "xml")                                                 
-                            HtmlPreview(ActiveRequest.LastResponse, false, "_preview.xml");
+                            HtmlPreview(ActiveRequest.ResponseContent, false, "_preview.xml");
                         
                         return;
                     }                    

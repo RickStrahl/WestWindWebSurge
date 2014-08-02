@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Fiddler;
-using Westwind.Utilities;
-using Westwind.Utilities.Configuration;
 
 namespace WebSurge
 {
@@ -96,12 +88,27 @@ namespace WebSurge
                 return;
 
             string headers = sess.oRequest.headers.ToString();
-            var reqBody = sess.GetRequestBodyAsString();
 
+            string contentType =
+                sess.oRequest.headers.Where(hd => hd.Name.ToLower() == "content-type")
+                    .Select(hd => hd.Name)
+                    .FirstOrDefault();
+
+            string reqBody = null;
+            if (sess.RequestBody.Length > 0)
+            {
+                
+                if (sess.requestBodyBytes.Contains((byte) 0) || contentType.StartsWith("image/"))                
+                    reqBody = "b64_" + Convert.ToBase64String(sess.requestBodyBytes);                
+                else
+                    reqBody = sess.GetRequestBodyAsString();                
+                    
+            }
+            
             // if you wanted to capture the response
             //string respHeaders = session.oResponse.headers.ToString();
             //var respBody = Encoding.UTF8.GetString(session.ResponseBody);
-
+            
             // replace the HTTP line to inject full URL
             string firstLine = sess.RequestMethod + " " + sess.fullUrl + " " + sess.oRequest.headers.HTTPVersion;
             int at = headers.IndexOf("\r\n");
@@ -240,8 +247,6 @@ namespace WebSurge
 
             UpdateButtonStatus();
         }
-
-
 
         private void FiddlerCapture_FormClosing(object sender, FormClosingEventArgs e)
         {

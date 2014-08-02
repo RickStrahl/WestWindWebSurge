@@ -84,10 +84,8 @@ namespace WebSurge
         public IEnumerable<RequestsPerSecondResult> RequestsPerSecond(IEnumerable<HttpRequestData> resultData,
             string url = null)
         {
-
             if (!string.IsNullOrEmpty(url))
                 resultData = resultData.Where(rd => rd.Url.ToLower() == url.ToLower());
-
 
             DateTime startTime = resultData.First().Timestamp;
             var res = resultData.OrderBy(rd => rd.Timestamp)

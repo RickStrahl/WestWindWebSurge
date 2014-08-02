@@ -149,16 +149,24 @@ namespace WebSurge
                 
                 client.CreateWebRequestObject(result.Url);
                 var webRequest = client.WebRequest;
+                
 
                 webRequest.Method = reqData.HttpVerb;
                 client.UseGZip = true;                
 
-                client.ContentType = reqData.ContentType;
-                client.Timeout = Options.RequestTimeoutMs;           
+                client.ContentType = reqData.ContentType;                
+                webRequest.Timeout = Options.RequestTimeoutMs;
+                webRequest.ReadWriteTimeout = Options.RequestTimeoutMs;
 
                 if (!string.IsNullOrEmpty(reqData.RequestContent))
                 {
-                    client.AddPostKey(reqData.RequestContent);
+                    if (reqData.RequestContent.StartsWith("b64_"))
+                    {
+                        var data = Convert.FromBase64String(reqData.RequestContent.Substring(4));
+                        client.AddPostKey(data);
+                    }
+                    else 
+                        client.AddPostKey(reqData.RequestContent);
                 }
 
                 foreach (var header in reqData.Headers)
@@ -238,7 +246,7 @@ namespace WebSurge
                 result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
 
                 result.ResponseLength = (int) client.WebResponse.ContentLength;
-                result.LastResponse = httpOutput;
+                result.ResponseContent = httpOutput;
 
                 StringBuilder sb = new StringBuilder();
                 foreach (string key in webResponse.Headers.Keys)
@@ -264,8 +272,8 @@ namespace WebSurge
                 
 
 
-                if (Options.MaxResponseSize > 0 && result.LastResponse.Length > Options.MaxResponseSize)
-                    result.LastResponse = result.LastResponse.Substring(0, Options.MaxResponseSize);
+                if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
+                    result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
 
                 if (!CancelThreads)
                     OnRequestProcessed(result);
@@ -464,7 +472,7 @@ namespace WebSurge
                 // don't log request detail data for non errors
                 if (!result.IsError && Results.Count > 3000)
                 {
-                    result.LastResponse = null;
+                    result.ResponseContent = null;
                     if (Options.CaptureMinimalResponseData)
                     {
                         result.Headers = null;
@@ -700,10 +708,10 @@ namespace WebSurge
                 result.ErrorMessage = null;
 
                 if (response.Content != null)
-                    result.LastResponse = await response.Content.ReadAsStringAsync();
+                    result.ResponseContent = await response.Content.ReadAsStringAsync();
 
-                if (Options.MaxResponseSize > 0 && result.LastResponse.Length > Options.MaxResponseSize)
-                    result.LastResponse = result.LastResponse.Substring(0, Options.MaxResponseSize);
+                if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
+                    result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
 
                 OnRequestProcessed(result);
 
