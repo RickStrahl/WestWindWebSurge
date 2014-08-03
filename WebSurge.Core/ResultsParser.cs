@@ -19,8 +19,13 @@ namespace WebSurge
                 totalTimeSecs = 1;
             
             var results = resultData.ToList();
+            var count = results.Count;
 
-            var res = new TestResult()
+            TestResult res;
+            if (count == 0)
+                return res = new TestResult();
+
+            res = new TestResult()
             {
                 TotalRequests = results.Count,
                 ThreadCount = threads,

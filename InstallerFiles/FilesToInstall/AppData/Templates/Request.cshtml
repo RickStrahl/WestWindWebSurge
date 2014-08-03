@@ -55,16 +55,15 @@
 
     <pre class="grey-gradient">
 <div class="first-line wrapline"><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@{
-            foreach(HttpRequestHeader header in @Model.Headers)
-			{ 			    
-<text>@header.Name: @header.Value</text>}
-		
-			if(!string.IsNullOrEmpty(Model.RequestContent))
+    foreach (HttpRequestHeader header in @Model.Headers)
+    {
+<text>@header.Name: @header.Value</text>
+    }
+    
+    if(!string.IsNullOrEmpty(Model.RequestContent))
 {
 <text>
-    
-@(Model.GetRequestContentAsString())</text>}}
-</pre>
+@(Model.GetRequestContentAsString())</text>}}</pre>
 
 
     @if (@Model.StatusCode != null)

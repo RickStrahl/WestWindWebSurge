@@ -302,7 +302,12 @@ namespace WebSurge
         
 
         /// <summary>
-        /// Checks all sites using separate threads that run 
+        /// This is the main Session processing routine. This routine creates the
+        /// new threads to run each session on. It monitors for shutdown/cancel operation
+        /// and then shuts down the worker threads and summarizes the results.
+        /// 
+        /// The worker method call for each Session request processing is 
+        /// SessionThreadRunner().
         /// </summary>
         /// <param name="requests"></param>
         /// <param name="threadCount"></param>
@@ -325,7 +330,8 @@ namespace WebSurge
                 return null;
             }
 
-            Running = true;            
+            Running = true;
+            
             Results.Clear();
             
             var threads = new List<Thread>();
@@ -335,15 +341,14 @@ namespace WebSurge
 
             // add warmup seconds to the request
             seconds += Options.WarmupSeconds;
-            
-            for (int i = 0; i < threadCount; i++)
-            {
-                var thread = new Thread(CheckSiteThreadRunner);
-                thread.Start(requests);
-                threads.Add(thread);
-            }
 
             StartTime = DateTime.UtcNow;
+            for (int i = 0; i < threadCount; i++)
+            {
+                var thread = new Thread(SessionThreadRunner);
+                thread.Start(requests);
+                threads.Add(thread);
+            }            
 
             var lastProgress = DateTime.UtcNow.AddSeconds(-10);            
             while (!CancelThreads)
@@ -408,8 +413,16 @@ namespace WebSurge
         }
 
         
-
-        private void CheckSiteThreadRunner(object requests)
+        /// <summary>
+        /// Checks an entire session on a separate thread.
+        /// 
+        /// This routine runs through all the threads in a session
+        /// one after the other (may be randomized based on options)
+        /// until CancelThreads is true. Called on a new thread as 
+        /// a delegate.
+        /// </summary>
+        /// <param name="requests"></param>
+        private void SessionThreadRunner(object requests)
         {
             List<HttpRequestData> reqs = null;
             bool isFirstRequest = true;
