@@ -268,9 +268,7 @@ namespace WebSurge
                     return result;
                 }
                 result.IsError = false;
-                result.ErrorMessage = null;
-                
-
+                result.ErrorMessage = null;                
 
                 if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
                     result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
@@ -480,25 +478,27 @@ namespace WebSurge
         /// <param name="result"></param>
         public virtual void WriteResult(HttpRequestData result)
         {
-            lock (InsertLock)
+            // don't log request detail data for non errors over a certain no of requests
+            if (!result.IsError && Results.Count > 3000)
             {
-                // don't log request detail data for non errors
-                if (!result.IsError && Results.Count > 3000)
+
+                // always clear response
+                result.ResponseContent = null;
+
+                // detail data only if we explicitly requested
+                if (Options.CaptureMinimalResponseData)
                 {
-                    result.ResponseContent = null;
-                    if (Options.CaptureMinimalResponseData)
-                    {
-                        result.Headers = null;
-                        result.ResponseHeaders = null;
-                        result.FullRequest = null;
-                        result.RequestContent = null;
-                    }
+                    result.Headers = null;
+                    result.ResponseHeaders = null;
+                    result.FullRequest = null;
+                    result.RequestContent = null;
                 }
+            }
 
+            lock (InsertLock)
+            {               
                 Results.Add(result);
-
-                RequestsProcessed++;
-                
+                RequestsProcessed++;                
                 if (result.IsError)
                     RequestsFailed++;
             }

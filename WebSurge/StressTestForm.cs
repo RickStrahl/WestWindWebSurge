@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace WebSurge
         public Splash Splash { get; set; }
 
         public StressTestForm()
-        {
+        {            
             InitializeComponent();
         }
 
@@ -122,7 +123,10 @@ namespace WebSurge
             {
                 BeginInvoke(new Action<ProgressInfo>(ShowProgress), obj);
             }
-            catch { }
+            catch (Exception ex)
+            {                
+                Trace.WriteLine("StressTester_Progress Exception: " + ex.Message);
+            }            
         }
 
         void ShowProgress(ProgressInfo progress)
@@ -143,35 +147,55 @@ namespace WebSurge
         }
 
 
-
         private static object ConsoleLog = new object();
         private StringBuilder statusOutput = new StringBuilder();
         private DateTime lastUpdate = DateTime.UtcNow;
 
-        void StressTester_RequestProcessed(HttpRequestData req)
+        private void StressTester_RequestProcessed(HttpRequestData req)
         {
-            string output = req.StatusCode + " -  " + req.HttpVerb + " " + req.Url + "(" + req.TimeTakenMs.ToString("n0") + "ms)";
+            string currentLine = req.StatusCode + " -  " + req.HttpVerb + " " + req.Url + "(" +
+                                 req.TimeTakenMs.ToString("n0") + "ms)";
+
+            string textToWrite = null;
+
             lock (ConsoleLog)
             {
-                statusOutput.AppendLine(output);
-                if (lastUpdate.AddMilliseconds(250) < DateTime.UtcNow)
+                statusOutput.AppendLine(currentLine);
+                if (lastUpdate.AddMilliseconds(225) < DateTime.UtcNow)
                 {
                     lastUpdate = DateTime.UtcNow;
-                    Invoke(new Action<string>(ShowRequestProcessed), statusOutput.ToString());
-                    statusOutput.Clear();
+                    textToWrite = statusOutput.ToString();
+                    statusOutput.Length = 0;
+                }
+            }
+
+            if (textToWrite != null)
+            {
+                try
+                {
+                    BeginInvoke(new Action<string>(ShowRequestProcessed), textToWrite);
+                }
+                catch
+                {
                 }
             }
         }
-        void ShowRequestProcessed(string output)
-        {
-            txtConsole.AppendText(output);
 
+        void ShowRequestProcessed(string output)
+        {                        
             // truncate output
-            if (txtConsole.Text.Length > 50000)
+            if (txtConsole.Text.Length > 30000)
+            {                
+                var txt = txtConsole.Text;                
+                txt = txt.Substring(txt.Length - 4000);
+                
+                // find line break and append output
+                txt = txt.Substring(txt.IndexOf("\r\n") + 2) + output + "\r\n";                
+                txtConsole.Text = txt;                           
+            }
+            else
             {
-                var txt = txtConsole.Text.Substring(5000);
-                txtConsole.Text = "";
-                txtConsole.Text = txt.Substring(txt.IndexOf("\r\n") + 2) + output;
+                txtConsole.AppendText(output);
             }
         }
 
@@ -946,11 +970,12 @@ reply to all messages promptly with frank discussions.";
 
         void watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            // this gets called more than once per update typically
-            var watcher = sender as FileSystemWatcher;
-            Invoke(new Action(() =>
+            // this gets called more than once per update typically            
+            BeginInvoke(new Action(() =>
             {
                 Thread.Sleep(1);
+
+                // reload the session list
                 OpenFile(FileName);
             }));
         }
