@@ -22,4 +22,3 @@ copy ..\..\WebSurgeCli\bin\release\CommandLine.dll
 copy "%AppData%\West Wind WebSurge\css\*.*" AppData\css
 copy "%AppData%\West Wind WebSurge\css\fonts\*.*" AppData\css\fonts
 copy "%AppData%\West Wind WebSurge\templates\*.*" AppData\templates
-pause

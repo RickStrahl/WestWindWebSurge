@@ -102,9 +102,6 @@ namespace WebSurge
             else
                 Requests = new List<HttpRequestData>();
 
-            tbtxtThreads.Text = config.LastThreads.ToString();
-            tbtxtTimeToRun.Text = config.LastSecondsToRun.ToString();
-
             LoadOptions();
 
             OptionsPropertyGrid.SelectedObject = StressTester.Options;
@@ -508,6 +505,7 @@ reply to all messages promptly with frank discussions.";
             //int time = StringUtils.ParseInt(tbtTxtTimeToRun.Text,2)
             int time = int.Parse(tbtxtTimeToRun.Text);
             int threads = int.Parse(tbtxtThreads.Text);
+
             config.LastSecondsToRun = time;
             config.LastThreads = threads;
 
@@ -709,7 +707,7 @@ reply to all messages promptly with frank discussions.";
         void SaveOptions()
         {            
             App.Configuration.LastFileName = FileName;
-            App.Configuration.WindowSettings.Save(this);
+            App.Configuration.WindowSettings.Save(this);            
 
             // Save any changed configuration settings
             App.Configuration.Write();
@@ -717,7 +715,11 @@ reply to all messages promptly with frank discussions.";
 
         void LoadOptions()
         {
-            StressTester.Options = App.Configuration.StressTester;            
+            StressTester.Options = App.Configuration.StressTester;
+
+            // manually assign threads and time
+            tbtxtTimeToRun.Text = StressTester.Options.LastSecondsToRun.ToString();
+            tbtxtThreads.Text = StressTester.Options.LastThreads.ToString();
         }
 
         void LoadRequest(HttpRequestData request)
