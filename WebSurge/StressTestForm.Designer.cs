@@ -68,7 +68,8 @@
             this.tbRequestsPerSecondChart = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.tbTimeTakenPerUrl = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
+            this.tbImportWebSurgeResults = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblRequestCount = new System.Windows.Forms.Label();
             this.cmbListDisplayMode = new System.Windows.Forms.ComboBox();
             this.TabsResult = new System.Windows.Forms.TabControl();
             this.tabOutput = new System.Windows.Forms.TabPage();
@@ -95,7 +96,6 @@
             this.btnOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRecentSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.RecentFilesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.btnEditFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -130,14 +130,15 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tbExport = new System.Windows.Forms.ToolStripSplitButton();
-            this.tbExportXml = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbExportRaw = new System.Windows.Forms.ToolStripMenuItem();
             this.tbExportJson = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbExportHtml = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbExportXml = new System.Windows.Forms.ToolStripMenuItem();
             this.tbCharts = new System.Windows.Forms.ToolStripSplitButton();
             this.tbRequestPerSecondChart = new System.Windows.Forms.ToolStripMenuItem();
             this.tbTimeTakenPerUrlChart = new System.Windows.Forms.ToolStripMenuItem();
@@ -371,6 +372,7 @@
             this.ListRequests.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListRequests.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ListRequests.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4,
             this.columnHeader2});
@@ -378,11 +380,11 @@
             this.ListRequests.FullRowSelect = true;
             this.ListRequests.GridLines = true;
             this.ListRequests.HideSelection = false;
-            this.ListRequests.Location = new System.Drawing.Point(-1, 26);
+            this.ListRequests.Location = new System.Drawing.Point(0, 25);
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(423, 553);
+            this.ListRequests.Size = new System.Drawing.Size(423, 528);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -463,16 +465,18 @@
             this.Images.Images.SetKeyName(1, "error");
             this.Images.Images.SetKeyName(2, "download");
             this.Images.Images.SetKeyName(3, "upload");
+            this.Images.Images.SetKeyName(4, "accessdenied");
+            this.Images.Images.SetKeyName(5, "notfound");
             // 
             // tabResults
             // 
             this.tabResults.Controls.Add(this.ListResults);
-            this.tabResults.Controls.Add(this.label1);
+            this.tabResults.Controls.Add(this.lblRequestCount);
             this.tabResults.Controls.Add(this.cmbListDisplayMode);
-            this.tabResults.Location = new System.Drawing.Point(4, 22);
+            this.tabResults.Location = new System.Drawing.Point(4, 24);
             this.tabResults.Name = "tabResults";
             this.tabResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResults.Size = new System.Drawing.Size(421, 551);
+            this.tabResults.Size = new System.Drawing.Size(421, 549);
             this.tabResults.TabIndex = 1;
             this.tabResults.Text = "Results";
             this.tabResults.UseVisualStyleBackColor = true;
@@ -482,6 +486,7 @@
             this.ListResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListResults.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ListResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Status,
             this.Request,
@@ -490,10 +495,10 @@
             this.ListResults.FullRowSelect = true;
             this.ListResults.GridLines = true;
             this.ListResults.HideSelection = false;
-            this.ListResults.Location = new System.Drawing.Point(0, 37);
+            this.ListResults.Location = new System.Drawing.Point(-1, 37);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(421, 514);
+            this.ListResults.Size = new System.Drawing.Size(423, 514);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.TabIndex = 3;
             this.ListResults.UseCompatibleStateImageBehavior = false;
@@ -518,9 +523,10 @@
             // ResultContextMenu
             // 
             this.ResultContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbResultCharts});
+            this.tbResultCharts,
+            this.tbImportWebSurgeResults});
             this.ResultContextMenu.Name = "ResultContextMenu";
-            this.ResultContextMenu.Size = new System.Drawing.Size(109, 26);
+            this.ResultContextMenu.Size = new System.Drawing.Size(208, 48);
             this.ResultContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
             // tbResultCharts
@@ -530,7 +536,7 @@
             this.toolStripSeparator9,
             this.tbTimeTakenPerUrl});
             this.tbResultCharts.Name = "tbResultCharts";
-            this.tbResultCharts.Size = new System.Drawing.Size(108, 22);
+            this.tbResultCharts.Size = new System.Drawing.Size(207, 22);
             this.tbResultCharts.Text = "Charts";
             this.tbResultCharts.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
@@ -551,15 +557,22 @@
             this.tbTimeTakenPerUrl.Size = new System.Drawing.Size(183, 22);
             this.tbTimeTakenPerUrl.Text = "Time Taken per URL";
             // 
-            // label1
+            // tbImportWebSurgeResults
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.label1.Location = new System.Drawing.Point(181, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "1000 items max";
+            this.tbImportWebSurgeResults.Enabled = false;
+            this.tbImportWebSurgeResults.Name = "tbImportWebSurgeResults";
+            this.tbImportWebSurgeResults.Size = new System.Drawing.Size(207, 22);
+            this.tbImportWebSurgeResults.Text = "Import WebSurge Results";
+            // 
+            // lblRequestCount
+            // 
+            this.lblRequestCount.AutoSize = true;
+            this.lblRequestCount.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.lblRequestCount.Location = new System.Drawing.Point(181, 12);
+            this.lblRequestCount.Name = "lblRequestCount";
+            this.lblRequestCount.Size = new System.Drawing.Size(82, 13);
+            this.lblRequestCount.TabIndex = 5;
+            this.lblRequestCount.Text = "1000 items max";
             // 
             // cmbListDisplayMode
             // 
@@ -865,19 +878,9 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
-            this.RecentFilesContextMenu.OwnerItem = this.btnRecentSessions;
+            this.RecentFilesContextMenu.OwnerItem = this.tbOpen;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
-            // 
-            // tbOpen
-            // 
-            this.tbOpen.DropDown = this.RecentFilesContextMenu;
-            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
-            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(110, 22);
-            this.tbOpen.Text = "Open Session";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // btnEditFile
             // 
@@ -1139,6 +1142,16 @@
             this.MainToolStrip.Size = new System.Drawing.Size(421, 25);
             this.MainToolStrip.TabIndex = 0;
             // 
+            // tbOpen
+            // 
+            this.tbOpen.DropDown = this.RecentFilesContextMenu;
+            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
+            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(110, 22);
+            this.tbOpen.Text = "Open Session";
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -1170,35 +1183,35 @@
             // tbExport
             // 
             this.tbExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbExportXml,
+            this.tbExportRaw,
             this.tbExportJson,
-            this.tbExportHtml});
+            this.tbExportXml});
             this.tbExport.Image = ((System.Drawing.Image)(resources.GetObject("tbExport.Image")));
             this.tbExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbExport.Name = "tbExport";
             this.tbExport.Size = new System.Drawing.Size(112, 22);
             this.tbExport.Text = "Export Results";
             // 
-            // tbExportXml
+            // tbExportRaw
             // 
-            this.tbExportXml.Name = "tbExportXml";
-            this.tbExportXml.Size = new System.Drawing.Size(101, 22);
-            this.tbExportXml.Text = "Xml";
-            this.tbExportXml.Click += new System.EventHandler(this.ButtonHandler);
+            this.tbExportRaw.Name = "tbExportRaw";
+            this.tbExportRaw.Size = new System.Drawing.Size(128, 22);
+            this.tbExportRaw.Text = "WebSurge";
+            this.tbExportRaw.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbExportJson
             // 
             this.tbExportJson.Name = "tbExportJson";
-            this.tbExportJson.Size = new System.Drawing.Size(101, 22);
+            this.tbExportJson.Size = new System.Drawing.Size(128, 22);
             this.tbExportJson.Text = "Json";
             this.tbExportJson.Click += new System.EventHandler(this.ButtonHandler);
             // 
-            // tbExportHtml
+            // tbExportXml
             // 
-            this.tbExportHtml.Name = "tbExportHtml";
-            this.tbExportHtml.Size = new System.Drawing.Size(101, 22);
-            this.tbExportHtml.Text = "Html";
-            this.tbExportHtml.Click += new System.EventHandler(this.ButtonHandler);
+            this.tbExportXml.Name = "tbExportXml";
+            this.tbExportXml.Size = new System.Drawing.Size(128, 22);
+            this.tbExportXml.Text = "Xml";
+            this.tbExportXml.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbCharts
             // 
@@ -1399,7 +1412,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnGotoRegistration;
         private System.Windows.Forms.ToolStripMenuItem btnRegistration;
         private System.Windows.Forms.ToolStripMenuItem btnExportHtml;
-        private System.Windows.Forms.ToolStripMenuItem tbExportHtml;
+        private System.Windows.Forms.ToolStripMenuItem tbExportRaw;
         private System.Windows.Forms.ToolStrip OptionsToolStrip;
         private System.Windows.Forms.ToolStripLabel lblTbThreads;
         private System.Windows.Forms.ToolStripTextBox tbtxtThreads;
@@ -1417,7 +1430,7 @@
         private System.Windows.Forms.ColumnHeader Status;
         private System.Windows.Forms.ColumnHeader Request;
         private System.Windows.Forms.ColumnHeader ErrorMessage;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblRequestCount;
         private System.Windows.Forms.ComboBox cmbListDisplayMode;
         private System.Windows.Forms.ListView ListRequests;
         private System.Windows.Forms.ColumnHeader columnHeader4;
@@ -1479,6 +1492,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ContextMenuStrip BrowserContextMenu;
         private System.Windows.Forms.ToolStripMenuItem btnOpenInDefaultBrowser;
+        private System.Windows.Forms.ToolStripMenuItem tbImportWebSurgeResults;
     }
 }
 

@@ -130,7 +130,11 @@ namespace WebSurge
 
             foreach (var request in requests)
             {
-                sb.Append(request.ToHttpHeader());
+                sb.Append(request.ToRequestHttpHeader());
+
+                if (!string.IsNullOrEmpty(request.ResponseHeaders))
+                    sb.Append(request.ToResponseHttpHeader());
+                    
                 sb.AppendLine(STR_Separator);                
             }
 

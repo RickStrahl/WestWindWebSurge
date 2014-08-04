@@ -222,7 +222,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public string ToHttpHeader()
+        public string ToRequestHttpHeader()
         {
             var req = this;
 
@@ -242,9 +242,24 @@ namespace WebSurge
             if (!string.IsNullOrEmpty(req.RequestContent))
                 sb.AppendLine("\r\n" + req.RequestContent);
 
-            return sb.ToString().Trim();
+            return sb.ToString();
         }
 
+        public string ToResponseHttpHeader()
+        {
+            var req = this;
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendFormat("HTTP/1.1 {0} {1}\r\n", req.StatusCode, req.StatusDescription);
+            sb.AppendLine(req.ResponseHeaders);
+
+            if (!string.IsNullOrEmpty(req.ResponseContent))
+            {                
+                sb.AppendLine(req.ResponseContent);
+            }
+            return sb.ToString();
+        }
 
         /// <summary>
         /// Parses a single HttpRequestData object to HTML

@@ -266,8 +266,8 @@ namespace WebSurge
                 Export("xml");
             else if (sender == tbExportJson || sender == btnExportJson)
                 Export("json");
-            else if (sender == tbExportHtml || sender == btnExportHtml)
-                Export("html");
+            else if (sender == tbExportRaw || sender == btnExportHtml)
+                Export("raw");
 
             if (sender == tbTimeTakenPerUrl || sender == tbTimeTakenPerUrlChart || sender == btnTimeTakenPerUrlChart)
             {
@@ -576,51 +576,60 @@ reply to all messages promptly with frank discussions.";
 
             Application.DoEvents();
 
-            List<HttpRequestData> filtered = null;
-            int count = 0;
+            IEnumerable<HttpRequestData> filtered = null;
+            
             filtered = results;
+            int filterCount = 3000;                        
 
             if (cmbListDisplayMode.SelectedItem == "Errors")
-            {
-                filtered = results.Where(rq => rq.StatusCode == null || !rq.StatusCode.StartsWith("2")).Take(1000).ToList();
-            }
+                filtered =
+                    results.Where(rq => rq.StatusCode == null || !rq.StatusCode.StartsWith("2"))                        
+                        .ToList();
             else if (cmbListDisplayMode.SelectedItem == "Success")
-            {
-                filtered = results.Where(rq => rq.StatusCode != null && rq.StatusCode.StartsWith("2")).Take(1000).ToList();
-            }
+                filtered =
+                    results.Where(rq => rq.StatusCode != null && rq.StatusCode.StartsWith("2"))                        
+                        .ToList();
             else if (cmbListDisplayMode.SelectedItem == "All")
-                filtered = results.Take(1000).ToList();
+                filtered = results;
 
-            if (filtered.Count == 0)
+            int fullCount = filtered.Count();
+
+            if (fullCount == 0)
             {
                 cmbListDisplayMode.SelectedItem = "All";
-                filtered = results.Take(1000).ToList();
+                filtered = results;
+                fullCount = results.Count;
             }
 
-            ListResults.BeginUpdate();
-            for (int i = 0; i < filtered.Count; i++)
-            {
-                var request = filtered[i];
+            filtered = filtered.Take(filterCount).ToList();
+            filterCount = filtered.Count();
 
+            ListResults.BeginUpdate();
+            foreach(var request in filtered)
+            {                
                 var item = ListResults.Items.Add(new ListViewItem()
                 {
                     Text = request.StatusCode,
                     Tag = request,
                 });
-                if (!request.IsError)
+                if (request.StatusCode == null) 
+                    item.ImageKey = "error";
+                else if (!request.IsError)
                     item.ImageKey = "ok";
+                else if (request.StatusCode == "404")
+                    item.ImageKey = "notfound";
+                else if (request.StatusCode == "401" || request.StatusCode == "403")
+                    item.ImageKey = "accessdenied";
                 else
                     item.ImageKey = "error";
 
                 item.SubItems.Add(request.HttpVerb + " " + request.Url);
-                item.SubItems.Add(request.ErrorMessage);
-                var resp = request.ResponseContent ?? string.Empty;
-                if (resp.Length > 1001)
-                    resp.Substring(0, 1000);
-                item.ToolTipText = resp;
+                item.SubItems.Add(request.ErrorMessage);                
             }
 
             ListResults.EndUpdate();
+            lblRequestCount.Text = filterCount.ToString("n0") + " of " +  fullCount.ToString("n0") + " shown";
+
         }
 
         void RenderRequests(List<HttpRequestData> requests)
@@ -920,18 +929,17 @@ reply to all messages promptly with frank discussions.";
                     }
                 }
             }
-            else if (mode == "html")
+            else if (mode == "raw")
             {
                 var diag = new SaveFileDialog()
                 {
                     AutoUpgradeEnabled = true,
                     CheckPathExists = true,
-                    DefaultExt = "html",
-                    Filter = "Html files (*.html)|*.html|All Files (*.*)|*.*",
+                    DefaultExt = "txt",
+                    Filter = "txt files (*.txt)|*.txt|All Files (*.*)|*.*",
                     OverwritePrompt = false,
-                    Title = "Export Results as HTML",
-                    RestoreDirectory = true,
-                    FileName = "KuhelaResults.html"
+                    Title = "Export Results",
+                    RestoreDirectory = true                   
                 };
                 var res = diag.ShowDialog();
                 if (res == DialogResult.OK)
@@ -939,13 +947,9 @@ reply to all messages promptly with frank discussions.";
                     if (File.Exists(diag.FileName))
                         File.Delete(diag.FileName);
 
-                    StringBuilder sb = new StringBuilder();
-                    foreach (var req in StressTester.Results)
-                    {
-                        sb.Append(req.ToHtml(true));
-                    }
-
-                    File.WriteAllText(diag.FileName, sb.ToString());
+                    var parser = new SessionParser();
+                    parser.Save(StressTester.Results, diag.FileName);
+                    ShellUtils.GoUrl(diag.FileName);
                 }
             }
         }
