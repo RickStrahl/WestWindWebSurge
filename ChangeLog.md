@@ -2,7 +2,7 @@
 
 
 ###Version 0.67b
-<i><small>not released yet</small></i>
+<i><small>August 7th, 2014</small></i>
 
 * **Add Authorization Header Override to Options**<br />
 You can now override the Authorization header for individual
