@@ -55,6 +55,15 @@ Use to force custom auth cookies to an existing session that has expired cookies
         [Category("Header Replacement")]
         public string ReplaceCookieValue { get; set; }
 
+        [Description(
+            @"When set replaces or adds the Authentication header with this value.
+
+Allows to add custom authentication to a request after you've captured say a bearer token."
+            )]
+
+        [Category("Header Replacement")]
+        public string ReplaceAuthorization { get; set;  }
+
 
         /// <summary>
         /// Allows you to replace the domain and port number of the

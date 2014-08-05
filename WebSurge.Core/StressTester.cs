@@ -179,6 +179,13 @@ namespace WebSurge
                     {
                         string cookie = Options.ReplaceCookieValue;
                         webRequest.Headers.Add("Cookie", cookie);
+                        header.Value = cookie;
+                        continue;
+                    }
+                    if (lheader == "authorization" && !string.IsNullOrEmpty(Options.ReplaceAuthorization))
+                    {
+                        webRequest.Headers.Add("Authorization", Options.ReplaceAuthorization);
+                        header.Value = Options.ReplaceAuthorization;
                         continue;
                     }
                     if (lheader == "user-agent")
