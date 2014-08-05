@@ -8,5 +8,5 @@ Version=9012
 Default=1033
 
 [Configs]
-ProductionInstall=00000441|130516102860986487|Build succeeded|websurge\ProductionInstall\WebSurgeSetup.exe|0.66b
+ProductionInstall=00000441|130516912912143917|Build succeeded|websurge\ProductionInstall\WebSurgeSetup.exe|0.66b
 

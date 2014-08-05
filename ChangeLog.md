@@ -1,8 +1,53 @@
 #West Wind WebSurge Change Log
 
 
-###Version 0.65b
+###Version 0.67b
 <i><small>not released yet</small></i>
+
+* **Add Authorization Header Override to Options**<br />
+You can now override the Authorization header for individual
+requests by setting an override in the Options. The override 
+from options is applied only to existing requests that already
+include an Authorization header.
+
+* **Optimize UI Status Updates**<br/>
+Fixed several issues in the logic for the UI update routines
+that caused slow operation for 'console view' updates to the
+textbox. Fixed sizing bug that leaked memory. Performance 
+of console view is now a lot closer to summary only view,
+but still slower as should be expected for the UI overhead.
+
+* **Add Raw HTTP Export of Results**<br />
+You can now export results in raw format that simply exports the
+raw results from a test run as HTTP headers and content. The format
+is plain text and can be re-imported later (pending feature), so
+you can review a previously run test.
+
+* **Updated Results View**<br/>
+The results view now shows 404 and 401 responses with different
+icons rather than the error icon. Result pane also shows a bit
+more data, and shows total for the list displayed (All, Success, Errors)
+
+* **Fix crash bug with short tests**<br />
+Fixed bug that would crash WebSurge when short tests were run,
+due to no results view. Results view now returns empty.
+
+* **Fix Warmup Seconds parsing**<br/>
+Warmup seconds weren't processed properly in previous builds as
+threads would start running before the flag was set. Warmup seconds
+now properly initialize immediately and are properly removed before
+summarizing results.
+
+* **Add Installer Build Batch File**<br/>
+Added a batch file to pull in all distribution files and
+run the InstallMate installer from the command line to copy
+files, and compile final distribution EXE in one step.
+WebSurge in one step.
+
+
+
+###Version 0.65b
+<i><small>August 1st, 2014</small></i>
 
 * **Add SSL Cert Installation for HTTP Capture**<br />
 Added support to install the required Fiddler SSL capture certificate 
