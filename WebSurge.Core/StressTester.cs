@@ -122,7 +122,7 @@ namespace WebSurge
             
             Results = new List<HttpRequestData>();
         }
-
+                
         /// <summary>
         /// Checks an individual site and returns a new HttpRequestData object
         /// </summary>
@@ -211,8 +211,14 @@ namespace WebSurge
                             webRequest.KeepAlive = false;                        
                         continue;
                     }
+                    // set above view property
+                    if (lheader == "content-type")
+                        continue;
+                    // not handled at the moment
                     if (lheader == "proxy-connection")
                         continue;  // TODO: Figure out what to do with this one
+                    
+                    // set explicitly via properties
                     if (lheader == "transfer-encoding")
                     {
                         webRequest.TransferEncoding = header.Value;

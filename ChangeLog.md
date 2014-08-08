@@ -1,5 +1,26 @@
 #West Wind WebSurge Change Log
 
+###Version 0.67b
+<i><small>not released yet</small></i>
+
+* **Make URL Test Asynchronous**<br/>
+When you click the Test button on a request URL the URL is
+now executed asynchronously and no longer locks up the UI.
+Statusbar shows checking and completion notice and Preview
+form pops up when done just as before.
+
+* **Support for Razor Templates Intellisense**<br />
+Added bin folder to the Razor templates folder so that Intellisense
+now works for the preview and result templates.
+
+* **Fix Content Type Bug on Requests**<br/>
+Content type would not properly display in the preview form. 
+Reworked import and capture and display mechanisms to only 
+display Content type from headers - not from ContentType property.
+
+* **Save Session no longer prompts for File Overwrites**<br/>
+When saving you are now no longer prompted whether you want to overwrite
+the file if it already exists. Also added short cut for Save operation.
 
 ###Version 0.67b
 <i><small>August 7th, 2014</small></i>

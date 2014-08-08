@@ -352,7 +352,8 @@ namespace WebSurge
             }
 
         
-            if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2)
+            if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2 ||
+                sender == btnSaveAllRequests || sender == btnSaveAllRequestsAs)
             {
                 var parser = new SessionParser();
 
@@ -364,24 +365,34 @@ namespace WebSurge
                 if (!string.IsNullOrEmpty(FileName))
                     file = Path.GetFileName(FileName);
 
-                SaveFileDialog sd = new SaveFileDialog
+                if (sender == btnSaveAllRequests && File.Exists(FileName))
                 {
-                    Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
-                    FilterIndex = 1,
-                    FileName = file,
-                    CheckFileExists = false,
-                    AutoUpgradeEnabled = true,
-                    CheckPathExists = true,
-                    InitialDirectory = path,
-                    RestoreDirectory = true
-                };
-
-                var result = sd.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    FileName = sd.FileName;
-                    parser.Save(Requests, sd.FileName);
+                    parser.Save(Requests, FileName);
+                    ShowStatus("Session saved.", 1, 4000);
                 }
+                else
+                {
+                    SaveFileDialog sd = new SaveFileDialog
+                    {
+                        Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                        FilterIndex = 1,
+                        FileName = file,
+                        CheckFileExists = false,
+                        OverwritePrompt = false,
+                        AutoUpgradeEnabled = true,
+                        CheckPathExists = true,
+                        InitialDirectory = path,
+                        RestoreDirectory = true
+                    };
+
+                    var result = sd.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        FileName = sd.FileName;
+                        parser.Save(Requests, sd.FileName);
+                    }
+                }
+
             }
             else if (sender == btnFeedback)
             {
@@ -455,13 +466,25 @@ reply to all messages promptly with frank discussions.";
             Cursor = Cursors.WaitCursor;
 
             StressTester.CancelThreads = false;
-            ActiveRequest = StressTester.CheckSite(req);            
+            
+            var action = new Action<HttpRequestData>((rq) =>
+            {
+                ShowStatus("Checking URL: " + rq.Url); 
 
-            string html = TemplateRenderer.RenderTemplate("Request.cshtml", ActiveRequest);
-            //string html = reqResult.ToHtml(true);
-            HtmlPreview(html);
-            TabsResult.SelectedTab = tabPreview;
+                var ActiveRequest = StressTester.CheckSite(rq);
+                string html = TemplateRenderer.RenderTemplate("Request.cshtml", ActiveRequest);                
 
+                Invoke(new Action<string>((htmlText) =>
+                {
+                    HtmlPreview(html);
+                    TabsResult.SelectedTab = tabPreview;
+                    ShowStatus("URL check complete.", 1, 5000);
+
+                }),html);
+                
+            });
+            action.BeginInvoke(req,null,null);
+           
             Cursor = Cursors.Default;
         }
 
@@ -690,19 +713,31 @@ reply to all messages promptly with frank discussions.";
 
         public void ShowStatus(string text = null, int panelId = 1, int timeout = 0)
         {
-            var action = new Action<string, int>(StatusTest_Internal);
 
-            if (timeout == 0)
+            var action = new Action<string, int>(ShowStatus_Internal);
+            try
             {
-                try
-                {
-                    Invoke(action, text, panelId);
-                }
-                catch { }
+                Invoke(action, text, panelId);
             }
+            catch { }
+
+
+            if (timeout > 0)
+            {
+                new System.Threading.Timer((id) =>
+                {
+                    try
+                    {
+                        Invoke(action, "Ready", (int) id);
+                    }
+                    catch { }
+                }, panelId, timeout ,0);                                
+            }
+
+                
         }
 
-        public void StatusTest_Internal(string text, int panelId = 1)
+        void ShowStatus_Internal(string text, int panelId = 1)
         {
             if (panelId == 1)
                 lblStatusText.Text = text;

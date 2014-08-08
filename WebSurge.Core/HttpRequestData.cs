@@ -206,8 +206,7 @@ namespace WebSurge
                 }
                 if (name == "content-type")
                 {
-                    ContentType = hd.Value;
-                    continue;
+                    ContentType = hd.Value;                    
                 }
                 if (name == "content-length")
                     continue; // HTTP client adds this automatically
@@ -231,11 +230,8 @@ namespace WebSurge
             var html = "{0} {1} HTTP/1.1\r\n";
             sb.AppendFormat(html, req.HttpVerb, req.Url);
 
-            if (!string.IsNullOrEmpty(req.ContentType))
-                sb.AppendLine("Content-type: " + req.ContentType);
-
             foreach (var header in req.Headers)
-            {
+            {                
                 sb.AppendLine(header.Name + ": " + header.Value);
             }
 
