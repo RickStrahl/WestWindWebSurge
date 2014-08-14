@@ -87,7 +87,7 @@ namespace WebSurge
             if (ResponseHeaders == null)
                 return null;
 
-            string headerLine = StringUtils.ExtractString(ResponseHeaders, headerName + ": ", "\r\n", true, true, false);
+            string headerLine = StringUtils.ExtractString(ResponseHeaders, headerName + ": ", "\r\n", false, true, false);
             if (headerLine == null)
                 return null;
 
@@ -102,7 +102,7 @@ namespace WebSurge
         /// <returns></returns>
         public string GetOutputType()
         {
-            string ct = GetResponseHeader("Content-Type");
+            string ct = GetResponseHeader("Content-type");
             if (ct == null)
                 return null;
             if (ct.Contains("text/html"))

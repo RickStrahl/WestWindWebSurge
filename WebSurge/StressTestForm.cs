@@ -220,12 +220,7 @@ namespace WebSurge
             }
             else if (sender == btnClose)
             {
-                Requests = new List<HttpRequestData>();
-                FileName = null;
-                RenderRequests(Requests);
-                TabSessions.SelectedTab = tabSession; 
-                
-                RenderResultList(Requests);
+                CloseSession();
             }
             else if (sender == tbCapture || sender == btnCapture)
             {
@@ -234,7 +229,7 @@ namespace WebSurge
                 fiddlerForm.Show();
             }
             else if (sender == tbStart || sender == btnStart)
-            {
+            {                
                 StartProcessing();
             }
             else if (sender == tbStop || sender == btnStop)
@@ -421,25 +416,29 @@ Thank you!";
             else if (sender == btnBugReport)
             {
                 string msg =
-@"Please use our message board to post a bug report or
-enhancement request. When describing your issue, please
-provide as much detail as possible, and if possible 
-provide steps to reproduce the behavior, so we can
-replicate and fix the issue as quickly as possible.
+@"Please use our issue tracker to report bugs or enhancement
+requests on the GitHub repository.
 
-You can also look at the error log by using the
-Help Menu | Show Error Log menu option. You can
-copy and paste the relevant section or all of the 
-file into the message. 
+When describing your issue, please provide as much detail 
+as possible, and if possible provide steps to reproduce 
+the behavior, so we can replicate and fix the issue as 
+quickly as possible.
 
-It takes a only a few seconds to create an account 
-to post a message. We want to hear from you and we
-reply to all messages promptly with frank discussions.";
+You can also look at the WebSurge Error Log by using the
+Help | Show Error Log menu option. You can copy and paste 
+the relevant error section into the issue text.
+
+If you're not sure whether you have discovered a bug or
+need clarification of functionality, please use the 
+Feedback and Suggestions link from the Help menu.
+
+We want to hear from you, and we respond promptly to
+any reported issues.";
 
                 var res =  MessageBox.Show(msg, App.Configuration.AppName + " Feedback", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Information);
                 if (res == System.Windows.Forms.DialogResult.OK)
-                    ShellUtils.GoUrl("http://west-wind.com/wwThreads/default.asp?forum=West%20Wind%20WebSurge");
+                    ShellUtils.GoUrl("https://github.com/RickStrahl/WestWindWebSurge/issues");
             }                
             else if (sender == btnShowErrorLog)
             {
@@ -461,6 +460,25 @@ reply to all messages promptly with frank discussions.";
             UpdateButtonStatus();
         }
 
+        private void CloseSession()
+        {
+            Requests = new List<HttpRequestData>();
+            FileName = null;
+            RenderRequests(Requests);
+            TabSessions.SelectedTab = tabSession;
+
+            StressTester.Results = new List<HttpRequestData>();
+            RenderResultList(StressTester.Results);
+
+            try
+            {
+                GC.Collect();
+            }
+            catch
+            {
+            }
+        }
+
         private void TestSiteUrl(HttpRequestData req)
         {
             Cursor = Cursors.WaitCursor;
@@ -471,13 +489,13 @@ reply to all messages promptly with frank discussions.";
             {
                 ShowStatus("Checking URL: " + rq.Url); 
 
-                var ActiveRequest = StressTester.CheckSite(rq);
+                ActiveRequest = StressTester.CheckSite(rq);
                 string html = TemplateRenderer.RenderTemplate("Request.cshtml", ActiveRequest);                
 
                 Invoke(new Action<string>((htmlText) =>
                 {
                     HtmlPreview(html);
-                    TabsResult.SelectedTab = tabPreview;
+                    TabsResult.SelectedTab = tabPreview;                    
                     ShowStatus("URL check complete.", 1, 5000);
 
                 }),html);
@@ -515,8 +533,8 @@ reply to all messages promptly with frank discussions.";
             txtConsole.Visible = true;
 
             Application.DoEvents();
-
-            StressTester.Running = true;
+            
+            StressTester.Running = true;            
             Thread td = new Thread(StartProcessing_Internal);
             td.Start();
         }

@@ -341,10 +341,9 @@ namespace WebSurge
                 return null;
             }
 
+            Results = new List<HttpRequestData>();
             Running = true;
-            
-            Results.Clear();
-            
+
             var threads = new List<Thread>();
             CancelThreads = false;
             RequestsProcessed = 0;
@@ -494,7 +493,6 @@ namespace WebSurge
             // don't log request detail data for non errors over a certain no of requests
             if (!result.IsError && Results.Count > 3000)
             {
-
                 // always clear response
                 result.ResponseContent = null;
 
