@@ -1,7 +1,7 @@
 #West Wind WebSurge Change Log
 
-###Version 0.69b
-<i><small>not released yet</small></i>
+###Version 0.68b
+<i><small>August 15th, 2014</small></i>
 
 * **Make URL Test Asynchronous**<br/>
 When you click the Test button on a request URL the URL is
@@ -70,8 +70,6 @@ Added a batch file to pull in all distribution files and
 run the InstallMate installer from the command line to copy
 files, and compile final distribution EXE in one step.
 WebSurge in one step.
-
-
 
 ###Version 0.65b
 <i><small>August 1st, 2014</small></i>
