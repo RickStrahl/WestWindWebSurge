@@ -3,7 +3,7 @@
   <metadata>
     <id>WestwindWebSurge</id>
     <title>West Wind WebSurge</title>
-    <version>0.67</version>
+    <version>0.68</version>
     <authors>Rick Strahl, West Wind Technologies</authors>
     <owners>West Wind Technologies</owners>
     <summary>Quick and Easy Load Testing for your Web Applications</summary>
@@ -19,7 +19,7 @@ Capture HTML requests, AJAX, REST and SOAP services. Capture SSL requests, provi
     <licenseUrl>http://www.west-wind.com/websurge/pricing.aspx</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <iconUrl>http://west-wind.com/websurge/images/WebSurgeLogo128.png</iconUrl>
-	<releaseNotes>This version adds many UI enhancements, cleaner results and request views, the ability to override Authorization headers, improved test performance when the Console displays results, a new WebSurge Export option, and a number of bug fixes.
+	<releaseNotes>This version adds many small UI enhancements related to quick testing of individual URLs and managing of Sessions inside of the UI. Also added overrides for Authorization headers and improved performance for Console view during tests.
 	</releaseNotes>
   </metadata>
   <files>
