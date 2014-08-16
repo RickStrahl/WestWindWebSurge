@@ -30,7 +30,7 @@ _ReSharper*/
 *.vssscc
 $tf*/
 packages*/
-/Distribution/_preview.html
-/Lib/FiddlerCore4.XML
-/InstallerFiles/*.iw9
+_preview.html
 
+/InstallerFiles/*.iw9
+/InstallerFiles/Upload.bat

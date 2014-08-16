@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VersionInfo>
+   <Version>0.68</Version>
+   <Title>West Wind WebSurge Version 0.68b is now available</Title>
+   <Detail>This version adds many small UI enhancements related to quick testing of individual URLs and managing of Sessions inside of the UI. Also added overrides for Authorization headers and improved performance for Console view during tests.
+</Detail>
+</VersionInfo>
