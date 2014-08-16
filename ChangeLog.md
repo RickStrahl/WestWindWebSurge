@@ -1,5 +1,18 @@
 #West Wind WebSurge Change Log
 
+###Version 0.69b
+<i><small>not released yet</small></i>
+
+* **Add Copy Request Option**<br />
+You can now copy an existing request using a new Copy from Request 
+shortcut menu option on the request tab. Facilitates creating similar
+requests more quickly.
+
+* **Request Test, Edit, Preview shortcuts**<br/>
+There are now shortcut keys to most request related operations. 
+This makes it quicker to test and edit individual requests very
+quickly.
+
 ###Version 0.68b
 <i><small>August 15th, 2014</small></i>
 

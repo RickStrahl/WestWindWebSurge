@@ -306,17 +306,34 @@ namespace WebSurge
                     TabsResult.SelectedTab = tabRequest;
                 }                
             }
-            if (sender == tbAddRequest || sender == tbAddRequest2)
+            if (sender == tbNewRequest || sender == tbNewRequest2)
             {
                 txtRequestUrl.Tag = null; 
                 
                 txtHttpMethod.Text = "GET";
                 txtRequestUrl.Text = "http://";                
 
-
                 txtRequestHeaders.Text = "Accept-Encoding: gzip,deflate";
                 txtRequestContent.Text = string.Empty;
-                TabsResult.SelectedTab = tabRequest;                
+                TabsResult.SelectedTab = tabRequest;
+                txtRequestUrl.Focus();
+            }
+            if (sender == tbCopyFromRequest)
+            {
+                var req = txtRequestUrl.Tag as HttpRequestData;
+                if (req == null)
+                    return;
+
+                var newRequest = HttpRequestData.Copy(req);
+                if (!newRequest.Url.EndsWith("_COPIED")) 
+                    newRequest.Url += "_COPIED";                
+                
+                LoadRequest(newRequest);
+                txtRequestUrl.Tag = null;  // it's a new request
+
+                TabsResult.SelectedTab = tabRequest;
+                txtRequestUrl.Focus();
+                
             }
             if (sender == btnSaveRequest)
             {
@@ -329,7 +346,7 @@ namespace WebSurge
 
                 RenderRequests(Requests);
             }
-            if (sender == btnRunRequest || sender == tbRunRequest)
+            if (sender == btnRunRequest || sender == tbTestRequest2 || sender == tbTestRequest)
             {
                 var req = txtRequestUrl.Tag as HttpRequestData;
                 req = SaveRequest(req);
@@ -360,7 +377,8 @@ namespace WebSurge
                 if (!string.IsNullOrEmpty(FileName))
                     file = Path.GetFileName(FileName);
 
-                if (sender == btnSaveAllRequests && File.Exists(FileName))
+                if (sender != btnSaveAllRequestsAs && 
+                    File.Exists(FileName))
                 {
                     parser.Save(Requests, FileName);
                     ShowStatus("Session saved.", 1, 4000);
@@ -839,20 +857,25 @@ any reported issues.";
             tbCharts.Enabled = hasResults;
             btnCharts.Enabled = hasResults;
 
+            // Result Selected
             var isResultSelected = ListResults.SelectedItems.Count > 0;
             tbTimeTakenPerUrl.Enabled = isResultSelected;
             tbTimeTakenPerUrlChart.Enabled = isResultSelected;
 
+            // All Requests
             tbSaveAllRequests.Enabled = Requests.Count > 0;
             tbSaveAllRequests2.Enabled = tbSaveAllRequests.Enabled;
-
+            
             tbNoProgressEvents.Checked = StressTester.Options.NoProgressEvents;
 
+            // Request Selected
             var isRequestSelected = ListRequests.SelectedItems.Count > 0;
             tbEditRequest.Enabled = isRequestSelected;
             tbEditRequest2.Enabled = isRequestSelected;
             tbDeleteRequest.Enabled = isRequestSelected;
             tbDeleteRequest2.Enabled = isRequestSelected;
+            tbTestRequest.Enabled = isRequestSelected;
+            tbTestRequest2.Enabled = isRequestSelected;
 
             btnShowErrorLog.Enabled = File.Exists(App.LogFile) &&
                                     new FileInfo(App.LogFile).Length > 0;
