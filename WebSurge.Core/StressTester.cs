@@ -150,13 +150,11 @@ namespace WebSurge
                 client.CreateWebRequestObject(result.Url);
                 var webRequest = client.WebRequest;
                 
-
                 webRequest.Method = reqData.HttpVerb;
                 client.UseGZip = true;                
 
-                client.ContentType = reqData.ContentType;                
-                webRequest.Timeout = Options.RequestTimeoutMs;
-                webRequest.ReadWriteTimeout = Options.RequestTimeoutMs;
+                client.ContentType = reqData.ContentType;
+                client.Timeout = Options.RequestTimeoutMs / 1000;
 
                 if (!string.IsNullOrEmpty(reqData.RequestContent))
                 {
