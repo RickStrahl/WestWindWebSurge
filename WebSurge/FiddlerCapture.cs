@@ -13,7 +13,7 @@ namespace WebSurge
         private const string Separator = "------------------------------------------------------------------";
         private UrlCaptureConfiguration CaptureConfiguration { get; set; }
         private StressTestForm MainForm;
-        bool isFirstSslRequest;
+        
 
     public FiddlerCapture(StressTestForm form)
     {

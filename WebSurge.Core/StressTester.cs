@@ -291,8 +291,8 @@ namespace WebSurge
             }
             // these will occur on shutdown - don't log since they will return
             // unstable results - just ignore
-            catch (ThreadAbortException ex)
-            {
+            catch (ThreadAbortException)
+            {                
                 return null;
             }
             catch (Exception ex)

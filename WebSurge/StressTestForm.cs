@@ -640,15 +640,15 @@ any reported issues.";
             filtered = results;
             int filterCount = 3000;                        
 
-            if (cmbListDisplayMode.SelectedItem == "Errors")
+            if (cmbListDisplayMode.SelectedItem as string == "Errors")
                 filtered =
                     results.Where(rq => rq.StatusCode == null || !rq.StatusCode.StartsWith("2"))                        
                         .ToList();
-            else if (cmbListDisplayMode.SelectedItem == "Success")
+            else if (cmbListDisplayMode.SelectedItem as string == "Success")
                 filtered =
                     results.Where(rq => rq.StatusCode != null && rq.StatusCode.StartsWith("2"))                        
                         .ToList();
-            else if (cmbListDisplayMode.SelectedItem == "All")
+            else if (cmbListDisplayMode.SelectedItem as string  == "All")
                 filtered = results;
 
             int fullCount = filtered.Count();

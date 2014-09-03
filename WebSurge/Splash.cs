@@ -70,12 +70,12 @@ namespace WebSurge
             Close();
         }
 
-        public void Close()
+        public new void Close()
         {
             FadeOut();            
         }
 
-        bool InFadeOut;
+        bool InFadeOut = false;
         void FadeOut()
         {
             if (InFadeOut)
