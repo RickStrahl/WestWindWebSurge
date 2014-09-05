@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebSurge.Cli;
+using Westwind.Utilities;
 
 namespace WebSurge.Cli
 
@@ -52,11 +53,13 @@ namespace WebSurge.Cli
                 });
             }
 
+            if (options.Silent != 0 && options.Silent != 1)
+            {
+                Console.WriteLine("West Wind WebSurge v" + GetVersion());
+                Console.WriteLine("------------------------");
+            }
 
-            Console.WriteLine("West Wind WebSurge v" + GetVersion());
-            Console.WriteLine("------------------------");
-                
-            
+
             int time = options.Time;
             int threads = options.Threads;
 
@@ -71,12 +74,19 @@ namespace WebSurge.Cli
             if (options.Silent != 0  && options.Silent != 2)            
                 stressTester.Progress += stressTester_Progress;
 
-            
-           
-
             Console.ForegroundColor = ConsoleColor.Green;
             var results = stressTester.CheckAllSites(requests,threads,time);
             Console.ForegroundColor = ConsoleColor.White;
+
+            if (options.Json)
+            {
+                var result = stressTester.ResultsParser.GetResultReport(stressTester.Results, 
+                    stressTester.TimeTakenForLastRunMs,
+                    stressTester.ThreadsUsed);
+                string json = JsonSerializationUtils.Serialize(result, formatJsonOutput: true);
+                Console.WriteLine(json);
+                return;
+            }
 
             string resultText = stressTester.ParseResults(results);
 

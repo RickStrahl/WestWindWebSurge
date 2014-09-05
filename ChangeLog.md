@@ -1,7 +1,13 @@
-#West Wind WebSurge Change Log
+# West Wind WebSurge Change Log
 
-###Version 0.69b
+### Version 0.69b
 <i><small>not released yet</small></i>
+
+* **Add Export of Summary Results**
+You can now export summary results to JSON so you can archive or otherwise
+store the summarized results from a test session. Use the Export button
+in the UI form, or the new --json option on the WebSurgeCli.exe command 
+line to capture the summary results as JSON.  
 
 * **Add Copy Request Option**<br />
 You can now copy an existing request using a new Copy from Request 
@@ -13,7 +19,8 @@ There are now shortcut keys to most request related operations.
 This makes it quicker to test and edit individual requests very
 quickly.
 
-###Version 0.68b
+
+### Version 0.68b
 <i><small>August 15th, 2014</small></i>
 
 * **Make URL Test Asynchronous**<br/>
@@ -41,7 +48,7 @@ Save options added to File menu.
 When saving you are now no longer prompted whether you want to overwrite
 the file if it already exists. Also added short cut for Save operation.
 
-###Version 0.67b
+### Version 0.67b
 <i><small>August 7th, 2014</small></i>
 
 * **Add Authorization Header Override to Options**<br />
@@ -100,7 +107,7 @@ additional errors including hard crash errors. Slight
 error log format updates to make errors easier to read.
 
 
-###Version 0.61b
+### Version 0.61b
 <i><small>July 21st, 2014</small></i>
 
 * **Preview HTML, XML and JSON output**<br />

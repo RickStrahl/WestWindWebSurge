@@ -34,6 +34,8 @@ namespace WebSurge.Cli
         [Option('y', "silent", HelpText = "Silent operation - output only results. use y surpresses all, y1 surpresses detail only, y2 surpresses summary only",DefaultValue = 1)]
         public int Silent { get; set; }
 
+        [Option("json", HelpText="Generates only JSON output.")]
+        public bool Json {get; set;}
 
         [HelpOption]
         public string GetUsage()
@@ -68,10 +70,15 @@ Switches:
 ---------
 -r          Randomize order of requests in Session file
 
+Output:
+-------
+--json       Return results as JSON
+
 Examples:
 ---------
 WebSurgeCli c:\temp\LoadTest.txt  -s20 -t10
 WebSurgeCli http://localhost/testpage/  -s20 -t10
+WebSurgeCli c:\temp\LoadTest.txt  -s20 -t10 -json
 ";
 
             sb.AppendLine(options);            

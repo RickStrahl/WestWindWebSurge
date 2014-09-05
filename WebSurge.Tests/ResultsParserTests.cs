@@ -191,7 +191,7 @@ namespace SimpleStressTester.Tests
             }
 
 
-            var html = parser.ResultReportHtml(requests,10,2);            
+            var html = parser.GetResultReportHtml(requests,10,2);            
             Console.WriteLine(html);
 
             var file = App.UserDataPath + "_preview.html";

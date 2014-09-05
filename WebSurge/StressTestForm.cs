@@ -263,6 +263,9 @@ namespace WebSurge
                 Export("json");
             else if (sender == tbExportRaw || sender == btnExportHtml)
                 Export("raw");
+            else if (sender == btnExportResultSummary)            
+                Export("results");
+           
 
             if (sender == tbTimeTakenPerUrl || sender == tbTimeTakenPerUrlChart || sender == btnTimeTakenPerUrlChart)
             {
@@ -613,7 +616,7 @@ any reported issues.";
 
             TabSessions.SelectedTab = tabResults;
 
-            var html = StressTester.ResultsParser.ResultReportHtml(StressTester.Results,
+            var html = StressTester.ResultsParser.GetResultReportHtml(StressTester.Results,
                 StressTester.TimeTakenForLastRunMs/1000,StressTester.ThreadsUsed);
 
             HtmlPreview(html, false,"_results.html");
@@ -915,7 +918,7 @@ any reported issues.";
             ActiveRequest = req;
 
             string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
-            //StressTester.ResultsParser.ResultReportHtml
+            //StressTester.ResultsParser.GetResultReportHtml
             //string html = req.ToHtml(true);
 
             HtmlPreview(html);
@@ -1025,6 +1028,40 @@ any reported issues.";
 
                     var parser = new SessionParser();
                     parser.Save(StressTester.Results, diag.FileName);
+                    ShellUtils.GoUrl(diag.FileName);
+                }
+            }
+            else if (mode == "results")
+            {
+                var diag = new SaveFileDialog()
+                {
+                    AutoUpgradeEnabled = true,
+                    CheckPathExists = true,
+                    DefaultExt = "txt",
+                    Filter = "txt files (*.json)|*.json|All Files (*.*)|*.*",
+                    OverwritePrompt = false,
+                    Title = "Export Summary Results",                    
+                    RestoreDirectory = true,
+                };
+                if (!string.IsNullOrEmpty(FileName))
+                {
+                    var file = Path.GetFileNameWithoutExtension(FileName);
+                    var dt = DateTime.Now;
+                    diag.FileName = file + "_Result_" + DateTime.Now.ToString("yyyyMMdd-HHmm") +".json";
+                }
+
+                var res = diag.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    if (File.Exists(diag.FileName))
+                        File.Delete(diag.FileName);
+
+                    var result = StressTester.ResultsParser.GetResultReport(
+                                                StressTester.Results,
+                                                StressTester.TimeTakenForLastRunMs, 
+                                                StressTester.ThreadsUsed);
+                    string json = JsonSerializationUtils.Serialize(result, false, true);
+                    File.WriteAllText(diag.FileName, json);
                     ShellUtils.GoUrl(diag.FileName);
                 }
             }

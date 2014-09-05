@@ -26,7 +26,7 @@ namespace WebSurge
                 return res = new TestResult();
 
             res = new TestResult()
-            {
+            {                
                 TotalRequests = results.Count,
                 ThreadCount = threads,
                 TimeTakenSecs = totalTimeSecs,
@@ -42,7 +42,6 @@ namespace WebSurge
 
         public string ParseResultsToString(IEnumerable<HttpRequestData> resultData, int totalTimeSecs, int threads)
         {
-
             var result = ParseResults(resultData, totalTimeSecs, threads);
 
             StringBuilder sb = new StringBuilder();
@@ -130,64 +129,36 @@ namespace WebSurge
             return urls.ToList();
         }
 
-        
-        public string ResultReportHtml(IEnumerable<HttpRequestData> resultData, 
-                                       int totalTimeTaken, 
-                                       int threadCount)
+        public TestResultView GetResultReport(IEnumerable<HttpRequestData> resultData,
+            int totalTimeTaken,
+            int threadCount)
         {
             var urlSummary = UrlSummary(resultData, totalTimeTaken);
             var testResult = ParseResults(resultData, totalTimeTaken, threadCount);
 
             var model = new TestResultView()
             {
+                Timestamp = DateTime.UtcNow,
                 TestResult = testResult,
                 UrlSummary = urlSummary
             };
-            
+
+            return model;
+        }
+
+        public string GetResultReportHtml(IEnumerable<HttpRequestData> resultData, 
+                                       int totalTimeTaken, 
+                                       int threadCount)
+        {
+            var model = GetResultReport(resultData, totalTimeTaken, threadCount);
             return TemplateRenderer.RenderTemplate("TestResult.cshtml",model);
         }
 
-
-        //private Dictionary<string, string> compiledTemplates = new Dictionary<string, string>();
-        //private RazorEngine<RazorTemplateBase> host = CreateHost();
-
-        //private static RazorEngine<RazorTemplateBase> CreateHost()
-        //{
-        //    var host = new RazorEngine<RazorTemplateBase>();
-
-        //    // add this assembly
-        //    host.AddAssemblyFromType(typeof(ResultsParser));            
-            
-        //    return host;
-        //}
-
-        //private string RenderTemplate(string templateName, object model)
-        //{            
-        //    string compiledId = null;
-        //    if (compiledTemplates.Keys.Contains(templateName))
-        //        compiledId = compiledTemplates[templateName];
-        //    else
-        //    {
-        //        string template = File.ReadAllText(App.UserDataPath + "Templates\\" + templateName);                
-        //        compiledId = host.CompileTemplate(template);
-
-        //        if (compiledId == null)
-        //            return "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";                    
-                
-        //        compiledTemplates.Add(templateName, compiledId);
-        //    }
-
-        //    string result = host.RenderTemplateFromAssembly(compiledId,model);
-
-        //    if (result == null)
-        //        result = "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";
-
-        //    return result;
-        //}
     }
 
     public class TestResultView
     {
+        public DateTime Timestamp { get; set; }
         public TestResult TestResult { get; set; }
         public IEnumerable<UrlSummary> UrlSummary { get; set; }    
     }
@@ -200,7 +171,7 @@ namespace WebSurge
     }
 
     public class TestResult
-    {
+    {        
         public int TotalRequests { get; set; }
         public int ThreadCount { get; set; }
         public int FailedRequests { get; set; }
@@ -209,7 +180,7 @@ namespace WebSurge
         public decimal AvgRequestTimeMs { get; set; }
         public decimal MinRequestTimeMs { get; set; }
         public decimal MaxRequestTimeMs { get; set; }
-        public int TimeTakenSecs { get; set; }
+        public int TimeTakenSecs { get; set; }        
     }
 
     public class RequestsPerSecondResult
