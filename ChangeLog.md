@@ -3,7 +3,7 @@
 ### Version 0.69b
 <i><small>not released yet</small></i>
 
-* **Add Export of Summary Results**
+* **Add Export of Summary Results**</br>
 You can now export summary results to JSON so you can archive or otherwise
 store the summarized results from a test session. Use the Export button
 in the UI form, or the new --json option on the WebSurgeCli.exe command 
