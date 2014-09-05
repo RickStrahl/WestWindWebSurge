@@ -939,9 +939,9 @@ any reported issues.";
             {
                 // _results.html is rendered into the output tab
                 if (fileName == "_results.html")
-                {
+                {                    
                     TestResultBrowser.Url = new Uri(file);
-                    TestResultBrowser.Visible = true;
+                    TestResultBrowser.Visible = true;                    
                     txtConsole.Visible = false;
                 }
                 else
@@ -1080,8 +1080,9 @@ any reported issues.";
         {
             string url = e.Url.ToString();
 
-            if (string.IsNullOrEmpty(url) || url.StartsWith("file://") )
-                return;
+            //if (string.IsNullOrEmpty(url) || url.StartsWith("file://") || url.StartsWith("javascript:") ||
+            //    url.StartsWith("about:blank")) 
+            //    return;
 
             if (url.StartsWith("app://"))
             {
@@ -1099,7 +1100,7 @@ any reported issues.";
                             return;
 
                         if (outputType == "html")
-                            HtmlPreview(ActiveRequest.ResponseContent);
+                            HtmlPreview(ActiveRequest.ResponseContent.Replace(@"""//",@"=""http://").Replace("'//","http://"));
                         else if (outputType == "json")                        
                             HtmlPreview("<pre>" + HtmlUtils.HtmlEncode(JValue.Parse(ActiveRequest.ResponseContent).ToString(Formatting.Indented)) + "</pre>");
                         else if (outputType == "xml")                                                 
@@ -1109,11 +1110,6 @@ any reported issues.";
                     }                    
                 }                
             }
-
-
-            // use OS browser rather
-            ShellUtils.GoUrl(url.ToString());
-            e.Cancel = true;
         }
 
         private void PreViewBrowser_NewWindow(object sender, CancelEventArgs e)
@@ -1124,8 +1120,6 @@ any reported issues.";
 
             // use OS browser rather
             ShellUtils.GoUrl(url);
-            e.Cancel = true;
-
             e.Cancel = true;
         }
 

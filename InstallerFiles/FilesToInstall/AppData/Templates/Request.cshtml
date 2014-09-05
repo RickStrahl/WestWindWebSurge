@@ -73,7 +73,7 @@
         <div class="header">
             <i class="fa fa-download"></i> Http Response
             <div class='timetaken'>
-                @(Model.TimeTakenMs)ms  @if (previewButtonText != null)
+                @(Model.TimeTakenMs.ToString("n0"))ms  @if (previewButtonText != null)
                 { <text>|</text> <a href="app://preview/">Show @previewButtonText</a> }
             </div>
         </div>
