@@ -1,7 +1,7 @@
 # West Wind WebSurge Change Log
 
 ### Version 0.69b
-<i><small>not released yet</small></i>
+<i><small>September 4th, 2014</small></i>
 
 * **Add Export of Summary Results**</br>
 You can now export summary results to JSON so you can archive or otherwise
