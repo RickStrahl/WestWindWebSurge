@@ -14,6 +14,8 @@ namespace WebSurge
     {
         public const string STR_Separator = "\r\n------------------------------------------------------------------\r\n";
 
+        public const string STR_StartWebSurgeOptions = "\r\n----- Start WebSurge Options -----\r\n";
+        public const string STR_EndWebSurgeOptions = "\r\n----- End WebSurge Options -----\r\n";
 
         /// <summary>
         /// This method parses a Fiddler Session file that's in basic HTTP header
@@ -23,7 +25,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="fiddlerSessionFile"></param>
         /// <returns></returns>
-        public List<HttpRequestData> ParseFile(string fiddlerSessionFile = null)
+        public List<HttpRequestData> ParseFile(string fiddlerSessionFile, ref StressTesterConfiguration options)
         {
             if (fiddlerSessionFile == null)
                 fiddlerSessionFile = Path.GetFullPath("1_Full.txt");
@@ -33,8 +35,7 @@ namespace WebSurge
                 SetError("File doesn't exist.");
                 return null;
             }
-            
-            
+                        
             string fileText = File.ReadAllText(fiddlerSessionFile);
             if (string.IsNullOrEmpty(fileText))
             {
@@ -42,16 +43,30 @@ namespace WebSurge
                 return null;
             }
             
-            return Parse(fileText);
+            return Parse(fileText,ref options);
         }
+
+
 
         /// <summary>
         /// Parses a Fiddler Session from a string.
         /// </summary>
         /// <param name="sessionString">Http Headers string for multiple requests</param>
         /// <returns>List of HTTP requests or null on failure</returns>
-        public List<HttpRequestData> Parse(string sessionString)
+        public List<HttpRequestData> Parse(string sessionString, ref StressTesterConfiguration config)
         {
+            if (config != null)
+                config = ParseConfiguration(ref sessionString);
+
+            //strip configuration data if it exists
+            if (!string.IsNullOrEmpty(sessionString))
+            {
+                int index = sessionString.IndexOf(STR_StartWebSurgeOptions);
+                if (index > -1)
+                    sessionString = sessionString.Substring(0, index);
+            }
+                
+            
             var httpRequests = new List<HttpRequestData>();            
 
             string[] requests = Regex.Split(sessionString, @"\r\n-{5,100}\r\n");
@@ -70,7 +85,22 @@ namespace WebSurge
 
             return httpRequests;
         }
-        
+
+
+        StressTesterConfiguration ParseConfiguration(ref string sessionString)
+        {
+            StressTesterConfiguration options = null;
+            
+            string json = StringUtils.ExtractString(sessionString, STR_StartWebSurgeOptions, STR_EndWebSurgeOptions);
+            if (json != null)
+            {
+                options = JsonSerializationUtils.Deserialize(json, typeof(StressTesterConfiguration))
+                    as StressTesterConfiguration;
+            }
+
+            return options;
+        }
+
 
 
         /// <summary>
@@ -115,16 +145,16 @@ namespace WebSurge
             return reqHttp;
         }
 
-       
-
 
         /// <summary>
         /// Writes out the request data to disk
         /// </summary>
         /// <param name="requests"></param>
         /// <param name="filename"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public bool Save(List<HttpRequestData> requests,string filename)
+        public bool Save(List<HttpRequestData> requests, string filename, 
+                          StressTesterConfiguration options = null)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -136,6 +166,13 @@ namespace WebSurge
                     sb.Append(request.ToResponseHttpHeader());
                     
                 sb.AppendLine(STR_Separator);                
+            }
+
+            if (options != null)
+            {
+                sb.AppendLine(STR_StartWebSurgeOptions);
+                sb.AppendLine(JsonSerializationUtils.Serialize(options,false,true));
+                sb.AppendLine(STR_EndWebSurgeOptions);
             }
 
             File.WriteAllText(filename, sb.ToString());

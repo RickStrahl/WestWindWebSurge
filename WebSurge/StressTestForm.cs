@@ -70,8 +70,12 @@ namespace WebSurge
             if (Requests == null)
                 Requests = new List<HttpRequestData>();
             RenderRequests(Requests);
-
+           
+            App.Configuration.StressTester = StressTester.Options;
+            OptionsPropertyGrid.SelectedObject = App.Configuration.StressTester;
+            
             App.Configuration.LastFileName = FileName;
+            
 
             AttachWatcher(fileName);
             UpdateButtonStatus();
@@ -383,7 +387,7 @@ namespace WebSurge
                 if (sender != btnSaveAllRequestsAs && 
                     File.Exists(FileName))
                 {
-                    parser.Save(Requests, FileName);
+                    parser.Save(Requests, FileName, StressTester.Options);
                     ShowStatus("Session saved.", 1, 4000);
                 }
                 else
@@ -405,7 +409,7 @@ namespace WebSurge
                     if (result == DialogResult.OK)
                     {
                         FileName = sd.FileName;
-                        parser.Save(Requests, sd.FileName);
+                        parser.Save(Requests, sd.FileName, StressTester.Options);
                     }
                 }
 

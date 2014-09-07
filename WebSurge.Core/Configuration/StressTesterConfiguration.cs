@@ -60,9 +60,12 @@ Use to force custom auth cookies to an existing session that has expired cookies
 
 Allows to add custom authentication to a request after you've captured say a bearer token."
             )]
-
         [Category("Header Replacement")]
         public string ReplaceAuthorization { get; set;  }
+
+        [Description(@"Replaces query string key value pairs on the URL when set. Use query string syntax for values to add or replace. Example: id=333123&format=json  - adds or replaces id and json query string values.")]
+        [Category("Header Replacement")]
+        public string ReplaceQueryStringValuePairs { get; set; }
 
 
         /// <summary>

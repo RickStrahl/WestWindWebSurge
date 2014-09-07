@@ -1,5 +1,20 @@
 # West Wind WebSurge Change Log
 
+### Version 0.70b
+<i><small>not released yet</small></i>
+
+* **Store Configuration Settings with saved Session Files**<br />
+Configuration options are now stored as part of a Saved Session file and stored 
+in the same text file that contains the raw HTTP header request info. This
+allows restoring the same configuration settings and storing it with the 
+Session file.
+
+* **Add ReplaceQueryStringValuePairs Option**
+Added a new override option that can replace and add querystring values to all
+requests in a session. You can simple set key value pairs and those key value
+pairs are replaced or added on each request. Useful for adding ids or tokens
+required for user tracking.
+
 ### Version 0.69b
 <i><small>September 4th, 2014</small></i>
 

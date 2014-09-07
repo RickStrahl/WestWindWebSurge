@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Linq;
@@ -9,11 +10,14 @@ namespace WebSurge.Tests
     [TestClass]
     public class FiddlerParserTests
     {
+        const string STR_TestFile = "1_Full.txt";
+
         [TestMethod]
         public void TestParser()
         {
             SessionParser parser = new SessionParser();
-            var httpRequests = parser.ParseFile();
+            var options = new StressTesterConfiguration();
+            List<HttpRequestData> httpRequests = parser.ParseFile(STR_TestFile, ref options);
 
             Assert.IsNotNull(httpRequests);
 
@@ -57,7 +61,7 @@ namespace WebSurge.Tests
         public void CheckSiteSyncTest()
         {
             SessionParser parser = new SessionParser();
-            var httpRequests = parser.ParseFile();
+            List<HttpRequestData> httpRequests = null;
 
             Assert.IsNotNull(httpRequests);
 
@@ -112,7 +116,7 @@ namespace WebSurge.Tests
         public void TestAllSitesThreadsTest()
         {
             SessionParser parser = new SessionParser();
-            var httpRequests = parser.ParseFile();
+            List<HttpRequestData> httpRequests = null;
 
             var tester = new StressTester();
 

@@ -146,7 +146,9 @@ namespace WebSurge
                     var host = StringUtils.ExtractString(result.Url, "://", "/", false, true);
                     result.Url = result.Url.Replace(host, Options.ReplaceDomain);
                 }
-                
+                if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
+                    result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
+
                 client.CreateWebRequestObject(result.Url);
                 var webRequest = client.WebRequest;
                 
@@ -308,7 +310,22 @@ namespace WebSurge
             }
         }
 
-        
+        private string ReplaceQueryStringValuePairs(string url, string replaceKeys)
+        {
+            if (string.IsNullOrEmpty(replaceKeys))
+                return url;
+
+            var urlQuery = new UrlEncodingParser(url);
+            var replaceQuery = new UrlEncodingParser(replaceKeys);
+
+            foreach (string key in replaceQuery.Keys)
+            {
+                urlQuery[key] = replaceQuery[key];
+            }
+
+            return urlQuery.ToString();
+        }
+
 
         /// <summary>
         /// This is the main Session processing routine. This routine creates the
@@ -540,7 +557,12 @@ namespace WebSurge
         public List<HttpRequestData> ParseSessionFile(string fileName)
         {
             var parser = new SessionParser();
-            var requestDataList = parser.ParseFile(fileName);
+            
+            var options = Options;
+            var requestDataList = parser.ParseFile(fileName,ref options);
+            if (options != null)
+                Options = options;
+
             if (requestDataList == null)
             {
                 SetError(parser.ErrorMessage);
