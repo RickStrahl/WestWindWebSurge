@@ -1,13 +1,16 @@
 # West Wind WebSurge Change Log
 
 ### Version 0.70b
-<i><small>not released yet</small></i>
+<i><small>October 8th, 2014</small></i>
 
 * **Store Configuration Settings with saved Session Files**<br />
 Configuration options are now stored as part of a Saved Session file and stored 
 in the same text file that contains the raw HTTP header request info. This
 allows restoring the same configuration settings and storing it with the 
 Session file.
+
+* **Session Management Enhancements**<br/>
+Tweaked the Session management features to make it easier to created edit and save URLs for testing manually. Hotkeys for most operations (especially Alt-T for testing selected URL) to improve URL testing and creation workflow.
 
 * **Add ReplaceQueryStringValuePairs Option**
 Added a new override option that can replace and add querystring values to all
