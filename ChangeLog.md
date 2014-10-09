@@ -12,7 +12,7 @@ Session file.
 * **Session Management Enhancements**<br/>
 Tweaked the Session management features to make it easier to created edit and save URLs for testing manually. Hotkeys for most operations (especially Alt-T for testing selected URL) to improve URL testing and creation workflow.
 
-* **Add ReplaceQueryStringValuePairs Option**
+* **Add ReplaceQueryStringValuePairs Option**<br/>
 Added a new override option that can replace and add querystring values to all
 requests in a session. You can simple set key value pairs and those key value
 pairs are replaced or added on each request. Useful for adding ids or tokens
@@ -21,7 +21,7 @@ required for user tracking.
 ### Version 0.69b
 <i><small>September 4th, 2014</small></i>
 
-* **Add Export of Summary Results**</br>
+* **Add Export of Summary Results**<br />
 You can now export summary results to JSON so you can archive or otherwise
 store the summarized results from a test session. Use the Export button
 in the UI form, or the new --json option on the WebSurgeCli.exe command 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge", "WebSurge\WebSurge.csproj", "{978F07C6-754B-43CF-9E3C-73D2AA716074}"
 EndProject
@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{D2199721-D
 		ChangeLog.md = ChangeLog.md
 		Readme.md = Readme.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.Server", "WebSurge.Server\WebSurge.Server.csproj", "{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.SampleWeb", "WebSurge.SampleWeb\WebSurge.SampleWeb.csproj", "{8CA4E044-9411-40E7-85A8-4CE3E274AF95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +68,22 @@ Global
 		{CC2FF462-53FA-4392-8D8B-53B932AA48A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC2FF462-53FA-4392-8D8B-53B932AA48A2}.SandBox|Any CPU.ActiveCfg = Release|Any CPU
 		{CC2FF462-53FA-4392-8D8B-53B932AA48A2}.SandBox|Any CPU.Build.0 = Release|Any CPU
+		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
+		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Deploy|Any CPU.Build.0 = Debug|Any CPU
+		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.SandBox|Any CPU.ActiveCfg = Release|Any CPU
+		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.SandBox|Any CPU.Build.0 = Release|Any CPU
+		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Deploy|Any CPU.Build.0 = Debug|Any CPU
+		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.SandBox|Any CPU.ActiveCfg = Release|Any CPU
+		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.SandBox|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
