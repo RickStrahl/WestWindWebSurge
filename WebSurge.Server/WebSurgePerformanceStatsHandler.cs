@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,17 +29,30 @@ namespace WebSurge.Server
             //counters.Add("ASP.NET Request/Sec", "ASP.NET Applications", "Requests/Sec", "__Total__");
 
 
-            //counters.Add("ASP.NET Applications\Requests/Sec","")
+            PerformanceCounterCategory category = new PerformanceCounterCategory("Network Interface");
+            String[] instanceNames = category.GetInstanceNames();
 
+            foreach (string name in instanceNames)
+            {
+                counters.Add("Net IO Total: " + name, "Network Interface", "Bytes Total/sec", name);
+                counters.Add("Net IO Received: " + name, "Network Interface", "Bytes Received/sec", name);
+                counters.Add("Net IO Sent: " + name, "Network Interface", "Bytes Sent/sec", name);   
+            }
+
+            // get and wait on values
             counters.GetValues(2000);
 
+            // create summary counters
+            counters.SummarizeCounters("Net IO Total", "Total Network Load bytes/sec",true);
+            counters.SummarizeCounters("Net IO Received", "Network Received bytes/sec",true);            
+            counters.SummarizeCounters("Net IO Sent", "Network Sent bytes/sec",true);
+            
             //var stats = new PerformanceStats();
             //stats.Configure();
 
             //stats.Start(1000);
 
             var json = JsonConvert.SerializeObject(counters);
-
             context.Response.ContentType = "application/json";
             context.Response.Write(json);
 

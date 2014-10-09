@@ -51,7 +51,7 @@ namespace WebSurge.Server
         /// <param name="instanceName"></param>
         /// <param name="readOnly"></param>
         /// <param name="machineName"></param>
-        public void Add(string key, string category, string counterName,
+        public PerformanceCounterItem Add(string key, string category, string counterName,
             string instanceName = null, bool readOnly = true,
             string machineName = null)
         {
@@ -72,6 +72,15 @@ namespace WebSurge.Server
             };
             
             PerfCounterItems.Add(key,item);
+
+            return item;
+        }
+
+        public PerformanceCounterItem Add(string key, PerformanceCounterItem item)
+        {
+            item.Id = key;
+            PerfCounterItems.Add(key, item);
+            return item;
         }
 
         /// <summary>
@@ -120,7 +129,36 @@ namespace WebSurge.Server
             return true;
         }
 
-        
+        /// <summary>
+        /// Summarizes a number of entries that start with a given string
+        /// and adds a new item with the summarized value. The detail
+        /// values are removed from the collection optionally
+        /// 
+        /// Call this method after a perf run has completed
+        /// </summary>
+        public PerformanceCounterItem SummarizeCounters(string startsWith, string newId, bool removeItems = false)
+        {
+            decimal summaryValue = PerfCounterItems.Where(item => item.Value.Id.StartsWith(startsWith)).Sum(itm => itm.Value.LastValue);
+
+            var summarizedItem = new PerformanceCounterItem(newId, null)
+            {LastValue = summaryValue};
+
+            PerfCounterItems.Add(newId,summarizedItem);
+
+            if (removeItems)
+            {
+                var netIds =  PerfCounterItems.Where(item => item.Value.Id.StartsWith(startsWith)).ToList();
+                for (int i = 0; i < netIds.Count; i++)
+                {
+                    var id = netIds[i].Key;
+                    PerfCounterItems.Remove(id);
+                }
+            }
+
+            return summarizedItem;
+        }
+
+
         private decimal GetCounterValueInternal(PerformanceCounter counter)
         {
             decimal value = 0;
