@@ -1237,6 +1237,16 @@ any reported issues.";
                             (e.TotalBytesToReceive/1000).ToString("n0") + "kb");
         }
 
+        private void TextBoxEditor_DoubleClick(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (tb == null)
+                return;
+
+            var editForm = new EditForm(tb);
+            editForm.ShowDialog();
+        }
+
 
     }
 

@@ -1,5 +1,13 @@
 # West Wind WebSurge Change Log
 
+### Version 0.71b
+<i><small>not released yet</small></i>
+
+* **Add double-click popup editor for Headers and Content**
+Add the ability to double click to edit the Header and Content data in a larger
+window. This gives a little more room in case you need to edit REST service
+requests and the like.
+
 ### Version 0.70b
 <i><small>October 8th, 2014</small></i>
 

@@ -404,7 +404,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(423, 544);
+            this.ListRequests.Size = new System.Drawing.Size(423, 548);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -750,9 +750,9 @@
             // 
             this.lblRequestContent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblRequestContent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblRequestContent.Location = new System.Drawing.Point(6, 403);
+            this.lblRequestContent.Location = new System.Drawing.Point(6, 334);
             this.lblRequestContent.Name = "lblRequestContent";
-            this.lblRequestContent.Size = new System.Drawing.Size(130, 20);
+            this.lblRequestContent.Size = new System.Drawing.Size(130, 19);
             this.lblRequestContent.TabIndex = 7;
             this.lblRequestContent.Text = "Content:";
             this.lblRequestContent.UseCompatibleTextRendering = true;
@@ -763,12 +763,13 @@
             this.txtRequestContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRequestContent.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRequestContent.Location = new System.Drawing.Point(7, 426);
+            this.txtRequestContent.Location = new System.Drawing.Point(7, 354);
             this.txtRequestContent.Multiline = true;
             this.txtRequestContent.Name = "txtRequestContent";
             this.txtRequestContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRequestContent.Size = new System.Drawing.Size(538, 79);
+            this.txtRequestContent.Size = new System.Drawing.Size(538, 154);
             this.txtRequestContent.TabIndex = 6;
+            this.txtRequestContent.DoubleClick += new System.EventHandler(this.TextBoxEditor_DoubleClick);
             // 
             // btnSaveRequest
             // 
@@ -785,9 +786,9 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(5, 92);
+            this.label2.Location = new System.Drawing.Point(5, 88);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 20);
+            this.label2.Size = new System.Drawing.Size(130, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "Headers:";
             this.label2.UseCompatibleTextRendering = true;
@@ -799,18 +800,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRequestHeaders.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRequestHeaders.Location = new System.Drawing.Point(6, 115);
+            this.txtRequestHeaders.Location = new System.Drawing.Point(6, 107);
             this.txtRequestHeaders.Multiline = true;
             this.txtRequestHeaders.Name = "txtRequestHeaders";
             this.txtRequestHeaders.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRequestHeaders.Size = new System.Drawing.Size(538, 285);
+            this.txtRequestHeaders.Size = new System.Drawing.Size(538, 220);
             this.txtRequestHeaders.TabIndex = 3;
+            this.txtRequestHeaders.DoubleClick += new System.EventHandler(this.TextBoxEditor_DoubleClick);
             // 
             // txtRequestUrl
             // 
             this.txtRequestUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRequestUrl.Location = new System.Drawing.Point(6, 60);
+            this.txtRequestUrl.Location = new System.Drawing.Point(6, 58);
             this.txtRequestUrl.Name = "txtRequestUrl";
             this.txtRequestUrl.Size = new System.Drawing.Size(537, 23);
             this.txtRequestUrl.TabIndex = 2;
@@ -820,7 +822,7 @@
             this.lblUrl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblUrl.Location = new System.Drawing.Point(3, 40);
             this.lblUrl.Name = "lblUrl";
-            this.lblUrl.Size = new System.Drawing.Size(45, 20);
+            this.lblUrl.Size = new System.Drawing.Size(45, 15);
             this.lblUrl.TabIndex = 1;
             this.lblUrl.Text = " Url:";
             this.lblUrl.UseCompatibleTextRendering = true;
