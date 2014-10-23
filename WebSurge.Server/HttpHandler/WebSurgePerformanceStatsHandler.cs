@@ -10,24 +10,29 @@ using Newtonsoft.Json;
 namespace WebSurge.Server
 {
 
-    public class WebSurgePerformanceStatsHandlerXXXXXX : IHttpHandler
+    public class WebSurgePerformanceStatsHandler : IHttpHandler
     {
         //private PerformanceCounterList counters;
         private int WaitTimeMs = 2000;
 
         public void ProcessRequest(HttpContext context)
         {
+            var action = context.Request.QueryString["action"] ?? "SummaryCounters";
+            if (action == "SummaryCounters")
+                SummaryCounters(context);
+        }
 
+        void SummaryCounters(HttpContext context)
+        {
             var stats = new PerformanceStats();
             stats.Configure();
 
             // Update the counters and get the list
-            var counters = stats.Update(1000);
+            var counters = stats.Update(WaitTimeMs);
 
             var json = JsonConvert.SerializeObject(counters);
             context.Response.ContentType = "application/json";
             context.Response.Write(json);
-
         }
 
         public bool IsReusable
@@ -38,7 +43,7 @@ namespace WebSurge.Server
     
 #if true
     
-    public class WebSurgePerformanceStatsHandler : HttpTaskAsyncHandler
+    public class WebSurgePerformanceStatsHandlerXXX : HttpTaskAsyncHandler
     {
         private int WaitTimeMs = 2000;
 
@@ -54,7 +59,7 @@ namespace WebSurge.Server
             
             var counters = await stats.UpdateAsyncTask(WaitTimeMs);
 
-            var json = await JsonConvert.SerializeObjectAsync(counters);
+            var json = JsonConvert.SerializeObject(counters);
 
             context.Response.ContentType = "application/json";
             context.Response.Write(json);

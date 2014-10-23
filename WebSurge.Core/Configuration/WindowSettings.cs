@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Forms;
+
 namespace WebSurge
 {
     public class WindowSettings
@@ -7,6 +10,7 @@ namespace WebSurge
         public int Height { get; set; }
         public int Width { get; set; }
         public int Split { get; set; }
+        public int HeadersContentSplit { get; set; }
 
         public WindowSettings()
         {
@@ -15,6 +19,7 @@ namespace WebSurge
             Width = 1000;
             Height = 700;
             Split = 490;
+            HeadersContentSplit = 155;
         }
 
         /// <summary>
@@ -37,9 +42,11 @@ namespace WebSurge
             try
             {
                 form.BottomSplitContainer.SplitterDistance = Split;
+                form.HeadersContentSplitter.SplitterDistance = HeadersContentSplit;
             }
-            catch
+            catch 
             {
+               
             }
         }
 

@@ -54,7 +54,7 @@ namespace WebSurge
 
         public StressTestForm()
         {            
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         public void OpenFile(string fileName = null)
@@ -802,7 +802,8 @@ any reported issues.";
 
         void LoadOptions()
         {
-            StressTester.Options = App.Configuration.StressTester;
+            // Window settings were loaded on form load
+            StressTester.Options = App.Configuration.StressTester;            
 
             // manually assign threads and time
             tbtxtTimeToRun.Text = StressTester.Options.LastSecondsToRun.ToString();
@@ -1112,7 +1113,8 @@ any reported issues.";
                     if (Splash != null)
                         Splash.Close();
                 })),
-                    null, 1000, Timeout.Infinite);
+                null, 1000, 
+                Timeout.Infinite);
             }
             Application.DoEvents();
         }
@@ -1245,6 +1247,11 @@ any reported issues.";
 
             var editForm = new EditForm(tb);
             editForm.ShowDialog();
+        }
+
+        private void HeadersContentSplitter_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            App.Configuration.WindowSettings.HeadersContentSplit = HeadersContentSplitter.SplitterDistance;
         }
 
 
