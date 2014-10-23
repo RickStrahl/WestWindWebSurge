@@ -95,6 +95,9 @@ namespace WebSurge.Server
             {
                 foreach (PerformanceCounterItem item in PerfCounterItems.Values)
                 {
+                    // read the next value twice to get more reliable results
+                    GetCounterValueInternal(item.PerfCounter);
+                    Thread.Sleep(1);
                     GetCounterValueInternal(item.PerfCounter);
                 }
             }
@@ -116,14 +119,17 @@ namespace WebSurge.Server
         {
             foreach (PerformanceCounterItem item in PerfCounterItems.Values)
             {
-                GetCounterValueInternal(item.PerfCounter);
+                // do this twice to initialize more reliably
+                await GetCounterValueInternalAsyncTask(item.PerfCounter);
+                await Task.Delay(1);
+                await GetCounterValueInternalAsyncTask(item.PerfCounter);
             }
 
             await Task.Delay(waitTime);
 
             foreach (PerformanceCounterItem item in PerfCounterItems.Values)
             {
-                item.LastValue = GetCounterValueInternal(item.PerfCounter);             
+                item.LastValue = await GetCounterValueInternalAsyncTask(item.PerfCounter);             
             }
 
             return true;
@@ -158,18 +164,21 @@ namespace WebSurge.Server
             return summarizedItem;
         }
 
-
+        /// <summary>
+        /// Internally retrieves a counter reliably by waiting
+        /// </summary>
+        /// <param name="counter"></param>
+        /// <returns></returns>
         private decimal GetCounterValueInternal(PerformanceCounter counter)
         {
             decimal value = 0;
 
             int i = 0;
-            while (i < 50)
+            while (i < 500)
             {
                 try
                 {
-                    value = (decimal) counter.NextValue();
-                    Debug.WriteLine("Counter Value good: " + i + value);
+                    value = (decimal) counter.NextValue();                    
                 }
                 catch
                 {
@@ -178,12 +187,40 @@ namespace WebSurge.Server
 
                 if (counter.RawValue > 0)
                     break;
-                Thread.Sleep(10);
-                Debug.WriteLine("Counter Value failed: " + i + value);
+
+                // delay slightly
+                Thread.Sleep(1);                
                 i++;
             }
             return value;
         }
+
+        private async Task<decimal> GetCounterValueInternalAsyncTask(PerformanceCounter counter)
+        {
+            decimal value = 0;
+
+            int i = 0;
+            while (i < 500)
+            {
+                try
+                {
+                    value = (decimal)counter.NextValue();
+                }
+                catch
+                {
+                    return 0;
+                }
+
+                if (counter.RawValue > 0)
+                    break;
+
+                // delay slightly
+                await Task.Delay(1);
+                i++;
+            }
+            return value;
+        }
+
 
         public void GetSamples(int waitTime = 1000)
         {
@@ -211,10 +248,27 @@ namespace WebSurge.Server
             if (item == null)
                 return -1;
 
-            item.PerfCounter.NextValue();
+            GetCounterValueInternal(item.PerfCounter);
             Thread.Sleep(waitTime);
 
-            return (decimal)item.PerfCounter.NextValue();
+            return (decimal)GetCounterValueInternal(item.PerfCounter); 
+        }
+
+        /// <summary>
+        /// Retrieve an individual value from the collection
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="waitTime"></param>
+        public async Task<decimal> GetValueAsyncTask(string key, int waitTime = 1000)
+        {
+            var item = PerfCounterItems[key];
+            if (item == null)
+                return -1;
+
+            await GetCounterValueInternalAsyncTask(item.PerfCounter);
+            await Task.Delay(waitTime);
+
+            return await GetCounterValueInternalAsyncTask(item.PerfCounter); 
         }
 
         public IEnumerator<PerformanceCounterItem> GetEnumerator()
