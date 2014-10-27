@@ -13,7 +13,7 @@ namespace WebSurge
     {
 
         private static Dictionary<string, string> compiledTemplates = new Dictionary<string, string>();
-        private static RazorEngine<RazorTemplateBase> host = CreateHost();
+        private static RazorEngine<RazorTemplateBase> host = null; //CreateHost();
         private static RazorFolderHostContainer<RazorTemplateFolderHost> hostContainer = CreateHostContainer();    
 
         private static RazorEngine<RazorTemplateBase> CreateHost()
@@ -35,23 +35,25 @@ namespace WebSurge
             
             // add this assembly
             host.AddAssemblyFromType(typeof(ResultsParser));
+            host.AddAssemblyFromType(typeof(AppConfiguration)); 
+
             host.Start();
 
             return host;
         }
         
-        public static string RenderTemplateHostContainer(string templateName, object model)
+        public static string RenderTemplate(string templateName, object model)
         {            
             string compiledId = null;
 
             string result = hostContainer.RenderTemplate(templateName, model);
             if (result == null)
-                result = "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";
+                result = "<pre>" + hostContainer.ErrorMessage + "\r\n------\r\n" + hostContainer.Engine.LastGeneratedCode + "</pre>";
 
             return result;
         }
 
-        public static string RenderTemplate(string templateName, object model)
+        public static string RenderTemplateOld(string templateName, object model)
         {
             string compiledId = null;            
 

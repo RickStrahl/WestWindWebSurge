@@ -64,12 +64,12 @@
                     if ("html,json,xml,css,javascript".Contains(responseOutputType))
                      {
                          <div class="formattingheader">
-                             @if ("xml,html".Contains(responseOutputType))
+                             @if ("xml,html,json".Contains(responseOutputType))
                              {
-                                <a href="app://preview/">Show in Browser</a>
+                                <a href="app://preview/" title="Use the configured Shell association to view the content. This is your default browser for HTML and editor or viewer for XML and JSON typically">Viewer</a>
                              }
-                             <a href="javascript:{}" data-id="Formatted">Formatted @responseOutputType</a>
-                             <a href="javascript:{}" data-id="Raw" class="active">Raw Response</a>
+                             <a href="javascript:{}" data-id="Formatted" title="See a formatted and syntax colored view of the HTTP response based on the content type">Formatted @responseOutputType</a>
+                             <a href="javascript:{}" data-id="Raw" class="active" title="The raw HTTP response content as returned by the server">Raw Response</a>
                              
                          </div>
                      }
@@ -89,11 +89,6 @@
 
         }
     }
-    @*@if (Model.ResponseContent != null)
-        {
-            <div id="CodeDisplay" class="codedisplay">@Model.ResponseContent</div>
-        }*@
-
 
     <script src="scripts/Ace/ace.js" charset="utf-8"></script>
     <script src="scripts/jquery.min.js"></script>
@@ -108,5 +103,4 @@
     </script>
     <script src="scripts/Request.js"></script>
 </body>
-
 </html>

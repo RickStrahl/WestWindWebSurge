@@ -469,7 +469,7 @@ any reported issues.";
             {
                 ShellUtils.GoUrl(App.UserDataPath + "WebSurgeErrors.log");
             }
-            else if (sender == this.btnGotoSettingsFolder)
+            else if (sender == btnGotoSettingsFolder)
             {
                 ShellUtils.GoUrl(App.UserDataPath);
             }
@@ -1143,11 +1143,11 @@ any reported issues.";
                             return;
 
                         if (outputType == "html")
-                            HtmlPreview(ActiveRequest.ResponseContent.Replace(@"""//",@"=""http://").Replace("'//","http://"));
+                            HtmlPreview(ActiveRequest.ResponseContent.Replace(@"""//",@"=""http://").Replace("'//","http://"),true);
                         else if (outputType == "json")                        
-                            HtmlPreview("<pre>" + HtmlUtils.HtmlEncode(JValue.Parse(ActiveRequest.ResponseContent).ToString(Formatting.Indented)) + "</pre>");
+                            HtmlPreview(JValue.Parse(ActiveRequest.ResponseContent).ToString(Formatting.Indented) ,true,"html\\_preview.json");
                         else if (outputType == "xml")                                                 
-                            HtmlPreview(ActiveRequest.ResponseContent, false, "html\\_preview.xml");
+                            HtmlPreview(ActiveRequest.ResponseContent, true, "html\\_preview.xml");
                         
                         return;
                     }                    
