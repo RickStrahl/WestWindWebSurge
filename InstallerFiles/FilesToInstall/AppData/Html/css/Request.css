@@ -1,0 +1,70 @@
+        body, html, div {
+            padding: 0;
+            margin: 0;
+        }
+         .header {
+             margin-top: 20px;
+             margin-bottom: 0;
+             font-size: 1.2em;
+             padding: 8px 10px 5px;
+        }
+        pre,.code {            
+			margin: 0;
+            padding: 5px 12px 15px;            
+        }    
+		
+		.code>div {
+			margin: 0 0 1px 0;
+			padding: 0;
+		}
+		.first-line {            
+			font-size: 1.07em;
+            font-weight: bold;
+			padding: 5px 0px 8px 0;
+			margin-bottom: 5px;
+			border-bottom: 1px solid lightgrey;
+        }
+		.wrapline {
+		   text-indent: -31px;
+		   padding-left: 31px !important;
+		}
+        .formattingheader{            
+            font-size: 8pt;
+        }
+        .formattingheader a, .formattingheader a:visited {
+            float: right;            
+			padding: 0 8px;
+            background: lightgrey;
+            border-radius: 3px;
+            border: 1px solid silver;
+			margin-right: 5px;
+            text-decoration: none;
+            font-size: 0.85em;
+            color: steelblue;
+        }
+            .formattingheader a.active {
+                background: white;
+                color: steelblue;
+            }
+			.formattingheader a:hover {
+                background: lightsteelblue;                
+            }
+        .codedisplay {
+            padding: 15px;
+            opacity: 1;
+            min-height: 300px;
+            max-width: 100%;
+            overflow-x: scroll;
+        }
+       .ace_editor, .ace_editor * {
+            font-family: "Liberation Mono", Consolas, "Courier New", monospace !important;
+            font-size: 10pt !important;
+            font-weight: normal !important;
+            letter-spacing: 0 !important;
+            background: transparent;
+        }
+        .ace_content {
+            padding-top: 5px !important;
+            padding-left: 0px;                        
+        }    
+    

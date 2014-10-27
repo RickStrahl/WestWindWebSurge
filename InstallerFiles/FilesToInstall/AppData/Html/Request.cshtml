@@ -1,0 +1,112 @@
+﻿@inherits Westwind.RazorHosting.RazorTemplateFolderHost<HttpRequestData>
+@using WebSurge
+@{    
+    string responseOutputType = Model.GetOutputType();
+    string cssClass = null;
+    if (!string.IsNullOrEmpty(Model.StatusCode))
+    {
+        cssClass = Model.StatusCode.CompareTo("399") > 0 ? "error-response" : "success-response";
+    }
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <link href='css/WebSurge.css' type='text/css' rel='stylesheet' />
+    <link href='css/font-awesome.css' type='text/css' rel='stylesheet' />
+    <link href='css/request.css' type='text/css' rel='stylesheet' />
+</head>
+<body>
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class='error-display'>
+            <div class="error-header">
+                <div style="float: left;"><i class="fa fa-exclamation-circle"></i></div>
+                <div style="padding-left: 25px;">@Model.ErrorMessage</div>
+            </div>
+        </div>
+    }
+
+    <div class="header" style="margin-top: 0;">
+        <i class="fa fa-upload"></i> Request Headers
+    </div>
+
+    <pre class="grey-gradient">
+<div class="first-line wrapline"><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@{
+    foreach (WebSurge.HttpRequestHeader header in @Model.Headers)
+    {
+<text>@header.Name: @header.Value</text>
+    }    
+    if(!string.IsNullOrEmpty(Model.RequestContent))
+    {
+<text>
+@(Model.GetRequestContentAsString())</text>
+    }
+}</pre>
+
+    @if (Model.StatusCode != null)
+    {
+        <div class="header">
+            <i class="fa fa-download"></i> Http Response Headers
+            <div class='timetaken'>
+                @(Model.TimeTakenMs.ToString("n0"))ms
+            </div>
+        </div>
+
+<pre class="grey-gradient"><div class="@cssClass first-line wrapline">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>@Model.ResponseHeaders</pre>
+
+        if (Model.ResponseContent != null)
+        {
+            <div class="header" style="margin-top: 0">                
+
+                @if (responseOutputType != null)
+                {
+                    if ("html,json,xml,css,javascript".Contains(responseOutputType))
+                     {
+                         <div class="formattingheader">
+                             @if ("xml,html".Contains(responseOutputType))
+                             {
+                                <a href="app://preview/">Show in Browser</a>
+                             }
+                             <a href="javascript:{}" data-id="Formatted">Formatted @responseOutputType</a>
+                             <a href="javascript:{}" data-id="Raw" class="active">Raw Response</a>
+                             
+                         </div>
+                     }
+                }
+                
+                <i class="fa fa-download"></i> Http Response Body
+            </div>
+
+
+            <div id="ResponseContent"></div>
+
+            <pre id="ResponseOutputRaw" class="grey-gradient" style="display:none">@Model.ResponseContent.Trim()</pre>
+            if (responseOutputType != null)
+            {
+                <pre id="ResponseOutputFormatted" class="grey-gradient">@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseOutputType)</pre>
+            }
+
+        }
+    }
+    @*@if (Model.ResponseContent != null)
+        {
+            <div id="CodeDisplay" class="codedisplay">@Model.ResponseContent</div>
+        }*@
+
+
+    <script src="scripts/Ace/ace.js" charset="utf-8"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script>
+        window.serverVars = {
+            language: "@responseOutputType",
+            theme: "@App.Configuration.StressTester.FormattedPreviewTheme",
+            showLineNumbers: false,
+            allowEdit: false,
+            baseUrl: ""
+        };
+    </script>
+    <script src="scripts/Request.js"></script>
+</body>
+
+</html>

@@ -623,7 +623,7 @@ any reported issues.";
             var html = StressTester.ResultsParser.GetResultReportHtml(StressTester.Results,
                 StressTester.TimeTakenForLastRunMs/1000,StressTester.ThreadsUsed);
 
-            HtmlPreview(html, false,"_results.html");
+            HtmlPreview(html, false,"html\\_results.html");
 
             Application.DoEvents();
 
@@ -935,7 +935,7 @@ any reported issues.";
         }
 
 
-        void HtmlPreview(string html, bool showInBrowser = false, string fileName = "_preview.html")
+        void HtmlPreview(string html, bool showInBrowser = false, string fileName = "html\\_preview.html")
         {
             fileName = fileName.ToLower();
 
@@ -946,7 +946,7 @@ any reported issues.";
             if (!showInBrowser)
             {
                 // _results.html is rendered into the output tab
-                if (fileName == "_results.html")
+                if (fileName == "html\\_results.html")
                 {                    
                     TestResultBrowser.Url = new Uri(file);
                     TestResultBrowser.Visible = true;                    
@@ -1147,7 +1147,7 @@ any reported issues.";
                         else if (outputType == "json")                        
                             HtmlPreview("<pre>" + HtmlUtils.HtmlEncode(JValue.Parse(ActiveRequest.ResponseContent).ToString(Formatting.Indented)) + "</pre>");
                         else if (outputType == "xml")                                                 
-                            HtmlPreview(ActiveRequest.ResponseContent, false, "_preview.xml");
+                            HtmlPreview(ActiveRequest.ResponseContent, false, "html\\_preview.xml");
                         
                         return;
                     }                    

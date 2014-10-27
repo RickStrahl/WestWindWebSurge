@@ -3,10 +3,16 @@
 ### Version 0.71b
 <i><small>not released yet</small></i>
 
+* **Add resizable Headers and Content Panel Splitter**
+You can now resize the content and header panels when editing request input.
+This allows you to more easily edit this content. Last sizes of the panels are 
+remembered between loads of the application.
+
 * **Add double-click popup editor for Headers and Content**
-Add the ability to double click to edit the Header and Content data in a larger
-window. This gives a little more room in case you need to edit REST service
-requests and the like.
+You can now also double click on either the header or content panel to get 
+a dedicated editing window for the header or content text. If you're dealing
+with large or unformatted content having a maximized view can make editing 
+a bit easier.
 
 ### Version 0.70b
 <i><small>October 8th, 2014</small></i>

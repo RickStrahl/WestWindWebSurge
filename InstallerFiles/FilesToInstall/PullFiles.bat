@@ -19,6 +19,7 @@ copy ..\..\WebSurgeCli\bin\release\WebSurgeCli.exe.config
 copy ..\..\WebSurgeCli\bin\release\CommandLine.dll
 
 
-copy "%AppData%\West Wind WebSurge\css\*.*" AppData\css
-copy "%AppData%\West Wind WebSurge\css\fonts\*.*" AppData\css\fonts
-copy "%AppData%\West Wind WebSurge\templates\*.*" AppData\templates
+copy "%AppData%\West Wind WebSurge\html\css\*.*" AppData\html\css
+copy "%AppData%\West Wind WebSurge\html\css\fonts\*.*" AppData\html\css\fonts
+copy "%AppData%\West Wind WebSurge\html\scripts\*.*" AppData\html\scripts
+copy "%AppData%\West Wind WebSurge\html\*.*" AppData\html

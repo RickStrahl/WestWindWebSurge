@@ -121,6 +121,10 @@ Allows to add custom authentication to a request after you've captured say a bea
         [Category("User Interface")]
         public bool ReloadTemplates { get; set; }
 
+        [Category("User Interface")]
+        [Description("Ace Editor theme used for viewing syntax highlighted content.")]
+        public string FormattedPreviewTheme { get; set; }
+
         [Browsable(false)]
         public int LastThreads { get; set; }
 
@@ -144,6 +148,7 @@ Allows to add custom authentication to a request after you've captured say a bea
             LastThreads = 2;
 
             IgnoreCertificateErrors = false;
+            FormattedPreviewTheme = "visualstudio";
         }
     }
 }

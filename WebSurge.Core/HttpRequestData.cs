@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Xml;
+using Newtonsoft.Json.Linq;
 using Westwind.Utilities;
+using Formatting = Newtonsoft.Json.Formatting;
 
 
 namespace WebSurge
@@ -111,10 +115,45 @@ namespace WebSurge
                 return "xml";
             if (ct.Contains("application/json"))
                 return "json";
-
+            if (ct.Contains("text/css"))
+                return "css";
+            if (ct.Contains("application/javascript") || ct.Contains("application/x-javascript"))
+                return "javascript";            
             return null;
         }
 
+        /// <summary>
+        /// Returns various result (or request) content to formatted
+        /// content.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="outputType"></param>
+        /// <returns></returns>
+        public string GetFormattedContent(string data, string outputType)
+        {
+            if (outputType == "json")
+            {
+                return JValue.Parse(ResponseContent).ToString(Formatting.Indented);
+            }
+            if (outputType == "xml")
+            {
+                var doc = new XmlDocument();
+                doc.LoadXml(data);
+
+                using (var sw = new StringWriter())
+                {
+                    using (var writer = new XmlTextWriter(sw))
+                    {
+                        writer.Formatting = System.Xml.Formatting.Indented;
+                        doc.WriteTo(writer);
+                    }
+
+                    return sw.ToString();
+                }
+            }
+
+            return data;
+        }
 
         /// <summary>
         /// Reliably returns the request content as a string.
