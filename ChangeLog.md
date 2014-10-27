@@ -1,7 +1,12 @@
 # West Wind WebSurge Change Log
 
-### Version 0.71b
+### Version 0.72b
 <i><small>not released yet</small></i>
+* **Rework the Request Viewer HTML View**
+The HTTP Request viewer for completed requests now seperates out
+Response headers and Response content. New option buttons allow
+you view html, json and xml in syntax formatted views as well as
+shell out to see in the native viewer/editor.
 
 * **Add resizable Headers and Content Panel Splitter**
 You can now resize the content and header panels when editing request input.
