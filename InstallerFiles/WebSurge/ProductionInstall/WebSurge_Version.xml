@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
    <Version>0.70</Version>
-   <Title>West Wind WebSurge Version 0.70b is now available</Title>
-   <Detail>This update adds a few more filters for request processing including query string overrides, and authorization header overrides. There are also many improvements in the Session creation and management UI to make it easier to create and test individual URLs and add them to sessions.
+   <Title>West Wind WebSurge Version 0.72b is now available</Title>
+   <Detail>This update adds better HTTP result viewing support with formatted syntax highlighting and various request and response preview modes. There are also a handful of UI updates to improve working with larger request headers and content.
 </Detail>
 </VersionInfo>
