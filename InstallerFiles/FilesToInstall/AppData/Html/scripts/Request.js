@@ -1,42 +1,54 @@
 ﻿/// <reference path="Ace/ace.js" />
 /// <reference path="jquery.min.js" />
-showTab("Raw");
+showTab("Raw", "response");
+showTab("Raw", "request");
 
 // code to activate relevant tab
-$(".formattingheader a").click(showTab);
+$(".formattingResponseBody a").click(function () {
+    var el = this;
+    showTab(el, "response");
+});
+$(".formattingRequestBody a").click(function () {
+    var el = this;
+    showTab(el, "request");
+});
 
-function showTab(elOrName) {
+function showTab(elOrName, type) {
+    var prefix = "ResponseBody";
+    if (type == "request")
+        prefix = "RequestBody";
+    
     var tab = "";
     if (typeof(elOrName) === "string")
         tab = elOrName;
     else {
-        var $el = $(this);
+        var $el = $(elOrName);
         tab = $el.data("id");     
     }
     if (!tab)
         return;
 
-
-    $("pre[id^=ResponseOutput]").hide();
-    $("#ResponseOutput" + tab).show();
-
+    $("pre[id^=" + prefix + "]").hide();
+    $("#" +prefix + tab).show();
+    
     // button handling
-    $(".formattingheader a").removeClass("active");
-    $(".formattingheader a[data-id=" + tab + "]").addClass("active");
+    $(".formatting" + prefix + " a").removeClass("active");
+    $(".formatting" + prefix + " a[data-id=" + tab + "]").addClass("active");    
 }
 
 
-
-function configureAceEditor(serverVars) {
-    var editor = ace.edit("ResponseOutputFormatted");
+function configureAceEditor(editor, serverVars) {
     var session = editor.getSession();
+
     editor.setTheme("ace/theme/" + serverVars.theme);
     //editor.setTheme("ace/theme/textmate");
     //editor.setTheme("ace/theme/clouds");
     //editor.setTheme("ace/theme/xcode");
     //editor.setTheme("ace/theme/eclipse");
     //editor.setTheme("ace/theme/mono_industrial");
-    session.setMode("ace/mode/" + serverVars.language);
+
+    // set below
+    //session.setMode("ace/mode/" + serverVars.language);
     editor.setFontSize(13);
 
     if (!serverVars.allowEdit) {
@@ -50,31 +62,34 @@ function configureAceEditor(serverVars) {
     // fill entire view
     editor.setOptions({
         maxLines: Infinity,
-        minLines: 100
+        minLines: 3
     });
 
     editor.setShowPrintMargin(false);
 
     session.setTabSize(3);
     //editor.getSession().setUseWrapMode(true);
-    //$("#CodeDisplay").css("opacity", "1");
-
     return editor;
 }
 
-// configure the ace Editor
-//// server side variables persisted into JavaScript
-//ScriptVariables scriptVars = new ScriptVariables(new TextBox(), "serverVars");
-//scriptVars.Add("showLineNumbers", Model.Snippet.ShowLineNumbers);
-//scriptVars.Add("allowEdit", Model.AllowEdit);
-//scriptVars.Add("language", Model.Snippet.Language.ToLower());
-//scriptVars.Add("baseUrl", Url.Content("~/"));
-//scriptVars.Add("theme", Model.UserState.Theme);
-//scriptVars.Add("callbackHandler", Url.Content("~/CodePasteHandler.ashx"));
-// ace editor
-//$("#ResponseOutputFormatted").show();
-window.aceEditor = configureAceEditor(serverVars);
-//aceEditor.getSession().setMode("ace/mode/" + serverVars.language);
+setTimeout(function() {
+// attach ace to formatted code controls if they are loaded and visible
+    try {
+        window.aceEditorRequest = ace.edit("RequestBodyFormatted");
+        configureAceEditor(aceEditorRequest, serverVars);
+        aceEditorRequest.getSession().setMode("ace/mode/" + serverVars.requestLanguage);
+    } catch (ex) {;
+    }
+
+    try {
+        window.aceEditor = ace.edit("ResponseBodyFormatted");
+        configureAceEditor(aceEditor, serverVars);
+        aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
+    } catch (ex) {;
+    }
+}, 100);
+
+
 //setTimeout(function () {
 //    $("#ResponseOutputFormatted").hide();
 //    console.log('hiding');

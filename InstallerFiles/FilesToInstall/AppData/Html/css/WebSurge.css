@@ -31,8 +31,7 @@ body {
     background: white;
     color: black;
     line-height: 1.35;
-    font-size: 11pt;
-    font-family: Verdana,'Segoe UI',Arial;
+    font-size: 11pt;    
     padding: 0 10px;
     margin: 0;
 }
@@ -71,8 +70,8 @@ p
 }
 /* END BROWSER RESET */
 
-html,body { 
-  font-family: arial;
+html,body {
+  font-family: Arial, 'Segoe UI',  Verdana;
   font-size: 11pt;
   margin: 0;
   padding: 0;

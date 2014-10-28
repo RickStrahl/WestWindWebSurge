@@ -170,7 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebSurge.Core\WebSurge.Core.csproj">
-      <Project>{9FFDE5F2-1DBF-43DF-BE64-FD543F355444}</Project>
+      <Project>{9ffde5f2-1dbf-43df-be64-fd543f355444}</Project>
       <Name>WebSurge.Core</Name>
     </ProjectReference>
   </ItemGroup>

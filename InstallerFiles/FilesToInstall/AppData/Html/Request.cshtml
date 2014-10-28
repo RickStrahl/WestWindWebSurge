@@ -1,7 +1,8 @@
 ﻿@inherits Westwind.RazorHosting.RazorTemplateFolderHost<HttpRequestData>
 @using WebSurge
 @{    
-    string responseOutputType = Model.GetOutputType();
+    string responseBodyType = Model.GetTypeOfContent();
+    string requestBodyType = Model.GetTypeOfContent(Model.ContentType);
     string cssClass = null;
     if (!string.IsNullOrEmpty(Model.StatusCode))
     {
@@ -32,17 +33,36 @@
     </div>
 
     <pre class="grey-gradient">
-<div class="first-line wrapline"><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@{
-    foreach (WebSurge.HttpRequestHeader header in @Model.Headers)
+<div class="first-line wrapline"><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@foreach (WebSurge.HttpRequestHeader header in @Model.Headers)
     {
 <text>@header.Name: @header.Value</text>
-    }    
-    if(!string.IsNullOrEmpty(Model.RequestContent))
+    }</pre>
+
+    @if (!string.IsNullOrEmpty(Model.RequestContent))
     {
-<text>
-@(Model.GetRequestContentAsString())</text>
+        
+        <div class="header" style="margin-top: 0;">
+            @if (!string.IsNullOrEmpty(requestBodyType))
+            {
+                if ("json,xml".Contains(requestBodyType))
+                {
+                    <div class="formattingRequestBody">
+                        <a href="javascript:{}" data-id="Formatted" title="See a formatted and syntax colored view of the HTTP response based on the content type">Formatted @requestBodyType</a>
+                        <a href="javascript:{}" data-id="Raw" class="active" title="The raw HTTP response content as returned by the server">Raw Request</a>
+
+                    </div>
+                }
+            }
+            <i class="fa fa-cloud-upload"></i> Request Content
+        </div>
+
+        <pre class="grey-gradient" id="RequestBodyRaw">@Model.GetRequestContentAsString()</pre>
+
+        if (!string.IsNullOrEmpty(requestBodyType))
+        {
+            <pre id="RequestBodyFormatted" class="grey-gradient" style="display:none">@Model.GetFormattedContent(Model.GetRequestContentAsString(),requestBodyType)</pre>
+        }
     }
-}</pre>
 
     @if (Model.StatusCode != null)
     {
@@ -53,38 +73,34 @@
             </div>
         </div>
 
-<pre class="grey-gradient"><div class="@cssClass first-line wrapline">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>@Model.ResponseHeaders</pre>
+        <pre class="grey-gradient"><div class="@cssClass first-line wrapline">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>@Model.ResponseHeaders</pre>
 
         if (Model.ResponseContent != null)
         {
-            <div class="header" style="margin-top: 0">                
+            <div class="header" style="margin-top: 0">
 
-                @if (responseOutputType != null)
+                @if (responseBodyType != null)
                 {
-                    if ("html,json,xml,css,javascript".Contains(responseOutputType))
-                     {
-                         <div class="formattingheader">
-                             @if ("xml,html,json".Contains(responseOutputType))
-                             {
+                    if ("html,json,xml,css,javascript".Contains(responseBodyType))
+                    {
+                        <div class="formattingResponseBody">
+                            @if ("xml,html,json".Contains(responseBodyType))
+                            {
                                 <a href="app://preview/" title="Use the configured Shell association to view the content. This is your default browser for HTML and editor or viewer for XML and JSON typically">Viewer</a>
-                             }
-                             <a href="javascript:{}" data-id="Formatted" title="See a formatted and syntax colored view of the HTTP response based on the content type">Formatted @responseOutputType</a>
-                             <a href="javascript:{}" data-id="Raw" class="active" title="The raw HTTP response content as returned by the server">Raw Response</a>
-                             
-                         </div>
-                     }
+                            }
+                            <a href="javascript:{}" data-id="Formatted" title="See a formatted and syntax colored view of the HTTP response based on the content type">Formatted @responseBodyType</a>
+                            <a href="javascript:{}" data-id="Raw" class="active" title="The raw HTTP response content as returned by the server">Raw Response</a>
+
+                        </div>
+                    }
                 }
-                
-                <i class="fa fa-download"></i> Http Response Body
+                <i class="fa fa-cloud-download"></i> Http Response Body
             </div>
 
-
-            <div id="ResponseContent"></div>
-
-            <pre id="ResponseOutputRaw" class="grey-gradient" style="display:none">@Model.ResponseContent.Trim()</pre>
-            if (responseOutputType != null)
+            <pre id="ResponseBodyRaw" class="grey-gradient" style="display:none">@Model.ResponseContent.Trim()</pre>
+            if (responseBodyType != null)
             {
-                <pre id="ResponseOutputFormatted" class="grey-gradient">@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseOutputType)</pre>
+                <pre id="ResponseBodyFormatted" class="grey-gradient" >@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseBodyType)</pre>
             }
 
         }
@@ -94,7 +110,8 @@
     <script src="scripts/jquery.min.js"></script>
     <script>
         window.serverVars = {
-            language: "@responseOutputType",
+            responseLanguage: "@responseBodyType",
+            requestLanguage: "@requestBodyType",
             theme: "@App.Configuration.StressTester.FormattedPreviewTheme",
             showLineNumbers: false,
             allowEdit: false,
@@ -103,4 +120,7 @@
     </script>
     <script src="scripts/Request.js"></script>
 </body>
+
+
+
 </html>

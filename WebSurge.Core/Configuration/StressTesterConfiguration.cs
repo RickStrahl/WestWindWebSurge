@@ -122,7 +122,7 @@ Allows to add custom authentication to a request after you've captured say a bea
         public bool ReloadTemplates { get; set; }
 
         [Category("User Interface")]
-        [Description("Ace Editor theme used for viewing syntax highlighted content. Values come from the Ace Editor themes in the AppData/West Wind Web Surge/Html folder. Some themes avaialable: visualstudion,monokai,textmate,xcode,solarized_dark,ambiance")]
+        [Description("Ace Editor theme used for viewing syntax highlighted content. Values come from the Ace Editor themes in the AppData/West Wind Web Surge/Html folder. Some themes avaialable: visualstudio,monokai,textmate,xcode,solarized_dark,ambiance")]
         public string FormattedPreviewTheme { get; set; }
 
         [Browsable(false)]

@@ -2,11 +2,13 @@
             padding: 0;
             margin: 0;
         }
-         .header {
+        .header, .header-response {
              margin-top: 20px;
              margin-bottom: 0;
              font-size: 1.2em;
              padding: 8px 10px 5px;
+        }
+        .header-response {            
         }
         pre,.code {            
 			margin: 0;
@@ -28,26 +30,31 @@
 		   text-indent: -31px;
 		   padding-left: 31px !important;
 		}
-        .formattingheader{            
+        .formattingRequestBody, .formattingResponseBody {            
             font-size: 8pt;
         }
-        .formattingheader a, .formattingheader a:visited {
+        .formattingRequestBody a, .formattingRequestBody a:visited,
+        .formattingResponseBody a, .formattingResponseBody a:visited
+        {
             float: right;            
 			padding: 0 8px;
-            background: lightgrey;
+            background: #eee;
             border-radius: 3px;
             border: 1px solid silver;
 			margin-right: 5px;
             text-decoration: none;
-            font-size: 0.85em;
-            color: steelblue;
+            font-size: 0.9em;            
+            color: steelblue;            
         }
-            .formattingheader a.active {
+            .formattingRequestBody a.active, 
+            .formattingResponseBody a.active{
                 background: white;
                 color: steelblue;
+                color: #42739c;                
             }
-			.formattingheader a:hover {
-                background: lightsteelblue;                
+			.formattingRequestBody a:hover, 
+            .formattingResponseBody a:hover {
+                background: lightsteelblue;                                
             }
         .codedisplay {
             padding: 15px;
@@ -61,7 +68,7 @@
             font-size: 10pt !important;
             font-weight: normal !important;
             letter-spacing: 0 !important;
-            background: transparent;
+            background: transparent;           
         }
         .ace_content {
             padding-top: 5px !important;

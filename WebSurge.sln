@@ -49,8 +49,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Html", "http://localhost:97
 		SlnRelativePath = "..\..\Users\Rick\AppData\Roaming\West Wind WebSurge\Html\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Westwind.RazorHosting", "..\Libraries\Westwind.RazorHosting\Westwind.RazorHosting\Westwind.RazorHosting.csproj", "{ABF048CF-EAD5-40B7-AED2-B367E8579590}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35CE5CBE-2C7A-4634-B0D1-D14CA232B375}"
 	ProjectSection(SolutionItems) = preProject
 		WebEssentials-Settings.json = WebEssentials-Settings.json
@@ -120,14 +118,6 @@ Global
 		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.SandBox|Any CPU.ActiveCfg = Debug|Any CPU
 		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.SandBox|Any CPU.Build.0 = Debug|Any CPU
-		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Deploy|Any CPU.Build.0 = Debug|Any CPU
-		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.SandBox|Any CPU.ActiveCfg = Release|Any CPU
-		{ABF048CF-EAD5-40B7-AED2-B367E8579590}.SandBox|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

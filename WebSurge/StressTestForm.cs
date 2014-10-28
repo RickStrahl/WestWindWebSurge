@@ -1138,7 +1138,7 @@ any reported issues.";
                     // app://preview/id
                     if (action == "preview")
                     {
-                        string outputType = ActiveRequest.GetOutputType();
+                        string outputType = ActiveRequest.GetTypeOfContent();
                         if (outputType == null)
                             return;
 

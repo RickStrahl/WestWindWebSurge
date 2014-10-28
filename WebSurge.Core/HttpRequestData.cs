@@ -104,9 +104,11 @@ namespace WebSurge
         /// Html, Xml, Json
         /// </summary>
         /// <returns></returns>
-        public string GetOutputType()
+        public string GetTypeOfContent(string ct = null)
         {
-            string ct = GetResponseHeader("Content-type");
+            if (ct == null)
+                ct = GetResponseHeader("Content-type");
+
             if (ct == null)
                 return null;
             if (ct.Contains("text/html"))
@@ -118,9 +120,11 @@ namespace WebSurge
             if (ct.Contains("text/css"))
                 return "css";
             if (ct.Contains("application/javascript") || ct.Contains("application/x-javascript"))
-                return "javascript";            
+                return "javascript";  
+          
             return null;
         }
+        
 
         /// <summary>
         /// Returns various result (or request) content to formatted
@@ -131,9 +135,12 @@ namespace WebSurge
         /// <returns></returns>
         public string GetFormattedContent(string data, string outputType)
         {
+            if (string.IsNullOrEmpty(data))
+                return string.Empty;
+
             if (outputType == "json")
             {
-                return JValue.Parse(ResponseContent).ToString(Formatting.Indented);
+                return JValue.Parse(data).ToString(Formatting.Indented);
             }
             if (outputType == "xml")
             {

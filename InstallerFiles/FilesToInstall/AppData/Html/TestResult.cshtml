@@ -1,0 +1,173 @@
+@inherits Westwind.RazorHosting.RazorTemplateFolderHost<TestResultView>
+@using WebSurge
+@{
+    var result = Model.TestResult;	
+}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link href='css/WebSurge.css' type='text/css' rel='stylesheet' />
+        <link href='css/font-awesome.css' type='text/css' rel='stylesheet' />
+        <title>Url Summary</title>
+        <style>
+            body {                
+                font-size: 11pt;
+                font-family: 'Segoe UI',Arial; 
+				padding: 0;
+            }
+             #ReportDate {
+                 color: steelblue;                                  
+             }
+             #ResultsTable {                 
+                 font-size: 0.925em;
+             }
+             #ResultsTable td {
+                 padding: 1px;
+             }
+             #ResultsTable td:first-child {
+                 text-align: right;
+                 padding-right: 15px;
+                 font-weight: bold;
+             }
+            .item {
+                padding: 2px;
+                border-bottom: 1px dotted silver;
+                margin-bottom: 5px;
+            }
+            .item-detail {
+                margin: 5px 20px;                
+                line-height: 1.2em;
+            }
+            .item-detail tr {
+                font-size: 0.9em;
+            }
+			.item-detail td {
+				padding: 1px;
+			}
+            .url {
+                font-weight: bold;
+                font-size: 0.9em;
+            }
+            .success {
+                color: green;
+            }
+            .failed {
+                color: red
+            }
+            .warning {
+                color: goldenrod;
+            }
+            a {
+                text-decoration: none;
+                text-decoration-color: transparent;
+            }
+        </style>
+    </head>
+<body>
+    <div class="header" style="margin-top: 0"><i class="fa fa-flag-checkered"></i> Test Results</div>    
+    <div id="ReportDate" class="small pull-right">@DateTime.Now.ToString("MMM dd, yyyy") @@ @DateTime.Now.ToString("t")</div>
+    <div class="content grey-gradient" style="padding: 10px 40px 20px ">
+        <table id="ResultsTable">
+            <tr>
+                <td>Total Requests:</td>
+                <td>@result.TotalRequests.ToString("n0")</td>
+            </tr>
+            <tr>
+                <td>Failed:</td>
+                <td>@result.FailedRequests.ToString("n0")</td>
+            </tr>
+            <tr>
+                <td>Threads:</td>
+                <td>@result.ThreadCount</td>
+            </tr>
+            <tr>
+                <td>Total Time:</td>
+                <td>@result.TimeTakenSecs.ToString("n") secs</td>
+            </tr>
+            <tr>
+                <td>Req/Sec:</td>
+                <td>@result.RequestsPerSecond.ToString("n2")</td>
+            </tr>
+            <tr>
+                <td style="padding-top: 10px;"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Avg Time:</td>
+                <td>@result.AvgRequestTimeMs.ToString("n2") ms</td>
+            </tr>
+            <tr>
+                <td>Min Time:</td>
+                <td>@result.MinRequestTimeMs.ToString("n2") ms</td>
+            </tr>
+            <tr>
+                <td>Max Time:</td>
+                <td>@result.MaxRequestTimeMs.ToString("n2") ms</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="header" style="margin-top: 0"><i class="fa fa-bars"></i> Url Summary</div>
+    
+    <div class="content grey-gradient">
+
+        @foreach (var urlItem in Model.UrlSummary)
+        {
+            var mainClass = "success";
+            var icon = "fa-check-circle";
+
+            if (urlItem.Results.FailedRequests > 0)
+            {
+                if (urlItem.Results.SuccessRequests > 0)
+                {
+                    mainClass = "warning";
+                    icon = "fa-warning";
+                }
+                else
+                {
+                    mainClass = "failed";
+                    icon = "fa-times-circle";
+                }
+            }
+
+            <div class="item">
+                <div class="url @mainClass" onclick="">
+                    <i class="fa @icon @mainClass"></i>
+                    @urlItem.Url
+                </div>
+                <div class="item-detail">
+                    <table>
+                        <tr>
+                            <td style="width: 125px;">
+                                <i class="fa fa-check-circle success"></i> Success: @urlItem.Results.SuccessRequests.ToString("n0") &nbsp; &nbsp;                                
+                            </td>
+                            <td style="width: 125px;">
+                                <i class="fa fa-times-circle failed"></i> Failed: @urlItem.Results.FailedRequests.ToString("n0") &nbsp;&nbsp;
+                            </td>
+
+                            <td>
+                                avg: @(urlItem.Results.AvgRequestTimeMs.ToString("n0"))ms &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                min: @(urlItem.Results.MinRequestTimeMs.ToString("n0"))ms &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                max: @(urlItem.Results.MaxRequestTimeMs.ToString("n0"))ms &nbsp;&nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>        
+</body>
+
+</html>
