@@ -33,7 +33,7 @@
     </div>
 
     <pre class="grey-gradient">
-<div class="first-line wrapline"><span style='color: darkred;'>@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@foreach (WebSurge.HttpRequestHeader header in @Model.Headers)
+<div class="first-line wrapline"><span style="color: darkred;font-size: 1.3em;">@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@foreach (WebSurge.HttpRequestHeader header in @Model.Headers)
     {
 <text>@header.Name: @header.Value</text>
     }</pre>

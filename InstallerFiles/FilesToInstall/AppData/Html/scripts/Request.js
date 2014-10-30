@@ -1,7 +1,7 @@
 ﻿/// <reference path="Ace/ace.js" />
 /// <reference path="jquery.min.js" />
-showTab("Raw", "response");
-showTab("Raw", "request");
+showTab("Formatted", "response");
+showTab("Formatted", "request");
 
 // code to activate relevant tab
 $(".formattingResponseBody a").click(function () {
@@ -17,7 +17,7 @@ function showTab(elOrName, type) {
     var prefix = "ResponseBody";
     if (type == "request")
         prefix = "RequestBody";
-    
+    	
     var tab = "";
     if (typeof(elOrName) === "string")
         tab = elOrName;
@@ -28,8 +28,18 @@ function showTab(elOrName, type) {
     if (!tab)
         return;
 
+		
     $("pre[id^=" + prefix + "]").hide();
-    $("#" +prefix + tab).show();
+	
+	debugger;
+	
+	var $page = $("#" +prefix + tab);
+	if ($page.length == 0){
+	   tab = "Raw";
+	   $page = $("#" + prefix + tab);
+	}
+	   
+    $page.show();
     
     // button handling
     $(".formatting" + prefix + " a").removeClass("active");

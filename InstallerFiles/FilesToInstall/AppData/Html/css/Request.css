@@ -5,8 +5,8 @@
         .header, .header-response {
              margin-top: 20px;
              margin-bottom: 0;
-             font-size: 1.2em;
-             padding: 8px 10px 5px;
+             font-size: 1.1em;
+             padding: 5px 10px 5px;
         }
         .header-response {            
         }
@@ -22,8 +22,8 @@
 		.first-line {            
 			font-size: 1.07em;
             font-weight: bold;
-			padding: 5px 0px 8px 0;
-			margin-bottom: 5px;
+			padding: 4px 0px 5px 0;
+			margin-bottom: 3px;
 			border-bottom: 1px solid lightgrey;
         }
 		.wrapline {
@@ -42,8 +42,7 @@
             border-radius: 3px;
             border: 1px solid silver;
 			margin-right: 5px;
-            text-decoration: none;
-            font-size: 0.9em;            
+            text-decoration: none;                   
             color: steelblue;            
         }
             .formattingRequestBody a.active, 
