@@ -10,6 +10,7 @@ let you frequently stress test Web applications for load
 characteristics during development, testing and in production.
 
 <img src="Screenshot.png" />
+<img src="http://west-wind.com/websurge/Images/WebSurge_RequestDisplay.png" />
 
 **Features:**
 
