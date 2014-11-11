@@ -344,6 +344,7 @@ namespace WebSurge
                                                    int seconds = 60)
         {
 
+
             ThreadsUsed = threadCount;
 
             if (UnlockKey.RegType == RegTypes.Free &&
@@ -356,9 +357,11 @@ namespace WebSurge
                 return null;
             }
 
+            requests = requests.Where(req => req.IsActive).ToList();
+
             Results = new List<HttpRequestData>();
             Running = true;
-
+             
             var threads = new List<Thread>();
             CancelThreads = false;
             RequestsProcessed = 0;
@@ -467,7 +470,8 @@ namespace WebSurge
                 rqs = null;
             }
             else
-                reqs = requests as List<HttpRequestData>;    
+                reqs = requests as List<HttpRequestData>;
+
 
             while (!CancelThreads)
             {
@@ -476,7 +480,6 @@ namespace WebSurge
                 {
                     if (CancelThreads)                                            
                         break;
-                    
 
                     var result = CheckSite(req);
 

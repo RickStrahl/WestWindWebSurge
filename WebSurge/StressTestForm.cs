@@ -721,7 +721,9 @@ any reported issues.";
                     Text = request.HttpVerb,
                     Tag = request
                 });
-                
+
+                if (!request.IsActive)
+                    item.Font = new Font(item.Font,FontStyle.Italic);
 
                 if (!string.IsNullOrEmpty(request.RequestContent))
                     item.ImageKey = "upload";
@@ -815,6 +817,7 @@ any reported issues.";
             txtHttpMethod.Text = request.HttpVerb;
             txtRequestUrl.Text = request.Url;
             txtRequestUrl.Tag = request;
+            chkIsActive.Checked = request.IsActive;
             StringBuilder sb = new StringBuilder();
             foreach (var hd in request.Headers)
             {
@@ -827,12 +830,14 @@ any reported issues.";
         HttpRequestData SaveRequest(HttpRequestData request)
         {                        
             if (request == null)
-                request = new HttpRequestData();                
+                request = new HttpRequestData();
 
+            request.IsActive = chkIsActive.Checked;
             request.Url = txtRequestUrl.Text;
             request.HttpVerb = txtHttpMethod.Text;
             request.RequestContent = txtRequestContent.Text;
             request.ParseHttpHeaders(txtRequestHeaders.Text);
+            
 
             return request;
         }

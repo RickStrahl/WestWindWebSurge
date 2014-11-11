@@ -17,6 +17,7 @@ namespace WebSurge
     {
         public long Id { get; set; }
         public DateTime Timestamp { get; set; }
+        public bool IsActive { get; set; }
 
         public string Url { get; set; }
         public string Host { get; set; }
@@ -48,6 +49,7 @@ namespace WebSurge
         public HttpRequestData()
         {
             Id = DataUtils.GenerateUniqueNumericId();
+            IsActive = true;
             HttpVerb = "GET";
             Timestamp = DateTime.UtcNow;
             Headers = new List<HttpRequestHeader>();
