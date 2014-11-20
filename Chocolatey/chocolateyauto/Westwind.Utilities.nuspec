@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Westwind.Utilities</id>
+        <version>2.57</version>
+        <title>West Wind .NET Utilities (Westwind.Utilities)</title>
+        <authors>Rick Strahl,West Wind Technologies</authors>
+        <licenseUrl>http://www.west-wind.com/WestwindToolkit/docs/?page=_2lp0u0i9b.htm</licenseUrl>
+        <projectUrl>http://www.west-wind.com/westwindToolkit</projectUrl>
+        <iconUrl>http://www.west-wind.com/westwindToolkit/images/WestwindWebToolkit_128x128.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>.NET utility library that includes Application Configuration, logging, lightweight ADO.NET Data Access Layer and more. Utility classes include: StringUtils, ReflectionUtils, FileUtils, DataUtils, SerializationUtils, TimeUtils, SecurityUtils and XmlUtils. These classes are useful in any kind of .NET project.</description>
+        <summary>Small library of general purpose utilities for .NET development that almost every application can use. Used as a core reference library for other West Wind libraries.</summary>
+        <releaseNotes />
+        <copyright>Rick Strahl, West Wind Technologies 2007-2014</copyright>
+        <language>en-US</language>
+        <tags>Westwind ApplicationConfiguration StringUtils ReflectionUtils DataUtils FileUtils TimeUtils SerializationUtils Logging DAL Sql ADO.NET</tags>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System.Configuration" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Data" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="..\..\..\Nuget\Westwind.Utilities.2.0\lib\net40\Westwind.Utilities.dll" target="lib\net40\Westwind.Utilities.dll" />
+        <file src="..\..\..\Nuget\Westwind.Utilities.2.0\lib\net40\Westwind.Utilities.xml" target="lib\net40\Westwind.Utilities.xml" />
+        <file src="..\..\..\Nuget\Westwind.Utilities.2.0\lib\net45\Westwind.Utilities.dll" target="lib\net45\Westwind.Utilities.dll" />
+        <file src="..\..\..\Nuget\Westwind.Utilities.2.0\lib\net45\Westwind.Utilities.xml" target="lib\net45\Westwind.Utilities.xml" />
+    </files>
+</package>

@@ -258,6 +258,11 @@ namespace WebSurge
                 }
                 if (name == "content-length")
                     continue; // HTTP client adds this automatically
+                if (name == "websurge-request-inactive")
+                {
+                    IsActive = false;
+                    continue; // don't add header
+                }
 
                 Headers.Add(hd);
             }
@@ -282,6 +287,8 @@ namespace WebSurge
             {                
                 sb.AppendLine(header.Name + ": " + header.Value);
             }
+            if (!IsActive)
+                sb.AppendLine("Websurge-Request-Inactive: 1");
 
             if (!string.IsNullOrEmpty(req.RequestContent))
                 sb.AppendLine("\r\n" + req.RequestContent);

@@ -219,7 +219,7 @@ namespace WebSurge
                 if (dr != DialogResult.Cancel)
                 {
                     FileName = Path.GetFullPath(fd.FileName);
-                    OpenFile(FileName);                    
+                    OpenFile(FileName);
                 }
             }
             else if (sender == btnClose)
@@ -233,7 +233,7 @@ namespace WebSurge
                 fiddlerForm.Show();
             }
             else if (sender == tbStart || sender == btnStart)
-            {                
+            {
                 StartProcessing();
             }
             else if (sender == tbStop || sender == btnStop)
@@ -267,9 +267,9 @@ namespace WebSurge
                 Export("json");
             else if (sender == tbExportRaw || sender == btnExportHtml)
                 Export("raw");
-            else if (sender == btnExportResultSummary)            
+            else if (sender == btnExportResultSummary)
                 Export("results");
-           
+
 
             if (sender == tbTimeTakenPerUrl || sender == tbTimeTakenPerUrlChart || sender == btnTimeTakenPerUrlChart)
             {
@@ -282,7 +282,8 @@ namespace WebSurge
                     form.Show();
                 }
             }
-            if (sender == tbRequestsPerSecondChart || sender == tbRequestPerSecondChart || sender == btnRequestsPerSecondChart)
+            if (sender == tbRequestsPerSecondChart || sender == tbRequestPerSecondChart ||
+                sender == btnRequestsPerSecondChart)
             {
                 if (StressTester.Results.Count() > 0)
                 {
@@ -296,11 +297,26 @@ namespace WebSurge
                 if (ListRequests.SelectedItems.Count > 0)
                 {
                     foreach (ListViewItem listItem in ListRequests.SelectedItems)
-                    {                        
+                    {
                         var request = listItem.Tag as HttpRequestData;
                         Requests.Remove(request);
                         ListRequests.Items.Remove(listItem);
                     }
+                }
+            }
+            if (sender == tbMarkAsActive || sender == tbMarkasInactive)
+            {
+                if (ListRequests.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem listItem in ListRequests.SelectedItems)
+                    {
+                        var request = listItem.Tag as HttpRequestData;
+                        if (sender == tbMarkasInactive)
+                            request.IsActive = false;
+                        else
+                            request.IsActive = true;                        
+                    }
+                    RenderRequests(Requests);
                 }
             }
             if (sender == tbEditRequest || sender == tbEditRequest2)
@@ -311,14 +327,14 @@ namespace WebSurge
                     var request = listItem.Tag as HttpRequestData;
                     LoadRequest(request);
                     TabsResult.SelectedTab = tabRequest;
-                }                
+                }
             }
             if (sender == tbNewRequest || sender == tbNewRequest2)
             {
-                txtRequestUrl.Tag = null; 
-                
+                txtRequestUrl.Tag = null;
+
                 txtHttpMethod.Text = "GET";
-                txtRequestUrl.Text = "http://";                
+                txtRequestUrl.Text = "http://";
 
                 txtRequestHeaders.Text = "Accept-Encoding: gzip,deflate";
                 txtRequestContent.Text = string.Empty;
@@ -332,15 +348,15 @@ namespace WebSurge
                     return;
 
                 var newRequest = HttpRequestData.Copy(req);
-                if (!newRequest.Url.EndsWith("_COPIED")) 
-                    newRequest.Url += "_COPIED";                
-                
+                if (!newRequest.Url.EndsWith("_COPIED"))
+                    newRequest.Url += "_COPIED";
+
                 LoadRequest(newRequest);
-                txtRequestUrl.Tag = null;  // it's a new request
+                txtRequestUrl.Tag = null; // it's a new request
 
                 TabsResult.SelectedTab = tabRequest;
                 txtRequestUrl.Focus();
-                
+
             }
             if (sender == btnSaveRequest)
             {
@@ -360,7 +376,9 @@ namespace WebSurge
 
                 TestSiteUrl(req);
             }
-            if (sender == btnOpenInDefaultBrowser)
+         
+
+    if (sender == btnOpenInDefaultBrowser)
             {
                 var context = ((ToolStripItem) sender).GetCurrentParent() as ContextMenuStrip;
                 if (context == null)

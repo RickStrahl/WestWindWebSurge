@@ -1,19 +1,31 @@
 # West Wind WebSurge Change Log
 
-### Version 0.72b
+### Version 0.73b
 <i><small>not released yet</small></i>
-* **Rework the Request Viewer HTML View**
+
+* **Add Active flag to Request View**<br />
+Added an Active flag and shortcuts on the Request list page to set the
+Active status of requests for participation in tests. This option
+allows you to quickly disable/enable requests that might in your tests.
+Good for disabling all but one, or quickly excluding a failing URL from
+test runs.
+
+
+### Version 0.72
+<i><small>October 28th, 2014</small></i>
+
+* **Rework the Request Viewer HTML View**v
 The HTTP Request viewer for completed requests now seperates out
 Response headers and Response content. New option buttons allow
 you view html, json and xml in syntax formatted views as well as
 shell out to see in the native viewer/editor.
 
-* **Add resizable Headers and Content Panel Splitter**
+* **Add resizable Headers and Content Panel Splitter**<br />
 You can now resize the content and header panels when editing request input.
 This allows you to more easily edit this content. Last sizes of the panels are 
 remembered between loads of the application.
 
-* **Add double-click popup editor for Headers and Content**
+* **Add double-click popup editor for Headers and Content**<br />
 You can now also double click on either the header or content panel to get 
 a dedicated editing window for the header or content text. If you're dealing
 with large or unformatted content having a maximized view can make editing 
