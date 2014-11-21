@@ -4,14 +4,32 @@ showTab("Formatted", "response");
 showTab("Formatted", "request");
 
 // code to activate relevant tab
-$(".formattingResponseBody a").click(function () {
+$(".formattingResponseBody a").click(function (e) {
     var el = this;
-    showTab(el, "response");
+    showTab(el, "response");    
 });
-$(".formattingRequestBody a").click(function () {
+$(".formattingRequestBody a").click(function (e) {
     var el = this;
     showTab(el, "request");
 });
+
+// Collapse/restore content underneath headers
+$(".code-collapse").click(function() {
+   
+    var button = $(this);
+    var el = button.parents(".header").next("div.codewrapper");
+    
+    if (el.is(":visible")) {
+        el.slideUp();
+        button.removeClass("fa-minus-square");
+        button.addClass("fa-plus-square");
+    } else {
+        button.removeClass("fa-plus-square");
+        button.addClass("fa-minus-square");
+        el.slideDown();
+    }
+})
+.attr("title","Collapse or expand section");
 
 function showTab(elOrName, type) {
     var prefix = "ResponseBody";
@@ -30,8 +48,7 @@ function showTab(elOrName, type) {
 
 		
     $("pre[id^=" + prefix + "]").hide();
-	
-	debugger;
+		
 	
 	var $page = $("#" +prefix + tab);
 	if ($page.length == 0){
@@ -39,7 +56,8 @@ function showTab(elOrName, type) {
 	   $page = $("#" + prefix + tab);
 	}
 	   
-    $page.show();
+	$page.show();
+    $page.parents("div.codewrapper").show();
     
     // button handling
     $(".formatting" + prefix + " a").removeClass("active");

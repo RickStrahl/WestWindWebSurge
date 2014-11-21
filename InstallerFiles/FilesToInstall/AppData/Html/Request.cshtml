@@ -29,18 +29,20 @@
     }
 
     <div class="header" style="margin-top: 0;">
-        <i class="fa fa-upload"></i> Request Headers
+
+        <i class="fa fa-minus-square code-collapse"></i> <i class="fa fa-upload"></i> Request Headers
     </div>
 
-    <pre class="grey-gradient">
+    <div class="codewrapper">
+        <pre class="grey-gradient">
 <div class="first-line wrapline"><span style="color: darkred;font-size: 1.3em;">@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@foreach (WebSurge.HttpRequestHeader header in @Model.Headers)
     {
 <text>@header.Name: @header.Value</text>
     }</pre>
-
+    </div>
     @if (!string.IsNullOrEmpty(Model.RequestContent))
     {
-        
+
         <div class="header" style="margin-top: 0;">
             @if (!string.IsNullOrEmpty(requestBodyType))
             {
@@ -53,27 +55,31 @@
                     </div>
                 }
             }
+            <i class="fa fa-minus-square code-collapse"></i>
             <i class="fa fa-cloud-upload"></i> Request Content
         </div>
+        <div class="codewrapper">
+            <pre class="grey-gradient" id="RequestBodyRaw">@Model.GetRequestContentAsString()</pre>
 
-        <pre class="grey-gradient" id="RequestBodyRaw">@Model.GetRequestContentAsString()</pre>
-
-        if (!string.IsNullOrEmpty(requestBodyType))
-        {
-            <pre id="RequestBodyFormatted" class="grey-gradient" style="display:none">@Model.GetFormattedContent(Model.GetRequestContentAsString(),requestBodyType)</pre>
-        }
+            @if (!string.IsNullOrEmpty(requestBodyType))
+            {
+                <pre id="RequestBodyFormatted" class="grey-gradient" style="display:none">@Model.GetFormattedContent(Model.GetRequestContentAsString(),requestBodyType)</pre>
+            }
+        </div>
     }
 
     @if (Model.StatusCode != null)
     {
         <div class="header">
+            <i class="fa fa-minus-square code-collapse"></i>
             <i class="fa fa-download"></i> Http Response Headers
             <div class='timetaken'>
                 @(Model.TimeTakenMs.ToString("n0"))ms
             </div>
         </div>
-
-        <pre class="grey-gradient"><div class="@cssClass first-line wrapline">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>@Model.ResponseHeaders</pre>
+        <div class="codewrapper">
+            <pre class="grey-gradient"><div class="@cssClass first-line wrapline">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>@Model.ResponseHeaders</pre>
+        </div>
 
         if (Model.ResponseContent != null)
         {
@@ -94,15 +100,16 @@
                         </div>
                     }
                 }
-                <i class="fa fa-cloud-download"></i> Http Response Body
+                <i class="fa fa-minus-square code-collapse"></i>
+                <i class="fa fa-cloud-download"></i> Http Response Body 
             </div>
-
-            <pre id="ResponseBodyRaw" class="grey-gradient" style="display:none">@Model.ResponseContent.Trim()</pre>
-            if (responseBodyType != null)
-            {
-                <pre id="ResponseBodyFormatted" class="grey-gradient" >@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseBodyType)</pre>
-            }
-
+            <div class="codewrapper">
+                <pre id="ResponseBodyRaw" class="grey-gradient" style="display:none">@Model.ResponseContent.Trim()</pre>
+                @if (responseBodyType != null)
+                {
+                    <pre id="ResponseBodyFormatted" class="grey-gradient">@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseBodyType)</pre>
+                }
+            </div>
         }
     }
 
@@ -120,6 +127,10 @@
     </script>
     <script src="scripts/Request.js"></script>
 </body>
+
+
+
+
 
 
 

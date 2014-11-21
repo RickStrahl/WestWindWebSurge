@@ -10,6 +10,11 @@ allows you to quickly disable/enable requests that might in your tests.
 Good for disabling all but one, or quickly excluding a failing URL from
 test runs.
 
+* **Collapsible Panels for PreView Sections**<br />
+The Preview's Request and Repsonse header and context sections are now
+collapsible to allow easier navigation of long requests, especially
+those that have long request content. Plus/minus buttons let you
+collapse any panel to just the header to quickly hide large content.
 
 ### Version 0.72
 <i><small>October 28th, 2014</small></i>

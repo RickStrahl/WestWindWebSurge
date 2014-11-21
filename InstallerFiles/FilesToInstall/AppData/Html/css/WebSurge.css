@@ -111,8 +111,18 @@ pre, .code {
 	white-space: pre-wrap;
 }
 .code{
-   .display: block;  
+   display: block;  
    white-space: normal;
+}
+.codewrapper {
+    /* marker interface*/      
+}
+.code-collapse {
+    font-size: 0.7em;    
+    padding-right: 8px;        
+    color: #eee;
+    cursor: pointer;
+
 }
 .timetaken
 {
