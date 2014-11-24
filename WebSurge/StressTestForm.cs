@@ -203,6 +203,7 @@ namespace WebSurge
 
         private void ButtonHandler(object sender, EventArgs e)
         {
+            FixClickFocus();
 
             if (sender == tbOpen || sender == btnOpen || sender == txtProcessingTime)
             {
@@ -1277,6 +1278,18 @@ any reported issues.";
             App.Configuration.WindowSettings.HeadersContentSplit = HeadersContentSplitter.SplitterDistance;
         }
 
+
+        private void FixClickFocus()
+        {
+            if (ActiveControl != null)
+            {
+                // *** Force focus to 'save'
+                Control ctrl = ActiveControl;
+                label2.Focus();
+                Application.DoEvents();
+                ctrl.Focus();
+            }
+        }
 
     }
 

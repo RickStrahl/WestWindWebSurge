@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-   <Version>0.72</Version>
-   <Title>West Wind WebSurge Version 0.72b is now available</Title>
+   <Version>0.73</Version>
+   <Title>West Wind WebSurge Version 0.73b is now available</Title>
    <Detail>This update adds better HTTP result viewing support with formatted syntax highlighting and various request and response preview modes. There are also a handful of UI updates to improve working with larger request headers and content.
 </Detail>
 </VersionInfo>
