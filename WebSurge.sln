@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge", "WebSurge\WebSurge.csproj", "{978F07C6-754B-43CF-9E3C-73D2AA716074}"
 EndProject
@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{D2199721-D
 	ProjectSection(SolutionItems) = preProject
 		ChangeLog.md = ChangeLog.md
 		Readme.md = Readme.md
+		ToDo.md = ToDo.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.Server", "WebSurge.Server\WebSurge.Server.csproj", "{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}"

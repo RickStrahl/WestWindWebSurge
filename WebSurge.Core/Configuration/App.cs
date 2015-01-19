@@ -14,6 +14,7 @@ namespace WebSurge
         public static string InstallerDownloadUrl { get; set; }
         public static string WebHomeUrl { get; set; }
         public bool ReloadTemplates { get; set; }
+        internal static string EncryptionMachineKey { get; set; }
 
         static App()
         {
@@ -29,7 +30,9 @@ namespace WebSurge
 
             Configuration = new WebSurgeConfiguration();
             Configuration.Initialize();
-
+            
+            // Encryption key is only valid on the current machine
+            EncryptionMachineKey = "22653K0U*He73kj4$JJ" + Environment.MachineName;
         }
 
 

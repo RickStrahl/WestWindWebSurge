@@ -58,7 +58,9 @@ namespace WebSurge
         {
             var provider = new JsonFileConfigurationProvider<WebSurgeConfiguration>()
             {
-                JsonConfigurationFile = App.UserDataPath + "WebSurgeConfiguration.json"
+                JsonConfigurationFile = App.UserDataPath + "WebSurgeConfiguration.json",
+                EncryptionKey = App.EncryptionMachineKey,
+                PropertiesToEncrypt = "StressTester.Password"
             };
             Provider = provider;
 

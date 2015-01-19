@@ -75,9 +75,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Westwind.Utilities, Version=2.56.5362.36936, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Westwind.Utilities, Version=2.58.5434.41162, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Westwind.Utilities.2.56\lib\net40\Westwind.Utilities.dll</HintPath>
+      <HintPath>..\packages\Westwind.Utilities.2.58\lib\net45\Westwind.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="ZedGraph">
       <HintPath>..\packages\ZedGraph.5.1.6\lib\net35-Client\ZedGraph.dll</HintPath>

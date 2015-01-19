@@ -246,7 +246,7 @@ namespace WebSurge
 
                 DateTime dt = DateTime.UtcNow;
 
-                string httpOutput = client.GetUrl(reqData.Url);
+                string httpOutput = client.DownloadString(reqData.Url);
                 
                 result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;                
                 

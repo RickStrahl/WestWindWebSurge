@@ -93,15 +93,19 @@ Allows to add custom authentication to a request after you've captured say a bea
         /// </summary>
         
         [Category("Authentication")]
-        [Description("Username to use for NTLM or Basic Authentication.")]
+        [Description("Username to use for NTLM or Basic Authentication.\r\n\r\nYou can also use 'AUTOLOGIN' to use your current Windows Credentials for NTLM authentication and leave the password blank")]
         public string Username { get; set;  }
 
         /// <summary>
         /// Username to use for NTLM or Basic Authentication
         /// </summary>
         [Category("Authentication")]
-        [Description("Password to use for NTLM or Basic Authentication. IMPORTANT: This value will be saved with your requests so make sure the file is secure or remove the password.")]        
+        [PasswordPropertyText(true)]
+        [Description(
+            "Password to use for NTLM or Basic Authentication. Important: This value is saved in the request configuration in encrypted format."
+        )]
         public string Password { get; set; }
+
 
         /// <summary>
         /// Determines whether requests are run in random
@@ -166,5 +170,6 @@ Allows to add custom authentication to a request after you've captured say a bea
             IgnoreCertificateErrors = false;
             FormattedPreviewTheme = "visualstudio";
         }
+        
     }
 }

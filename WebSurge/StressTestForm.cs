@@ -377,19 +377,19 @@ namespace WebSurge
 
                 TestSiteUrl(req);
             }
-         
 
-    if (sender == btnOpenInDefaultBrowser)
+
+            if (sender == btnOpenInDefaultBrowser)
             {
                 var context = ((ToolStripItem) sender).GetCurrentParent() as ContextMenuStrip;
                 if (context == null)
                     return;
 
                 var browser = context.SourceControl as WebBrowser;
-                ShellUtils.GoUrl(browser.Url.ToString());                
+                ShellUtils.GoUrl(browser.Url.ToString());
             }
 
-        
+
             if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2 ||
                 sender == btnSaveAllRequests || sender == btnSaveAllRequestsAs)
             {

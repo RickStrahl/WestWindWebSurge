@@ -26,7 +26,7 @@ collapse any panel to just the header to quickly hide large content.
 ### Version 0.72
 <i><small>October 28th, 2014</small></i>
 
-* **Rework the Request Viewer HTML View**v
+* **Rework the Request Viewer HTML View**
 The HTTP Request viewer for completed requests now seperates out
 Response headers and Response content. New option buttons allow
 you view html, json and xml in syntax formatted views as well as
