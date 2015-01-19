@@ -159,7 +159,7 @@ namespace WebSurge
             CaptureConfiguration.CaptureDomain = txtCaptureDomain.Text;
 
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;
-            FiddlerApplication.Startup(8888, true, true, true);
+            FiddlerApplication.Startup( App.Configuration.UrlCapture.ProxyPort, true, true, true);
         }
 
 

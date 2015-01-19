@@ -1,7 +1,14 @@
 # West Wind WebSurge Change Log
 
-### Version 0.73b
+### Version 0.75
 <i><small>not released yet</small></i>
+
+* **Add support for Username and Password in Options**<br/>
+You can now specify a username and password for authentication for NTLM 
+and Basic Authentication that is applied to all requests in a test.
+
+### Version 0.73b
+<i><small>November 22nd, 2014</small></i>
 
 * **Add Active flag to Request View**<br />
 Added an Active flag and shortcuts on the Request list page to set the

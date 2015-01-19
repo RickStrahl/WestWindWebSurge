@@ -149,8 +149,14 @@ namespace WebSurge
                 if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
                     result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
 
+
                 client.CreateWebRequestObject(result.Url);
                 var webRequest = client.WebRequest;
+
+                if (!string.IsNullOrEmpty(Options.Username))
+                    client.Username = Options.Username;
+                if (!string.IsNullOrEmpty(Options.Password))
+                    client.Password = Options.Password;
                 
                 webRequest.Method = reqData.HttpVerb;
                 client.UseGZip = true;                

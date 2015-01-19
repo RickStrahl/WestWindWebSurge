@@ -87,6 +87,22 @@ Allows to add custom authentication to a request after you've captured say a bea
         [Category("Header Replacement")]
         public string ReplaceDomain { get; set; }
 
+
+        /// <summary>
+        /// Username to use for NTLM or Basic Authentication
+        /// </summary>
+        
+        [Category("Authentication")]
+        [Description("Username to use for NTLM or Basic Authentication.")]
+        public string Username { get; set;  }
+
+        /// <summary>
+        /// Username to use for NTLM or Basic Authentication
+        /// </summary>
+        [Category("Authentication")]
+        [Description("Password to use for NTLM or Basic Authentication. IMPORTANT: This value will be saved with your requests so make sure the file is secure or remove the password.")]        
+        public string Password { get; set; }
+
         /// <summary>
         /// Determines whether requests are run in random
         /// order on each thread, or whether all threads

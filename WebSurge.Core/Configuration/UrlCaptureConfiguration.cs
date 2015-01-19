@@ -13,6 +13,7 @@ namespace WebSurge
         [Browsable(false)]
         public int ProcessId { get; set; }
 
+        public int ProxyPort { get; set; }
         public bool IgnoreResources { get; set; }
         public string CaptureDomain { get; set; }
         public List<string> UrlFilterExclusions { get; set; }
@@ -27,6 +28,7 @@ namespace WebSurge
 
         public UrlCaptureConfiguration()
         {
+            ProxyPort = 8888;
             UrlFilterExclusions = new List<string>();
             ExtensionFilterExclusions = new List<string>();
         }
