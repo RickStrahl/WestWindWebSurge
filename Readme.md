@@ -55,6 +55,11 @@ of individual request output from a test run.
 * [Download](http://www.west-wind.com/files/WebSurgeSetup.zip) or
   [install from Chocolatey](http://chocolatey.org/packages/WestwindWebSurge)
 
+**Developer Info:**
+
+* [Change Log](ChangeLog.md)
+* [To Do List](ToDo.md)
+
 **Requirements:**
 
 * Windows Vista, 7, 8, 8.1, 2008, 2012
