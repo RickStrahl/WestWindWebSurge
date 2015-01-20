@@ -15,7 +15,7 @@ characteristics during development, testing and in production.
 **Use Cases:**
 
 * Load testing Web applications and services
-* Easy URL Testing for REST and Data Services
+* Easy URL testing and debugging for REST and data services
 * URL management for saving, sharing, restoring
 
 **Features:**
