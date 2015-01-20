@@ -9,7 +9,18 @@ with simple results that are easy to understand and act on and that
 let you frequently stress test Web applications for load 
 characteristics during development, testing and in production.
 
+In addition you can also use WebSurge for easy and reproducible individual
+URL testing for REST or other Data services. WebSurge's easy request building
+tools, plus the formatted output views make it an ideal tool to test REST requests
+and data flow in REST applications. Sessions are stored in plain files and
+can easily be shared in source control, the file system, or via cloud storage
+solutions like DropBox or OneDrive.
+
+Here's what the stress testing output looks like:
 <img src="Screenshot.png" />
+
+And here is a screen shot that demonstrates simple URL testing or reviewing
+of individual request output from a test run.
 <img src="http://west-wind.com/websurge/Images/WebSurge_RequestDisplay.png" />
 
 **Use Cases:**
