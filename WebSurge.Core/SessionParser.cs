@@ -177,7 +177,7 @@ namespace WebSurge
                 // Encrypt and write
                 string password = options.Password;
                 if(!string.IsNullOrEmpty(password))
-                    options.Password = Westwind.Utilities.Encryption.EncryptString(options.Password, App.EncryptionMachineKey);
+                    options.Password = Encryption.EncryptString(options.Password, App.EncryptionMachineKey);
                 sb.AppendLine(JsonSerializationUtils.Serialize(options,false,true));
                 options.Password = password;
 

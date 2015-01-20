@@ -73,8 +73,13 @@ namespace WebSurge
            
             App.Configuration.StressTester = StressTester.Options;
             OptionsPropertyGrid.SelectedObject = App.Configuration.StressTester;
+            tbtxtThreads.Text = StressTester.Options.LastThreads.ToString();
+            tbtxtTimeToRun.Text = StressTester.Options.LastSecondsToRun.ToString();
+
             
             App.Configuration.LastFileName = FileName;
+
+            
             
 
             AttachWatcher(fileName);
@@ -399,7 +404,10 @@ namespace WebSurge
                 var path = App.UserDataPath;
                 if (!string.IsNullOrEmpty(FileName))
                     path = Path.GetDirectoryName(FileName);
-
+                
+                StressTester.Options.LastSecondsToRun = StringUtils.ParseInt(tbtxtTimeToRun.Text, 20);
+                StressTester.Options.LastThreads = StringUtils.ParseInt(tbtxtThreads.Text, 5);
+                
                 var file = string.Empty;
                 if (!string.IsNullOrEmpty(FileName))
                     file = Path.GetFileName(FileName);
@@ -588,9 +596,8 @@ any reported issues.";
         {
             var config = App.Configuration.StressTester;
 
-            //int time = StringUtils.ParseInt(tbtTxtTimeToRun.Text,2)
-            int time = int.Parse(tbtxtTimeToRun.Text);
-            int threads = int.Parse(tbtxtThreads.Text);
+            int time = StringUtils.ParseInt(tbtxtTimeToRun.Text,20);            
+            int threads = StringUtils.ParseInt(tbtxtThreads.Text,5);
 
             config.LastSecondsToRun = time;
             config.LastThreads = threads;
