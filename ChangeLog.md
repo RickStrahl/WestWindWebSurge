@@ -1,21 +1,43 @@
 # West Wind WebSurge Change Log
 
-### Version 0.75
-<i><small>not released yet</small></i>
+### Version 0.75b
+<i><small>January 20th, 2015</small></i>
+
+* **Syntax Coloring for Request and Response Content**</br>
+Both request and response content now allow for a 'Formatted'
+view that displays common display formats in prettified form.
+HTML, JSON, and XML are syntax colored. A 'Raw' view still
+exists to show the original content as well as a 'preview'
+mode that displays the content in your preferred browser
+which is useful for HTML content.
+
+* **JSON Content can be Prettified**</br>
+JOSN content in either the request or response content is 
+'Formatted' request/response content viewer to make it easier to
+read JSON data. Raw view still shows the original raw response.
+
+* **Show actual Response Headers for results**</br>
+You can now see the **actual** request headers instead of the headers 
+that were entered for the request. You'll see things like calculated 
+content-length, auth headers etc. that are injected by the HTTP client
+when the request runs.
 
 * **Add support for Username and Password in Options**<br/>
 You can now specify a username and password for authentication for NTLM 
-and Basic Authentication that is applied to all requests in a test.
+and Basic Authentication that is applied to all requests in a test. You 
+can also use 'AutoLogin' to login in to NTLM sites using your current
+Windows Credentials of the logged in user.
 
-### Version 0.73b
-<i><small>November 22nd, 2014</small></i>
+* **Encryption of Authentication Password**</br>
+The password is now saved with sessions and is encrypted for the 
+local machine both in saved session files as well as the global 
+configuration files.
 
-* **Add Active flag to Request View**<br />
-Added an Active flag and shortcuts on the Request list page to set the
-Active status of requests for participation in tests. This option
-allows you to quickly disable/enable requests that might in your tests.
-Good for disabling all but one, or quickly excluding a failing URL from
-test runs.
+* **Selectively enable and disable Requests from Test**<br />
+You can now use the Active flag on individual requests to enable or
+deactivate request to run. This option facilitates quickly enabling/disabling 
+requests.  Good for disabling all but one, or quickly excluding 
+a failing URL from test runs.
 
 * **Collapsible Panels for PreView Sections**<br />
 The Preview's Request and Repsonse header and context sections are now
@@ -23,8 +45,15 @@ collapsible to allow easier navigation of long requests, especially
 those that have long request content. Plus/minus buttons let you
 collapse any panel to just the header to quickly hide large content.
 
+* **Miscellaneous Fixes**</br>
+Add Content-Length: 0 to no body requests that POST or PUT requests
+(even though that's a bad idea - apparently this happens frequently).
+Show actual request headers sent rather than just the headers entered
+for requests. Fix 64 memory issue - memory usage is no longer limited
+to 1.5gig for large tests.
+
 ### Version 0.72
-<i><small>October 28th, 2014</small></i>
+<i><small>Novemember 24th, 2014</small></i>
 
 * **Rework the Request Viewer HTML View**
 The HTTP Request viewer for completed requests now seperates out

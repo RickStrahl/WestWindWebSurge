@@ -340,6 +340,7 @@ namespace WebSurge
                 txtRequestHeaders.Text = "Accept-Encoding: gzip,deflate";
                 txtRequestContent.Text = string.Empty;
                 TabsResult.SelectedTab = tabRequest;
+                chkIsActive.Checked = true;
                 txtRequestUrl.Focus();
             }
             if (sender == tbCopyFromRequest)

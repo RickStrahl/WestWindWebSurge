@@ -159,6 +159,7 @@ namespace WebSurge
                     client.Password = Options.Password;
                 
                 webRequest.Method = reqData.HttpVerb;
+                
                 client.UseGZip = true;                
 
                 client.ContentType = reqData.ContentType;
@@ -171,8 +172,12 @@ namespace WebSurge
                         var data = Convert.FromBase64String(reqData.RequestContent.Substring(4));
                         client.AddPostKey(data);
                     }
-                    else 
+                    else
                         client.AddPostKey(reqData.RequestContent);
+                }
+                else
+                {
+                    webRequest.ContentLength = 0;
                 }
 
                 foreach (var header in reqData.Headers)
@@ -274,6 +279,13 @@ namespace WebSurge
                 }
 
                 result.ResponseHeaders = sb.ToString();
+
+                // update to actual Http headers sent
+                result.Headers.Clear();
+                foreach (string key in webRequest.Headers.Keys)
+                {
+                    result.Headers.Add(new HttpRequestHeader() {Name = key, Value = webRequest.Headers[key]});
+                }          
 
                 char statusCode = result.StatusCode[0];
                 if (statusCode == '4' || statusCode == '5')

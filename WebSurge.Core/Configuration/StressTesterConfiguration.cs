@@ -93,7 +93,7 @@ Allows to add custom authentication to a request after you've captured say a bea
         /// </summary>
         
         [Category("Authentication")]
-        [Description("Username to use for NTLM or Basic Authentication.\r\n\r\nYou can also use 'AUTOLOGIN' to use your current Windows Credentials for NTLM authentication and leave the password blank")]
+        [Description("Username to use for NTLM or Basic Authentication.\r\nYou can also use 'AutoLogin' to use your current Windows Credentials for NTLM authentication and leave the password blank")]
         public string Username { get; set;  }
 
         /// <summary>
