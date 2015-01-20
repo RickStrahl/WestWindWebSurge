@@ -12,6 +12,12 @@ characteristics during development, testing and in production.
 <img src="Screenshot.png" />
 <img src="http://west-wind.com/websurge/Images/WebSurge_RequestDisplay.png" />
 
+**Use Cases:**
+
+* Load testing Web applications and services
+* Easy URL Testing for REST and Data Services
+* URL management for saving, sharing, restoring
+
 **Features:**
 
 * Easy to set up, easy to run tests
