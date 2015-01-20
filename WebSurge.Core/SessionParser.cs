@@ -92,7 +92,7 @@ namespace WebSurge
             StressTesterConfiguration options = null;
             
             string json = StringUtils.ExtractString(sessionString, STR_StartWebSurgeOptions, STR_EndWebSurgeOptions);
-            if (json != null)
+            if (!string.IsNullOrEmpty(json))
             {
                 options = JsonSerializationUtils.Deserialize(json, typeof(StressTesterConfiguration))
                     as StressTesterConfiguration;
@@ -176,7 +176,8 @@ namespace WebSurge
                 
                 // Encrypt and write
                 string password = options.Password;
-                options.Password = Westwind.Utilities.Encryption.EncryptString(options.Password, App.EncryptionMachineKey);
+                if(!string.IsNullOrEmpty(password))
+                    options.Password = Westwind.Utilities.Encryption.EncryptString(options.Password, App.EncryptionMachineKey);
                 sb.AppendLine(JsonSerializationUtils.Serialize(options,false,true));
                 options.Password = password;
 

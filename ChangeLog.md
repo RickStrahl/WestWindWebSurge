@@ -3,7 +3,7 @@
 ### Version 0.75b
 <i><small>January 20th, 2015</small></i>
 
-* **Syntax Coloring for Request and Response Content**</br>
+* **Syntax Coloring for Request and Response Content**<br />
 Both request and response content now allow for a 'Formatted'
 view that displays common display formats in prettified form.
 HTML, JSON, and XML are syntax colored. A 'Raw' view still
@@ -11,12 +11,12 @@ exists to show the original content as well as a 'preview'
 mode that displays the content in your preferred browser
 which is useful for HTML content.
 
-* **JSON Content can be Prettified**</br>
+* **JSON Content can be Prettified**<br />
 JOSN content in either the request or response content is 
 'Formatted' request/response content viewer to make it easier to
 read JSON data. Raw view still shows the original raw response.
 
-* **Show actual Response Headers for results**</br>
+* **Show actual Response Headers for results**<br />
 You can now see the **actual** request headers instead of the headers 
 that were entered for the request. You'll see things like calculated 
 content-length, auth headers etc. that are injected by the HTTP client
@@ -28,7 +28,7 @@ and Basic Authentication that is applied to all requests in a test. You
 can also use 'AutoLogin' to login in to NTLM sites using your current
 Windows Credentials of the logged in user.
 
-* **Encryption of Authentication Password**</br>
+* **Encryption of Authentication Password**<br />
 The password is now saved with sessions and is encrypted for the 
 local machine both in saved session files as well as the global 
 configuration files.

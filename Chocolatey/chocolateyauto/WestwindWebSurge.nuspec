@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>WestwindWebSurge</id>
-        <version>0.73</version>
+        <version>0.75</version>
         <title>West Wind WebSurge</title>
         <authors>Rick Strahl,West Wind Technologies</authors>
         <owners>West Wind Technologies</owners>
@@ -17,8 +17,8 @@ Use our built-in Web capture tool to capture and filter Web sessions from Web Br
 Capture HTML requests, AJAX, REST and SOAP services. Capture SSL requests, provide POST data and custom headers - anything HTTP supports you can use in your session. Once captured play back the session under load by running for a specified time and number of simultaneous sessions. See summarized results, a few simple  graphs and examine individual requests and failures. Finally a command line tool is available to automate load tests from the command prompt or with shell scripts.</description>
         <summary>Quick and easy HTTP Request and HTTP Load Testing for your Web Applications</summary>
         <releaseNotes>This update adds a few more filters for request processing including query string overrides, and authorization header overrides. There are also many improvements in the Session creation and management UI to make it easier to create and test individual URLs and add them to sessions.</releaseNotes>
-        <copyright>West Wind Technologies, 1995-2014</copyright>
-        <tags>load-testing,stress-testing,web-test,capture,test</tags>
+        <copyright>West Wind Technologies, 2014-2015</copyright>
+        <tags>load-testing,stress-testing,web-test,rest,url-test,capture,test</tags>
     </metadata>
     <files>
         <file src="tools\chocolateyInstall.ps1" target="tools\chocolateyInstall.ps1" />
