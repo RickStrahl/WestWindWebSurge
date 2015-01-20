@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+using Humanizer;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -993,6 +994,15 @@ any reported issues.";
 
         void Export(string mode)
         {
+            string filePrefix = "WebSurge";
+            if (!string.IsNullOrEmpty(FileName))
+            {
+                string tFileName = Path.GetFileNameWithoutExtension(FileName);
+                if (!string.IsNullOrEmpty(tFileName))
+                    filePrefix = tFileName;
+            }
+            string fileName = filePrefix + "_Result_" + DateTime.Now.ToString("yyyy-MM-dd");
+
             if (mode == "xml")
             {
                 var diag = new SaveFileDialog()
@@ -1004,7 +1014,7 @@ any reported issues.";
                     OverwritePrompt = false,
                     Title = "Export Results as XML",
                     RestoreDirectory = true,
-                    FileName = "KuhelaResults.xml"
+                    FileName = fileName + ".xml"
                 };
                 var res = diag.ShowDialog();
 
@@ -1014,7 +1024,15 @@ any reported issues.";
                         File.Delete(diag.FileName);
 
                     if (SerializationUtils.SerializeObject(StressTester.Results, diag.FileName, false))
+                    {
+                        int fileSize = (int) new FileInfo(diag.FileName).Length;                        
+                        if(MessageBox.Show( string.Format("Data saved to:\r\n{0} ({1})",diag.FileName, fileSize.Bytes().ToString("#.##").ToLower()) +
+                                        "\r\n\r\n" +
+                                        "Do you want to view the file?",
+                                        App.Configuration.AppName,
+                                        MessageBoxButtons.YesNo,MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
                         ShellUtils.GoUrl(diag.FileName);
+                    }
                 }
             }
             else if (mode == "json")
@@ -1028,7 +1046,7 @@ any reported issues.";
                     OverwritePrompt = false,
                     Title = "Export Results as JSON",
                     RestoreDirectory = true,
-                    FileName = "KuhelaResults.json"
+                    FileName = fileName + ".json"
                 };
                 var res = diag.ShowDialog();
 
@@ -1041,6 +1059,12 @@ any reported issues.";
                     if (json != null)
                     {
                         File.WriteAllText(diag.FileName, json);
+                        int fileSize = (int) new FileInfo(diag.FileName).Length;
+                        if (MessageBox.Show(string.Format("Data saved to:\r\n{0} ({1})", diag.FileName, fileSize.Bytes().ToString("#.##").ToLower()) +
+                                        "\r\n\r\n" +
+                                        "Do you want to view the file?",
+                                        App.Configuration.AppName,
+                                        MessageBoxButtons.YesNo,MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)                        
                         ShellUtils.GoUrl(diag.FileName);
                     }
                 }
@@ -1055,7 +1079,8 @@ any reported issues.";
                     Filter = "txt files (*.txt)|*.txt|All Files (*.*)|*.*",
                     OverwritePrompt = false,
                     Title = "Export Results",
-                    RestoreDirectory = true                   
+                    RestoreDirectory = true,
+                    FileName = fileName + ".txt"
                 };
                 var res = diag.ShowDialog();
                 if (res == DialogResult.OK)
@@ -1064,8 +1089,20 @@ any reported issues.";
                         File.Delete(diag.FileName);
 
                     var parser = new SessionParser();
-                    parser.Save(StressTester.Results, diag.FileName);
-                    ShellUtils.GoUrl(diag.FileName);
+                    if (parser.Save(StressTester.Results, diag.FileName))
+                    {
+
+                        int fileSize = (int) new FileInfo(diag.FileName).Length;
+                        if (MessageBox.Show(
+                            string.Format("Data saved to:\r\n{0} ({1})", diag.FileName, fileSize.Bytes().ToString("#.##").ToLower() ) +
+                            "\r\n\r\n" +
+                            "Do you want to view the file?",
+                            App.Configuration.AppName,
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Information) ==
+                            System.Windows.Forms.DialogResult.Yes)
+                            ShellUtils.GoUrl(diag.FileName);
+                        ShellUtils.GoUrl(diag.FileName);
+                    }
                 }
             }
             else if (mode == "results")
@@ -1079,12 +1116,12 @@ any reported issues.";
                     OverwritePrompt = false,
                     Title = "Export Summary Results",                    
                     RestoreDirectory = true,
+                    FileName = filePrefix + "_Result_Summary_" + DateTime.Now.ToString("yyyy-MM-dd") + ".json"
                 };
                 if (!string.IsNullOrEmpty(FileName))
                 {
                     var file = Path.GetFileNameWithoutExtension(FileName);
-                    var dt = DateTime.Now;
-                    diag.FileName = file + "_Result_" + DateTime.Now.ToString("yyyyMMdd-HHmm") +".json";
+                    var dt = DateTime.Now;                    
                 }
 
                 var res = diag.ShowDialog();
@@ -1099,6 +1136,7 @@ any reported issues.";
                                                 StressTester.ThreadsUsed);
                     string json = JsonSerializationUtils.Serialize(result, false, true);
                     File.WriteAllText(diag.FileName, json);
+
                     ShellUtils.GoUrl(diag.FileName);
                 }
             }
