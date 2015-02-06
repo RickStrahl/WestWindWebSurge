@@ -44,6 +44,8 @@ namespace WebSurge
         public int ResponseLength { get; set; }
 
         public int TimeTakenMs { get; set; }
+        public int TimeToFirstByteMs { get; set; }        
+
         public bool IsWarmupRequest { get; set; }
 
         public HttpRequestData()

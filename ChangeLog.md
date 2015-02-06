@@ -1,5 +1,17 @@
 # West Wind WebSurge Change Log
 
+### Version 0.77b
+<i><small>not released yet</small></i>
+
+* **First Byte Times Added to Results**
+Result objects now contain a value to show milliseconds to
+first byte for more information on each request.
+
+* **Add Test All Button to Session List**
+Option allows you to run all selected tests in a session at once
+and see a summary result page, as well as a result list where you
+can check the output from requests and responses
+
 ### Version 0.75b
 <i><small>January 20th, 2015</small></i>
 

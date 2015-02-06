@@ -253,7 +253,8 @@ namespace WebSurge
 
                 string httpOutput = client.DownloadString(reqData.Url);
                 
-                result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;                
+                result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;  
+                // result.TimeToFirstByteMs = client.Timings.TimeToFirstByteMs;
                 
                 if (client.Error || client.WebResponse == null)
                 {
@@ -268,6 +269,7 @@ namespace WebSurge
 
                 result.StatusCode = ((int) client.WebResponse.StatusCode).ToString();
                 result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
+                result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
 
                 result.ResponseLength = (int) client.WebResponse.ContentLength;
                 result.ResponseContent = httpOutput;
@@ -359,7 +361,8 @@ namespace WebSurge
         /// <returns></returns>
         public List<HttpRequestData> CheckAllSites(IEnumerable<HttpRequestData> requests, 
                                                    int threadCount = 2, 
-                                                   int seconds = 60)
+                                                   int seconds = 60,
+                                                   bool runOnce = false)
         {
 
 
@@ -391,7 +394,7 @@ namespace WebSurge
             StartTime = DateTime.UtcNow;
             for (int i = 0; i < threadCount; i++)
             {
-                var thread = new Thread(SessionThreadRunner);
+                var thread = new Thread(RunSessions);
                 thread.Start(requests);
                 threads.Add(thread);
             }            
@@ -458,17 +461,26 @@ namespace WebSurge
             return Results;   
         }
 
-        
+
+        public void RunSessions(object requests)
+        {
+            RunSessions(requests, false);
+        }
+
         /// <summary>
-        /// Checks an entire session on a separate thread.
+        /// Checks an entire session in a loop until CancelThreads
+        /// or runOnce is true.
         /// 
-        /// This routine runs through all the threads in a session
+        /// This routine runs through all the requests in a session
         /// one after the other (may be randomized based on options)
-        /// until CancelThreads is true. Called on a new thread as 
-        /// a delegate.
+        /// until CancelThreads or runOnce is true. 
+        /// 
+        /// Typically called from CheckAllSites which sets up multiple
+        /// threads each running this method.
         /// </summary>
-        /// <param name="requests"></param>
-        private void SessionThreadRunner(object requests)
+        /// <param name="requests">HttpRequests to run</param>
+        /// <param name="runOnce">When set only fires once</param>
+        public void RunSessions(object requests, bool runOnce = false)
         {
             List<HttpRequestData> reqs = null;
             bool isFirstRequest = true;
@@ -501,12 +513,12 @@ namespace WebSurge
 
                     var result = CheckSite(req);
 
-                    // don't record first request on thread
-                    if (isFirstRequest)
-                    {                        
-                        isFirstRequest = false;
-                        continue;
-                    }
+                    //// don't record first request on thread
+                    //if (isFirstRequest && !runOnce)
+                    //{                        
+                    //    isFirstRequest = false;
+                    //    continue;
+                    //}
                     
                     if (result != null)
                         WriteResult(result);
@@ -517,6 +529,9 @@ namespace WebSurge
                     else
                         Thread.Sleep(Options.DelayTimeMs);  
                 }
+
+                if (runOnce)
+                    break;
             }
         }
 

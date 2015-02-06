@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-   <Version>0.75</Version>
-   <Title>West Wind WebSurge Version 0.75b is now available</Title>
-   <Detail>This update adds better HTTP result viewing support with formatted syntax highlighting, raw and preview modes. You can also collapse headers and content to more quickly navigate request data. JSON content is automatically formatted/prettified in formatted mode for easier viewing. There's now support for authentication for all or individual requests. You can now also quickly activate/deactivate requests in a test session.
+   <Version>0.77</Version>
+   <Title>West Wind WebSurge Version 0.77b is now available</Title>
+   <Detail>This update adds better HTTP result viewing support with formatted syntax highlighting, raw and preview modes. You can also collapse headers and content to more quickly navigate request data. JSON content is automatically formatted/prettified in formatted mode for easier viewing. There's now support for authentication for all or individual requests. You can now also quickly activate/deactivate requests in a test session and run all tests once and review results.
 </Detail>
 </VersionInfo>

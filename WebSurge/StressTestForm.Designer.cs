@@ -42,7 +42,9 @@
             this.tbNewRequest2 = new System.Windows.Forms.ToolStripButton();
             this.tbEditRequest2 = new System.Windows.Forms.ToolStripButton();
             this.tbDeleteRequest2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.tbTestRequest = new System.Windows.Forms.ToolStripButton();
+            this.tbTestAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.tbCapture = new System.Windows.Forms.ToolStripButton();
             this.tbSaveAllRequests2 = new System.Windows.Forms.ToolStripButton();
@@ -311,7 +313,9 @@
             this.tbNewRequest2,
             this.tbEditRequest2,
             this.tbDeleteRequest2,
+            this.toolStripSeparator18,
             this.tbTestRequest,
+            this.tbTestAll,
             this.toolStripSeparator11,
             this.tbCapture,
             this.tbSaveAllRequests2,
@@ -351,6 +355,11 @@
             this.tbDeleteRequest2.ToolTipText = "Delete selected requests (Del)";
             this.tbDeleteRequest2.Click += new System.EventHandler(this.ButtonHandler);
             // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(6, 25);
+            // 
             // tbTestRequest
             // 
             this.tbTestRequest.Image = ((System.Drawing.Image)(resources.GetObject("tbTestRequest.Image")));
@@ -360,6 +369,16 @@
             this.tbTestRequest.Text = "&Test";
             this.tbTestRequest.ToolTipText = "Test selected request (Alt-t)";
             this.tbTestRequest.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // tbTestAll
+            // 
+            this.tbTestAll.Image = ((System.Drawing.Image)(resources.GetObject("tbTestAll.Image")));
+            this.tbTestAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbTestAll.Name = "tbTestAll";
+            this.tbTestAll.Size = new System.Drawing.Size(41, 22);
+            this.tbTestAll.Text = "All";
+            this.tbTestAll.ToolTipText = "Run all selected all requests";
+            this.tbTestAll.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator11
             // 
@@ -391,7 +410,7 @@
             this.tbEditFile.Image = ((System.Drawing.Image)(resources.GetObject("tbEditFile.Image")));
             this.tbEditFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbEditFile.Name = "tbEditFile";
-            this.tbEditFile.Size = new System.Drawing.Size(47, 22);
+            this.tbEditFile.Size = new System.Drawing.Size(47, 20);
             this.tbEditFile.Text = "Edit";
             this.tbEditFile.ToolTipText = "Edit session file as text";
             this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler);
@@ -413,7 +432,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(423, 528);
+            this.ListRequests.Size = new System.Drawing.Size(423, 532);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -538,10 +557,10 @@
             this.tabResults.Controls.Add(this.ListResults);
             this.tabResults.Controls.Add(this.lblRequestCount);
             this.tabResults.Controls.Add(this.cmbListDisplayMode);
-            this.tabResults.Location = new System.Drawing.Point(4, 22);
+            this.tabResults.Location = new System.Drawing.Point(4, 24);
             this.tabResults.Name = "tabResults";
             this.tabResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResults.Size = new System.Drawing.Size(421, 551);
+            this.tabResults.Size = new System.Drawing.Size(421, 549);
             this.tabResults.TabIndex = 1;
             this.tabResults.Text = "Results";
             this.tabResults.UseVisualStyleBackColor = true;
@@ -563,7 +582,7 @@
             this.ListResults.Location = new System.Drawing.Point(-1, 37);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(423, 516);
+            this.ListResults.Size = new System.Drawing.Size(423, 514);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.TabIndex = 3;
             this.ListResults.UseCompatibleStateImageBehavior = false;
@@ -926,6 +945,7 @@
             // OptionsPropertyGrid
             // 
             this.OptionsPropertyGrid.BackColor = System.Drawing.Color.White;
+            this.OptionsPropertyGrid.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.OptionsPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OptionsPropertyGrid.HelpBackColor = System.Drawing.Color.White;
             this.OptionsPropertyGrid.Location = new System.Drawing.Point(0, 0);
@@ -1660,6 +1680,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem tbMarkasInactive;
         private System.Windows.Forms.ToolStripMenuItem tbMarkAsActive;
+        private System.Windows.Forms.ToolStripButton tbTestAll;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
     }
 }
 

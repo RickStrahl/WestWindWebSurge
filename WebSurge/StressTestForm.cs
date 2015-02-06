@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
-
-using Humanizer;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Humanizer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSurge.Core;
@@ -157,6 +155,7 @@ namespace WebSurge
         private static object ConsoleLog = new object();
         private StringBuilder statusOutput = new StringBuilder();
         private DateTime lastUpdate = DateTime.UtcNow;
+        private int statusOutputBufferDelay = 225;
 
         private void StressTester_RequestProcessed(HttpRequestData req)
         {
@@ -168,7 +167,7 @@ namespace WebSurge
             lock (ConsoleLog)
             {
                 statusOutput.AppendLine(currentLine);
-                if (lastUpdate.AddMilliseconds(225) < DateTime.UtcNow)
+                if (lastUpdate.AddMilliseconds(statusOutputBufferDelay) < DateTime.UtcNow)
                 {
                     lastUpdate = DateTime.UtcNow;
                     textToWrite = statusOutput.ToString();
@@ -180,7 +179,7 @@ namespace WebSurge
             {
                 try
                 {
-                    BeginInvoke(new Action<string>(ShowRequestProcessed), textToWrite);
+                    BeginInvoke(new Action<string>(WriteConsoleOutput), textToWrite);
                 }
                 catch
                 {
@@ -188,10 +187,12 @@ namespace WebSurge
             }
         }
 
-        void ShowRequestProcessed(string output)
-        {                        
+        void WriteConsoleOutput(string output)
+        {
+            var len = txtConsole.Text.Length;     
+            
             // truncate output
-            if (txtConsole.Text.Length > 30000)
+            if (len > 30000)
             {                
                 var txt = txtConsole.Text;                
                 txt = txt.Substring(txt.Length - 4000);
@@ -203,7 +204,7 @@ namespace WebSurge
             else
             {
                 txtConsole.AppendText(output);
-            }
+            }            
         }
 
 
@@ -213,7 +214,7 @@ namespace WebSurge
 
             if (sender == tbOpen || sender == btnOpen || sender == txtProcessingTime)
             {
-                var fd = new OpenFileDialog()
+                var fd = new OpenFileDialog
                 {
                     DefaultExt = ".txt;.log",
                     Filter = "Text files (*.txt)|*.txt|Log Files (*.log)|*.log|All Files (*.*)|*.*",
@@ -383,6 +384,10 @@ namespace WebSurge
                 req = SaveRequest(req);
 
                 TestSiteUrl(req);
+            } 
+            if (sender == tbTestAll)
+            {
+                TestAllSiteUrls();
             }
 
 
@@ -491,7 +496,7 @@ any reported issues.";
 
                 var res =  MessageBox.Show(msg, App.Configuration.AppName + " Feedback", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Information);
-                if (res == System.Windows.Forms.DialogResult.OK)
+                if (res == DialogResult.OK)
                     ShellUtils.GoUrl("https://github.com/RickStrahl/WestWindWebSurge/issues");
             }                
             else if (sender == btnShowErrorLog)
@@ -513,6 +518,8 @@ any reported issues.";
 
             UpdateButtonStatus();
         }
+
+
 
         private void CloseSession()
         {
@@ -539,14 +546,14 @@ any reported issues.";
 
             StressTester.CancelThreads = false;
             
-            var action = new Action<HttpRequestData>((rq) =>
+            var action = new Action<HttpRequestData>(rq =>
             {
                 ShowStatus("Checking URL: " + rq.Url); 
 
                 ActiveRequest = StressTester.CheckSite(rq);
                 string html = TemplateRenderer.RenderTemplate("Request.cshtml", ActiveRequest);                
 
-                Invoke(new Action<string>((htmlText) =>
+                Invoke(new Action<string>(htmlText =>
                 {
                     HtmlPreview(html);
                     TabsResult.SelectedTab = tabPreview;                    
@@ -558,6 +565,41 @@ any reported issues.";
             action.BeginInvoke(req,null,null);
            
             Cursor = Cursors.Default;
+        }
+
+        private void TestAllSiteUrls()
+        {
+            ShowStatus("Running all requests...");
+            ListResults.BeginUpdate();
+            ListResults.Items.Clear();
+            ListResults.EndUpdate();
+
+            TestResultBrowser.Visible = false;
+            txtConsole.Visible = true;
+            txtConsole.Text = "Processing " + Requests.Count + " requests...\r\n";
+
+            TabsResult.SelectedTab = tabOutput;
+            Application.DoEvents();            
+            StressTester.Results.Clear();
+
+            StressTester.CancelThreads = false;
+            
+            var t = new Thread(() =>
+            {
+                statusOutputBufferDelay = 1; 
+                StressTester.RunSessions(Requests.Where( req=> req.IsActive).ToList(), true);
+                statusOutputBufferDelay = 250;
+
+                Application.DoEvents();
+
+                ShowStatus("Running all requests completed.", 5);
+                Application.DoEvents();
+                
+                BeginInvoke(new Action<List<HttpRequestData>>(ParseResults), StressTester.Results);
+            });
+            t.Start();
+
+
         }
 
 
@@ -645,7 +687,6 @@ any reported issues.";
 
         private void ParseResults(List<HttpRequestData> results)
         {
-
             TabSessions.SelectedTab = tabResults;
 
             var html = StressTester.ResultsParser.GetResultReportHtml(StressTester.Results,
@@ -701,10 +742,10 @@ any reported issues.";
             ListResults.BeginUpdate();
             foreach(var request in filtered)
             {                
-                var item = ListResults.Items.Add(new ListViewItem()
+                var item = ListResults.Items.Add(new ListViewItem
                 {
                     Text = request.StatusCode,
-                    Tag = request,
+                    Tag = request
                 });
                 if (request.StatusCode == null) 
                     item.ImageKey = "error";
@@ -744,7 +785,7 @@ any reported issues.";
             {
                 var request = filtered[i];
 
-                var item = ListRequests.Items.Add(new ListViewItem()
+                var item = ListRequests.Items.Add(new ListViewItem
                 {
                     Text = request.HttpVerb,
                     Tag = request
@@ -797,7 +838,7 @@ any reported issues.";
 
             if (timeout > 0)
             {
-                new System.Threading.Timer((id) =>
+                new Timer(id =>
                 {
                     try
                     {
@@ -906,6 +947,7 @@ any reported issues.";
             // All Requests
             tbSaveAllRequests.Enabled = Requests.Count > 0;
             tbSaveAllRequests2.Enabled = tbSaveAllRequests.Enabled;
+            tbTestAll.Enabled = tbSaveAllRequests.Enabled;
             
             tbNoProgressEvents.Checked = StressTester.Options.NoProgressEvents;
 
@@ -1005,7 +1047,7 @@ any reported issues.";
 
             if (mode == "xml")
             {
-                var diag = new SaveFileDialog()
+                var diag = new SaveFileDialog
                 {
                     AutoUpgradeEnabled = true,
                     CheckPathExists = true,
@@ -1030,14 +1072,14 @@ any reported issues.";
                                         "\r\n\r\n" +
                                         "Do you want to view the file?",
                                         App.Configuration.AppName,
-                                        MessageBoxButtons.YesNo,MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                                        MessageBoxButtons.YesNo,MessageBoxIcon.Information) == DialogResult.Yes)
                         ShellUtils.GoUrl(diag.FileName);
                     }
                 }
             }
             else if (mode == "json")
             {
-                var diag = new SaveFileDialog()
+                var diag = new SaveFileDialog
                 {
                     AutoUpgradeEnabled = true,
                     CheckPathExists = true,
@@ -1064,14 +1106,14 @@ any reported issues.";
                                         "\r\n\r\n" +
                                         "Do you want to view the file?",
                                         App.Configuration.AppName,
-                                        MessageBoxButtons.YesNo,MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)                        
+                                        MessageBoxButtons.YesNo,MessageBoxIcon.Information) == DialogResult.Yes)                        
                         ShellUtils.GoUrl(diag.FileName);
                     }
                 }
             }
             else if (mode == "raw")
             {
-                var diag = new SaveFileDialog()
+                var diag = new SaveFileDialog
                 {
                     AutoUpgradeEnabled = true,
                     CheckPathExists = true,
@@ -1099,7 +1141,7 @@ any reported issues.";
                             "Do you want to view the file?",
                             App.Configuration.AppName,
                             MessageBoxButtons.YesNo, MessageBoxIcon.Information) ==
-                            System.Windows.Forms.DialogResult.Yes)
+                            DialogResult.Yes)
                             ShellUtils.GoUrl(diag.FileName);
                         ShellUtils.GoUrl(diag.FileName);
                     }
@@ -1107,7 +1149,7 @@ any reported issues.";
             }
             else if (mode == "results")
             {
-                var diag = new SaveFileDialog()
+                var diag = new SaveFileDialog
                 {
                     AutoUpgradeEnabled = true,
                     CheckPathExists = true,
@@ -1218,8 +1260,6 @@ any reported issues.";
                             HtmlPreview(JValue.Parse(ActiveRequest.ResponseContent).ToString(Formatting.Indented) ,true,"html\\_preview.json");
                         else if (outputType == "xml")                                                 
                             HtmlPreview(ActiveRequest.ResponseContent, true, "html\\_preview.xml");
-                        
-                        return;
                     }                    
                 }                
             }
@@ -1303,7 +1343,7 @@ any reported issues.";
             App.Configuration.CheckForUpdates.LastUpdateCheck = DateTime.UtcNow.Date;            
         }
 
-        void updater_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
+        void updater_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             ShowStatus("Downloading Update: " + (e.BytesReceived/1000).ToString("n0") + "kb  of  " +
                             (e.TotalBytesToReceive/1000).ToString("n0") + "kb");
