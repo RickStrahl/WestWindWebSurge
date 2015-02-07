@@ -12,6 +12,13 @@ Option allows you to run all selected tests in a session at once
 and see a summary result page, as well as a result list where you
 can check the output from requests and responses
 
+* **Add .websurge Extension to installer**
+When you save request files the default extension is now .websurge,
+which is now a registered extension in Windows so you can just 
+open a request file by double clicking. This also makes it easier
+to separate request files from saved result traces or .txt export
+stored in the AppData folder.
+
 ### Version 0.75b
 <i><small>January 20th, 2015</small></i>
 

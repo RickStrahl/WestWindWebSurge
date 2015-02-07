@@ -74,7 +74,9 @@
             <i class="fa fa-minus-square code-collapse"></i>
             <i class="fa fa-download"></i> Http Response Headers
             <div class='timetaken'>
-                @(Model.TimeTakenMs.ToString("n0"))ms
+                Time: <b>@(Model.TimeTakenMs.ToString("n0"))ms</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                First byte: <b>@(Model.TimeToFirstByteMs.ToString("n0"))ms</b>
+                
             </div>
         </div>
         <div class="codewrapper">

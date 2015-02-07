@@ -217,7 +217,7 @@ namespace WebSurge
                 var fd = new OpenFileDialog
                 {
                     DefaultExt = ".txt;.log",
-                    Filter = "Text files (*.txt)|*.txt|Log Files (*.log)|*.log|All Files (*.*)|*.*",
+                    Filter = "WebSurge files (*.websurge)|*.websurge|Text files (*.txt)|*.txt|Log Files (*.log)|*.log|All Files (*.*)|*.*",
                     CheckFileExists = true,
                     RestoreDirectory = true,
                     FileName = "1_Full.txt",
@@ -252,8 +252,10 @@ namespace WebSurge
             else if (sender == tbEditFile || sender == btnEditFile)
             {
                 if (!string.IsNullOrEmpty(FileName))
-                    ShellUtils.GoUrl(FileName);
-                AttachWatcher(FileName);
+                {
+                    Process.Start(new ProcessStartInfo("notepad.exe", FileName) {UseShellExecute = true});
+                    AttachWatcher(FileName);                 
+                }
             }
             else if (sender == btnAbout)
             {
@@ -428,7 +430,7 @@ namespace WebSurge
                 {
                     SaveFileDialog sd = new SaveFileDialog
                     {
-                        Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                        Filter = "websurge files (*.websurge)|*.websurge|txt files (*.txt)|*.txt|All files (*.*)|*.*",
                         FilterIndex = 1,
                         FileName = file,
                         CheckFileExists = false,
@@ -811,6 +813,17 @@ any reported issues.";
 
         private void StressTestForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+
+            Hide();
+            Application.DoEvents();
+
+            if(!UnlockKey.Unlocked)
+            {
+                var form = new RegisterDialog();
+                form.ShowDialog();
+            }
+
+
             if (StressTester != null)
             {                
                 StressTester.CancelThreads = true;                
