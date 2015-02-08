@@ -110,5 +110,11 @@ namespace WebSurge
         {
             Close();
         }
+
+        private void lnkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ShellUtils.GoUrl("http://websurge.west-wind.com/pricing.aspx");
+            Close();
+        }
     }
 }

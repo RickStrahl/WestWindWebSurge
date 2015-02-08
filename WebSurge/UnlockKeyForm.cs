@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -11,18 +11,20 @@ namespace WebSurge
 	/// Summary description for UnlockForm.
 	/// </summary>
 	class UnlockKeyForm : Form
-	{
-		private Label lblRegisterText;
+    {
         private Label lblNote;
-		private Button btnRegister;
         
 		private TextBox txtKey;
 
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		private Container components = null;
-        private PictureBox pictureBox1;
+        private Container components = null;
+        private Label label1;
+        private PictureBox PictureLogo;
+        private Label label2;
+        private LinkLabel btnRegister;
+        private Label lblClickClose;
 
 		public string SoftwareName = "WebSurge";
 
@@ -34,76 +36,112 @@ namespace WebSurge
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UnlockKeyForm));
-            this.lblRegisterText = new System.Windows.Forms.Label();
             this.txtKey = new System.Windows.Forms.TextBox();
-            this.btnRegister = new System.Windows.Forms.Button();
             this.lblNote = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.label1 = new System.Windows.Forms.Label();
+            this.PictureLogo = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnRegister = new System.Windows.Forms.LinkLabel();
+            this.lblClickClose = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureLogo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblRegisterText
-            // 
-            this.lblRegisterText.Location = new System.Drawing.Point(83, 15);
-            this.lblRegisterText.Name = "lblRegisterText";
-            this.lblRegisterText.Size = new System.Drawing.Size(245, 15);
-            this.lblRegisterText.TabIndex = 0;
-            this.lblRegisterText.Text = "Please enter the key to unlock ";
             // 
             // txtKey
             // 
-            this.txtKey.Location = new System.Drawing.Point(84, 33);
+            this.txtKey.Location = new System.Drawing.Point(151, 132);
             this.txtKey.Name = "txtKey";
-            this.txtKey.Size = new System.Drawing.Size(239, 21);
+            this.txtKey.PasswordChar = '●';
+            this.txtKey.Size = new System.Drawing.Size(258, 21);
             this.txtKey.TabIndex = 1;
-            // 
-            // btnRegister
-            // 
-            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRegister.Location = new System.Drawing.Point(248, 63);
-            this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(75, 23);
-            this.btnRegister.TabIndex = 2;
-            this.btnRegister.Text = "&Register";
-            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // lblNote
             // 
             this.lblNote.AutoSize = true;
             this.lblNote.ForeColor = System.Drawing.Color.Red;
-            this.lblNote.Location = new System.Drawing.Point(84, 60);
+            this.lblNote.Location = new System.Drawing.Point(152, 156);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(57, 13);
             this.lblNote.TabIndex = 3;
             this.lblNote.Text = "RegStatus";
             // 
-            // pictureBox1
+            // label1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(58, 72);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.Location = new System.Drawing.Point(146, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(239, 41);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Product Registration";
+            // 
+            // PictureLogo
+            // 
+            this.PictureLogo.BackColor = System.Drawing.Color.Black;
+            this.PictureLogo.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogo.Image")));
+            this.PictureLogo.Location = new System.Drawing.Point(1, 2);
+            this.PictureLogo.Name = "PictureLogo";
+            this.PictureLogo.Size = new System.Drawing.Size(137, 115);
+            this.PictureLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PictureLogo.TabIndex = 13;
+            this.PictureLogo.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label2.ForeColor = System.Drawing.SystemColors.Info;
+            this.label2.Location = new System.Drawing.Point(147, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(275, 79);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Thank you for registering your copy of West Wind WebSurge.\r\n\r\nPlease enter your R" +
+    "egistration Key below:\r\n";
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 24F);
+            this.btnRegister.LinkColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnRegister.Location = new System.Drawing.Point(152, 175);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(257, 45);
+            this.btnRegister.TabIndex = 16;
+            this.btnRegister.TabStop = true;
+            this.btnRegister.Text = "Register";
+            this.btnRegister.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
+            // 
+            // lblClickClose
+            // 
+            this.lblClickClose.AutoSize = true;
+            this.lblClickClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClickClose.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblClickClose.Location = new System.Drawing.Point(411, 3);
+            this.lblClickClose.Name = "lblClickClose";
+            this.lblClickClose.Size = new System.Drawing.Size(13, 14);
+            this.lblClickClose.TabIndex = 17;
+            this.lblClickClose.Text = "x";
+            this.lblClickClose.Click += new System.EventHandler(this.lblClickClose_Click);
             // 
             // UnlockKeyForm
             // 
-            this.AcceptButton = this.btnRegister;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
-            this.ClientSize = new System.Drawing.Size(334, 96);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnRegister);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(427, 242);
+            this.Controls.Add(this.lblClickClose);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.PictureLogo);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.txtKey);
-            this.Controls.Add(this.lblRegisterText);
             this.Controls.Add(this.lblNote);
+            this.Controls.Add(this.btnRegister);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "UnlockKeyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WebSurge Registration";
+            this.Text = "Westwind WebSurge Registration";
             this.Load += new System.EventHandler(this.FormLoad);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,10 +177,7 @@ namespace WebSurge
 		}
 
         private void FormLoad(object sender, EventArgs e)
-        {
-            lblRegisterText.Text = "Please enter the key to unlock " + SoftwareName;
-            
-
+        {            
             if (UnlockKey.IsRegistered())
                 lblNote.Text = "This copy is registered.";
             else
@@ -163,8 +198,14 @@ namespace WebSurge
                     "appears in your confirmation.\r\n\r\n", "Software Registration",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 lblNote.Text = "This copy is not registered.";
+                UnlockKey.UnRegister();
             }
 
+        }
+
+        private void lblClickClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
 	}

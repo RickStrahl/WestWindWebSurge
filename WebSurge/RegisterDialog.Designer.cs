@@ -67,6 +67,7 @@
             this.lnkRegister.TabStop = true;
             this.lnkRegister.Text = "Register";
             this.lnkRegister.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lnkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkRegister_LinkClicked);
             // 
             // label2
             // 
@@ -104,10 +105,11 @@
             // 
             this.lblClickClose.AutoSize = true;
             this.lblClickClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClickClose.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lblClickClose.Location = new System.Drawing.Point(493, 3);
             this.lblClickClose.Name = "lblClickClose";
-            this.lblClickClose.Size = new System.Drawing.Size(12, 15);
+            this.lblClickClose.Size = new System.Drawing.Size(13, 14);
             this.lblClickClose.TabIndex = 14;
             this.lblClickClose.Text = "x";
             this.lblClickClose.Click += new System.EventHandler(this.lblClickClose_Click);

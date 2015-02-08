@@ -14,7 +14,9 @@ namespace WebSurge
         public static string InstallerDownloadUrl { get; set; }
         public static string WebHomeUrl { get; set; }
         public bool ReloadTemplates { get; set; }
+
         internal static string EncryptionMachineKey { get; set; }
+        internal static string ProKey { get; set; }
 
         static App()
         {
@@ -33,6 +35,7 @@ namespace WebSurge
             
             // Encryption key is only valid on the current machine
             EncryptionMachineKey = "22653K0U*He73kj4$JJ" + Environment.MachineName;
+            ProKey = "Kuhela_100";  // "3bd0f6e";
         }
 
 

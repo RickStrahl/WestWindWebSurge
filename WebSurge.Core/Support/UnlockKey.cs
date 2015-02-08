@@ -16,7 +16,7 @@ namespace WebSurge
         static UnlockKey()
         {
             RegisterFile = App.UserDataPath + "Registered.key";
-            ProKey = "Kuhela_100";  // "3bd0f6e";
+            ProKey = App.ProKey; 
         }
 
         /// <summary>
@@ -83,12 +83,6 @@ namespace WebSurge
                     return true;
                 }
 
-                //if (Key == UnlockKey.Key)
-                //{
-                //    _unlocked = true;
-                //    return true;
-                //}
-
                 return false;
             }
         }
@@ -97,26 +91,33 @@ namespace WebSurge
         /// <summary>
         /// Writes out the registration information
         /// </summary>
-        public static bool Register(string Key)
+        public static bool Register(string key)
         {
             lock (LockKey)
             {
-                string RawKey = Key;
+                string rawKey = key;
                 
                 _regType = RegTypes.Free;
                 _unlocked = false;
 
-                if (RawKey != ProKey)
+                if (rawKey != ProKey)
                     return false;
 
                 _unlocked = true;
-                Key = EncodeKey(Key);
-                File.WriteAllText(RegisterFile,Key);
+                key = EncodeKey(key);
+                File.WriteAllText(RegisterFile,key);
                 
                 //if (RawKey == ProKey)
                 _regType = RegTypes.Professional;
             }
             return true;
+        }
+
+        public static void UnRegister()
+        {
+            _unlocked = false;
+            _regType = RegTypes.Free;
+            File.WriteAllText(RegisterFile, "");
         }
 
         /// <summary>
@@ -126,26 +127,26 @@ namespace WebSurge
         /// <returns></returns>
         static string EncodeKey(string Key)
         {
-            var Encoded = Encryption.EncryptString(Key, GetMacAddress());
+            var Encoded = Encryption.EncryptString(Key, App.EncryptionMachineKey);
             //string Encoded = Key; //  for now do nothing Key.GetHashCode().ToString("x");
             return Encoded;
         }
 
-        static string GetMacAddress()
-        {
-            string macAddresses = string.Empty;
+        //static string GetMacAddress()
+        //{
+        //    string macAddresses = string.Empty;
 
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (nic.OperationalStatus == OperationalStatus.Up)
-                {
-                    macAddresses += nic.GetPhysicalAddress().ToString();
-                    break;
-                }
-            }
+        //    foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+        //    {
+        //        if (nic.OperationalStatus == OperationalStatus.Up)
+        //        {
+        //            macAddresses += nic.GetPhysicalAddress().ToString();
+        //            break;
+        //        }
+        //    }
 
-            return macAddresses;
-        }
+        //    return macAddresses;
+        //}
     }
 
     public enum RegTypes
