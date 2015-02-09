@@ -1,18 +1,22 @@
 # West Wind WebSurge Change Log
 
-### Version 0.77b
+### Version 1.0
 <i><small>not released yet</small></i>
 
-* **First Byte Times Added to Results**
+* **Change licensing and remove limits on free version**<br/>
+Remove limitations on the free version and change licensing to
+make for free personal use and paid for commercial use. 
+
+* **First Byte Times Added to Results**<br/>
 Result objects now contain a value to show milliseconds to
 first byte for more information on each request.
 
-* **Add Test All Button to Session List**
+* **Add Test All Button to Session List**<br/>
 Option allows you to run all selected tests in a session at once
 and see a summary result page, as well as a result list where you
 can check the output from requests and responses
 
-* **Add .websurge Extension to installer**
+* **Add .websurge Extension to installer**<br/>
 When you save request files the default extension is now .websurge,
 which is now a registered extension in Windows so you can just 
 open a request file by double clicking. This also makes it easier
