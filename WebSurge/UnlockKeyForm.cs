@@ -107,6 +107,7 @@ namespace WebSurge
             this.btnRegister.TabStop = true;
             this.btnRegister.Text = "Register";
             this.btnRegister.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnRegister_LinkClicked);
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // lblClickClose
@@ -124,6 +125,7 @@ namespace WebSurge
             // 
             // UnlockKeyForm
             // 
+            this.AcceptButton = this.btnRegister;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(427, 242);
@@ -202,11 +204,17 @@ namespace WebSurge
             }
 
         }
+        private void btnRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            btnRegister_Click(sender, null);
+        }
 
         private void lblClickClose_Click(object sender, EventArgs e)
         {
             Close();
         }
+
+      
 
 	}
 

@@ -78,9 +78,6 @@ namespace WebSurge
             
             App.Configuration.LastFileName = FileName;
 
-            
-            
-
             AttachWatcher(fileName);
             UpdateButtonStatus();
         }
@@ -118,6 +115,14 @@ namespace WebSurge
             TabsResult.SelectedTab = tabOptions;
 
             AddRecentFiles();
+
+            if (!UnlockKey.IsRegistered())
+            {           
+                var t = new System.Windows.Forms.Timer();
+                t.Interval = 15*60*1000; // 15 mins
+                t.Tick += t_Tick;
+                t.Start();
+            }
 
             UpdateButtonStatus();
         }
@@ -260,16 +265,22 @@ namespace WebSurge
             else if (sender == btnAbout)
             {
                 var splashForm = new Splash();
+                splashForm.StartPosition = FormStartPosition.Manual;
+                splashForm.Left = Left + Width / 2 - splashForm.Width / 2;
+                splashForm.Top = Top + Height / 2 - splashForm.Height / 2;
                 splashForm.Show();
             }
             else if (sender == btnGotoWebSite)
-                ShellUtils.GoUrl("http://west-wind.com/WebSurge");
+                ShellUtils.GoUrl("http://websurge.west-wind.com");
             else if (sender == btnGotoRegistration)
                 ShellUtils.GoUrl("http://store.west-wind.com/product/websurge");
             else if (sender == btnRegistration)
             {
                 var regForm = new UnlockKeyForm("Web Surge");
-                regForm.Show();
+                regForm.Left = Left + Width / 2 - regForm.Width / 2;
+                regForm.Top = Top + Height / 2 - regForm.Height / 2 + 40;
+                regForm.ShowDialog();
+                UpdateButtonStatus();
             }
             else if (sender == tbExportXml || sender == btnExportXml)
                 Export("xml");
@@ -820,7 +831,7 @@ any reported issues.";
             if(!UnlockKey.Unlocked)
             {
                 var form = new RegisterDialog();
-                form.ShowDialog();
+                form.ShowDialog();                
             }
 
 
@@ -975,6 +986,11 @@ any reported issues.";
 
             btnShowErrorLog.Enabled = File.Exists(App.LogFile) &&
                                     new FileInfo(App.LogFile).Length > 0;
+
+            if (UnlockKey.Unlocked)
+                Text = "West Wind WebSurge (Professional)";
+            else
+                Text = "West Wind Web Surge (Free Version)";
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -1389,6 +1405,19 @@ any reported issues.";
                 ctrl.Focus();
             }
         }
+
+        private RegisterDialog regForm;
+        void t_Tick(object sender, EventArgs e)
+        {
+            regForm = new RegisterDialog();
+            regForm.StartPosition = FormStartPosition.Manual;
+            regForm.Left = Left + Width/2 - regForm.Width/2 ;
+            regForm.Top = Top + Height/2 - regForm.Height/2 + 40;
+            regForm.TopMost = true;
+            regForm.Show();
+        }
+
+
 
     }
 

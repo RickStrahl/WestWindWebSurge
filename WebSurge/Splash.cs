@@ -22,11 +22,12 @@ namespace WebSurge
             InitializeComponent();
             Startup = startup;
 
-            Height = PictureLogo.Height;
-            Width = PictureLogo.Width;
+            Height = 305;            
 
             if (!startup && !UnlockKey.Unlocked)
                 Height = lnkRegister.Top + lnkRegister.Height + 20;
+            if (startup)
+                lblClickClose.Visible = false;
         }
 
         private void Splash_Load(object sender, EventArgs e)
@@ -136,6 +137,16 @@ namespace WebSurge
         private void lnkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShellUtils.GoUrl("http://websurge.west-wind.com/pricing.aspx");
+            Close();
+        }
+
+        private void lnkRegister_Click(object sender, EventArgs e)
+        {
+            lnkRegister_LinkClicked(sender, null);
+        }
+
+        private void lblClickClose_Click(object sender, EventArgs e)
+        {
             Close();
         }
     }

@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lnkRegister = new System.Windows.Forms.LinkLabel();
+            this.lblClickClose = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PictureLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,9 +51,9 @@
             // 
             this.PictureLogo.BackColor = System.Drawing.Color.Black;
             this.PictureLogo.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogo.Image")));
-            this.PictureLogo.Location = new System.Drawing.Point(-18, -16);
+            this.PictureLogo.Location = new System.Drawing.Point(-13, -21);
             this.PictureLogo.Name = "PictureLogo";
-            this.PictureLogo.Size = new System.Drawing.Size(364, 322);
+            this.PictureLogo.Size = new System.Drawing.Size(371, 322);
             this.PictureLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PictureLogo.TabIndex = 0;
             this.PictureLogo.TabStop = false;
@@ -63,9 +64,9 @@
             this.lblRegisterType.BackColor = System.Drawing.Color.Black;
             this.lblRegisterType.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblRegisterType.LinkColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRegisterType.Location = new System.Drawing.Point(261, 14);
+            this.lblRegisterType.Location = new System.Drawing.Point(253, 20);
             this.lblRegisterType.Name = "lblRegisterType";
-            this.lblRegisterType.Size = new System.Drawing.Size(72, 16);
+            this.lblRegisterType.Size = new System.Drawing.Size(81, 16);
             this.lblRegisterType.TabIndex = 5;
             this.lblRegisterType.TabStop = true;
             this.lblRegisterType.Text = "Professional";
@@ -78,9 +79,9 @@
             this.lblVersionText.BackColor = System.Drawing.Color.Black;
             this.lblVersionText.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblVersionText.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblVersionText.Location = new System.Drawing.Point(198, 32);
+            this.lblVersionText.Location = new System.Drawing.Point(217, 36);
             this.lblVersionText.Name = "lblVersionText";
-            this.lblVersionText.Size = new System.Drawing.Size(136, 13);
+            this.lblVersionText.Size = new System.Drawing.Size(118, 20);
             this.lblVersionText.TabIndex = 4;
             this.lblVersionText.Text = "Version 0.10";
             this.lblVersionText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -92,9 +93,9 @@
             this.lblYouAreUsing.ForeColor = System.Drawing.SystemColors.Info;
             this.lblYouAreUsing.Location = new System.Drawing.Point(17, 317);
             this.lblYouAreUsing.Name = "lblYouAreUsing";
-            this.lblYouAreUsing.Size = new System.Drawing.Size(238, 21);
+            this.lblYouAreUsing.Size = new System.Drawing.Size(270, 21);
             this.lblYouAreUsing.TabIndex = 6;
-            this.lblYouAreUsing.Text = "You are using the Free version of";
+            this.lblYouAreUsing.Text = "You\'ve been using the Free version of";
             // 
             // label1
             // 
@@ -115,8 +116,8 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(317, 62);
             this.label2.TabIndex = 8;
-            this.label2.Text = "If you are using this tool commercially or you find that you are using it frequen" +
-    "tly, please purchase a registered version of WebSurge.";
+            this.label2.Text = "If you\'re using this tool commercially or you find that you\'re using it frequentl" +
+    "y, please purchase a registered version of WebSurge.";
             // 
             // lnkRegister
             // 
@@ -130,13 +131,28 @@
             this.lnkRegister.Text = "Register";
             this.lnkRegister.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lnkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkRegister_LinkClicked);
+            this.lnkRegister.Click += new System.EventHandler(this.lnkRegister_Click);
+            // 
+            // lblClickClose
+            // 
+            this.lblClickClose.AutoSize = true;
+            this.lblClickClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClickClose.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblClickClose.Location = new System.Drawing.Point(330, 2);
+            this.lblClickClose.Name = "lblClickClose";
+            this.lblClickClose.Size = new System.Drawing.Size(13, 14);
+            this.lblClickClose.TabIndex = 18;
+            this.lblClickClose.Text = "x";
+            this.lblClickClose.Click += new System.EventHandler(this.lblClickClose_Click);
             // 
             // Splash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(345, 505);
+            this.ClientSize = new System.Drawing.Size(345, 300);
+            this.Controls.Add(this.lblClickClose);
             this.Controls.Add(this.lnkRegister);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -171,5 +187,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel lnkRegister;
+        private System.Windows.Forms.Label lblClickClose;
     }
 }

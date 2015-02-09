@@ -68,6 +68,7 @@
             this.lnkRegister.Text = "Register";
             this.lnkRegister.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lnkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkRegister_LinkClicked);
+            this.lnkRegister.Click += new System.EventHandler(this.lnkRegister_Click);
             // 
             // label2
             // 
@@ -77,9 +78,9 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(296, 127);
             this.label2.TabIndex = 12;
-            this.label2.Text = "If you are using this tool commercially, or you find that you are using it freque" +
-    "ntly, please purchase a registered version of WebSurge.\r\n\r\nThank you for playing" +
-    " fair.";
+            this.label2.Text = "If you\'re using this tool commercially, or you find that you\'re using it frequent" +
+    "ly, please purchase a registered version of WebSurge.\r\n\r\nThank you for playing f" +
+    "air.";
             // 
             // label1
             // 
@@ -99,7 +100,7 @@
             this.lblYouAreUsing.Name = "lblYouAreUsing";
             this.lblYouAreUsing.Size = new System.Drawing.Size(284, 21);
             this.lblYouAreUsing.TabIndex = 10;
-            this.lblYouAreUsing.Text = "You are using the Free version of";
+            this.lblYouAreUsing.Text = "You\'ve been using the Free version of";
             // 
             // lblClickClose
             // 
