@@ -6,12 +6,12 @@ work items.
 
 ### Miscellaneous Fixes required
 
-* **Hide and encrypt Password for Authentication Options**<br/>
+<s>* **Hide and encrypt Password for Authentication Options**<br/>
 Currently the password in the options is entered and shown in plain text.
 When the request project is saved the password is saved along with the 
 request data also in plain text. Data can be entered as plain text, but 
 then needs to be displayed as ****. When written to file the value needs
-to be encrypted.
+to be encrypted.</s>
 
 * **Add per request username and password option**<br/>
 In addition to the global username and password option we also should 
