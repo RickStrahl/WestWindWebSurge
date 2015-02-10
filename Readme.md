@@ -4,17 +4,19 @@
 WebSurge is a Windows Utility that makes it easy to stress test Web
 applications by capturing one or more URLs in Sessions and playing them back under 
 load. The goal of this tool is to make it drop dead easy to capture
-or create HTTP request content and play it back easily under load 
+or create HTTP request content and test and play it back easily under load 
 with simple results that are easy to understand and act on and that
-let you frequently stress test Web applications for load 
+let you *frequently* stress test Web applications for load 
 characteristics during development, testing and in production.
 
 In addition you can also use WebSurge for easy and reproducible individual
 URL testing for REST or other Data services. WebSurge's easy request building
-tools, plus the formatted output views make it an ideal tool to test REST requests
-and data flow in REST applications. Sessions are stored in plain files and
-can easily be shared in source control, the file system, or via cloud storage
-solutions like DropBox or OneDrive.
+tools, convenient test options, plus the formatted output views make it an ideal
+tool to test REST requests and data flow in REST applications. If you've used
+tools like PostMan or Fiddler to test requests check out WebSurge for creating
+savable and sharable sessions that you can easily test repeatably. Sessions are
+stored in plain files and can easily be shared in source control, the file system, 
+or via cloud storage solutions like DropBox or OneDrive.
 
 Here's what the stress testing output looks like:
 <img src="Screenshot.png" />
