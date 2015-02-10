@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>WestwindWebSurge</id>
-        <version>0.75</version>
+        <version>0.77</version>
         <title>West Wind WebSurge</title>
         <authors>Rick Strahl,West Wind Technologies</authors>
         <owners>West Wind Technologies</owners>
-        <licenseUrl>http://www.west-wind.com/websurge/pricing.aspx</licenseUrl>
-        <projectUrl>http://west-wind.com/websurge</projectUrl>
-        <iconUrl>http://west-wind.com/websurge/images/WebSurgeLogo128.png</iconUrl>
+        <licenseUrl>http://websurge.west-wind.com/pricing.aspx</licenseUrl>
+        <projectUrl>http://websurge.west-wind.com</projectUrl>
+        <iconUrl>http://websurge.west-wind.com/images/WebSurgeLogo128.png</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>West Wind WebSurge is an easy to use Web load testing tool that makes it easy to capture or enter a series of Web requests, and test them interactively or under automated heavy load. The goal is to make the process of creating, managing and playing back of HTTP requests easy, so you can test and re-test your sites frequently and catch performance or application issues early in the development cycle.
 	
@@ -16,9 +16,10 @@ Use our built-in Web capture tool to capture and filter Web sessions from Web Br
 	
 Capture HTML requests, AJAX, REST and SOAP services. Capture SSL requests, provide POST data and custom headers - anything HTTP supports you can use in your session. Once captured play back the session under load by running for a specified time and number of simultaneous sessions. See summarized results, a few simple  graphs and examine individual requests and failures. Finally a command line tool is available to automate load tests from the command prompt or with shell scripts.</description>
         <summary>Quick and easy HTTP Request and HTTP Load Testing for your Web Applications</summary>
-        <releaseNotes>This update adds a few more filters for request processing including query string overrides, and authorization header overrides. There are also many improvements in the Session creation and management UI to make it easier to create and test individual URLs and add them to sessions.</releaseNotes>
+        <releaseNotes>This update changes to more lenient licensing. Adds the ability to test all requests in a session
+        	once for easy review in non-load scenarios. Time to 1st byte is now captured. .websurge extension support for session files so they just open in WebSurge when clicked. Optional formatted view with Syntax coloring for HTML, JSON and XML results.</releaseNotes>
         <copyright>West Wind Technologies, 2014-2015</copyright>
-        <tags>load-testing,stress-testing,web-test,rest,url-test,capture,test</tags>
+        <tags>load-testing,stress-testing,web-test,rest,url-test,capture,test,replay-http,test-http</tags>
     </metadata>
     <files>
         <file src="tools\chocolateyInstall.ps1" target="tools\chocolateyInstall.ps1" />
