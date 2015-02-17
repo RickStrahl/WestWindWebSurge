@@ -145,22 +145,36 @@ namespace WebSurge
 
             if (outputType == "json")
             {
-                return JValue.Parse(data).ToString(Formatting.Indented);
+                try
+                {
+                    return JValue.Parse(data).ToString(Formatting.Indented);
+                }
+                catch (Exception ex)
+                {
+                    return "Invalid or partial JSON data cannot be formatted (try setting MaxResponseSize option to 0).\r\n" + data;                    
+                }
             }
             if (outputType == "xml")
             {
-                var doc = new XmlDocument();
-                doc.LoadXml(data);
-
-                using (var sw = new StringWriter())
+                try
                 {
-                    using (var writer = new XmlTextWriter(sw))
-                    {
-                        writer.Formatting = System.Xml.Formatting.Indented;
-                        doc.WriteTo(writer);
-                    }
+                    var doc = new XmlDocument();
+                    doc.LoadXml(data);
 
-                    return sw.ToString();
+                    using (var sw = new StringWriter())
+                    {
+                        using (var writer = new XmlTextWriter(sw))
+                        {
+                            writer.Formatting = System.Xml.Formatting.Indented;
+                            doc.WriteTo(writer);
+                        }
+
+                        return sw.ToString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return "Invalid or partial XML data cannot be formatted (try setting  MaxResponseSize option to 0).\r\n" + data;
                 }
             }
 
@@ -170,6 +184,7 @@ namespace WebSurge
         /// <summary>
         /// Reliably returns the request content as a string.
         /// If the content is binary the result is returned
+        /// binary markup characters are shown.
         /// </summary>
         /// <returns></returns>
         public string GetRequestContentAsString()
