@@ -23,6 +23,11 @@ open a request file by double clicking. This also makes it easier
 to separate request files from saved result traces or .txt export
 stored in the AppData folder.
 
+* **Change Update Download Location**<br/>
+Change the download location to the system Downloads folder to 
+avoid potential issues with Anti-virus software flagging the
+downloaded file as malicious.
+
 ### Version 0.75b
 <i><small>January 20th, 2015</small></i>
 

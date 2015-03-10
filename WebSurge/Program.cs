@@ -16,8 +16,13 @@ namespace WebSurge
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+
+            string fileName = null;
+            if (args != null && args.Length > 0)
+                fileName = args[0];
+
             // Force config to apply im
             var obj = App.UserDataPath;
 
@@ -33,7 +38,7 @@ namespace WebSurge
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var mainForm = new StressTestForm();
+            var mainForm = new StressTestForm(fileName);            
                   
             Thread newThread = new Thread(RunSplash);
             newThread.SetApartmentState(ApartmentState.STA);

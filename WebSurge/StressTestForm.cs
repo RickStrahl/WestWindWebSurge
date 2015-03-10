@@ -24,13 +24,14 @@ namespace WebSurge
 
         HttpRequestData ActiveRequest { get; set;  }
 
-        private string FileName
+        public string FileName
         {
             get { return _FileName; }
             set
             {
                 _FileName = value; 
-                lblStatusFilename.Text = "Session File: " + value;                
+                if (lblStatusFilename != null)
+                    lblStatusFilename.Text = "Session File: " + value;                
             }
         }
         private string _FileName;
@@ -51,8 +52,11 @@ namespace WebSurge
         FileSystemWatcher Watcher { get; set; }
         public Splash Splash { get; set; }
 
-        public StressTestForm()
-        {            
+        public StressTestForm(string fileName)
+        {
+            if (!string.IsNullOrEmpty(fileName))
+                FileName = fileName;
+
             InitializeComponent();            
         }
 
@@ -95,7 +99,7 @@ namespace WebSurge
 
             var config = App.Configuration.StressTester;
 
-            if (!string.IsNullOrEmpty(App.Configuration.LastFileName))
+            if (string.IsNullOrEmpty(FileName) && !string.IsNullOrEmpty(App.Configuration.LastFileName))
             {
                 FileName = Path.GetFullPath(App.Configuration.LastFileName);
                 if (!File.Exists(FileName))
