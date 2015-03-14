@@ -1421,6 +1421,20 @@ any reported issues.";
             regForm.Show();
         }
 
+        private void ListRequests_DoubleClick(object sender, EventArgs e)
+        {
+            if (ListRequests.SelectedItems.Count < 1)
+                return;
+
+            var listItem = ListRequests.SelectedItems[0];
+            var request = listItem.Tag as HttpRequestData;
+
+            if (request == null)
+                return;
+
+            TestSiteUrl(request);
+        }
+
 
 
     }

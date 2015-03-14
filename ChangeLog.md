@@ -16,6 +16,12 @@ Option allows you to run all selected tests in a session at once
 and see a summary result page, as well as a result list where you
 can check the output from requests and responses
 
+* **DoubleClick on Session Request to Test Item**<br/>
+You can now DoubleClick on a request in the Session list to fire
+that request and see the request and response displayed. Facilitates
+mouse only navigation and is in addition to using the toolbar button 
+and the Alt-T shortcut.
+
 * **Add .websurge Extension to installer**<br/>
 When you save request files the default extension is now .websurge,
 which is now a registered extension in Windows so you can just 
