@@ -545,8 +545,26 @@ any reported issues.";
             RenderRequests(Requests);
             TabSessions.SelectedTab = tabSession;
 
-            StressTester.Results = new List<HttpRequestData>();
+            string oldTheme = StressTester.Options.FormattedPreviewTheme;
+
+            // clear out options so we don't 'inherit' weird
+            // settings from the last session
+            StressTester.Options = new StressTesterConfiguration()
+            {
+                FormattedPreviewTheme = oldTheme
+            };
+            OptionsPropertyGrid.SelectedObject = StressTester.Options;
+
+            StressTester.Results = new List<HttpRequestData>();      
+                  
+            // render an empty list
             RenderResultList(StressTester.Results);
+
+            var request = new HttpRequestData();
+            LoadRequest(request);
+
+            // open the options tab
+            TabsResult.SelectedTab = tabRequest;
 
             try
             {
