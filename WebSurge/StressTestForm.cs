@@ -31,10 +31,44 @@ namespace WebSurge
             {
                 _FileName = value; 
                 if (lblStatusFilename != null)
-                    lblStatusFilename.Text = "Session File: " + value;                
+                    lblStatusFilename.Text = "Session File: " + value;         
+                
+                // update caption
+                if (string.IsNullOrEmpty(_FileName))
+                    Text = Path.GetFileName(_FileName);
+                else
+                    Text = null;
+
             }
         }
         private string _FileName;
+
+        public override string Text
+        {
+            get
+            {
+                return base.Text;
+            }
+
+            set
+            {
+                string text;
+
+
+                if (UnlockKey.Unlocked)
+                    text = "West Wind WebSurge (Professional)";
+                else
+                    text = "West Wind Web Surge (Free Version)";
+
+          
+                if (!string.IsNullOrEmpty(value) && 
+                    !value.Contains("Professional") && 
+                    !value.Contains("Free Version"))
+                    text += " - " + value;
+
+                base.Text = text;
+            }
+        }
 
         private List<HttpRequestData> Requests
         {
@@ -78,9 +112,10 @@ namespace WebSurge
             OptionsPropertyGrid.SelectedObject = App.Configuration.StressTester;
             tbtxtThreads.Text = StressTester.Options.LastThreads.ToString();
             tbtxtTimeToRun.Text = StressTester.Options.LastSecondsToRun.ToString();
-
             
             App.Configuration.LastFileName = FileName;
+
+            Text = Path.GetFileName(FileName);
 
             AttachWatcher(fileName);
             UpdateButtonStatus();
@@ -1009,10 +1044,7 @@ any reported issues.";
             btnShowErrorLog.Enabled = File.Exists(App.LogFile) &&
                                     new FileInfo(App.LogFile).Length > 0;
 
-            if (UnlockKey.Unlocked)
-                Text = "West Wind WebSurge (Professional)";
-            else
-                Text = "West Wind Web Surge (Free Version)";
+            
         }
 
         private void ListResults_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
