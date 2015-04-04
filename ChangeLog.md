@@ -22,12 +22,14 @@ that request and see the request and response displayed. Facilitates
 mouse only navigation and is in addition to using the toolbar button 
 and the Alt-T shortcut.
 
-* **Add .websurge Extension to installer**<br/>
+* **Add .websurge Windows Extension for Request Files**<br/>
 When you save request files the default extension is now .websurge,
 which is now a registered extension in Windows so you can just 
 open a request file by double clicking. This also makes it easier
 to separate request files from saved result traces or .txt export
-stored in the AppData folder.
+stored in the AppData folder. Also added support for Most Recently
+Used (MRU) list so most recent files always show up on taskbar and
+desktop icons.
 
 * **Change Update Download Location**<br/>
 Change the download location to the system Downloads folder to 

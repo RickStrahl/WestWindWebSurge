@@ -106,6 +106,9 @@ namespace WebSurge
             Requests = StressTester.ParseSessionFile(FileName);
             if (Requests == null)
                 Requests = new List<HttpRequestData>();
+            else
+                MostRecentlyUsedList.AddToRecentlyUsedDocs(Path.GetFullPath(FileName));
+
             RenderRequests(Requests);
            
             App.Configuration.StressTester = StressTester.Options;

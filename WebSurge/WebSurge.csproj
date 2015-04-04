@@ -78,10 +78,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Westwind.Utilities, Version=2.59.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Westwind.Utilities.2.59.2\lib\net45\Westwind.Utilities.dll</HintPath>
-    </Reference>
     <Reference Include="ZedGraph">
       <HintPath>..\packages\ZedGraph.5.1.6\lib\net35-Client\ZedGraph.dll</HintPath>
     </Reference>
@@ -181,6 +177,10 @@
     <Content Include="WebSurge.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WestwindToolkit\Westwind.Utilities\Westwind.Utilities.csproj">
+      <Project>{1c9829a8-8979-4493-863c-635726f8a61c}</Project>
+      <Name>Westwind.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebSurge.Core\WebSurge.Core.csproj">
       <Project>{9ffde5f2-1dbf-43df-be64-fd543f355444}</Project>
       <Name>WebSurge.Core</Name>

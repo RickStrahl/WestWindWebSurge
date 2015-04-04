@@ -31,8 +31,16 @@ namespace WebSurge
             WebHomeUrl = "http://west-wind.com/websurge";
 
             Configuration = new WebSurgeConfiguration();
-            Configuration.Initialize();
-            
+            try
+            {
+                Configuration.Initialize();
+            }
+            catch (Exception ex)
+            {
+                // Log but continue on with default settings
+                App.Log(ex);
+            }
+
             // Encryption key is only valid on the current machine
             EncryptionMachineKey = "22653K0U*He73kj4$JJ" + Environment.MachineName;
             ProKey = "Kuhela_100";  // "3bd0f6e";
