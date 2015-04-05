@@ -167,13 +167,16 @@ namespace WebSurge
 
                 if (!string.IsNullOrEmpty(reqData.RequestContent))
                 {
-                    if (reqData.RequestContent.StartsWith("b64_"))
-                    {
-                        var data = Convert.FromBase64String(reqData.RequestContent.Substring(4));
-                        client.AddPostKey(data);
-                    }
-                    else
-                        client.AddPostKey(reqData.RequestContent);
+                    var data = reqData.GetRequestContentBytes();
+                    client.AddPostKey(data);
+
+                    //if (reqData.RequestContent.StartsWith("b64_"))
+                    //{
+                    //    var data = reqData.GetRequestContentBytes();
+                    //    client.AddPostKey(data);
+                    //}
+                    //else
+                    //    client.AddPostKey(reqData.RequestContent);
                 }
                 else
                 {

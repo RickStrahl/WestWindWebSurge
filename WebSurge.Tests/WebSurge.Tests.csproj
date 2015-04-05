@@ -64,6 +64,7 @@
     <Compile Include="FiddlerParserTests.cs" />
     <Compile Include="MruListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestEncoding.cs" />
     <Compile Include="ResultsParserTests.cs" />
     <Compile Include="ApplicationUpdaterTests.cs" />
   </ItemGroup>

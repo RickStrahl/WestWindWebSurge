@@ -77,18 +77,5 @@ namespace WebSurge
             }
         }
 
-        //public override string ToString()
-        //{
-        //    string ser = StringSerializer.SerializeObject(this);
-        //    return ser;
-        //}
-
-        //public static WindowSettings FromString(string text)
-        //{
-        //    if (string.IsNullOrEmpty(text))
-        //        return new WindowSettings();
-
-        //    return StringSerializer.Deserialize<WindowSettings>(text);
-        //}
     }
 }

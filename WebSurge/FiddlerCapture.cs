@@ -97,12 +97,14 @@ namespace WebSurge
             string reqBody = null;
             if (sess.RequestBody.Length > 0)
             {
-                
-                if (sess.requestBodyBytes.Contains((byte) 0) || contentType.StartsWith("image/"))                
-                    reqBody = "b64_" + Convert.ToBase64String(sess.requestBodyBytes);                
+
+                if (sess.requestBodyBytes.Contains((byte) 0) || contentType.StartsWith("image/"))
+                    reqBody = "b64_" + Convert.ToBase64String(sess.requestBodyBytes);
                 else
-                    reqBody = sess.GetRequestBodyAsString();                
-                    
+                {                    
+                    //reqBody = Encoding.Default.GetString(sess.ResponseBody);
+                    reqBody = sess.GetResponseBodyAsString();                    
+                }
             }
             
             // if you wanted to capture the response

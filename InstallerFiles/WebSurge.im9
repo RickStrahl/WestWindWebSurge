@@ -769,7 +769,7 @@ project Flags=0x20 {
 		}
 		var ProductState: Flags=0xE, Type=0, Description="[MSI] Product installation state";
 		var ProductVersion: Flags=0x204, Type=0, Description="Product version" {
-			str Value: Default="0.77b";
+			str Value: Default="0.80b";
 		}
 		var ProfileFolder: Flags=0x244, Type=1, Description="Current User profile base folder" {
 			str Value: Default="<$syspath(7)=$shpath(40)=%USERPROFILE=_LocProfileFolder>";
@@ -3577,14 +3577,14 @@ project Flags=0x20 {
 						}
 						folder ProgramGroupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=1 {
 							str Name: Default="<ProductName>";
-							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
-								str Title: Default="West Wind Web Monitor";
-								str Description: Default="West Wind Web Monitor";
-							}
 							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>\\WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
 								str Title: Default="West Wind Web Monitor (Task Tray)";
 								str Description: Default="Runs West Wind Web Monitor in Task Tray operation mode";
 								str Arguments: Default="-trayicon";
+							}
+							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
+								str Title: Default="West Wind Web Monitor";
+								str Description: Default="West Wind Web Monitor";
 							}
 						}
 						folder StartupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=0 {
@@ -3707,9 +3707,6 @@ project Flags=0x20 {
 				}
 				file FiddlerCore4.dll_3610D5DD981363F4: Flags=0x0, Path="FilesToInstall\\FiddlerCore4.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=FiddlerCore4.dll;
-				}
-				file Humanizer.dll_E82916C2053761F6: Flags=0x0, Path="FilesToInstall\\Humanizer.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
-					str Name: Default=Humanizer.dll;
 				}
 				file Newtonsoft.Json.dll_9FF055DFDAD7BCEA: Flags=0x0, Path="FilesToInstall\\Newtonsoft.Json.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=Newtonsoft.Json.dll;

@@ -36,6 +36,13 @@ Change the download location to the system Downloads folder to
 avoid potential issues with Anti-virus software flagging the
 downloaded file as malicious.
 
+* **Fix Content Encoding for Request Data**<br/>
+Fixed content encoding to detect request encoding format properly
+when posting data to the server. Content is still captured and displayed
+as Unicoded (decoded) text for ease of editing, but content sent
+to server is encoded in the encoding specified in the request.
+If no content type encoding is specified UTF-8 is assumed.
+
 ### Version 0.75b
 <i><small>January 20th, 2015</small></i>
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 using Westwind.Utilities;
 
 namespace WebSurge
@@ -93,8 +93,11 @@ namespace WebSurge
             string json = StringUtils.ExtractString(sessionString, STR_StartWebSurgeOptions, STR_EndWebSurgeOptions);
             if (!string.IsNullOrEmpty(json))
             {
-                options = JsonSerializationUtils.Deserialize(json, typeof(StressTesterConfiguration))
+                options = JsonSerializationUtils.Deserialize(json,typeof(StressTesterConfiguration))
                     as StressTesterConfiguration;
+
+                if (options == null)
+                    options = new StressTesterConfiguration();                
 
                 options.Password = Encryption.DecryptString(options.Password, App.EncryptionMachineKey);
             }

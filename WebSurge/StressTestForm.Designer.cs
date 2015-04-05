@@ -166,6 +166,7 @@
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Help = new System.Windows.Forms.HelpProvider();
+            this.label1 = new System.Windows.Forms.Label();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -434,7 +435,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(434, 592);
+            this.ListRequests.Size = new System.Drawing.Size(434, 596);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 4;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -554,6 +555,7 @@
             this.Images.Images.SetKeyName(3, "upload");
             this.Images.Images.SetKeyName(4, "accessdenied");
             this.Images.Images.SetKeyName(5, "notfound");
+            this.Images.Images.SetKeyName(6, "websurge");
             // 
             // tabResults
             // 
@@ -816,6 +818,7 @@
             // 
             // HeadersContentSplitter.Panel2
             // 
+            this.HeadersContentSplitter.Panel2.Controls.Add(this.label1);
             this.HeadersContentSplitter.Panel2.Controls.Add(this.lblRequestContent);
             this.HeadersContentSplitter.Panel2.Controls.Add(this.txtRequestContent);
             this.HeadersContentSplitter.Panel2MinSize = 75;
@@ -854,7 +857,7 @@
             this.lblRequestContent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblRequestContent.Location = new System.Drawing.Point(0, 0);
             this.lblRequestContent.Name = "lblRequestContent";
-            this.lblRequestContent.Size = new System.Drawing.Size(130, 19);
+            this.lblRequestContent.Size = new System.Drawing.Size(60, 19);
             this.lblRequestContent.TabIndex = 7;
             this.lblRequestContent.Text = "Content:";
             this.lblRequestContent.UseCompatibleTextRendering = true;
@@ -1479,6 +1482,17 @@
             // 
             this.Help.HelpNamespace = "WebSurge.chm";
             // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(58, 1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(414, 19);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "(Clear, Unicode text. Content is encoded according to charset when sent to server" +
+    ")";
+            this.label1.UseCompatibleTextRendering = true;
+            // 
             // StressTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1686,6 +1700,7 @@
         private System.Windows.Forms.ToolStripMenuItem tbMarkAsActive;
         private System.Windows.Forms.ToolStripButton tbTestAll;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
+        private System.Windows.Forms.Label label1;
     }
 }
 

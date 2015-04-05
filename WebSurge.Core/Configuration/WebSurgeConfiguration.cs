@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Westwind.Utilities.Configuration;
 
 namespace WebSurge
@@ -12,30 +14,47 @@ namespace WebSurge
         public StressTesterConfiguration StressTester { get; set; }
         public UrlCaptureConfiguration UrlCapture { get; set; }
         public WindowSettings WindowSettings { get; set; }
-        public List<string> RecentFiles { get; set; }
         public CheckForUpdates CheckForUpdates { get; set; }
+
+        [JsonIgnore]
+        public List<string> RecentFiles
+        {
+            get
+            {
+                if (_recentFileList == null)
+                {
+                    try
+                    {
+                        _recentFileList = MostRecentlyUsedList.GetMostRecentDocs("*.websurge");
+                    }
+                    catch
+                    {
+                        _recentFileList = new List<string>();
+                    }
+                }
+
+                return _recentFileList;
+            }
+        }
+
+        private List<string> _recentFileList;
 
         public string LastFileName
         {
             get { return _LastFileName; }
             set
             {
-                if (string.IsNullOrEmpty(value))
-                {
-                    _LastFileName = null;
-                    return;
-                }
                 _LastFileName = value;
+                try
+                {
+                    MostRecentlyUsedList.AddToRecentlyUsedDocs(value);
 
-                var match = RecentFiles.FirstOrDefault(s => s.ToLower() == value.ToLower());
-                if (match != null)
-                    RecentFiles.Remove(match);
-
-                RecentFiles.Insert(0, value);
-
-                RecentFiles = new List<string>(RecentFiles.Distinct().Take(10));
-
-
+                    // reload recent file list
+                    _recentFileList = MostRecentlyUsedList.GetMostRecentDocs("*.websurge");
+                }
+                catch
+                {
+                }
             }
         }
 
@@ -45,7 +64,6 @@ namespace WebSurge
 
         public WebSurgeConfiguration()
         {
-            RecentFiles = new List<string>();
             StressTester = new StressTesterConfiguration();
             UrlCapture = new UrlCaptureConfiguration();
             WindowSettings = new WindowSettings();

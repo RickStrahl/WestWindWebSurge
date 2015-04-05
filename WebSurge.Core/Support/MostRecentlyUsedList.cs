@@ -20,7 +20,7 @@ namespace WebSurge
         /// <param name="path">Full path of the file</param>
         public static void AddToRecentlyUsedDocs(string path)
         {
-            SHAddToRecentDocs(ShellAddToRecentDocsFlags.Path, path);
+            SHAddToRecentDocs(ShellAddToRecentDocsFlags.Path, path);            
         }
 
 
@@ -35,34 +35,38 @@ namespace WebSurge
             SHAddToRecentDocs(ShellAddToRecentDocsFlags flag, string path);
 
 
-        /// <summary>
-        /// Returns a list of the most recent files as stored by windows for the given 
-        /// filespec. Specify the files spec as *.websurge where .websurge is the extension
-        /// you'd like to retrieve. The length of the list will depend on your Windows
-        /// settings for the maximum number of list items configured.
-        /// </summary>
-        /// <param name="fileSpec">A wildcard file spec: *.websurge for example</param>
-        /// <returns>List of strings or an empty list if none exist</returns>
-        public static List<string> GetMostRecentDocs(string fileSpec)
-        {
-            var recentFiles = new List<string>();
+/// <summary>
+/// Returns a list of the most recent files as stored by windows for the given 
+/// filespec. Specify the files spec as *.websurge where .websurge is the extension
+/// you'd like to retrieve. The length of the list will depend on your Windows
+/// settings for the maximum number of list items configured.
+/// </summary>
+/// <param name="fileSpec">A wildcard file spec: *.websurge for example</param>
+/// <returns>List of strings or an empty list if none exist</returns>
+public static List<string> GetMostRecentDocs(string fileSpec)
+{
+    var recentFiles = new List<string>();
 
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
-            var files = Directory.GetFiles(path, fileSpec + ".lnk");
-            if (files.Length < 1)
-                return recentFiles;
+    var path = Environment.GetFolderPath(Environment.SpecialFolder.Recent);
 
-            dynamic script = ReflectionUtils.CreateComInstance("Wscript.Shell");
+    var di = new DirectoryInfo(path);
+    var files = di.GetFiles(fileSpec + ".lnk")
+        .OrderByDescending(fi => fi.LastWriteTimeUtc)
+        .ToList();
+    if (files.Count < 1)
+        return recentFiles;
 
-            foreach (var file in files)
-            {
-                dynamic sc = script.CreateShortcut(file);
-                recentFiles.Add(sc.TargetPath);
-                Marshal.FinalReleaseComObject(sc);
-            }
-            Marshal.FinalReleaseComObject(script);
+    dynamic script = ReflectionUtils.CreateComInstance("Wscript.Shell");
 
-            return recentFiles;
-        }
+    foreach (var file in files)
+    {
+        dynamic sc = script.CreateShortcut(file.FullName);
+        recentFiles.Add(sc.TargetPath);
+        Marshal.FinalReleaseComObject(sc);
+    }
+    Marshal.FinalReleaseComObject(script);
+
+    return recentFiles;
+}
     }
 }

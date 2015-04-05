@@ -9,7 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Humanizer;
+//using Humanizer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSurge.Core;
@@ -105,9 +105,7 @@ namespace WebSurge
 
             Requests = StressTester.ParseSessionFile(FileName);
             if (Requests == null)
-                Requests = new List<HttpRequestData>();
-            else
-                MostRecentlyUsedList.AddToRecentlyUsedDocs(Path.GetFullPath(FileName));
+                Requests = new List<HttpRequestData>();            
 
             RenderRequests(Requests);
            
@@ -1154,7 +1152,7 @@ any reported issues.";
                     if (SerializationUtils.SerializeObject(StressTester.Results, diag.FileName, false))
                     {
                         int fileSize = (int) new FileInfo(diag.FileName).Length;                        
-                        if(MessageBox.Show( string.Format("Data saved to:\r\n{0} ({1})",diag.FileName, fileSize.Bytes().ToString("#.##").ToLower()) +
+                        if(MessageBox.Show( string.Format("Data saved to:\r\n{0} ({1})",diag.FileName, (fileSize / 1024).ToString("n2").ToLower()) +
                                         "\r\n\r\n" +
                                         "Do you want to view the file?",
                                         App.Configuration.AppName,
@@ -1188,7 +1186,7 @@ any reported issues.";
                     {
                         File.WriteAllText(diag.FileName, json);
                         int fileSize = (int) new FileInfo(diag.FileName).Length;
-                        if (MessageBox.Show(string.Format("Data saved to:\r\n{0} ({1})", diag.FileName, fileSize.Bytes().ToString("#.##").ToLower()) +
+                        if (MessageBox.Show(string.Format("Data saved to:\r\n{0} ({1})", diag.FileName, (fileSize / 1024).ToString("n2").ToLower()) +
                                         "\r\n\r\n" +
                                         "Do you want to view the file?",
                                         App.Configuration.AppName,
@@ -1222,7 +1220,7 @@ any reported issues.";
 
                         int fileSize = (int) new FileInfo(diag.FileName).Length;
                         if (MessageBox.Show(
-                            string.Format("Data saved to:\r\n{0} ({1})", diag.FileName, fileSize.Bytes().ToString("#.##").ToLower() ) +
+                            string.Format("Data saved to:\r\n{0} ({1})", diag.FileName, (fileSize / 1024).ToString("n2").ToLower()) +
                             "\r\n\r\n" +
                             "Do you want to view the file?",
                             App.Configuration.AppName,
@@ -1391,7 +1389,8 @@ any reported issues.";
                 var btn = new ToolStripMenuItem
                 {
                     Text = s,
-                    Name = "RecentFile_" + x
+                    Name = "RecentFile_" + x,                    
+                    ImageKey = "websurge"
                 };
 
                 btn.Click +=
@@ -1401,6 +1400,7 @@ any reported issues.";
                         OpenFile(bt.Text);                        
                     };
 
+                RecentFilesContextMenu.ImageList = Images;
                 RecentFilesContextMenu.Items.Add(btn);
                 x++;
             }

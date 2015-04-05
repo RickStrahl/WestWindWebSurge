@@ -37,7 +37,7 @@ namespace WebSurge
         public string ErrorMessage { get; set; }
 
         public string ResponseHeaders { get; set; }
-        public string ResponseContent { get; set; }
+        public string ResponseContent { get; set; }        
         
         public string StatusCode { get; set; }
         public string StatusDescription { get; set; }
@@ -47,6 +47,8 @@ namespace WebSurge
         public int TimeToFirstByteMs { get; set; }        
 
         public bool IsWarmupRequest { get; set; }
+
+        private static Encoding WindowsEncoding = Encoding.GetEncoding(1252);
 
         public HttpRequestData()
         {
@@ -201,6 +203,63 @@ namespace WebSurge
             return RequestContent;
         }
 
+        
+
+        /// <summary>
+        /// Returns the content in the  encoding specified in the request
+        /// or by the parameter passed.
+        /// 
+        /// Assumes that the content is a Unicode string - converts the
+        /// content 
+        /// </summary>
+        /// <returns></returns>
+        public string GetRequestContentAsEncodedString()
+        {
+            if (RequestContent == null || RequestContent.StartsWith("b64_"))
+                return RequestContent;
+
+            var bytes = GetRequestContentBytes();
+            if (bytes == null)
+                return null;
+
+            return WindowsEncoding.GetString(bytes);            
+        }
+
+        /// <summary>
+        /// Returns the Request content as raw, properly encoded bytes 
+        /// based on the TextEncoding setting.
+        ///                 
+        /// Translates Unicode strings (except for binary data)
+        /// to underlying encoding and Binary data (b64_ prefix) 
+        /// is returned as raw data.
+        /// </summary>
+        /// <returns>byte[] data or null if no RequestContent</returns>
+        public byte[] GetRequestContentBytes()
+        {
+            if (RequestContent == null)
+                return null;
+
+            if(RequestContent.StartsWith("b64_"))
+                return Convert.FromBase64String(RequestContent.Replace("b64_",""));
+
+            byte[] bytes;
+            string textEncoding = TextEncoding.ToLower();
+            if (textEncoding == "utf-8")
+               return Encoding.UTF8.GetBytes(RequestContent);
+            
+            try
+            {
+                // try to load the encoding specified
+                var enc = Encoding.GetEncoding(TextEncoding);
+                return enc.GetBytes(RequestContent);
+            }
+            catch
+            {}
+        
+            // fallback to 'as-is/no' encoding
+            return WindowsEncoding.GetBytes(RequestContent);                        
+        }
+
         /// <summary>
         /// Reliably returns a string from response content. Note string 
         /// may be truncated if binary data is in the result and it contains
@@ -272,7 +331,16 @@ namespace WebSurge
                 }
                 if (name == "content-type")
                 {
-                    ContentType = hd.Value;                    
+                    ContentType = hd.Value;
+
+                    if (!string.IsNullOrEmpty(hd.Value))
+                    {
+                        TextEncoding = StringUtils.ExtractString(hd.Value, "charset=", ";", false, true);
+                        
+                        // Web Content defaults to UTF-8 
+                        if (string.IsNullOrEmpty(TextEncoding))
+                            TextEncoding = "UTF-8";
+                    }
                 }
                 if (name == "content-length")
                     continue; // HTTP client adds this automatically
@@ -285,6 +353,8 @@ namespace WebSurge
                 Headers.Add(hd);
             }
         }
+
+        public string TextEncoding { get; set; }
 
         /// <summary>
         /// Parses a single HttpRequestData object to a string.

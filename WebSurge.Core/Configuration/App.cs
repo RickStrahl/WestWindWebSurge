@@ -31,6 +31,7 @@ namespace WebSurge
             WebHomeUrl = "http://west-wind.com/websurge";
 
             Configuration = new WebSurgeConfiguration();
+            //Configuration.Initialize();
             try
             {
                 Configuration.Initialize();
