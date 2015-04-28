@@ -103,7 +103,7 @@ namespace WebSurge
                 else
                 {                    
                     //reqBody = Encoding.Default.GetString(sess.ResponseBody);
-                    reqBody = sess.GetResponseBodyAsString();                    
+                    reqBody = sess.GetRequestBodyAsString();                    
                 }
             }
             
