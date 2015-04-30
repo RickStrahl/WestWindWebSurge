@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Configuration\App.cs" />
     <Compile Include="Configuration\WebSurgeConfiguration.cs" />
+    <Compile Include="SiteValidator.cs" />
     <Compile Include="Support\ApplicationUpdater.cs" />
     <Compile Include="Configuration\CheckForUpdates.cs" />
     <Compile Include="Configuration\StressTesterConfiguration.cs" />

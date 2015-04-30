@@ -67,6 +67,7 @@
     <Compile Include="RequestEncoding.cs" />
     <Compile Include="ResultsParserTests.cs" />
     <Compile Include="ApplicationUpdaterTests.cs" />
+    <Compile Include="SiteValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebSurge.Core\WebSurge.Core.csproj">

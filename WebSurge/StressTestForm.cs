@@ -722,7 +722,8 @@ any reported issues.";
             if (Requests == null)
             {
                 ShowStatus();
-                MessageBox.Show(StressTester.ErrorMessage, App.Configuration.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UpdateButtonStatus();
+                MessageBox.Show(StressTester.ErrorMessage, App.Configuration.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);                
                 return;
             }
 

@@ -142,10 +142,8 @@ namespace WebSurge
                 var client = new HttpClient();
                 
                 if (!string.IsNullOrEmpty(Options.ReplaceDomain))
-                {
-                    var host = StringUtils.ExtractString(result.Url, "://", "/", false, true);
-                    result.Url = result.Url.Replace(host, Options.ReplaceDomain);
-                }
+                    result.Url = ReplaceDomain(result.Url);
+
                 if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
                     result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
 
@@ -333,7 +331,7 @@ namespace WebSurge
             }
         }
 
-        private string ReplaceQueryStringValuePairs(string url, string replaceKeys)
+        internal string ReplaceQueryStringValuePairs(string url, string replaceKeys)
         {
             if (string.IsNullOrEmpty(replaceKeys))
                 return url;
@@ -347,6 +345,17 @@ namespace WebSurge
             }
 
             return urlQuery.ToString();
+        }
+
+        internal string ReplaceDomain(string url)
+        {
+            if (!string.IsNullOrEmpty(Options.ReplaceDomain))
+            {
+                var host = StringUtils.ExtractString(url, "://", "/", false, true);
+                url = url.Replace(host, Options.ReplaceDomain);                
+            }
+
+            return url;
         }
 
 
@@ -367,8 +376,9 @@ namespace WebSurge
                                                    int seconds = 60,
                                                    bool runOnce = false)
         {
+     
 
-
+            
             ThreadsUsed = threadCount;
 
             //if (UnlockKey.RegType == RegTypes.Free &&
@@ -381,9 +391,21 @@ namespace WebSurge
             //    return null;
             //}
 
-            requests = requests.Where(req => req.IsActive).ToList();
+            if (!runOnce)
+            {
+                var validator = new SiteValidator(this);
+                if (!validator.CheckAllServers(requests))
+                {
+                    SetError(validator.ErrorMessage);
+                    Running = false;
+                    return null;
+                }
+            }
+
 
             Results = new List<HttpRequestData>();
+            requests = requests.Where(req => req.IsActive).ToList();
+
             Running = true;
              
             var threads = new List<Thread>();
