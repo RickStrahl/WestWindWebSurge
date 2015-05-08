@@ -7,6 +7,9 @@
 Remove limitations on the free version and change licensing to
 make for free personal use and paid for commercial use. 
 
+* **[Plugin Support for Extensibility](https://github.com/RickStrahl/WestWindWebSurge/wiki/Creating-a-WebSurge-Plugin)** <br/>
+Initial plugin interface that allow hooking into request processing as requests are fired against the server. You can hook `OnBeforeRequestSent` and `OnAfterRequestSent` methods that allow you to manipulate inbound requests and capture result requests as they are completed for custom logging or live analytics.
+
 * **First Byte Times Added to Results**<br/>
 Result objects now contain a value to show milliseconds to
 first byte for more information on each request.
@@ -262,7 +265,7 @@ All output is now rendered through Razor templates,
 which simplifies HTML layout and modifications.
  
 
-###Version 0.60
+### Version 0.60
 <i><small>July 1st, 2014</small></i>
 
 * **Add Support/Feedback Links to Help Menu**<br/>
