@@ -22,17 +22,39 @@ namespace WebSurge.Extensibility
 
             foreach (var file in files)
             {
-                var assembly = Assembly.LoadFile(file);
+                Assembly assembly = null;
+                try
+                {
+                    assembly = Assembly.LoadFile(file);
+                }
+                catch (Exception ex)
+                {
+                    App.Log("Failed to load plugin from " + assembly.FullName + ".");
+                }
 
+                if (assembly == null)
+                    return plugins;
+                
                 var pluginTypes = assembly.GetTypes()
                                       .Where(typ => typeof (IWebSurgeExtensibility).IsAssignableFrom(typ));
+
+
                 foreach (var type in pluginTypes)
                 {
-                    var plugin = Activator.CreateInstance(type) as IWebSurgeExtensibility;
+
+                    IWebSurgeExtensibility plugin = null;
+                    try
+                    {
+                        plugin = Activator.CreateInstance(type) as IWebSurgeExtensibility;
+                    }
+                    catch (Exception ex)
+                    {
+                        App.Log("Failed to load plugin: " + type.Name + " from " + assembly.FullName + ".");
+                    }
                     if (plugin != null)
                         plugins.Add(plugin);
                     else
-                        App.Log("Failed to load plugin: " + type.Name + " from " + assembly.FullName);
+                        App.Log("Failed to load plugin: " + type.Name + " from " + assembly.FullName + ".");
                 }
 
             }

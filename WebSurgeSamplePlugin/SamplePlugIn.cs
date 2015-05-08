@@ -11,8 +11,6 @@ namespace WebSurgeSamplePlugin
 {
     public class SamplePlugIn : IWebSurgeExtensibility
     {
-        public static object syncLock = new object();
-
         public bool OnBeforeRequestSent(HttpRequestData data)
         {
             logRequests(data, 0);
@@ -22,6 +20,17 @@ namespace WebSurgeSamplePlugin
         public void OnAfterRequestSent(HttpRequestData data)
         {
             logRequests(data, 1);
+        }
+
+        public bool OnLoadTestStarted(IList<HttpRequestData> requests)
+        {
+            LogString("Starting test with " + requests.Count + " in Session.");
+            return true;
+        }
+
+        public void OnLoadTestCompleted(IList<HttpRequestData> results, int timeTakenForTestMs)
+        {
+            LogString("Completed test with " + results.Count + " requests processed.");
         }
 
         private void logRequests(HttpRequestData data, int mode = 0)
@@ -36,10 +45,17 @@ namespace WebSurgeSamplePlugin
             else
                 output = data.HttpVerb + " " + data.Url;
 
+            LogString(output);
+        }
+
+        public static object syncLock = new object();
+
+        private void LogString(string message)
+        {
             lock (syncLock)
             {
                 StreamWriter streamWriter = new StreamWriter(Environment.CurrentDirectory + "\\requestlog.txt", true);
-                streamWriter.WriteLine(DateTime.Now.ToString() + " - " + output);
+                streamWriter.WriteLine(DateTime.Now.ToString() + " - " + message);
                 streamWriter.Close();
             }
         }

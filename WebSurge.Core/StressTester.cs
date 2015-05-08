@@ -428,6 +428,20 @@ namespace WebSurge
             Results = new List<HttpRequestData>();
             requests = requests.Where(req => req.IsActive).ToList();
 
+
+            foreach (var plugin in App.Plugins)
+            {
+                try
+                {
+                    if (!plugin.OnLoadTestStarted(requests as List<HttpRequestData>))
+                        return null;
+                }
+                catch (Exception ex)
+                {
+                    App.Log(plugin.GetType().Name + " failed in OnLoadTestStarted(): " + ex.Message);
+                }
+            }
+
             Running = true;
              
             var threads = new List<Thread>();
@@ -497,6 +511,8 @@ namespace WebSurge
 
             Results = results.Where(res => res.Timestamp > min && res.Timestamp < max).ToList();
 
+
+
             if (Results.Count > 0)
             {
                 max = Results.Max(res => res.Timestamp);
@@ -504,6 +520,18 @@ namespace WebSurge
             }
             else
                 TimeTakenForLastRunMs = (int) TimeUtils.Truncate(DateTime.UtcNow).Subtract(min).TotalMilliseconds;
+
+            foreach (var plugin in App.Plugins)
+            {
+                try
+                {
+                    plugin.OnLoadTestCompleted(Results, TimeTakenForLastRunMs);
+                }
+                catch (Exception ex)
+                {
+                    App.Log(plugin.GetType().Name + " failed in OnLoadTestCompleted(): " + ex.Message);
+                }
+            }
 
             return Results;   
         }

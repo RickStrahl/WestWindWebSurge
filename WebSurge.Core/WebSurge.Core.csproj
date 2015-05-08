@@ -61,6 +61,7 @@
     <Compile Include="Configuration\WebSurgeConfiguration.cs" />
     <Compile Include="Extensibility\IWebSurgeExtensibility.cs" />
     <Compile Include="Extensibility\PluginLoader.cs" />
+    <Compile Include="Extensibility\WebSurgeExtensibilityBase.cs" />
     <Compile Include="SiteValidator.cs" />
     <Compile Include="Support\ApplicationUpdater.cs" />
     <Compile Include="Configuration\CheckForUpdates.cs" />

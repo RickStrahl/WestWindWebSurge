@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
    <Version>0.86</Version>
-   <ReleaseDate>May 7th, 2015</ReleaseDate>
+   <ReleaseDate>May 8th, 2015</ReleaseDate>
    <Title>West Wind WebSurge Version 0.86b is now available</Title>
-   <Detail>This update adds better HTTP result viewing support with formatted syntax highlighting, raw and preview modes. You can also collapse headers and content to more quickly navigate request data. JSON content is automatically formatted/prettified in formatted mode for easier viewing. There's now support for authentication for all or individual requests. You can now also quickly activate/deactivate requests in a test session and run all tests once and review results.
+   <Detail>This update adds support for Plugins to act on beginning and end of tests and individual requests. Recent versions added better HTTP result viewing support with formatted syntax highlighting, raw and preview modes. There's now support for authentication for all or individual requests. You can now also quickly activate/deactivate requests in a test session and run all tests once and review results.
 </Detail>
 </VersionInfo>
