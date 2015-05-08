@@ -127,13 +127,12 @@ namespace WebSurge
         {
             Watcher = new FileSystemWatcher();            
 
+            // resize the window with configured values
             App.Configuration.WindowSettings.Load(this);
 
             StressTester = new StressTester();
             StressTester.RequestProcessed += StressTester_RequestProcessed;
             StressTester.Progress += StressTester_Progress;
-
-            var config = App.Configuration.StressTester;
 
             if (string.IsNullOrEmpty(FileName) && !string.IsNullOrEmpty(App.Configuration.LastFileName))
             {

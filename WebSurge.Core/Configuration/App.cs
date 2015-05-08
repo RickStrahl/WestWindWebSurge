@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using WebSurge.Extensibility;
 using Westwind.Utilities;
 
 namespace WebSurge
@@ -17,6 +19,8 @@ namespace WebSurge
 
         internal static string EncryptionMachineKey { get; set; }
         internal static string ProKey { get; set; }
+
+        public static List<IWebSurgeExtensibility> Plugins { get; set; }
 
         static App()
         {
@@ -45,6 +49,9 @@ namespace WebSurge
             // Encryption key is only valid on the current machine
             EncryptionMachineKey = "22653K0U*He73kj4$JJ" + Environment.MachineName;
             ProKey = "Kuhela_100";  // "3bd0f6e";
+
+
+            Plugins = PluginLoader.LoadPlugIns();
         }
 
 

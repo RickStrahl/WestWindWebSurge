@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("West Wind WebSurge Command Line")]
+[assembly: AssemblyTitle("WebSurgeSamplePlugin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("West Wind Technologies")]
-[assembly: AssemblyProduct("West Wind WebSurge")]
-[assembly: AssemblyCopyright("© West Wind Technologies, 2014-2015")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("WebSurgeSamplePlugin")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1da912b3-4a3d-4e86-8b9b-00120cb10b40")]
+[assembly: Guid("f7911d80-f226-46d1-92b0-4e2e420683ee")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.86.0.0")]
-[assembly: AssemblyFileVersion("0.86.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

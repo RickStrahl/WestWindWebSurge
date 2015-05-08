@@ -32,7 +32,7 @@ Used (MRU) list so most recent files always show up on taskbar and
 desktop icons.
 
 * **Add requirement for Remote Server Safeguard files**<br/>
-WebSurge now requires that any remote server tested has a websurge-allowed.txt file in the root folder, or a #Allow: WebSurge comment entry in robots.txt. Localhost URLs don't require these files and neither do single URL tests. 
+WebSurge now requires that any remote server tested has a `websurge-allowed.txt` file in the root folder, or a `#Allow: WebSurge` comment entry in `robots.txt`. Localhost URLs don't require these files and neither do single URL tests. 
 
 * **Change Update Download Location**<br/>
 Change the download location to the system Downloads folder to 

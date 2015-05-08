@@ -89,6 +89,8 @@ namespace WebSurge
         }
         private ResultsParser _parser;
 
+        public List<IWebSurgeExtensibility> PlugIns = new List<IWebSurgeExtensibility>();
+
         /// <summary>
         /// Event fired after each request that provides the
         /// current request.
@@ -96,6 +98,18 @@ namespace WebSurge
         public event Action<HttpRequestData> RequestProcessed;
         public void OnRequestProcessed(HttpRequestData request)
         {
+            foreach (var plugin in App.Plugins)
+            {
+                try
+                {
+                    plugin.OnAfterRequestSent(request);
+                }
+                catch (Exception ex)
+                {
+                    App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                }
+            }
+
             if (!Options.NoProgressEvents && RequestProcessed != null)
                 RequestProcessed(request);
         }
@@ -133,6 +147,19 @@ namespace WebSurge
             // create a new instance
             var result = HttpRequestData.Copy(reqData);
 
+            foreach (var plugin in App.Plugins)
+            {
+                try
+                {
+                    if (!plugin.OnBeforeRequestSent(result))
+                        return result;
+                }
+                catch(Exception ex)
+                {
+                    App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                }
+            }
+
             result.ErrorMessage = "Request is incomplete"; // assume not going to make it
 
             result.IsWarmupRequest =  StartTime.AddSeconds(Options.WarmupSeconds) > DateTime.UtcNow;
@@ -167,14 +194,6 @@ namespace WebSurge
                 {
                     var data = reqData.GetRequestContentBytes();
                     client.AddPostKey(data);
-
-                    //if (reqData.RequestContent.StartsWith("b64_"))
-                    //{
-                    //    var data = reqData.GetRequestContentBytes();
-                    //    client.AddPostKey(data);
-                    //}
-                    //else
-                    //    client.AddPostKey(reqData.RequestContent);
                 }
                 else
                 {
@@ -301,17 +320,26 @@ namespace WebSurge
 
                     return result;
                 }
-                result.IsError = false;
-                result.ErrorMessage = null;                
+                else
+                {
+                    result.IsError = false;
+                    result.ErrorMessage = null;
 
-                if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
-                    result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
+                    if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
+                        result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
+                }
 
                 if (!CancelThreads)
                     OnRequestProcessed(result);
 
+
                 return result;
             }
+
+
+
+
+
             // these will occur on shutdown - don't log since they will return
             // unstable results - just ignore
             catch (ThreadAbortException)
