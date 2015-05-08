@@ -147,19 +147,6 @@ namespace WebSurge
             // create a new instance
             var result = HttpRequestData.Copy(reqData);
 
-            foreach (var plugin in App.Plugins)
-            {
-                try
-                {
-                    if (!plugin.OnBeforeRequestSent(result))
-                        return result;
-                }
-                catch(Exception ex)
-                {
-                    App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
-                }
-            }
-
             result.ErrorMessage = "Request is incomplete"; // assume not going to make it
 
             result.IsWarmupRequest =  StartTime.AddSeconds(Options.WarmupSeconds) > DateTime.UtcNow;
@@ -200,7 +187,7 @@ namespace WebSurge
                     webRequest.ContentLength = 0;
                 }
 
-                foreach (var header in reqData.Headers)
+                foreach (var header in result.Headers)
                 {
                     var lheader = header.Name.ToLower();
 
@@ -237,7 +224,7 @@ namespace WebSurge
                     if (lheader == "connection")
                     {
                         if (header.Value.ToLower() == "keep-alive")
-                            webRequest.KeepAlive = true;
+                            webRequest.KeepAlive = true;  // this has no effect
                         else if (header.Value.ToLower() == "close")
                             webRequest.KeepAlive = false;                        
                         continue;
@@ -268,10 +255,22 @@ namespace WebSurge
                     webRequest.Headers.Add(header.Name, header.Value);
                 }
 
+                foreach (var plugin in App.Plugins)
+                {
+                    try
+                    {
+                        if (!plugin.OnBeforeRequestSent(result))
+                            return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                    }
+                }
 
                 DateTime dt = DateTime.UtcNow;
 
-                string httpOutput = client.DownloadString(reqData.Url);
+                string httpOutput = client.DownloadString(result.Url);
                 
                 result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;  
                 // result.TimeToFirstByteMs = client.Timings.TimeToFirstByteMs;
@@ -314,11 +313,6 @@ namespace WebSurge
                 {
                     result.IsError = true;
                     result.ErrorMessage = webResponse.StatusDescription;
-
-                    if (!CancelThreads)
-                        OnRequestProcessed(result);
-
-                    return result;
                 }
                 else
                 {

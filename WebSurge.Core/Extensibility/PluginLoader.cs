@@ -12,10 +12,13 @@ namespace WebSurge.Extensibility
     {
         public static List<IWebSurgeExtensibility> LoadPlugIns()
         {
-            var path = Path.Combine(Environment.CurrentDirectory, "plugins");
-            var files = Directory.GetFiles(path, "*.dll");
-
             var plugins = new List<IWebSurgeExtensibility>();
+
+            var path = Path.Combine(Environment.CurrentDirectory, "plugins");
+            if (!Directory.Exists(path))
+                return plugins;
+
+            var files = Directory.GetFiles(path, "*.dll");
 
             foreach (var file in files)
             {

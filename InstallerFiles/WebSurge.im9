@@ -3577,14 +3577,14 @@ project Flags=0x20 {
 						}
 						folder ProgramGroupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=1 {
 							str Name: Default="<ProductName>";
+							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
+								str Title: Default="West Wind Web Monitor";
+								str Description: Default="West Wind Web Monitor";
+							}
 							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>\\WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
 								str Title: Default="West Wind Web Monitor (Task Tray)";
 								str Description: Default="Runs West Wind Web Monitor in Task Tray operation mode";
 								str Arguments: Default="-trayicon";
-							}
-							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
-								str Title: Default="West Wind Web Monitor";
-								str Description: Default="West Wind Web Monitor";
 							}
 						}
 						folder StartupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=0 {
@@ -3708,6 +3708,12 @@ project Flags=0x20 {
 				file FiddlerCore4.dll_3610D5DD981363F4: Flags=0x0, Path="FilesToInstall\\FiddlerCore4.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=FiddlerCore4.dll;
 				}
+				folder Folder1_ABA33135D0BFD6E9: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=1 {
+					str Name: Default=Plugins;
+					file Creating_a_WebSurge_Plugin.url_C49A6E452481D46E: Flags=0x0, Path="FilesToInstall\\Plugins\\Creating a WebSurge Plugin.url", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=0, Packaging=0 {
+						str Name: Default="Creating a WebSurge Plugin.url";
+					}
+				}
 				file Newtonsoft.Json.dll_9FF055DFDAD7BCEA: Flags=0x0, Path="FilesToInstall\\Newtonsoft.Json.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=Newtonsoft.Json.dll;
 				}
@@ -3720,26 +3726,17 @@ project Flags=0x20 {
 				file WebSurge.Core.dll_43447BBCDE1AEFD0: Flags=0x0, Path="FilesToInstall\\WebSurge.Core.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=WebSurge.Core.dll;
 				}
-				file WebSurge.Core.pdb_AC34878A914505F4: Flags=0x0, Path="FilesToInstall\\WebSurge.Core.pdb", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=0, Packaging=0 {
-					str Name: Default=WebSurge.Core.pdb;
-				}
 				file WebSurge.exe.config_40E64B0EC6739C54: Flags=0x0, Path="FilesToInstall\\WebSurge.exe.config", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=0, Packaging=0 {
 					str Name: Default=WebSurge.exe.config;
 				}
 				file WebSurge.exe_41FAFF5E99C2BBFA: Flags=0x0, Path="FilesToInstall\\WebSurge.exe", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=2000, Packaging=0 {
 					str Name: Default=WebSurge.exe;
 				}
-				file WebSurge.pdb_3F7109E443FD0A3A: Flags=0x0, Path="FilesToInstall\\WebSurge.pdb", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=0, Packaging=0 {
-					str Name: Default=WebSurge.pdb;
-				}
 				file WebSurgeCli.exe.config_6A51F6D90B679993: Flags=0x0, Path="FilesToInstall\\WebSurgeCli.exe.config", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=0, Packaging=0 {
 					str Name: Default=WebSurgeCli.exe.config;
 				}
 				file WebSurgeCli.exe_0740DFF71CE587F9: Flags=0x0, Path="FilesToInstall\\WebSurgeCli.exe", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=2000, Packaging=0 {
 					str Name: Default=WebSurgeCli.exe;
-				}
-				file WebSurgeCli.pdb_1B0C1C6C7142A028: Flags=0x0, Path="FilesToInstall\\WebSurgeCli.pdb", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=0, Packaging=0 {
-					str Name: Default=WebSurgeCli.pdb;
 				}
 				file Westwind.RazorHosting.dll_B7BBFD42826E5BB1: Flags=0x0, Path="FilesToInstall\\Westwind.RazorHosting.dll", Attributes=0x0, InstallAction=4, RemoveAction=2, Registration=0, RegOrder=1000, Packaging=0 {
 					str Name: Default=Westwind.RazorHosting.dll;
