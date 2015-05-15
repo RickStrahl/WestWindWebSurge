@@ -155,184 +155,189 @@ namespace WebSurge
             {
                 var client = new HttpClient();
                 
-                if (!string.IsNullOrEmpty(Options.ReplaceDomain))
-                    result.Url = ReplaceDomain(result.Url);
 
-                if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
-                    result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
+                    if (!string.IsNullOrEmpty(Options.ReplaceDomain))
+                        result.Url = ReplaceDomain(result.Url);
 
+                    if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
+                        result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
 
-                client.CreateWebRequestObject(result.Url);
-                var webRequest = client.WebRequest;
+                    client.CreateWebRequestObject(result.Url);
+                    var webRequest = client.WebRequest;
 
-                if (!string.IsNullOrEmpty(Options.Username))
-                    client.Username = Options.Username;
-                if (!string.IsNullOrEmpty(Options.Password))
-                    client.Password = Options.Password;
-                
-                webRequest.Method = reqData.HttpVerb;
-                
-                client.UseGZip = true;                
-
-                client.ContentType = reqData.ContentType;
-                client.Timeout = Options.RequestTimeoutMs / 1000;
-
-                if (!string.IsNullOrEmpty(reqData.RequestContent))
-                {
-                    var data = reqData.GetRequestContentBytes();
-                    client.AddPostKey(data);
-                }
-                else
-                {
-                    webRequest.ContentLength = 0;
-                }
-
-                foreach (var header in result.Headers)
-                {
-                    var lheader = header.Name.ToLower();
-
-                    // Header Overrides that fail if you try to set them
-                    // directly in HTTP
-                    if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
+                    if (!string.IsNullOrEmpty(Options.Username))
                     {
-                        string cookie = Options.ReplaceCookieValue;
-                        webRequest.Headers.Add("Cookie", cookie);
-                        header.Value = cookie;
-                        continue;
+                        client.Username = Options.Username;
+                        webRequest.UnsafeAuthenticatedConnectionSharing = true;
                     }
-                    if (lheader == "authorization" && !string.IsNullOrEmpty(Options.ReplaceAuthorization))
-                    {
-                        webRequest.Headers.Add("Authorization", Options.ReplaceAuthorization);
-                        header.Value = Options.ReplaceAuthorization;
-                        continue;
-                    }
-                    if (lheader == "user-agent")
-                    {
-                        webRequest.UserAgent = header.Value;
-                        continue;
-                    }
-                    if (lheader == "accept")
-                    {
-                        webRequest.Accept = header.Value;
-                        continue;
-                    }
-                    if (lheader == "referer")
-                    {
-                        webRequest.Referer = header.Value;
-                        continue;
-                    }
-                    if (lheader == "connection")
-                    {
-                        if (header.Value.ToLower() == "keep-alive")
-                            webRequest.KeepAlive = true;  // this has no effect
-                        else if (header.Value.ToLower() == "close")
-                            webRequest.KeepAlive = false;                        
-                        continue;
-                    }
-                    // set above view property
-                    if (lheader == "content-type")
-                        continue;
-                    // not handled at the moment
-                    if (lheader == "proxy-connection")
-                        continue;  // TODO: Figure out what to do with this one
+                    if (!string.IsNullOrEmpty(Options.Password))
+                        client.Password = Options.Password;
+
+                    webRequest.Method = reqData.HttpVerb;
+                    //webRequest.Proxy = null;                
+                    client.UseGZip = false;
+                    webRequest.AutomaticDecompression = System.Net.DecompressionMethods.None;
                     
-                    // set explicitly via properties
-                    if (lheader == "transfer-encoding")
+
+                    client.ContentType = reqData.ContentType;
+                    client.Timeout = Options.RequestTimeoutMs/1000;
+
+                    if (!string.IsNullOrEmpty(reqData.RequestContent))
                     {
-                        webRequest.TransferEncoding = header.Value;
-                        continue;
+                        var data = reqData.GetRequestContentBytes();
+                        client.AddPostKey(data);
                     }
-                    if (lheader == "date")                        
-                        continue;
-                    if (lheader == "expect")
+                    else
                     {
-                        //webRequest.Expect = header.Value;
-                        continue;
+                        webRequest.ContentLength = 0;
                     }
-                    if (lheader == "if-modified-since")                        
-                        continue;                    
 
-                    webRequest.Headers.Add(header.Name, header.Value);
-                }
-
-                foreach (var plugin in App.Plugins)
-                {
-                    try
+                    foreach (var header in result.Headers)
                     {
-                        if (!plugin.OnBeforeRequestSent(result))
-                            return result;
+                        var lheader = header.Name.ToLower();
+
+                        // Header Overrides that fail if you try to set them
+                        // directly in HTTP
+                        if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
+                        {
+                            string cookie = Options.ReplaceCookieValue;
+                            webRequest.Headers.Add("Cookie", cookie);
+                            header.Value = cookie;
+                            continue;
+                        }
+                        if (lheader == "authorization" && !string.IsNullOrEmpty(Options.ReplaceAuthorization))
+                        {
+                            webRequest.Headers.Add("Authorization", Options.ReplaceAuthorization);
+                            header.Value = Options.ReplaceAuthorization;
+                            continue;
+                        }
+                        if (lheader == "user-agent")
+                        {
+                            webRequest.UserAgent = header.Value;
+                            continue;
+                        }
+                        if (lheader == "accept")
+                        {
+                            webRequest.Accept = header.Value;
+                            continue;
+                        }
+                        if (lheader == "referer")
+                        {
+                            webRequest.Referer = header.Value;
+                            continue;
+                        }
+                        if (lheader == "connection")
+                        {
+                            if (header.Value.ToLower() == "keep-alive")
+                                webRequest.KeepAlive = true; // this has no effect
+                            else if (header.Value.ToLower() == "close")
+                                webRequest.KeepAlive = false;
+                            continue;
+                        }
+                        // set above view property
+                        if (lheader == "content-type")
+                            continue;
+                        // not handled at the moment
+                        if (lheader == "proxy-connection")
+                            continue; // TODO: Figure out what to do with this one
+
+                        // set explicitly via properties
+                        if (lheader == "transfer-encoding")
+                        {
+                            webRequest.TransferEncoding = header.Value;
+                            continue;
+                        }
+                        if (lheader == "date")
+                            continue;
+                        if (lheader == "expect")
+                        {
+                            //webRequest.Expect = header.Value;
+                            continue;
+                        }
+                        if (lheader == "if-modified-since")
+                            continue;
+
+                        webRequest.Headers.Add(header.Name, header.Value);
                     }
-                    catch (Exception ex)
+
+                    foreach (var plugin in App.Plugins)
                     {
-                        App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                        try
+                        {
+                            if (!plugin.OnBeforeRequestSent(result))
+                                return result;
+                        }
+                        catch (Exception ex)
+                        {
+                            App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                        }
                     }
-                }
 
-                DateTime dt = DateTime.UtcNow;
+                    DateTime dt = DateTime.UtcNow;
 
-                string httpOutput = client.DownloadString(result.Url);
-                
-                result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;  
-                // result.TimeToFirstByteMs = client.Timings.TimeToFirstByteMs;
-                
-                if (client.Error || client.WebResponse == null)
-                {
-                    result.ErrorMessage = client.ErrorMessage;
-                    return result;
-                }
 
-                var webResponse = client.WebResponse;
+                    string httpOutput = client.DownloadString(result.Url);
 
-                if (CancelThreads)
-                    return null;
+                    result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
+                    // result.TimeToFirstByteMs = client.Timings.TimeToFirstByteMs;
 
-                result.StatusCode = ((int) client.WebResponse.StatusCode).ToString();
-                result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
-                result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
+                    if (client.Error || client.WebResponse == null)
+                    {
+                        result.ErrorMessage = client.ErrorMessage;
+                        return result;
+                    }
 
-                result.ResponseLength = (int) client.WebResponse.ContentLength;
-                result.ResponseContent = httpOutput;
+                    if (CancelThreads)
+                        return null;
 
-                StringBuilder sb = new StringBuilder();
-                foreach (string key in webResponse.Headers.Keys)
-                {
-                    sb.AppendLine(key + ": " + webResponse.Headers[key]);
-                }
+                    result.StatusCode = ((int) client.WebResponse.StatusCode).ToString();
+                    result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
+                    result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
 
-                result.ResponseHeaders = sb.ToString();
+                    result.ResponseLength = (int) client.WebResponse.ContentLength;
+                    result.ResponseContent = httpOutput;
 
-                // update to actual Http headers sent
-                result.Headers.Clear();
-                foreach (string key in webRequest.Headers.Keys)
-                {
-                    result.Headers.Add(new HttpRequestHeader() {Name = key, Value = webRequest.Headers[key]});
-                }          
+                    StringBuilder sb = new StringBuilder();
+                    foreach (string key in client.WebResponse.Headers.Keys)
+                    {
+                        sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
+                    }
 
-                char statusCode = result.StatusCode[0];
-                if (statusCode == '4' || statusCode == '5')
-                {
-                    result.IsError = true;
-                    result.ErrorMessage = webResponse.StatusDescription;
-                }
-                else
-                {
-                    result.IsError = false;
-                    result.ErrorMessage = null;
 
-                    if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
-                        result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
-                }
+
+                    result.ResponseHeaders = sb.ToString();
+
+                    // update to actual Http headers sent
+                    result.Headers.Clear();
+                    foreach (string key in webRequest.Headers.Keys)
+                    {
+                        result.Headers.Add(new HttpRequestHeader() {Name = key, Value = webRequest.Headers[key]});
+                    }
+
+                    char statusCode = result.StatusCode[0];
+                    if (statusCode == '4' || statusCode == '5')
+                    {
+                        result.IsError = true;
+                        result.ErrorMessage = client.WebResponse.StatusDescription;
+                    }
+                    else
+                    {
+                        result.IsError = false;
+                        result.ErrorMessage = null;
+
+                        if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
+                            result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
+                    }
+
+                //} // using client
+                client.Dispose();
 
                 if (!CancelThreads)
                     OnRequestProcessed(result);
 
-
                 return result;
+                
             }
-
-
-
-
 
             // these will occur on shutdown - don't log since they will return
             // unstable results - just ignore
@@ -588,19 +593,12 @@ namespace WebSurge
 
                     var result = CheckSite(req);
 
-                    //// don't record first request on thread
-                    //if (isFirstRequest && !runOnce)
-                    //{                        
-                    //    isFirstRequest = false;
-                    //    continue;
-                    //}
-                    
                     if (result != null)
                         WriteResult(result);
 
-                    if (Options.DelayTimeMs == 0)                    
-                        //Thread.Yield();
-                        Thread.Sleep(1);                    
+                    if (Options.DelayTimeMs == 0)
+                        //Thread.Yield();                    
+                        Thread.Sleep(1);                   
                     else
                         Thread.Sleep(Options.DelayTimeMs);  
                 }
@@ -633,9 +631,9 @@ namespace WebSurge
             }
 
             lock (InsertLock)
-            {               
+            {
                 Results.Add(result);
-                RequestsProcessed++;                
+                RequestsProcessed++;
                 if (result.IsError)
                     RequestsFailed++;
             }

@@ -18,7 +18,6 @@ namespace WebSurge
         [STAThread]
         static void Main(string[] args)
         {
-
             string fileName = null;
             if (args != null && args.Length > 0)
                 fileName = args[0];
@@ -29,6 +28,10 @@ namespace WebSurge
             var limit = ServicePointManager.DefaultConnectionLimit;
             if (ServicePointManager.DefaultConnectionLimit < 10)
                 ServicePointManager.DefaultConnectionLimit = 200;
+
+            ServicePointManager.MaxServicePoints = 200;
+            ServicePointManager.MaxServicePointIdleTime = 1000000;
+            ServicePointManager.Expect100Continue = false;
 
             if (App.Configuration.StressTester.IgnoreCertificateErrors)
             {
