@@ -516,8 +516,6 @@ namespace WebSurge
 
             Results = results.Where(res => res.Timestamp > min && res.Timestamp < max).ToList();
 
-
-
             if (Results.Count > 0)
             {
                 max = Results.Max(res => res.Timestamp);
@@ -581,8 +579,7 @@ namespace WebSurge
             }
             else
                 reqs = requests as List<HttpRequestData>;
-
-
+            
             while (!CancelThreads)
             {
 
@@ -597,10 +594,15 @@ namespace WebSurge
                         WriteResult(result);
 
                     if (Options.DelayTimeMs == 0)
-                        //Thread.Yield();                    
-                        Thread.Sleep(1);                   
+                    {
+                        Thread.Yield();
+                    }
+                    else if (Options.DelayTimeMs < 0)
+                    {
+                        // no yielding - can generate more requests but much more cpu usage
+                    }
                     else
-                        Thread.Sleep(Options.DelayTimeMs);  
+                        Thread.Sleep(Options.DelayTimeMs-1);  
                 }
 
                 if (runOnce)

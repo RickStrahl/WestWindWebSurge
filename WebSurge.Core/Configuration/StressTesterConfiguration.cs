@@ -16,7 +16,7 @@ namespace WebSurge
         /// Optional delay time between requests. 0 means
         /// no delay.
         /// </summary>
-        [Description("Delay time added after each request to simulate user 'wait times' before going on.")]
+        [Description("Delay time added after each request to simulate user 'wait times' before going on. 0 doesn't wait but yields the active thread, -1 doesn't yield. Use -1 to get optimum performance at the cost of very high CPU load - best with 1 thread per Core in your machine.")]
         [Category("Performance")]
         public int DelayTimeMs { get; set; }
 

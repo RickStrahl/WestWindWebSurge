@@ -49,6 +49,9 @@ as Unicoded (decoded) text for ease of editing, but content sent
 to server is encoded in the encoding specified in the request.
 If no content type encoding is specified UTF-8 is assumed.
 
+* **Improve throughput for High Volument Testing**<br/>
+Tweaked the per request yielding between requests to allow for faster request processing on very high volume sessions. Performance should improve 2-3 fold in some scenarios. Note that optimal thread configuration might involve **less** threads. In tests we found to maximize load best performance for very high load scenarios is often achieved with 1 thread per CPU Core.
+
 ### Version 0.75b
 <i><small>January 20th, 2015</small></i>
 

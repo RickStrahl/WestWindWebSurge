@@ -26,11 +26,11 @@ namespace WebSurge
             var obj = App.UserDataPath;
 
             var limit = ServicePointManager.DefaultConnectionLimit;
-            if (ServicePointManager.DefaultConnectionLimit < 10)
-                ServicePointManager.DefaultConnectionLimit = 200;
+            if (ServicePointManager.DefaultConnectionLimit < 5)
+                ServicePointManager.DefaultConnectionLimit = 50;
 
-            ServicePointManager.MaxServicePoints = 200;
-            ServicePointManager.MaxServicePointIdleTime = 1000000;
+            //ServicePointManager.MaxServicePoints = 50;
+            //ServicePointManager.MaxServicePointIdleTime = 1000000;
             ServicePointManager.Expect100Continue = false;
 
             if (App.Configuration.StressTester.IgnoreCertificateErrors)
