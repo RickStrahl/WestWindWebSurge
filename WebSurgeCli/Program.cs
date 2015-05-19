@@ -134,7 +134,7 @@ namespace WebSurge.Cli
                           " requests, " + progress.RequestsFailed.ToString("n0") + " failed | " +
                           progress.SecondsProcessed + " of " +
                           progress.TotalSecondsToProcessed + " secs " +            
-                            "| " + progress.RequestsProcessed / progress.SecondsProcessed + " requests/sec ";
+                            "| " + (progress.RequestsProcessed / progress.SecondsProcessed).ToString("n0") + " requests/sec ";
 
             lock (consoleLock2)
             {

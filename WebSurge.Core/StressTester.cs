@@ -602,7 +602,7 @@ namespace WebSurge
                         // no yielding - can generate more requests but much more cpu usage
                     }
                     else
-                        Thread.Sleep(Options.DelayTimeMs-1);  
+                        Thread.Sleep(Options.DelayTimeMs);  
                 }
 
                 if (runOnce)

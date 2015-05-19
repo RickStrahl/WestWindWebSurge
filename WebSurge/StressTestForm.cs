@@ -185,7 +185,7 @@ namespace WebSurge
                           progress.SecondsProcessed + " of " +
                           progress.TotalSecondsToProcessed + " secs ";
             if (progress.SecondsProcessed > 0)
-                text += "| " + progress.RequestsProcessed / progress.SecondsProcessed + " request/sec ";
+                text += "| " + (progress.RequestsProcessed / progress.SecondsProcessed).ToString("n0") + " request/sec ";
             
             if (progress.RequestsFailed > 0)
                 txtProcessingTime.ForeColor = Color.Red;
