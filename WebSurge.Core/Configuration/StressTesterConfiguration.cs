@@ -20,6 +20,11 @@ namespace WebSurge
         [Category("Performance")]
         public int DelayTimeMs { get; set; }
 
+        [Description("When true gzip and deflate content is not decompressed, which can improve performance on high volume requests")]
+        [Category("Performance")]
+        public bool NoContentDecompression { get; set; }
+
+
         [Description("Use this option if you plan on capturing large numbers of requests - " +
                      "high transaction counts or long running tests. This option will capture full responses " + 
                      "for the first few thousand records and then capture only the basic request " + 
@@ -148,12 +153,17 @@ Allows to add custom authentication to a request after you've captured say a bea
         [Browsable(false)]
         public int LastThreads { get; set; }
 
-        [Description("Determines if certificate errors are ignored. Must restart application for changes to take effect.")]
+        [Description("Determines if certificate errors are ignored. Must restart application for this change to take effect.")]
         [Category("Test Operation")]
         public bool IgnoreCertificateErrors { get; set; }
 
+
+
         [Browsable(false)]
         public int LastSecondsToRun { get; set; }
+
+        
+
 
         public StressTesterConfiguration()
         {

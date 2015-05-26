@@ -4,6 +4,7 @@ using Westwind.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Westwind.Utilities.InternetTools;
@@ -174,13 +175,17 @@ namespace WebSurge
                         client.Password = Options.Password;
 
                     webRequest.Method = reqData.HttpVerb;
-                    //webRequest.Proxy = null;                
-                    client.UseGZip = false;
-                    webRequest.AutomaticDecompression = System.Net.DecompressionMethods.None;
-                    
 
                     client.ContentType = reqData.ContentType;
-                    client.Timeout = Options.RequestTimeoutMs/1000;
+                    client.Timeout = Options.RequestTimeoutMs/1000;                    
+                
+                    // don't auto-add gzip headers and don't decode by default
+                    client.UseGZip = false;
+
+                    if (Options.NoContentDecompression)
+                        webRequest.AutomaticDecompression = DecompressionMethods.None;
+                    else
+                        webRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 
                     if (!string.IsNullOrEmpty(reqData.RequestContent))
                     {
@@ -213,7 +218,7 @@ namespace WebSurge
                         }
                         if (lheader == "user-agent")
                         {
-                            webRequest.UserAgent = header.Value;
+                            client.UserAgent = header.Value;
                             continue;
                         }
                         if (lheader == "accept")

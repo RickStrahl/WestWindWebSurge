@@ -31,7 +31,9 @@ namespace WebSurge
 
             //ServicePointManager.MaxServicePoints = 50;
             //ServicePointManager.MaxServicePointIdleTime = 1000000;
-            ServicePointManager.Expect100Continue = false;
+
+            // setting using config file switch
+            //ServicePointManager.Expect100Continue = false;
 
             if (App.Configuration.StressTester.IgnoreCertificateErrors)
             {
