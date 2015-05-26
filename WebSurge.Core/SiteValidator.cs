@@ -32,6 +32,9 @@ namespace WebSurge
             var uniqueServerUrls = new HashSet<string>();
             foreach (var request in requests)
             {
+                if(!request.IsActive)
+                    continue;
+
                 var rootUrl = GetServerRootUrl(request.Url);
 
                 // already checked
