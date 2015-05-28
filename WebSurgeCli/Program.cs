@@ -17,12 +17,16 @@ namespace WebSurge.Cli
     {
         static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            var origColor = Console.ForegroundColor;
+            
+
             var options = new CommandLineOptions();
 
             if (!CommandLine.Parser.Default.ParseArguments(args, options))
                 return;
-            
+
+
+            Console.ForegroundColor = ConsoleColor.White;
 
             // If SessionFile is a Url assign to Url so we run on a single URL
             if (!string.IsNullOrEmpty(options.SessionFile) &&
@@ -43,6 +47,7 @@ namespace WebSurge.Cli
                 if (string.IsNullOrEmpty(options.Url))
                 {
                     Console.WriteLine(options.GetUsage());
+                    Console.ForegroundColor = origColor;
                     return;
                 }
 
@@ -76,6 +81,13 @@ namespace WebSurge.Cli
 
             Console.ForegroundColor = ConsoleColor.Green;
             var results = stressTester.CheckAllSites(requests,threads,time);
+            if (results == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: " + stressTester.ErrorMessage);
+                Console.ForegroundColor = origColor;
+                return;
+            }
             Console.ForegroundColor = ConsoleColor.White;
 
             if (options.Json)
@@ -85,6 +97,7 @@ namespace WebSurge.Cli
                     stressTester.ThreadsUsed);
                 string json = JsonSerializationUtils.Serialize(result, formatJsonOutput: true);
                 Console.WriteLine(json);
+                Console.ForegroundColor = origColor;
                 return;
             }
 
@@ -106,7 +119,9 @@ namespace WebSurge.Cli
                 
 
             Console.WriteLine();
-            Console.WriteLine(resultText);            
+            Console.WriteLine(resultText);
+
+            Console.ForegroundColor = origColor;
         }
 
         private static object consoleLock = new object();

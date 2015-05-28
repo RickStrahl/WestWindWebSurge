@@ -29,6 +29,12 @@ namespace WebSurge
 
         public bool CheckAllServers(IEnumerable<HttpRequestData> requests)
         {
+            if (requests == null)
+            {
+                ErrorMessage =  "There are no requests to process.";
+                return false;
+            }
+
             var uniqueServerUrls = new HashSet<string>();
             foreach (var request in requests)
             {
