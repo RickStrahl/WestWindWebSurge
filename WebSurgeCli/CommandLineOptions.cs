@@ -20,7 +20,7 @@ namespace WebSurge.Cli
         [Option('t',"threads",HelpText = "Number of simultaneous threads to run")]
         public int Threads { get; set; }
 
-        [Option('d', "delay", HelpText = "DelayTimeMs between individual requests in milliseconds")]
+        [Option('d', "delay", HelpText = "DelayTimeMs between individual requests in milliseconds. -1 no delay, 0 - delay with thread slice, 1-n millisecond delay")]
         public int DelayTimeMs { get; set; }
 
         [Option('r', "randomize", HelpText = "Randomize requests in the Session file.")]
@@ -61,10 +61,13 @@ Value Options:
 --------------
 -s          Number of seconds to run the test (10)
 -t          Number of simultaneous threads to run (2)
--d          Per request delay (0)
+-d          Delay in milliseconds after each request
+               1-n  Milliseconds of delay between requests
+               0   No delay, but give up cpu time slice
+               -1   No delay, no time slice (very high cpu usage)
 -y          Display mode for progress (1)
-            0 - No progress, 1 - no request detail, 
-            2 - no progress summary, 3 - show all
+               0 - No progress, 1 - no request detail, 
+               2 - no progress summary, 3 - show all
 
 Switches:
 ---------
@@ -76,9 +79,9 @@ Output:
 
 Examples:
 ---------
-WebSurgeCli c:\temp\LoadTest.txt  -s20 -t10
-WebSurgeCli http://localhost/testpage/  -s20 -t10
-WebSurgeCli c:\temp\LoadTest.txt  -s20 -t10 -json
+WebSurgeCli http://localhost/testpage/  -s20 -t8
+WebSurgeCli c:\temp\LoadTest.txt  -s20 -t8
+WebSurgeCli c:\temp\LoadTest.txt  -s20 -t8 --json
 ";
 
             sb.AppendLine(options);            
@@ -90,7 +93,7 @@ WebSurgeCli c:\temp\LoadTest.txt  -s20 -t10 -json
         {
             Silent = 1;
             Time = 10;
-            Threads = 2;
+            Threads = 2;            
         }
     }
 }
