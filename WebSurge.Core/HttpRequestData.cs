@@ -19,6 +19,7 @@ namespace WebSurge
         public DateTime Timestamp { get; set; }
         public bool IsActive { get; set; }
 
+        public string Name { get; set; }
         public string Url { get; set; }
         public string Host { get; set; }
         public string HttpVerb { get; set; }
@@ -349,6 +350,11 @@ namespace WebSurge
                     IsActive = false;
                     continue; // don't add header
                 }
+                if (name == "websurge-request-name")
+                {
+                    Name = hd.Value;
+                    continue;
+                } 
 
                 Headers.Add(hd);
             }
@@ -377,6 +383,8 @@ namespace WebSurge
             }
             if (!IsActive)
                 sb.AppendLine("Websurge-Request-Inactive: 1");
+            if (!string.IsNullOrEmpty(Name))
+                sb.AppendLine("Websurge-Request-Name: " + Name);
 
             if (!string.IsNullOrEmpty(req.RequestContent))
                 sb.AppendLine("\r\n" + req.RequestContent);

@@ -423,10 +423,13 @@ namespace WebSurge
             {
                 var req = txtRequestUrl.Tag as HttpRequestData;
                 bool isNew = req == null;
-                req = SaveRequest(req);
+                req = SaveRequest(req);                
 
                 if (isNew)
+                {
                     Requests.Add(req);
+                    txtRequestUrl.Tag = req;
+                }
 
                 RenderRequests(Requests);
             }
@@ -870,7 +873,7 @@ any reported issues.";
                 else
                     item.ImageKey = "download";
 
-                item.SubItems.Add(request.Url);
+                item.SubItems.Add(string.IsNullOrEmpty(request.Name) ? request.Url : request.Name);
                 //item.ToolTipText = request.Headers;
             }
 
@@ -964,7 +967,8 @@ any reported issues.";
         }
 
         void LoadRequest(HttpRequestData request)
-        {            
+        {
+            txtName.Text = request.Name;
             txtHttpMethod.Text = request.HttpVerb;
             txtRequestUrl.Text = request.Url;
             txtRequestUrl.Tag = request;
@@ -984,6 +988,7 @@ any reported issues.";
                 request = new HttpRequestData();
 
             request.IsActive = chkIsActive.Checked;
+            request.Name = txtName.Text;
             request.Url = txtRequestUrl.Text;
             request.HttpVerb = txtHttpMethod.Text;
             request.RequestContent = txtRequestContent.Text;

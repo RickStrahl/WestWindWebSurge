@@ -14,6 +14,11 @@ Initial plugin interface that allow hooking into request processing as requests 
 Result objects now contain a value to show milliseconds to
 first byte for more information on each request.
 
+* **Add Name to the Request Entry**<br/>
+Added a name field to make it easier to differentiate similar URLs when
+testing APIs. In the request list the name displays if it's provided,
+otherwise the URL displays.
+
 * **Add Test All Button to Session List**<br/>
 Option allows you to run all selected tests in a session at once
 and see a summary result page, as well as a result list where you

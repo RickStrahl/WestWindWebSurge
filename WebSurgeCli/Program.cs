@@ -64,14 +64,12 @@ namespace WebSurge.Cli
                 Console.WriteLine("------------------------");
             }
 
-
             int time = options.Time;
             int threads = options.Threads;
 
             stressTester.Options.DelayTimeMs = options.DelayTimeMs;
             stressTester.Options.RandomizeRequests = options.RandomizeRequests;
             stressTester.Options.WarmupSeconds = options.WarmupSeconds;
-            
 
             if (options.Silent != 0 && options.Silent != 1)
                 stressTester.RequestProcessed += stressTester_RequestProcessed;
