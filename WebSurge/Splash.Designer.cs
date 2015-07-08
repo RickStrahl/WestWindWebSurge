@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
             this.StartupTimer = new System.Windows.Forms.Timer(this.components);
-            this.PictureLogo = new System.Windows.Forms.PictureBox();
             this.lblRegisterType = new System.Windows.Forms.LinkLabel();
             this.lblVersionText = new System.Windows.Forms.Label();
             this.lblYouAreUsing = new System.Windows.Forms.Label();
@@ -39,25 +38,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lnkRegister = new System.Windows.Forms.LinkLabel();
             this.lblClickClose = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureLogo)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // StartupTimer
             // 
             this.StartupTimer.Interval = 4000;
             this.StartupTimer.Tick += new System.EventHandler(this.StartupTimer_Tick);
-            // 
-            // PictureLogo
-            // 
-            this.PictureLogo.BackColor = System.Drawing.Color.Black;
-            this.PictureLogo.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogo.Image")));
-            this.PictureLogo.Location = new System.Drawing.Point(-13, -21);
-            this.PictureLogo.Name = "PictureLogo";
-            this.PictureLogo.Size = new System.Drawing.Size(371, 322);
-            this.PictureLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PictureLogo.TabIndex = 0;
-            this.PictureLogo.TabStop = false;
-            this.PictureLogo.Click += new System.EventHandler(this.PictureLogo_Click);
             // 
             // lblRegisterType
             // 
@@ -93,7 +81,7 @@
             this.lblYouAreUsing.ForeColor = System.Drawing.SystemColors.Info;
             this.lblYouAreUsing.Location = new System.Drawing.Point(17, 317);
             this.lblYouAreUsing.Name = "lblYouAreUsing";
-            this.lblYouAreUsing.Size = new System.Drawing.Size(270, 21);
+            this.lblYouAreUsing.Size = new System.Drawing.Size(269, 21);
             this.lblYouAreUsing.TabIndex = 6;
             this.lblYouAreUsing.Text = "You\'ve been using the Free version of";
             // 
@@ -146,6 +134,16 @@
             this.lblClickClose.Text = "x";
             this.lblClickClose.Click += new System.EventHandler(this.lblClickClose_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::WebSurge.Properties.Resources.WebSurgeLogo_360;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(340, 297);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            // 
             // Splash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -159,7 +157,7 @@
             this.Controls.Add(this.lblYouAreUsing);
             this.Controls.Add(this.lblRegisterType);
             this.Controls.Add(this.lblVersionText);
-            this.Controls.Add(this.PictureLogo);
+            this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -171,7 +169,7 @@
             this.TransparencyKey = System.Drawing.Color.White;
             this.Load += new System.EventHandler(this.Splash_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Splash_KeyPress);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,7 +178,6 @@
         #endregion
 
         private System.Windows.Forms.Timer StartupTimer;
-        private System.Windows.Forms.PictureBox PictureLogo;
         private System.Windows.Forms.LinkLabel lblRegisterType;
         private System.Windows.Forms.Label lblVersionText;
         private System.Windows.Forms.Label lblYouAreUsing;
@@ -188,5 +185,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel lnkRegister;
         private System.Windows.Forms.Label lblClickClose;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
