@@ -46,7 +46,6 @@ namespace WebSurge
         }
 
 
-
         /// <summary>
         /// Parses a Fiddler Session from a string.
         /// </summary>
@@ -64,8 +63,7 @@ namespace WebSurge
                 if (index > -1)
                     sessionString = sessionString.Substring(0, index);
             }
-                
-            
+                            
             var httpRequests = new List<HttpRequestData>();            
 
             string[] requests = Regex.Split(sessionString, @"\r\n-{5,100}\r\n");
@@ -84,7 +82,6 @@ namespace WebSurge
 
             return httpRequests;
         }
-
 
         StressTesterConfiguration ParseConfiguration(ref string sessionString)
         {

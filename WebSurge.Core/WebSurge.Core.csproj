@@ -73,6 +73,7 @@
     <Compile Include="HttpRequestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StressTester.cs" />
+    <Compile Include="Support\CloudFolders.cs" />
     <Compile Include="Support\MostRecentlyUsedList.cs" />
     <Compile Include="Support\UnlockKey.cs" />
     <Compile Include="Support\TemplateRenderer.cs" />

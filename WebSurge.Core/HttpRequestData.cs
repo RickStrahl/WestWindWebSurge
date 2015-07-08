@@ -48,6 +48,7 @@ namespace WebSurge
         public int TimeToFirstByteMs { get; set; }        
 
         public bool IsWarmupRequest { get; set; }
+        public int SortOrder;
 
         private static Encoding WindowsEncoding = Encoding.GetEncoding(1252);
 
@@ -354,7 +355,7 @@ namespace WebSurge
                 {
                     Name = hd.Value;
                     continue;
-                } 
+                }
 
                 Headers.Add(hd);
             }

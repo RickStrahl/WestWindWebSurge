@@ -360,23 +360,64 @@ namespace WebSurge
                     {
                         var request = listItem.Tag as HttpRequestData;
                         Requests.Remove(request);
+                        var index = listItem.Index;                        
                         ListRequests.Items.Remove(listItem);
+                        if (index < ListRequests.Items.Count)
+                            ListRequests.Items[index].Selected = true;
                     }
                 }
             }
-            if (sender == tbMarkAsActive || sender == tbMarkasInactive)
+            if (sender == tbToggleActive)
             {
                 if (ListRequests.SelectedItems.Count > 0)
                 {
+                    int index = 0;
+                    foreach (ListViewItem listItem in ListRequests.SelectedItems)
+                    {
+                        index = listItem.Index;
+                        var request = listItem.Tag as HttpRequestData;
+                        request.IsActive = !request.IsActive;
+                    }
+                    RenderRequests(Requests,index);
+                }
+            }
+            if (sender == tbMoveUp || sender == tbMoveDown)
+            {
+                if (ListRequests.SelectedItems.Count > 0)
+                {
+                    // assign current sort order
+                    for(var x=0; x < Requests.Count-1; x++)
+                        Requests[x].SortOrder = Requests.Count - 1 - x;
+
+                    int newVal = 0;
+                    int index = -1;
                     foreach (ListViewItem listItem in ListRequests.SelectedItems)
                     {
                         var request = listItem.Tag as HttpRequestData;
-                        if (sender == tbMarkasInactive)
-                            request.IsActive = false;
-                        else
-                            request.IsActive = true;                        
+                        HttpRequestData swap;
+
+                        if (sender == tbMoveUp)
+                        {
+                            newVal = request.SortOrder + 1;
+                            if (newVal > Requests.Count - 1)
+                                newVal = request.SortOrder;                            
+                            index = Requests.Count - 1 - newVal;
+                        }
+                        if (sender == tbMoveDown)
+                        {
+                            newVal = request.SortOrder - 1 ;
+                            if (newVal < 0)
+                                newVal = 0;
+                            index = Requests.Count - 1 - newVal;
+                        }
+
+                        swap = Requests.FirstOrDefault(req => req.SortOrder == newVal);
+                        if (swap != null)
+                             swap.SortOrder = request.SortOrder;
+                         request.SortOrder = newVal;                    
                     }
-                    RenderRequests(Requests);
+                    Requests = Requests.OrderByDescending(req => req.SortOrder).ToList();
+                    RenderRequests(Requests,index);
                 }
             }
             if (sender == tbEditRequest || sender == tbEditRequest2)
@@ -841,7 +882,7 @@ any reported issues.";
 
         }
 
-        void RenderRequests(List<HttpRequestData> requests)
+        void RenderRequests(List<HttpRequestData> requests, int selectedIndex = -1)
         {
             ListRequests.BeginUpdate();
             ListRequests.Items.Clear();
@@ -880,6 +921,9 @@ any reported issues.";
             ListRequests.EndUpdate();
 
             TabSessions.SelectedTab = tabSession;
+
+            if (selectedIndex > -1 && selectedIndex < ListRequests.Items.Count)
+                ListRequests.Items[selectedIndex].Selected = true;
         }
 
 
@@ -1492,8 +1536,6 @@ any reported issues.";
 
             TestSiteUrl(request);
         }
-
-
 
     }
 

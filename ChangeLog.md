@@ -3,21 +3,24 @@
 ### Version 1.0
 <i><small>not released yet</small></i>
 
-* **Change licensing and remove limits on free version**<br/>
+* **Change licensing and remove limits on free version**  
 Remove limitations on the free version and change licensing to
 make for free personal use and paid for commercial use. 
 
-* **[Plugin Support for Extensibility](https://github.com/RickStrahl/WestWindWebSurge/wiki/Creating-a-WebSurge-Plugin)** <br/>
+* **[Plugin Support for Extensibility](https://github.com/RickStrahl/WestWindWebSurge/wiki/Creating-a-WebSurge-Plugin)**  
 Initial plugin interface that allow hooking into request processing as requests are fired against the server. You can hook `OnBeforeRequestSent` and `OnAfterRequestSent` methods that allow you to manipulate inbound requests and capture result requests as they are completed for custom logging or live analytics.
 
-* **First Byte Times Added to Results**<br/>
+* **First Byte Times Added to Results**  
 Result objects now contain a value to show milliseconds to
 first byte for more information on each request.
 
-* **Add Name to the Request Entry**<br/>
+* **Add Name to the Request Entry**  
 Added a name field to make it easier to differentiate similar URLs when
 testing APIs. In the request list the name displays if it's provided,
 otherwise the URL displays.
+
+* **Add Sorting to the Request List**
+You can now sort the request list by using either a menu option or shortcut keys to move items up and down in the list. Useful to properly group requests together.
 
 * **Add Test All Button to Session List**<br/>
 Option allows you to run all selected tests in a session at once
@@ -39,7 +42,7 @@ stored in the AppData folder. Also added support for Most Recently
 Used (MRU) list so most recent files always show up on taskbar and
 desktop icons.
 
-* **Add requirement for Remote Server Safeguard files**<br/>
+* **Add requirement for Remote Server Safeguard files**  
 WebSurge now requires that any remote server tested has a `websurge-allowed.txt` file in the root folder, or a `#Allow: WebSurge` comment entry in `robots.txt`. Localhost URLs don't require these files and neither do single URL tests. 
 
 * **Change Update Download Location**<br/>
@@ -47,14 +50,14 @@ Change the download location to the system Downloads folder to
 avoid potential issues with Anti-virus software flagging the
 downloaded file as malicious.
 
-* **Fix Content Encoding for Request Data**<br/>
+* **Fix Content Encoding for Request Data**  
 Fixed content encoding to detect request encoding format properly
 when posting data to the server. Content is still captured and displayed
 as Unicoded (decoded) text for ease of editing, but content sent
 to server is encoded in the encoding specified in the request.
 If no content type encoding is specified UTF-8 is assumed.
 
-* **Improve throughput for High Volument Testing**<br/>
+* **Improve throughput for High Volume Testing**  
 Tweaked the per request yielding between requests to allow for faster request processing on very high volume sessions. Performance should improve 2-3 fold in some scenarios. Note that optimal thread configuration might involve **less** threads. In tests we found to maximize load best performance for very high load scenarios is often achieved with 1 thread per CPU Core.
 
 ### Version 0.75b
