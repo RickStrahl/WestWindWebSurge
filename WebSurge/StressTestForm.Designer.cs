@@ -113,7 +113,6 @@
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRecentSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.RecentFilesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.btnEditFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -148,6 +147,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
@@ -171,6 +171,12 @@
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Help = new System.Windows.Forms.HelpProvider();
+            this.tbSaveToOneDrive = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbSaveToDropbox = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbOpenFromDropbox = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbCloudDrives = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbOpenFromOneDrive = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -573,10 +579,10 @@
             this.tabResults.Controls.Add(this.ListResults);
             this.tabResults.Controls.Add(this.lblRequestCount);
             this.tabResults.Controls.Add(this.cmbListDisplayMode);
-            this.tabResults.Location = new System.Drawing.Point(4, 22);
+            this.tabResults.Location = new System.Drawing.Point(4, 25);
             this.tabResults.Name = "tabResults";
             this.tabResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResults.Size = new System.Drawing.Size(432, 601);
+            this.tabResults.Size = new System.Drawing.Size(432, 598);
             this.tabResults.TabIndex = 1;
             this.tabResults.Text = "Results";
             this.tabResults.UseVisualStyleBackColor = true;
@@ -598,7 +604,7 @@
             this.ListResults.Location = new System.Drawing.Point(-1, 37);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(434, 566);
+            this.ListResults.Size = new System.Drawing.Size(434, 563);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.TabIndex = 3;
             this.ListResults.UseCompatibleStateImageBehavior = false;
@@ -1038,6 +1044,7 @@
             this.btnOpen,
             this.btnSaveAllRequests,
             this.btnSaveAllRequestsAs,
+            this.tbCloudDrives,
             this.toolStripSeparator15,
             this.btnRecentSessions,
             this.btnEditFile,
@@ -1093,17 +1100,6 @@
             this.RecentFilesContextMenu.OwnerItem = this.btnRecentSessions;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
-            // 
-            // tbOpen
-            // 
-            this.tbOpen.DropDown = this.RecentFilesContextMenu;
-            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
-            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(110, 22);
-            this.tbOpen.Text = "Open Session";
-            this.tbOpen.ToolTipText = "Open session file";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // btnEditFile
             // 
@@ -1365,6 +1361,17 @@
             this.MainToolStrip.Size = new System.Drawing.Size(421, 25);
             this.MainToolStrip.TabIndex = 1;
             // 
+            // tbOpen
+            // 
+            this.tbOpen.DropDown = this.RecentFilesContextMenu;
+            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
+            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(110, 22);
+            this.tbOpen.Text = "Open Session";
+            this.tbOpen.ToolTipText = "Open session file";
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -1538,6 +1545,50 @@
             // Help
             // 
             this.Help.HelpNamespace = "WebSurge.chm";
+            // 
+            // tbSaveToOneDrive
+            // 
+            this.tbSaveToOneDrive.Name = "tbSaveToOneDrive";
+            this.tbSaveToOneDrive.Size = new System.Drawing.Size(184, 22);
+            this.tbSaveToOneDrive.Text = "Save to OneDrive";
+            this.tbSaveToOneDrive.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // tbSaveToDropbox
+            // 
+            this.tbSaveToDropbox.Name = "tbSaveToDropbox";
+            this.tbSaveToDropbox.Size = new System.Drawing.Size(184, 22);
+            this.tbSaveToDropbox.Text = "Save to Dropbox";
+            // 
+            // tbOpenFromDropbox
+            // 
+            this.tbOpenFromDropbox.Name = "tbOpenFromDropbox";
+            this.tbOpenFromDropbox.Size = new System.Drawing.Size(184, 22);
+            this.tbOpenFromDropbox.Text = "Open from Dropbox";
+            this.tbOpenFromDropbox.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // tbCloudDrives
+            // 
+            this.tbCloudDrives.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbOpenFromDropbox,
+            this.tbSaveToDropbox,
+            this.toolStripSeparator19,
+            this.tbOpenFromOneDrive,
+            this.tbSaveToOneDrive});
+            this.tbCloudDrives.Name = "tbCloudDrives";
+            this.tbCloudDrives.Size = new System.Drawing.Size(237, 22);
+            this.tbCloudDrives.Text = "Cloud Drive";
+            // 
+            // tbOpenFromOneDrive
+            // 
+            this.tbOpenFromOneDrive.Name = "tbOpenFromOneDrive";
+            this.tbOpenFromOneDrive.Size = new System.Drawing.Size(184, 22);
+            this.tbOpenFromOneDrive.Text = "Open from OneDrive";
+            this.tbOpenFromOneDrive.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // toolStripSeparator19
+            // 
+            this.toolStripSeparator19.Name = "toolStripSeparator19";
+            this.toolStripSeparator19.Size = new System.Drawing.Size(181, 6);
             // 
             // StressTestForm
             // 
@@ -1751,6 +1802,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem tbMoveUp;
         private System.Windows.Forms.ToolStripMenuItem tbMoveDown;
+        private System.Windows.Forms.ToolStripMenuItem tbCloudDrives;
+        private System.Windows.Forms.ToolStripMenuItem tbOpenFromDropbox;
+        private System.Windows.Forms.ToolStripMenuItem tbSaveToDropbox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
+        private System.Windows.Forms.ToolStripMenuItem tbOpenFromOneDrive;
+        private System.Windows.Forms.ToolStripMenuItem tbSaveToOneDrive;
     }
 }
 

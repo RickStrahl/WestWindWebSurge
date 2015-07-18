@@ -9,7 +9,6 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-//using Humanizer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSurge.Core;
@@ -256,18 +255,29 @@ namespace WebSurge
         {
             FixClickFocus();
 
-            if (sender == tbOpen || sender == btnOpen || sender == txtProcessingTime)
+            if (sender == tbOpen || sender == btnOpen ||
+               sender == tbOpenFromDropbox || sender == tbOpenFromOneDrive ||                
+               sender == txtProcessingTime)
             {
+                string path = null;
+                if (sender == tbOpenFromDropbox)
+                    path = CloudFolders.DropboxDirectory;
+                else if (sender == tbOpenFromOneDrive)
+                    path = CloudFolders.OneDriveDirectory;
+
                 var fd = new OpenFileDialog
                 {
                     DefaultExt = ".txt;.log",
                     Filter = "WebSurge files (*.websurge)|*.websurge|Text files (*.txt)|*.txt|Log Files (*.log)|*.log|All Files (*.*)|*.*",
                     CheckFileExists = true,
-                    RestoreDirectory = true,
+                    RestoreDirectory = true,                    
                     FileName = "1_Full.txt",
-                    Title = "Open Fiddler Capture File"
+                    Title = "Open WebSurge Request File"
                 };
-                var dr = fd.ShowDialog();
+                if (!string.IsNullOrEmpty(path))
+                    fd.InitialDirectory = path;
+
+                    var dr = fd.ShowDialog();
                 if (dr != DialogResult.Cancel)
                 {
                     FileName = Path.GetFullPath(fd.FileName);
@@ -499,14 +509,22 @@ namespace WebSurge
 
 
             if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2 ||
-                sender == btnSaveAllRequests || sender == btnSaveAllRequestsAs)
+                sender == btnSaveAllRequests || sender == btnSaveAllRequestsAs ||
+                sender == tbSaveToDropbox || sender == tbSaveToOneDrive)
             {
                 var parser = new SessionParser();
 
                 var path = App.UserDataPath;
-                if (!string.IsNullOrEmpty(FileName))
-                    path = Path.GetDirectoryName(FileName);
+
                 
+                if (sender == tbSaveToDropbox)
+                    path = CloudFolders.DropboxDirectory;
+                else if(sender == tbSaveToOneDrive)
+                    path = CloudFolders.OneDriveDirectory;
+                else if (!string.IsNullOrEmpty(FileName))
+                    path = Path.GetDirectoryName(FileName);
+
+
                 StressTester.Options.LastSecondsToRun = StringUtils.ParseInt(tbtxtTimeToRun.Text, 20);
                 StressTester.Options.LastThreads = StringUtils.ParseInt(tbtxtThreads.Text, 5);
                 
@@ -515,6 +533,7 @@ namespace WebSurge
                     file = Path.GetFileName(FileName);
 
                 if (sender != btnSaveAllRequestsAs && 
+                    sender != tbSaveToDropbox && sender != tbSaveToOneDrive &&
                     File.Exists(FileName))
                 {
                     parser.Save(Requests, FileName, StressTester.Options);
@@ -614,8 +633,6 @@ any reported issues.";
 
             UpdateButtonStatus();
         }
-
-
 
         private void CloseSession()
         {
@@ -1047,7 +1064,6 @@ any reported issues.";
             RenderResultList(StressTester.Results);
         }
 
-
         public void UpdateButtonStatus()
         {
             tbOpen.Enabled = !StressTester.Running;
@@ -1079,7 +1095,11 @@ any reported issues.";
             tbSaveAllRequests.Enabled = Requests.Count > 0;
             tbSaveAllRequests2.Enabled = tbSaveAllRequests.Enabled;
             tbTestAll.Enabled = tbSaveAllRequests.Enabled;
-            
+            tbSaveToDropbox.Enabled = tbSaveAllRequests.Enabled && CloudFolders.IsDropbox;
+            tbOpenFromDropbox.Enabled = tbSaveToDropbox.Enabled;
+            tbSaveToOneDrive.Enabled = tbSaveAllRequests.Enabled && CloudFolders.IsOneDrive;
+            tbOpenFromOneDrive.Enabled = tbSaveToOneDrive.Enabled;
+
             tbNoProgressEvents.Checked = StressTester.Options.NoProgressEvents;
 
             // Request Selected

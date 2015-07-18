@@ -52,7 +52,7 @@
             this.lblRegisterType.BackColor = System.Drawing.Color.Black;
             this.lblRegisterType.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblRegisterType.LinkColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRegisterType.Location = new System.Drawing.Point(253, 20);
+            this.lblRegisterType.Location = new System.Drawing.Point(253, 23);
             this.lblRegisterType.Name = "lblRegisterType";
             this.lblRegisterType.Size = new System.Drawing.Size(81, 16);
             this.lblRegisterType.TabIndex = 5;
@@ -67,7 +67,7 @@
             this.lblVersionText.BackColor = System.Drawing.Color.Black;
             this.lblVersionText.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblVersionText.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblVersionText.Location = new System.Drawing.Point(217, 36);
+            this.lblVersionText.Location = new System.Drawing.Point(217, 39);
             this.lblVersionText.Name = "lblVersionText";
             this.lblVersionText.Size = new System.Drawing.Size(118, 20);
             this.lblVersionText.TabIndex = 4;
@@ -136,8 +136,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::WebSurge.Properties.Resources.WebSurgeLogo_360;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 2);
+            this.pictureBox1.ErrorImage = null;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 1);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(340, 297);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -166,7 +168,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About West Wind Web Surge";
-            this.TransparencyKey = System.Drawing.Color.White;
+            this.TransparencyKey = System.Drawing.Color.DeepPink;
             this.Load += new System.EventHandler(this.Splash_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Splash_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

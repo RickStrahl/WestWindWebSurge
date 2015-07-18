@@ -42,6 +42,9 @@ stored in the AppData folder. Also added support for Most Recently
 Used (MRU) list so most recent files always show up on taskbar and
 desktop icons.
 
+* **Share Session files on DropBox or OneDrive**  
+You can now open and save session files from DropBox and OneDrive using the Cloud Drives option from the **File** menu. This makes it easy to share your Session files across machines more easily and share them with others on your team.
+
 * **Add requirement for Remote Server Safeguard files**  
 WebSurge now requires that any remote server tested has a `websurge-allowed.txt` file in the root folder, or a `#Allow: WebSurge` comment entry in `robots.txt`. Localhost URLs don't require these files and neither do single URL tests. 
 

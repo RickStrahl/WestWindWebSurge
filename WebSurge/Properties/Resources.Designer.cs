@@ -59,15 +59,5 @@ namespace WebSurge.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WebSurgeLogo_360 {
-            get {
-                object obj = ResourceManager.GetObject("WebSurgeLogo_360", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

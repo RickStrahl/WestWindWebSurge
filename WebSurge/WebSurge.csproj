@@ -176,6 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WebSurgeLogo_360.png" />
+    <None Include="Resources\WebSurgeLogo_3601.png" />
+    <None Include="Resources\WebSurgeLogo_3602.png" />
+    <None Include="Resources\WebSurgeLogo_3603.png" />
     <Content Include="WebSurge.ico" />
   </ItemGroup>
   <ItemGroup>
