@@ -1,8 +1,9 @@
 # West Wind WebSurge
 
-<img src="http://websurge.west-wind.com/images/websurgelogo_165.png" align="left" style="margin-right: 12px;" /> 
+<img src="http://websurge.west-wind.com/images/websurgelogo_165.png" 
+     align="left" style="margin-right: 12px;" /> 
 
-#### Quick and easy load testing for your Web applications
+#### Quick and easy URL and load testing for your Web applications
 West Wind WebSurge is a Windows application that helps you to easily capture and play back URL requests, either individually for easy application, service and API testing scenarios, or under heavy load for stress testing scenarios. WebSurge makes it easy to save, share and reuse URL sessions you have created, so you can easily start up sessions again on your own or somebody else's machine. 
 
 ##### Web Stress Testing
