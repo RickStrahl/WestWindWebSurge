@@ -1364,8 +1364,12 @@ any reported issues.";
             {
                 Thread.Sleep(1);
 
-                // reload the session list
-                OpenFile(FileName);
+                try
+                {
+                    // reload the session list
+                    OpenFile(FileName);
+                }               
+                catch { }
             }));
         }
 

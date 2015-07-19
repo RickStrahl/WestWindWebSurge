@@ -217,7 +217,7 @@ namespace WebSurge
                     AutoUpgradeEnabled = true,
                     CheckPathExists = true,
                     DefaultExt = "txt",
-                    Filter = "Text files (*.txt)|*.txt|All Files (*.*)|*.*",
+                    Filter = "Text files (*.websurge)|*.websurge|All Files (*.*)|*.*",
                     OverwritePrompt = false,
                     Title = "Save Fiddler Capture File",
                     RestoreDirectory = true

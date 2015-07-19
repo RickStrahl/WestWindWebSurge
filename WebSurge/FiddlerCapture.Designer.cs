@@ -60,7 +60,7 @@
             this.txtCapture.Multiline = true;
             this.txtCapture.Name = "txtCapture";
             this.txtCapture.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCapture.Size = new System.Drawing.Size(871, 627);
+            this.txtCapture.Size = new System.Drawing.Size(871, 579);
             this.txtCapture.TabIndex = 1;
             // 
             // MainToolbar
@@ -210,7 +210,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 659);
+            this.ClientSize = new System.Drawing.Size(869, 611);
             this.Controls.Add(this.MainToolbar);
             this.Controls.Add(this.txtCapture);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

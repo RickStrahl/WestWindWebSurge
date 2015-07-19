@@ -30,6 +30,50 @@ namespace SimpleStressTester.Tests
         }
 
         [TestMethod]
+        public async Task ReusePlainHTtpRequest()
+        {
+            string url = "http://localhost/aspnetperf/static.htm";
+
+            var client = new HttpClient();
+            string result = client.DownloadString(url);
+
+            var swatch = new Stopwatch();
+            swatch.Start();
+
+            for (int i = 0; i < 100000; i++)
+            {
+                result = client.DownloadString(url);
+            }
+
+            swatch.Stop();
+
+            Console.WriteLine(swatch.ElapsedMilliseconds + " " + result);
+        }
+
+        [TestMethod]
+        public async Task RecreatePlainHttpRequest()
+        {
+            string url = "http://localhost/aspnetperf/static.htm";
+
+            var client = new HttpClient();
+            string result = client.DownloadString(url);
+
+            var swatch = new Stopwatch();
+            swatch.Start();
+
+            for (int i = 0; i < 100000; i++)
+            {
+                client = new HttpClient();
+                result = client.DownloadString(url);
+            }
+
+            swatch.Stop();
+
+            Console.WriteLine(swatch.ElapsedMilliseconds + " " + result);
+        }
+
+
+        [TestMethod]
         public void ThreadRequests()
         {
             int threadCount = 8;
@@ -125,5 +169,7 @@ namespace SimpleStressTester.Tests
 
             return 0;
         }
+
+
     }
 }
