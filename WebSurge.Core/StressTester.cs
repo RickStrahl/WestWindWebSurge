@@ -97,6 +97,7 @@ namespace WebSurge
         /// current request.
         /// </summary>
         public event Action<HttpRequestData> RequestProcessed;
+
         public void OnRequestProcessed(HttpRequestData request)
         {
             foreach (var plugin in App.Plugins)
@@ -145,6 +146,9 @@ namespace WebSurge
         /// <returns></returns>
         public HttpRequestData CheckSite(HttpRequestData reqData)
         {
+            if (CancelThreads)
+                return null;
+
             // create a new instance
             var result = HttpRequestData.Copy(reqData);
 
@@ -280,8 +284,13 @@ namespace WebSurge
 
                     DateTime dt = DateTime.UtcNow;
 
+                    if (CancelThreads)
+                        return null;
 
                     string httpOutput = client.DownloadString(result.Url);
+
+                    if (CancelThreads)
+                        return null;
 
                     result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
                     // result.TimeToFirstByteMs = client.Timings.TimeToFirstByteMs;
@@ -291,9 +300,6 @@ namespace WebSurge
                         result.ErrorMessage = client.ErrorMessage;
                         return result;
                     }
-
-                    if (CancelThreads)
-                        return null;
 
                     result.StatusCode = ((int) client.WebResponse.StatusCode).ToString();
                     result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
@@ -307,8 +313,6 @@ namespace WebSurge
                     {
                         sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
                     }
-
-
 
                     result.ResponseHeaders = sb.ToString();
 
@@ -622,7 +626,7 @@ namespace WebSurge
         public virtual void WriteResult(HttpRequestData result)
         {
             // don't log request detail data for non errors over a certain no of requests
-            if (!result.IsError && Results.Count > 3000)
+            if (!result.IsError && Results.Count > 30000)
             {
                 // always clear response
                 result.ResponseContent = null;

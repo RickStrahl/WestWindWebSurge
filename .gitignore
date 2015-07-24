@@ -35,3 +35,4 @@ _preview.html
 /InstallerFiles/*.iw9
 /InstallerFiles/Upload.bat
 WebEssentials-Settings.json
+InstallerFiles/FilesToInstall/AppData/Html/_preview.json

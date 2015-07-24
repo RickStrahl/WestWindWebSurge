@@ -267,11 +267,11 @@ namespace WebSurge
 
                 var fd = new OpenFileDialog
                 {
-                    DefaultExt = ".txt;.log",
+                    DefaultExt = ".websurge;.txt;.log",
                     Filter = "WebSurge files (*.websurge)|*.websurge|Text files (*.txt)|*.txt|Log Files (*.log)|*.log|All Files (*.*)|*.*",
                     CheckFileExists = true,
                     RestoreDirectory = true,                    
-                    FileName = "1_Full.txt",
+                    FileName = "",
                     Title = "Open WebSurge Request File"
                 };
                 if (!string.IsNullOrEmpty(path))
@@ -1130,8 +1130,8 @@ any reported issues.";
 
             ActiveRequest = req;
 
-            string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
-            //string html = req.ToHtml(true);
+            string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);            
+
             HtmlPreview(html);
 
             TabsResult.SelectedTab = tabPreview;
@@ -1151,8 +1151,6 @@ any reported issues.";
             ActiveRequest = req;
 
             string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
-            //StressTester.ResultsParser.GetResultReportHtml
-            //string html = req.ToHtml(true);
 
             HtmlPreview(html);
 
@@ -1270,12 +1268,12 @@ any reported issues.";
                 {
                     AutoUpgradeEnabled = true,
                     CheckPathExists = true,
-                    DefaultExt = "txt",
-                    Filter = "txt files (*.txt)|*.txt|All Files (*.*)|*.*",
+                    DefaultExt = "websurge",
+                    Filter = "websurge files (*.websurge)|*.websurge|txt files (*.txt)|*.txt|All Files (*.*)|*.*",
                     OverwritePrompt = false,
                     Title = "Export Results",
                     RestoreDirectory = true,
-                    FileName = fileName + ".txt"
+                    FileName = fileName + ".websurge"
                 };
                 var res = diag.ShowDialog();
                 if (res == DialogResult.OK)

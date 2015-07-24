@@ -115,7 +115,7 @@ setTimeout(function() {
         aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
     } catch (ex) {;
     }
-}, 100);
+}, 150);
 
 
 //setTimeout(function () {

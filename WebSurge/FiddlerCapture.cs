@@ -21,6 +21,12 @@ namespace WebSurge
         CaptureConfiguration = App.Configuration.UrlCapture;
         MainForm = form;
 
+        // Future use (Win7+): No dependencies on certmaker and bouncy castle libs
+        // FiddlerApplication.Prefs.SetBoolPref("fiddler.certmaker.PreferCertEnroll", true);
+
+        // IF PROBLEMS WITH SSL NOT WORKING
+        // Delete the C:\Users\rstrahl\AppData\Roaming\Microsoft\Crypto\RSA folder
+
         if (!string.IsNullOrEmpty(App.Configuration.UrlCapture.Cert))
         {
             FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.key", App.Configuration.UrlCapture.Key);
@@ -161,7 +167,19 @@ namespace WebSurge
             CaptureConfiguration.CaptureDomain = txtCaptureDomain.Text;
 
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;
-            FiddlerApplication.Startup( App.Configuration.UrlCapture.ProxyPort, true, true, true);
+            //FiddlerApplication.Startup( App.Configuration.UrlCapture.ProxyPort, true, true, true);
+
+            const FiddlerCoreStartupFlags flags =
+                FiddlerCoreStartupFlags.AllowRemoteClients |
+                FiddlerCoreStartupFlags.CaptureLocalhostTraffic |
+                FiddlerCoreStartupFlags.DecryptSSL |
+                FiddlerCoreStartupFlags.MonitorAllConnections |
+                FiddlerCoreStartupFlags.RegisterAsSystemProxy;
+
+            FiddlerApplication.Startup(App.Configuration.UrlCapture.ProxyPort, flags);
+
+
+
         }
 
 
