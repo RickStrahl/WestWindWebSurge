@@ -1454,6 +1454,8 @@ any reported issues.";
             int x = 0;
             foreach (var s in App.Configuration.RecentFiles)
             {
+                x++;
+
                 if (!File.Exists(s))
                     continue;
 
@@ -1464,7 +1466,7 @@ any reported issues.";
                 var btn = new ToolStripMenuItem
                 {
                     Text = s,
-                    Name = "RecentFile_" + x,                    
+                    Name = "RecentFile_" + (x -1),
                     ImageKey = "websurge"
                 };
 
@@ -1476,8 +1478,7 @@ any reported issues.";
                     };
 
                 RecentFilesContextMenu.ImageList = Images;
-                RecentFilesContextMenu.Items.Add(btn);
-                x++;
+                RecentFilesContextMenu.Items.Add(btn);   
             }
         }
 
