@@ -45,7 +45,7 @@ of individual request output from a test run.
 **More info:**
 
 * [WebSurge Product Page](http://west-wind.com/websurge/)
-* [Getting started with WebSurge Video](https://www.youtube.com/watch?v=TSfWYcr6q5o)
+* [Getting started with WebSurge Video](http://youtu.be/O5J8mDfVZH8)
 * [Introducing WebSurge Blog Post](http://weblog.west-wind.com/posts/2014/Jul/15/West-Wind-WebSurge-an-easy-way-to-Load-Test-Web-Applications)
 * [Licensing](http://west-wind.com/websurge/pricing.aspx)
 * [Download](http://www.west-wind.com/files/WebSurgeSetup.zip) or
@@ -58,7 +58,7 @@ of individual request output from a test run.
 
 **Requirements:**
 
-* Windows Vista, 7, 8, 8.1, 2008, 2012
+* Windows 10, 8, 7, Vista, 1, 2008, 2012
 * .NET 4.5
 
 **License:**
