@@ -87,6 +87,8 @@ function configureAceEditor(editor, serverVars) {
     editor.renderer.setShowGutter(serverVars.showLineNumbers);
     editor.renderer.setPadding(10);
 
+    session.setNewLineMode("windows");
+
     // fill entire view
     editor.setOptions({
         maxLines: Infinity,
