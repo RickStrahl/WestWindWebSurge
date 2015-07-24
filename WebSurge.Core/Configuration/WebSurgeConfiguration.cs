@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,52 +17,41 @@ namespace WebSurge
         public WindowSettings WindowSettings { get; set; }
         public CheckForUpdates CheckForUpdates { get; set; }
 
-        [JsonIgnore]
         public List<string> RecentFiles
         {
             get
             {
-                if (_recentFileList == null)
-                {
-                    try
-                    {
-                        _recentFileList = MostRecentlyUsedList.GetMostRecentDocs("*.websurge");
-                    }
-                    catch
-                    {
-                        _recentFileList = new List<string>();
-                    }
-                }
-
                 return _recentFileList;
             }
+            set
+            {
+                _recentFileList = value;
+            }
         }
-
         private List<string> _recentFileList;
 
         public string LastFileName
         {
-            get { return _LastFileName; }
+            get { return _lastFileName; }
             set
             {
-                _LastFileName = value;
-                try
-                {
-                    MostRecentlyUsedList.AddToRecentlyUsedDocs(value);
+                if (_recentFileList == null)
+                    _recentFileList = new List<string>();
 
-                    // reload recent file list
-                    _recentFileList = MostRecentlyUsedList.GetMostRecentDocs("*.websurge");
-                }
-                catch
-                {
-                }
+                _lastFileName = value;                
+                RecentFiles.Insert(0, value);
+
+                /* distinct */
+                _recentFileList = RecentFiles
+                    .Where(f=> File.Exists(f))
+                    .GroupBy(f => f.ToLower())
+                    .Select(f=> f.First())
+                    .Take(10)
+                    .ToList();
             }
         }
-
-        private string _LastFileName;
-
-
-
+        private string _lastFileName;
+        
         public WebSurgeConfiguration()
         {
             StressTester = new StressTesterConfiguration();

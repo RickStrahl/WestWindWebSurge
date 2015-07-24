@@ -1457,6 +1457,10 @@ any reported issues.";
                 if (!File.Exists(s))
                     continue;
 
+                if (!string.IsNullOrEmpty(FileName) &&
+                    s.ToLower() == FileName.ToLower())
+                    continue;
+                
                 var btn = new ToolStripMenuItem
                 {
                     Text = s,
