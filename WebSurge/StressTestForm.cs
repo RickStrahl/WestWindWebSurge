@@ -1451,6 +1451,10 @@ any reported issues.";
         void AddRecentFiles(object sender = null, CancelEventArgs e = null)
         {
             RecentFilesContextMenu.Items.Clear();
+
+            if (App.Configuration.RecentFiles == null)
+                return;
+
             int x = 0;
             foreach (var s in App.Configuration.RecentFiles)
             {

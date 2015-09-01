@@ -88,11 +88,12 @@ function configureAceEditor(editor, serverVars) {
     editor.renderer.setPadding(10);
 
     session.setNewLineMode("windows");
+    session.setUseWrapMode(true);
 
     // fill entire view
     editor.setOptions({
         maxLines: Infinity,
-        minLines: 3
+        minLines: 2
     });
 
     editor.setShowPrintMargin(false);

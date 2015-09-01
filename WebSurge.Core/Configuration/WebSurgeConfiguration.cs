@@ -17,7 +17,7 @@ namespace WebSurge
         public WindowSettings WindowSettings { get; set; }
         public CheckForUpdates CheckForUpdates { get; set; }
 
-        public List<string> RecentFiles
+        public List<string> RecentFiles 
         {
             get
             {

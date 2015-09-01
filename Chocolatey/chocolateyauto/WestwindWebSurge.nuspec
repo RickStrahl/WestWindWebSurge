@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>WestwindWebSurge</id>
-        <version>0.90</version>
+        <version>1.0</version>
         <title>West Wind WebSurge</title>
         <authors>Rick Strahl,West Wind Technologies</authors>
         <owners>West Wind Technologies</owners>
@@ -10,15 +10,15 @@
         <projectUrl>http://websurge.west-wind.com</projectUrl>
         <iconUrl>http://websurge.west-wind.com/images/WebSurgeLogo128.png</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
-        <description>West Wind WebSurge is an easy to use Web load testing tool that makes it easy to capture or enter a series of Web requests, and test them interactively or under automated heavy load. The goal is to make the process of creating, managing and playing back of HTTP requests easy, so you can test and re-test your sites frequently and catch performance or application issues early in the development cycle.
+        <description>West Wind WebSurge is an easy to use Web URL and load testing tool that makes it easy to capture or enter a series of Web requests, and test them interactively or under automated heavy load. The goal is to make the process of creating, managing and playing back of HTTP requests easy, so you can test and re-test your sites frequently and catch performance or application issues early in the development cycle.
 	
 Use our built-in Web capture tool to capture and filter Web sessions from Web Browsers or Windows applications, use Telerik's Fiddler or manually create sessions using plain text HTTP headers in a text file. All HTTP request data is stored as plain HTTP headers, so it's easy to create, edit or generate test sessions manually of via code.
 	
 Capture HTML requests, AJAX, REST and SOAP services. Capture SSL requests, provide POST data and custom headers - anything HTTP supports you can use in your session. Once captured play back the session under load by running for a specified time and number of simultaneous sessions. See summarized results, a few simple  graphs and examine individual requests and failures. Finally a command line tool is available to automate load tests from the command prompt or with shell scripts.</description>
-        <summary>Quick and easy HTTP Request and HTTP Load Testing for your Web Applications</summary>
+        <summary>Quick and easy HTTP Request and Load Testing for your Web Applications</summary>
         <releaseNotes>This update changes to more lenient licensing. Adds the ability to test all requests in a session	once for easy review in non-load scenarios. Time to 1st byte is now captured. .websurge extension support for session files so they just open in WebSurge when clicked. Optional formatted view with Syntax coloring for HTML, JSON and XML results.</releaseNotes>
         <copyright>West Wind Technologies, 2014-2015</copyright>
-        <tags>load-testing,stress-testing,web-test,rest,url-test,capture,test,replay-http,test-http</tags>
+        <tags>load-testing stress-testing web-test rest url-test capture test replay-http test-http</tags>
     </metadata>
     <files>
         <file src="tools\chocolateyInstall.ps1" target="tools\chocolateyInstall.ps1" />

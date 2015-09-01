@@ -11,13 +11,6 @@ support username and password per request. This is already supported,
 but there's no UI and no way to store this info in a request (use
 custom headers like the Active flag).
 
-<s>* **Hide and encrypt Password for Authentication Options**<br/>
-Currently the password in the options is entered and shown in plain text.
-When the request project is saved the password is saved along with the 
-request data also in plain text. Data can be entered as plain text, but 
-then needs to be displayed as ****. When written to file the value needs
-to be encrypted.</s>
-
 
 ### Features
 * **Sync multiple WebSurge Instances to increase load**<br/>

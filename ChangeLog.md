@@ -1,7 +1,7 @@
 # West Wind WebSurge Change Log
 
 ### Version 1.0
-<i><small>not released yet</small></i>
+<i><small>Sept. 2nd, 2015</small></i>
 
 * **Change licensing and remove limits on free version**  
 Remove limitations on the free version and change licensing to

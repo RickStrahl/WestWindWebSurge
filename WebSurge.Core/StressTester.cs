@@ -170,6 +170,10 @@ namespace WebSurge
                     client.CreateWebRequestObject(result.Url);
                     var webRequest = client.WebRequest;
 
+                    // TODO: Connection Groups might help with sharing connections more efficiently
+                    // Initial tests show no improvements - more research required
+                    //webRequest.ConnectionGroupName = "_WebSurge_" + Thread.CurrentContext.ContextID;
+
                     if (!string.IsNullOrEmpty(Options.Username))
                     {
                         client.Username = Options.Username;

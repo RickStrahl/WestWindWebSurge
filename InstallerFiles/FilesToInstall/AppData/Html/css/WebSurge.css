@@ -102,13 +102,13 @@ pre, .code {
     border: 1px solid silver;    
     font-family: Consolas,monospace;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 14px;
     padding: 7px;
     margin: 5px 8px;
     overflow-x: auto;
     overflow-y: hidden;     
     line-height: 1.3em;
-	white-space: pre-wrap;
+	  white-space: pre;
 }
 .code{
    display: block;  

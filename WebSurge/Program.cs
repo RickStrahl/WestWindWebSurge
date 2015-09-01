@@ -30,7 +30,7 @@ namespace WebSurge
                 ServicePointManager.DefaultConnectionLimit = 50;
 
             //ServicePointManager.MaxServicePoints = 50;
-            //ServicePointManager.MaxServicePointIdleTime = 1000000;
+            //ServicePointManager.MaxServicePointIdleTime = 100;
 
             // setting using config file switch
             //ServicePointManager.Expect100Continue = false;
