@@ -8,7 +8,7 @@ using WebSurge;
 
 namespace WebSurgeSamplePlugin
 {
-    public class SamplePlugIn : IWebSurgeExtensibility
+    public class LogPlugIn : IWebSurgeExtensibility
     {
         public bool OnBeforeRequestSent(HttpRequestData data)
         {

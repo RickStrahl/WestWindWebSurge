@@ -17,7 +17,7 @@ namespace WebSurge
         /// Options that determine how requests are setup and configured
         /// </summary>
         public StressTesterConfiguration Options { get; set; }
-        
+
         /// <summary>
         /// List of result request objects with data filled in.
         /// </summary>
@@ -33,7 +33,7 @@ namespace WebSurge
         /// Last number of threads used
         /// </summary>
         public int ThreadsUsed { get; set; }
-        
+
         /// <summary>
         /// Set this property to stop processing requests
         /// </summary>
@@ -43,14 +43,14 @@ namespace WebSurge
             set
             {
                 if (value && Running)
-                    TimeTakenForLastRunMs = (int) DateTime.UtcNow.Subtract(StartTime).TotalMilliseconds;
+                    TimeTakenForLastRunMs = (int)DateTime.UtcNow.Subtract(StartTime).TotalMilliseconds;
 
                 _CancelThreads = value;
             }
         }
         private bool _CancelThreads = false;
-        
-        
+
+
         /// <summary>
         /// StartTime when the request is starting.
         /// </summary> 
@@ -134,11 +134,11 @@ namespace WebSurge
             if (options == null)
                 Options = new StressTesterConfiguration();
             Options.MaxResponseSize = 5000;
-            StartTime = new DateTime(1900, 1,1);
-            
+            StartTime = new DateTime(1900, 1, 1);
+
             Results = new List<HttpRequestData>();
         }
-                
+
         /// <summary>
         /// Checks an individual site and returns a new HttpRequestData object
         /// </summary>
@@ -154,193 +154,194 @@ namespace WebSurge
 
             result.ErrorMessage = "Request is incomplete"; // assume not going to make it
 
-            result.IsWarmupRequest =  StartTime.AddSeconds(Options.WarmupSeconds) > DateTime.UtcNow;
+            result.IsWarmupRequest = StartTime.AddSeconds(Options.WarmupSeconds) > DateTime.UtcNow;
 
             try
             {
                 var client = new HttpClient();
-                
 
-                    if (!string.IsNullOrEmpty(Options.ReplaceDomain))
-                        result.Url = ReplaceDomain(result.Url);
 
-                    if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
-                        result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
+                if (!string.IsNullOrEmpty(Options.ReplaceDomain))
+                    result.Url = ReplaceDomain(result.Url);
 
-                    client.CreateWebRequestObject(result.Url);
-                    var webRequest = client.WebRequest;
+                if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
+                    result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
 
-                    // TODO: Connection Groups might help with sharing connections more efficiently
-                    // Initial tests show no improvements - more research required
-                    //webRequest.ConnectionGroupName = "_WebSurge_" + Thread.CurrentContext.ContextID;
-
-                    if (!string.IsNullOrEmpty(Options.Username))
+                foreach (var plugin in App.Plugins)
+                {
+                    try
                     {
-                        client.Username = Options.Username;
-                        webRequest.UnsafeAuthenticatedConnectionSharing = true;
+                        if (!plugin.OnBeforeRequestSent(result))
+                            return result;
                     }
-                    if (!string.IsNullOrEmpty(Options.Password))
-                        client.Password = Options.Password;
-
-                    webRequest.Method = reqData.HttpVerb;
-
-                    client.ContentType = reqData.ContentType;
-                    client.Timeout = Options.RequestTimeoutMs/1000;                    
-                
-                    // don't auto-add gzip headers and don't decode by default
-                    client.UseGZip = false;
-
-                    if (Options.NoContentDecompression)
-                        webRequest.AutomaticDecompression = DecompressionMethods.None;
-                    else
-                        webRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-                    if (!string.IsNullOrEmpty(reqData.RequestContent))
+                    catch (Exception ex)
                     {
-                        var data = reqData.GetRequestContentBytes();
-                        client.AddPostKey(data);
+                        App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
                     }
-                    else
+                }
+
+                client.CreateWebRequestObject(result.Url);
+                var webRequest = client.WebRequest;
+
+                // TODO: Connection Groups might help with sharing connections more efficiently
+                // Initial tests show no improvements - more research required
+                //webRequest.ConnectionGroupName = "_WebSurge_" + Thread.CurrentContext.ContextID;
+
+                if (!string.IsNullOrEmpty(Options.Username))
+                {
+                    client.Username = Options.Username;
+                    webRequest.UnsafeAuthenticatedConnectionSharing = true;
+                }
+                if (!string.IsNullOrEmpty(Options.Password))
+                    client.Password = Options.Password;
+
+                webRequest.Method = reqData.HttpVerb;
+
+                client.ContentType = reqData.ContentType;
+                client.Timeout = Options.RequestTimeoutMs / 1000;
+
+                // don't auto-add gzip headers and don't decode by default
+                client.UseGZip = false;
+
+                if (Options.NoContentDecompression)
+                    webRequest.AutomaticDecompression = DecompressionMethods.None;
+                else
+                    webRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+                if (!string.IsNullOrEmpty(reqData.RequestContent))
+                {
+                    var data = reqData.GetRequestContentBytes();
+                    client.AddPostKey(data);
+                }
+                else
+                {
+                    webRequest.ContentLength = 0;
+                }
+
+                foreach (var header in result.Headers)
+                {
+                    var lheader = header.Name.ToLower();
+
+                    // Header Overrides that fail if you try to set them
+                    // directly in HTTP
+                    if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
                     {
-                        webRequest.ContentLength = 0;
+                        string cookie = Options.ReplaceCookieValue;
+                        webRequest.Headers.Add("Cookie", cookie);
+                        header.Value = cookie;
+                        continue;
                     }
-
-                    foreach (var header in result.Headers)
+                    if (lheader == "authorization" && !string.IsNullOrEmpty(Options.ReplaceAuthorization))
                     {
-                        var lheader = header.Name.ToLower();
-
-                        // Header Overrides that fail if you try to set them
-                        // directly in HTTP
-                        if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
-                        {
-                            string cookie = Options.ReplaceCookieValue;
-                            webRequest.Headers.Add("Cookie", cookie);
-                            header.Value = cookie;
-                            continue;
-                        }
-                        if (lheader == "authorization" && !string.IsNullOrEmpty(Options.ReplaceAuthorization))
-                        {
-                            webRequest.Headers.Add("Authorization", Options.ReplaceAuthorization);
-                            header.Value = Options.ReplaceAuthorization;
-                            continue;
-                        }
-                        if (lheader == "user-agent")
-                        {
-                            client.UserAgent = header.Value;
-                            continue;
-                        }
-                        if (lheader == "accept")
-                        {
-                            webRequest.Accept = header.Value;
-                            continue;
-                        }
-                        if (lheader == "referer")
-                        {
-                            webRequest.Referer = header.Value;
-                            continue;
-                        }
-                        if (lheader == "connection")
-                        {
-                            if (header.Value.ToLower() == "keep-alive")
-                                webRequest.KeepAlive = true; // this has no effect
-                            else if (header.Value.ToLower() == "close")
-                                webRequest.KeepAlive = false;
-                            continue;
-                        }
-                        // set above view property
-                        if (lheader == "content-type")
-                            continue;
-                        // not handled at the moment
-                        if (lheader == "proxy-connection")
-                            continue; // TODO: Figure out what to do with this one
-
-                        // set explicitly via properties
-                        if (lheader == "transfer-encoding")
-                        {
-                            webRequest.TransferEncoding = header.Value;
-                            continue;
-                        }
-                        if (lheader == "date")
-                            continue;
-                        if (lheader == "expect")
-                        {
-                            //webRequest.Expect = header.Value;
-                            continue;
-                        }
-                        if (lheader == "if-modified-since")
-                            continue;
-
-                        webRequest.Headers.Add(header.Name, header.Value);
+                        webRequest.Headers.Add("Authorization", Options.ReplaceAuthorization);
+                        header.Value = Options.ReplaceAuthorization;
+                        continue;
                     }
-
-                    foreach (var plugin in App.Plugins)
+                    if (lheader == "user-agent")
                     {
-                        try
-                        {
-                            if (!plugin.OnBeforeRequestSent(result))
-                                return result;
-                        }
-                        catch (Exception ex)
-                        {
-                            App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
-                        }
+                        client.UserAgent = header.Value;
+                        continue;
                     }
-
-                    DateTime dt = DateTime.UtcNow;
-
-                    if (CancelThreads)
-                        return null;
-
-                    string httpOutput = client.DownloadString(result.Url);
-
-                    if (CancelThreads)
-                        return null;
-
-                    result.TimeTakenMs = (int) DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
-                    // result.TimeToFirstByteMs = client.Timings.TimeToFirstByteMs;
-
-                    if (client.Error || client.WebResponse == null)
+                    if (lheader == "accept")
                     {
-                        result.ErrorMessage = client.ErrorMessage;
-                        return result;
+                        webRequest.Accept = header.Value;
+                        continue;
                     }
-
-                    result.StatusCode = ((int) client.WebResponse.StatusCode).ToString();
-                    result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
-                    result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
-
-                    result.ResponseLength = (int) client.WebResponse.ContentLength;
-                    result.ResponseContent = httpOutput;
-
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string key in client.WebResponse.Headers.Keys)
+                    if (lheader == "referer")
                     {
-                        sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
+                        webRequest.Referer = header.Value;
+                        continue;
                     }
-
-                    result.ResponseHeaders = sb.ToString();
-
-                    // update to actual Http headers sent
-                    result.Headers.Clear();
-                    foreach (string key in webRequest.Headers.Keys)
+                    if (lheader == "connection")
                     {
-                        result.Headers.Add(new HttpRequestHeader() {Name = key, Value = webRequest.Headers[key]});
+                        if (header.Value.ToLower() == "keep-alive")
+                            webRequest.KeepAlive = true; // this has no effect
+                        else if (header.Value.ToLower() == "close")
+                            webRequest.KeepAlive = false;
+                        continue;
                     }
+                    // set above view property
+                    if (lheader == "content-type")
+                        continue;
+                    // not handled at the moment
+                    if (lheader == "proxy-connection")
+                        continue; // TODO: Figure out what to do with this one
 
-                    char statusCode = result.StatusCode[0];
-                    if (statusCode == '4' || statusCode == '5')
+                    // set explicitly via properties
+                    if (lheader == "transfer-encoding")
                     {
-                        result.IsError = true;
-                        result.ErrorMessage = client.WebResponse.StatusDescription;
+                        webRequest.TransferEncoding = header.Value;
+                        continue;
                     }
-                    else
+                    if (lheader == "date")
+                        continue;
+                    if (lheader == "expect")
                     {
-                        result.IsError = false;
-                        result.ErrorMessage = null;
+                        //webRequest.Expect = header.Value;
+                        continue;
+                    }
+                    if (lheader == "if-modified-since")
+                        continue;
 
-                        if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
-                            result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
-                    }
+                    webRequest.Headers.Add(header.Name, header.Value);
+                }
+
+                DateTime dt = DateTime.UtcNow;
+
+                if (CancelThreads)
+                    return null;
+
+                // using West Wind HttpClient
+                string httpOutput = client.DownloadString(result.Url);
+
+                if (CancelThreads)
+                    return null;
+
+                result.TimeTakenMs = (int)DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
+                // result.TimeToFirstByteMs = client.Timings.TimeToFirstByteMs;
+
+                if (client.Error || client.WebResponse == null)
+                {
+                    result.ErrorMessage = client.ErrorMessage;
+                    return result;
+                }
+
+                result.StatusCode = ((int)client.WebResponse.StatusCode).ToString();
+                result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
+                result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
+
+                result.ResponseLength = (int)client.WebResponse.ContentLength;
+                result.ResponseContent = httpOutput;
+
+                StringBuilder sb = new StringBuilder();
+                foreach (string key in client.WebResponse.Headers.Keys)
+                {
+                    sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
+                }
+
+                result.ResponseHeaders = sb.ToString();
+
+                // update to actual Http headers sent
+                result.Headers.Clear();
+                foreach (string key in webRequest.Headers.Keys)
+                {
+                    result.Headers.Add(new HttpRequestHeader() { Name = key, Value = webRequest.Headers[key] });
+                }
+
+                char statusCode = result.StatusCode[0];
+                if (statusCode == '4' || statusCode == '5')
+                {
+                    result.IsError = true;
+                    result.ErrorMessage = client.WebResponse.StatusDescription;
+                }
+                else
+                {
+                    result.IsError = false;
+                    result.ErrorMessage = null;
+
+                    if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
+                        result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
+                }
 
                 //} // using client
                 client.Dispose();
@@ -349,21 +350,21 @@ namespace WebSurge
                     OnRequestProcessed(result);
 
                 return result;
-                
+
             }
 
             // these will occur on shutdown - don't log since they will return
             // unstable results - just ignore
             catch (ThreadAbortException)
-            {                
+            {
                 return null;
             }
             catch (Exception ex)
-            {                
+            {
                 Console.WriteLine("Exception: " + ex.Message);
                 result.IsError = true;
                 result.ErrorMessage = "CheckSite Error: " + ex.GetBaseException().Message;
-                
+
                 if (!CancelThreads)
                     OnRequestProcessed(result);
 
@@ -392,7 +393,7 @@ namespace WebSurge
             if (!string.IsNullOrEmpty(Options.ReplaceDomain))
             {
                 var host = StringUtils.ExtractString(url, "://", "/", false, true);
-                url = url.Replace(host, Options.ReplaceDomain);                
+                url = url.Replace(host, Options.ReplaceDomain);
             }
 
             return url;
@@ -411,14 +412,14 @@ namespace WebSurge
         /// <param name="threadCount"></param>
         /// <param name="seconds"></param>
         /// <returns></returns>
-        public List<HttpRequestData> CheckAllSites(IEnumerable<HttpRequestData> requests, 
-                                                   int threadCount = 2, 
+        public List<HttpRequestData> CheckAllSites(IEnumerable<HttpRequestData> requests,
+                                                   int threadCount = 2,
                                                    int seconds = 60,
                                                    bool runOnce = false)
         {
-     
 
-            
+
+
             ThreadsUsed = threadCount;
 
             //if (UnlockKey.RegType == RegTypes.Free &&
@@ -461,7 +462,7 @@ namespace WebSurge
             }
 
             Running = true;
-             
+
             var threads = new List<Thread>();
             CancelThreads = false;
             RequestsProcessed = 0;
@@ -476,18 +477,18 @@ namespace WebSurge
                 var thread = new Thread(RunSessions);
                 thread.Start(requests);
                 threads.Add(thread);
-            }            
+            }
 
-            var lastProgress = DateTime.UtcNow.AddSeconds(-10);            
+            var lastProgress = DateTime.UtcNow.AddSeconds(-10);
             while (!CancelThreads)
             {
-                if (DateTime.UtcNow.Subtract(StartTime).TotalSeconds  > seconds + 1)
+                if (DateTime.UtcNow.Subtract(StartTime).TotalSeconds > seconds + 1)
                 {
-                    TimeTakenForLastRunMs = (int) DateTime.UtcNow.Subtract(StartTime).TotalMilliseconds;
-                    
+                    TimeTakenForLastRunMs = (int)DateTime.UtcNow.Subtract(StartTime).TotalMilliseconds;
+
                     CancelThreads = true;
 
-                    Thread.Sleep(3000);                    
+                    Thread.Sleep(3000);
                     foreach (var thread in threads)
                         thread.Abort();
                     Thread.Sleep(1000);
@@ -499,15 +500,15 @@ namespace WebSurge
                 if (DateTime.UtcNow.Subtract(lastProgress).TotalMilliseconds > 950)
                 {
                     lastProgress = DateTime.UtcNow;
-                    
-                    OnProgress(new ProgressInfo() 
+
+                    OnProgress(new ProgressInfo()
                     {
-                         SecondsProcessed = (int) DateTime.UtcNow.Subtract(StartTime).TotalSeconds,
-                         TotalSecondsToProcessed = seconds,
-                         RequestsProcessed = RequestsProcessed,
-                         RequestsFailed = RequestsFailed,                         
+                        SecondsProcessed = (int)DateTime.UtcNow.Subtract(StartTime).TotalSeconds,
+                        TotalSecondsToProcessed = seconds,
+                        RequestsProcessed = RequestsProcessed,
+                        RequestsFailed = RequestsFailed,
                     });
-                    
+
                 }
             }
 
@@ -519,10 +520,10 @@ namespace WebSurge
             var results = Results.Where(res => !res.IsWarmupRequest);
 
             var result = results.FirstOrDefault();
-            var min =  StartTime;
+            var min = StartTime;
             if (result != null)
             {
-                min = result.Timestamp;                
+                min = result.Timestamp;
                 min = TimeUtils.Truncate(min, DateTimeResolution.Second);
             }
             var max = min.AddSeconds(seconds + 1).AddMilliseconds(-1);
@@ -532,10 +533,10 @@ namespace WebSurge
             if (Results.Count > 0)
             {
                 max = Results.Max(res => res.Timestamp);
-                TimeTakenForLastRunMs = (int) TimeUtils.Truncate(max).Subtract(min).TotalMilliseconds;
+                TimeTakenForLastRunMs = (int)TimeUtils.Truncate(max).Subtract(min).TotalMilliseconds;
             }
             else
-                TimeTakenForLastRunMs = (int) TimeUtils.Truncate(DateTime.UtcNow).Subtract(min).TotalMilliseconds;
+                TimeTakenForLastRunMs = (int)TimeUtils.Truncate(DateTime.UtcNow).Subtract(min).TotalMilliseconds;
 
             foreach (var plugin in App.Plugins)
             {
@@ -549,7 +550,7 @@ namespace WebSurge
                 }
             }
 
-            return Results;   
+            return Results;
         }
 
 
@@ -580,7 +581,7 @@ namespace WebSurge
             {
                 var rqs = requests as List<HttpRequestData>;
                 reqs = new List<HttpRequestData>();
-                
+
                 var r = new Random();
                 foreach (var req in rqs
                     .OrderBy(rq => r.NextDouble())
@@ -592,13 +593,13 @@ namespace WebSurge
             }
             else
                 reqs = requests as List<HttpRequestData>;
-            
+
             while (!CancelThreads)
             {
 
                 foreach (var req in reqs)
                 {
-                    if (CancelThreads)                                            
+                    if (CancelThreads)
                         break;
 
                     var result = CheckSite(req);
@@ -615,7 +616,7 @@ namespace WebSurge
                         // no yielding - can generate more requests but much more cpu usage
                     }
                     else
-                        Thread.Sleep(Options.DelayTimeMs);  
+                        Thread.Sleep(Options.DelayTimeMs);
                 }
 
                 if (runOnce)
@@ -665,12 +666,12 @@ namespace WebSurge
             if (resultData == null)
                 resultData = Results;
             if (totalTime == 0)
-                totalTime = TimeTakenForLastRunMs/1000;
-            
+                totalTime = TimeTakenForLastRunMs / 1000;
+
             return ResultsParser.ParseResultsToString(resultData, totalTime, ThreadsUsed);
         }
 
-        
+
 
         /// <summary>
         /// Parses Fiddler Session Trace files into a list of HttpRequestData
@@ -681,9 +682,9 @@ namespace WebSurge
         public List<HttpRequestData> ParseSessionFile(string fileName)
         {
             var parser = new SessionParser();
-            
+
             var options = Options;
-            var requestDataList = parser.ParseFile(fileName,ref options);
+            var requestDataList = parser.ParseFile(fileName, ref options);
             if (options != null)
                 Options = options;
 
@@ -724,7 +725,7 @@ namespace WebSurge
                 e = e.GetBaseException();
 
             ErrorMessage = e.Message;
-        }        
+        }
     }
 
     public class ProgressInfo
@@ -732,7 +733,7 @@ namespace WebSurge
         public int SecondsProcessed { get; set; }
         public int TotalSecondsToProcessed { get; set; }
         public int RequestsProcessed { get; set; }
-        public int RequestsFailed { get; set; }        
+        public int RequestsFailed { get; set; }
     }
 }
 

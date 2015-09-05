@@ -37,7 +37,7 @@ namespace WebSurge
 
             string bitNess = Environment.Is64BitProcess ? "64 bit" : "32 bit";
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
-            lblVersionText.Text = "Build " + v.Major + "." + v.Minor + "b - " + bitNess ;
+            lblVersionText.Text = "Build " + v.Major + "." + v.Minor + " " + bitNess ;
 
             var reg = UnlockKey.RegType;
             if (reg == RegTypes.Free)
