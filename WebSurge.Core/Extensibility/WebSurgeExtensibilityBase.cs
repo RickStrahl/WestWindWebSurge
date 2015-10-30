@@ -21,7 +21,7 @@ namespace WebSurge
         /// </remarks>
         /// <param name="data"></param>
         /// <returns>return true to process the request, false to abort processing and skip this request</returns>
-        public bool OnBeforeRequestSent(HttpRequestData data)
+        public virtual bool OnBeforeRequestSent(HttpRequestData data)
         {
             return true;
         }
@@ -33,7 +33,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public void OnAfterRequestSent(HttpRequestData data)
+        public virtual void OnAfterRequestSent(HttpRequestData data)
         {
         }
 
@@ -46,7 +46,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="requests">The list of requests that will be processed</param>
         /// <returns>return true to run the test, false to stop processing</returns>
-        public bool OnLoadTestStarted(IList<HttpRequestData> requests)
+        public virtual bool OnLoadTestStarted(IList<HttpRequestData> requests)
         {
             return true;
         }
@@ -58,7 +58,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="results">List of every request run in the test - can be very large!</param>
         /// <param name="timeTakenForTestMs">Milliseconds take for test</param>
-        public void OnLoadTestCompleted(IList<HttpRequestData> results, int timeTakenForTestMs)
+        public virtual void OnLoadTestCompleted(IList<HttpRequestData> results, int timeTakenForTestMs)
         {
         }
     }

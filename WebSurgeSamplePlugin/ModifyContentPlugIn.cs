@@ -8,9 +8,9 @@ using WebSurge;
 
 namespace WebSurgeSamplePlugin
 {
-    public class ModifyContentPlugIn : IWebSurgeExtensibility
+    public class ModifyContentPlugIn : WebSurgeExtensibilityBase
     {
-        public bool OnBeforeRequestSent(HttpRequestData data)
+        public override bool OnBeforeRequestSent(HttpRequestData data)
         {
             var header = new HttpRequestHeader
             {
@@ -30,19 +30,6 @@ namespace WebSurgeSamplePlugin
             }
 
             return true;
-        }
-
-        public void OnAfterRequestSent(HttpRequestData data)
-        {
-        }
-
-        public bool OnLoadTestStarted(IList<HttpRequestData> requests)
-        {
-            return true;
-        }
-
-        public void OnLoadTestCompleted(IList<HttpRequestData> results, int timeTakenForTestMs)
-        {
         }
     }
 }
