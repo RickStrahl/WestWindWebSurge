@@ -35,6 +35,8 @@ namespace WebSurge
             // setting using config file switch
             //ServicePointManager.Expect100Continue = false;
 
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
             if (App.Configuration.StressTester.IgnoreCertificateErrors)
             {
                 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
