@@ -32,10 +32,12 @@ namespace WebSurge.Server
             counters.Add("Memory Usage", "Memory", "% Committed Bytes In Use");
 
             counters.Add("IIS Requests/sec", "Web Service", "Total Method Requests/sec", "_Total");
-            //his one is very unreliable
+            //this one is very unreliable
             counters.Add("ASP.NET Request/Sec", "ASP.NET Applications", "Requests/Sec", "__Total__");
 
             counters.Add("ASP.NET Current Requests", "ASP.NET", "Requests Current");
+            counters.Add("ASP.NET Queued Requests", "ASP.NET", "Requests Queued");
+            counters.Add("ASP.NET Requests Wait Time", "ASP.NET", "Request Wait Time");
 
             PerformanceCounterCategory category = new PerformanceCounterCategory("Network Interface");
             String[] instanceNames = category.GetInstanceNames();
@@ -62,7 +64,7 @@ namespace WebSurge.Server
 
         public PerformanceCounterList Update(int waitTimeMs)
         {
-            CounterList.GetValues(waitTimeMs);
+            CounterList.GetSamples(waitTimeMs);
 
             // create summary counters
             CounterList.SummarizeCounters("Net IO Total", "Total Network Load bytes/sec", true);

@@ -82,7 +82,7 @@ namespace WebSurge.Server
             PerfCounterItems.Add(key, item);
             return item;
         }
-
+       
         /// <summary>
         /// Goes through the list of PerfCounters and retrieves each counter's results
         /// and stores it in LastValue
@@ -226,7 +226,7 @@ namespace WebSurge.Server
         {
             foreach (var item in PerfCounterItems.Values)
             {
-                item.PerfCounter.NextSample();
+                item.FirstSample = item.PerfCounter.NextSample();
             }
 
             Thread.Sleep(waitTime);
@@ -234,6 +234,7 @@ namespace WebSurge.Server
             foreach (var item in PerfCounterItems.Values)
             {
                 item.LastSample = item.PerfCounter.NextSample();
+                item.SampleResult = CounterSample.Calculate(item.FirstSample,item.LastSample);                
             }
         }
 
@@ -316,7 +317,13 @@ namespace WebSurge.Server
 
         [JsonIgnore]
         public PerformanceCounter PerfCounter { get; set; }
+
         [JsonIgnore]
         public CounterSample LastSample { get; set; }
+
+        [JsonIgnore]
+        public CounterSample FirstSample { get; set; }
+
+        public float SampleResult { get; set; }
     }
 }

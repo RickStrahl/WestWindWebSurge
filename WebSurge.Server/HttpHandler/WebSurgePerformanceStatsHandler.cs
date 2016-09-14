@@ -13,7 +13,7 @@ namespace WebSurge.Server
     public class WebSurgePerformanceStatsHandler : IHttpHandler
     {
         //private PerformanceCounterList counters;
-        private int WaitTimeMs = 2000;
+        private int WaitTimeMs = 5000;
 
         public void ProcessRequest(HttpContext context)
         {
@@ -45,7 +45,7 @@ namespace WebSurge.Server
     
     public class WebSurgePerformanceStatsHandlerXXX : HttpTaskAsyncHandler
     {
-        private int WaitTimeMs = 2000;
+        private int WaitTimeMs = 5000;
 
         public override async Task ProcessRequestAsync(HttpContext context)
         {
@@ -56,8 +56,8 @@ namespace WebSurge.Server
         {
             var stats = new PerformanceStats();
             stats.Configure();
-            
-            var counters = await stats.UpdateAsyncTask(WaitTimeMs);
+                        
+            var counters = stats.UpdateAsyncTask(WaitTimeMs);
 
             var json = JsonConvert.SerializeObject(counters);
 
