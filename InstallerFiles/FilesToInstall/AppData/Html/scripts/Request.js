@@ -103,7 +103,7 @@ function configureAceEditor(editor, serverVars) {
     return editor;
 }
 
-setTimeout(function() {
+//setTimeout(function() {
 // attach ace to formatted code controls if they are loaded and visible
     try {
         window.aceEditorRequest = ace.edit("RequestBodyFormatted");
@@ -118,7 +118,7 @@ setTimeout(function() {
         aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
     } catch (ex) {;
     }
-}, 150);
+//}, 0);
 
 
 //setTimeout(function () {

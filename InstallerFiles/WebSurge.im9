@@ -770,7 +770,7 @@ project Flags=0x20 {
 		}
 		var ProductState: Flags=0xE, Type=0, Description="[MSI] Product installation state";
 		var ProductVersion: Flags=0x204, Type=0, Description="Product version" {
-			str Value: Default="1.05";
+			str Value: Default="1.01";
 		}
 		var ProfileFolder: Flags=0x244, Type=1, Description="Current User profile base folder" {
 			str Value: Default="<$syspath(7)=$shpath(40)=%USERPROFILE=_LocProfileFolder>";

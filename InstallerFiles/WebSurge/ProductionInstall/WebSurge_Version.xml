@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-   <Version>1.0.1</Version>
-   <ReleaseDate>September 2nd, 2015</ReleaseDate>
-   <Title>West Wind WebSurge Version 1.0 is now available</Title>
+   <Version>1.01</Version>
+   <ReleaseDate>October 10th, 2016</ReleaseDate>
+   <Title>West Wind WebSurge Version 1.01 is now available</Title>
    <Detail>This release adds support for saving sessions to DropBox and OneDrive, for sorting the request list and easier activation/deactivation of requests. You can now also name requests rather than relying on the URL to differentiate requests in the request list. There are big performance improvements to speed request loads. Fixed installer support for Windows 10.
 </Detail>
 </VersionInfo>
