@@ -1,4 +1,18 @@
-# West Wind WebSurge Change Log
+﻿# West Wind WebSurge Change Log
+
+### Version 1.0.1
+<i><small>Oct. 10th, 2016</small></i>
+
+* **Code Signed Exe's and Installer**  
+The WebSurge installer file and main binary EXEs are now code-signed for verfication purposes.
+
+* **Byte Size Display on Response Pane**  
+The result Response pane now shows the byte size of the actual request. The actual size may differ from the Content-Length if the content is encoded, or if the content is chunked and there is no Content-Length sent from the server.
+
+* **File Exports are not auto-opened**  
+Due to the large file size of exported reports exported test results are no longer opened, but simply shown in Explorer and highlighted. You can choose to open the files from Explorer.
+
+
 
 ### Version 1.0
 <i><small>Sept. 2nd, 2015</small></i>

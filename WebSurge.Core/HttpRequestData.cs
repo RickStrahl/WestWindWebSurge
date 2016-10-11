@@ -13,6 +13,10 @@ using Formatting = Newtonsoft.Json.Formatting;
 namespace WebSurge
 {
 
+    /// <summary>
+    /// This is the data point stored for each Web Surge request
+    /// that captures all the required request information.
+    /// </summary>
     public class HttpRequestData
     {
         public long Id { get; set; }
@@ -24,7 +28,7 @@ namespace WebSurge
         public string Host { get; set; }
         public string HttpVerb { get; set; }
         public string ContentType { get; set; }
-
+        
         public string FullRequest { get; set; }
         public string RequestContent { get; set; }
         

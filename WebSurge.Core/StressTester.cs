@@ -311,6 +311,9 @@ namespace WebSurge
                 result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
 
                 result.ResponseLength = (int)client.WebResponse.ContentLength;
+                if (result.ResponseLength < 1 && !string.IsNullOrEmpty(httpOutput))
+                    result.ResponseLength = httpOutput.Length;
+                    
                 result.ResponseContent = httpOutput;
 
                 StringBuilder sb = new StringBuilder();

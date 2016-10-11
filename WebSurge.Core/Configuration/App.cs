@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using WebSurge.Extensibility;
 using Westwind.Utilities;
@@ -13,7 +14,8 @@ namespace WebSurge
         public static string UserDataPath { get; set; }
         public static string LogFile { get; set; }
         public static string VersionCheckUrl { get; set; }
-        public static string InstallerDownloadUrl { get; set; }
+        public static string InstallerDownloadUrl { get; set; }   
+        public static string InstallerDownloadPage { get; set; }
         public static string WebHomeUrl { get; set; }
         public bool ReloadTemplates { get; set; }
 
@@ -32,6 +34,7 @@ namespace WebSurge
             LogFile = UserDataPath + "WebSurgeErrors.log";
             VersionCheckUrl = "http://west-wind.com/files/WebSurge_Version.xml";
             InstallerDownloadUrl = "http://west-wind.com/files/WebsurgeSetup.exe";
+            InstallerDownloadPage = "http://websurge.west-wind.com/download.aspx";
             WebHomeUrl = "http://west-wind.com/websurge";
 
             Configuration = new WebSurgeConfiguration();
@@ -54,6 +57,8 @@ namespace WebSurge
             Plugins = PluginLoader.LoadPlugIns();
         }
 
+        
+
 
         /// <summary>
         /// Logs exceptions in the applications
@@ -65,6 +70,16 @@ namespace WebSurge
 
             var msg = ex.Message + "\r\n---\r\n" + ex.Source + "\r\n" + ex.StackTrace + "\r\n";
             Log(msg);
+        }
+
+        public static void OpenFileInExplorer(string filename)
+        {
+            
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "explorer.exe",
+                Arguments = $"/select,{filename}"
+            });
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge", "WebSurge\WebSurge.csproj", "{978F07C6-754B-43CF-9E3C-73D2AA716074}"
 EndProject
@@ -29,27 +29,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.Server", "WebSurge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.SampleWeb", "WebSurge.SampleWeb\WebSurge.SampleWeb.csproj", "{8CA4E044-9411-40E7-85A8-4CE3E274AF95}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Html", "http://localhost:9751", "{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_9751"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\Users\Rick\AppData\Roaming\West Wind WebSurge\Html\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_9751\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_9751"
-		Release.AspNetCompiler.PhysicalPath = "..\..\Users\Rick\AppData\Roaming\West Wind WebSurge\Html\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_9751\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\..\Users\Rick\AppData\Roaming\West Wind WebSurge\Html\"
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35CE5CBE-2C7A-4634-B0D1-D14CA232B375}"
 	ProjectSection(SolutionItems) = preProject
 		WebEssentials-Settings.json = WebEssentials-Settings.json
@@ -57,6 +36,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurgeSamplePlugin", "WebSurgeSamplePlugin\WebSurgeSamplePlugin.csproj", "{F7911D80-F226-46D1-92B0-4E2E420683EE}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSurgeWebSite", "WebSurgeWebSite\", "{26C094A5-41FA-4727-A44C-E128B5655C59}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_15970"
+		Debug.AspNetCompiler.PhysicalPath = "WebSurgeWebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_15970\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_15970"
+		Release.AspNetCompiler.PhysicalPath = "WebSurgeWebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_15970\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "15970"
+		SlnRelativePath = "WebSurgeWebSite\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,20 +153,6 @@ Global
 		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.SandBox|Any CPU.Build.0 = Release|Any CPU
 		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Shareware|Any CPU.ActiveCfg = Release|Any CPU
 		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Shareware|Any CPU.Build.0 = Release|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.DemoMode|Any CPU.ActiveCfg = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.DemoMode|Any CPU.Build.0 = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Deploy|Any CPU.Build.0 = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.net40|Any CPU.ActiveCfg = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.net40|Any CPU.Build.0 = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.SandBox|Any CPU.ActiveCfg = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.SandBox|Any CPU.Build.0 = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Shareware|Any CPU.ActiveCfg = Debug|Any CPU
-		{863BAB11-5D9E-4EE4-B22E-16AB53DC166A}.Shareware|Any CPU.Build.0 = Debug|Any CPU
 		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7911D80-F226-46D1-92B0-4E2E420683EE}.DemoMode|Any CPU.ActiveCfg = Debug|Any CPU
@@ -181,8 +167,25 @@ Global
 		{F7911D80-F226-46D1-92B0-4E2E420683EE}.SandBox|Any CPU.Build.0 = Release|Any CPU
 		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Shareware|Any CPU.ActiveCfg = Release|Any CPU
 		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Shareware|Any CPU.Build.0 = Release|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.DemoMode|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.DemoMode|Any CPU.Build.0 = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.Deploy|Any CPU.Build.0 = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.net40|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.net40|Any CPU.Build.0 = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.SandBox|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.SandBox|Any CPU.Build.0 = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.Shareware|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C094A5-41FA-4727-A44C-E128B5655C59}.Shareware|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{26C094A5-41FA-4727-A44C-E128B5655C59} = {D2199721-D8A0-42B7-962B-E7562F9530A0}
 	EndGlobalSection
 EndGlobal

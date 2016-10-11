@@ -1,6 +1,11 @@
-# West Wind WebSurge ToDo List
+﻿# West Wind WebSurge ToDo List
 This document describes various fixes, ideas for new features and various 
 work items. 
+
+### Core Features
+
+* **Support for User Sessions**  
+We need the ability to explicitly load a session with specific user credentials. This can currently be done with creating a custom plug-in but it'd be nice to have a generic way to configure a user 'session' based on ids. Not sure how to approach this as each implentation tends to be different.
 
 ### Miscellaneous Fixes required
 * **Add per request username and password option**<br/>
@@ -21,11 +26,6 @@ to retrieve perf data to client. Have to create background thread that
 periodically picks up this performance data and either graphs or displays
 the progress.
 
-### Artwork
-* **Web Surge Logo Cleanup**<br/>
-Logo needs to be smoothed out. Would like to add a byte cloud into the
-black background of the warning logo - fade white code/text to black 
-gradient. Any graphic artists that want to help out?
 
 
 

@@ -12,6 +12,9 @@
         }
         pre,.code {            
 			margin: 0;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 10pt;
+            color: #222 !important;
             padding: 5px 12px 15px;            
         }    
 		
@@ -63,8 +66,8 @@
             overflow-x: scroll;
         }
        .ace_editor, .ace_editor * {
-            font-family: "Liberation Mono", Consolas, "Courier New", monospace !important;
-            font-size: 10pt !important;
+            font-family: "Menlo", Consolas,  "Courier New", monospace !important;
+            font-size: 10pt !important;            
             font-weight: normal !important;
             letter-spacing: 0 !important;
             background: transparent;           

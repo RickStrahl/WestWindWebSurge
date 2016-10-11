@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>WestwindWebSurge</id>
-        <version>1.0</version>
+        <version>1.01</version>
         <title>West Wind WebSurge</title>
         <authors>Rick Strahl,West Wind Technologies</authors>
         <owners>West Wind Technologies</owners>
@@ -17,8 +17,12 @@ Use our built-in Web capture tool to capture and filter Web sessions from Web Br
 Capture HTML requests, AJAX, REST and SOAP services. Capture SSL requests, provide POST data and custom headers - anything HTTP supports you can use in your session. Once captured play back the session under load by running for a specified time and number of simultaneous sessions. See summarized results, a few simple  graphs and examine individual requests and failures. Finally a command line tool is available to automate load tests from the command prompt or with shell scripts.</description>
         <summary>Quick and easy HTTP Request and Load Testing for your Web Applications</summary>
         <releaseNotes>This update changes to more lenient licensing. Adds the ability to test all requests in a session	once for easy review in non-load scenarios. Time to 1st byte is now captured. .websurge extension support for session files so they just open in WebSurge when clicked. Optional formatted view with Syntax coloring for HTML, JSON and XML results.</releaseNotes>
-        <copyright>West Wind Technologies, 2014-2015</copyright>
+        <copyright>West Wind Technologies, 2014-2016</copyright>
         <tags>load-testing stress-testing web-test rest url-test capture test replay-http test-http</tags>
+        <docsUrl>https://websurge.west-wind.com/docs/</docsUrl>
+        <mailingListUrl>https://support.west-wind.com</mailingListUrl>
+        <bugTrackerUrl>https://github.com/RickStrahl/WestWindWebSurge/issues</bugTrackerUrl>
+        <projectSourceUrl>https://github.com/RickStrahl/WestWindWebSurge</projectSourceUrl>
     </metadata>
     <files>
         <file src="tools\chocolateyInstall.ps1" target="tools\chocolateyInstall.ps1" />
