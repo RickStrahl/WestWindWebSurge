@@ -60,8 +60,9 @@ Commands:
 Value Options:
 --------------
 -s          Number of seconds to run the test (10)
+-w          Number of seconds used for warmup (0)
 -t          Number of simultaneous threads to run (2)
--d          Delay in milliseconds after each request
+-d          Delay in milliseconds after each request (0)
                1-n  Milliseconds of delay between requests
                0   No delay, but give up cpu time slice
                -1   No delay, no time slice (very high cpu usage)
