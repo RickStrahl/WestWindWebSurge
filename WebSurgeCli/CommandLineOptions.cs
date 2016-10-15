@@ -46,7 +46,7 @@ namespace WebSurge.Cli
             sb.AppendLine("West Wind WebSurge v" + Program.GetVersion());            
 
             string options = @"------------------------
-usage:   WebSurgeCli <SessionFile|Url> -sXX -tXX -dXX -r -yX
+usage:   WebSurgeCli <SessionFile|Url> -sXX -wXX -tXX -dXX -r -yX
 
 Parameters:
 -----------
