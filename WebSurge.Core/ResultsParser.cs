@@ -48,9 +48,9 @@ namespace WebSurge
             sb.AppendLine("Total Requests: " + result.TotalRequests.ToString("n0"));
 
             if (threads > 0)
-                sb.AppendLine("       Threads: " + result.ThreadCount);
+                sb.AppendLine("       Threads: " + result.ThreadCount.ToString("n0"));
 
-            sb.AppendLine("        Failed: " + result.FailedRequests);
+            sb.AppendLine("        Failed: " + result.FailedRequests.ToString("n0"));
 
             if (result.TimeTakenSecs > 0)
             {
