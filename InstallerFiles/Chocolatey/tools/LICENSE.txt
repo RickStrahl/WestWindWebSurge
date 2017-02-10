@@ -1,0 +1,24 @@
+﻿Although source code is available for West Wind Web Surge, the software
+is licensed as © Rick Strahl, West Wind Technologies, 2014-2016.
+
+WebSurge can be downloaded and evaluated for free and is
+free for personal or open source use, but a reasonably priced license
+is required for continued commercial use.  Licenses are per user,
+rather than per machine, so you can use WebSurge on as many
+computers you wish with your license. And organization license
+extends the license unlimited use in a single organization.
+
+Licenses can be purchased from:
+http://store.west-wind.com/product/websurge
+
+Warranty Disclaimer: No Warranty!
+
+IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY
+AND/OR REDISTRIBUTE THIS PROGRAM AND DOCUMENTATION, BE LIABLE FOR
+ANY COMMERCIAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES
+ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM INCLUDING,
+BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING RENDERED INACCURATE 
+OR LOSSES SUSTAINED BY YOU OR LOSSES SUSTAINED BY THIRD PARTIES OR 
+A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS, EVEN 
+IF YOU OR OTHER PARTIES HAVE BEEN ADVISED OF THE POSSIBILITY 
+OF SUCH DAMAGES.

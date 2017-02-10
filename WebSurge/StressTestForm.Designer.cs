@@ -119,6 +119,7 @@
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRecentSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.RecentFilesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.btnEditFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -153,7 +154,6 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
-            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
@@ -445,7 +445,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(434, 496);
+            this.ListRequests.Size = new System.Drawing.Size(434, 502);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 1;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -582,7 +582,7 @@
             this.tabResults.Location = new System.Drawing.Point(4, 22);
             this.tabResults.Name = "tabResults";
             this.tabResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResults.Size = new System.Drawing.Size(432, 601);
+            this.tabResults.Size = new System.Drawing.Size(432, 489);
             this.tabResults.TabIndex = 1;
             this.tabResults.Text = "Results";
             this.tabResults.UseVisualStyleBackColor = true;
@@ -604,7 +604,7 @@
             this.ListResults.Location = new System.Drawing.Point(-1, 37);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(434, 566);
+            this.ListResults.Size = new System.Drawing.Size(434, 454);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.TabIndex = 3;
             this.ListResults.UseCompatibleStateImageBehavior = false;
@@ -769,7 +769,7 @@
             this.tabPreview.Location = new System.Drawing.Point(4, 26);
             this.tabPreview.Margin = new System.Windows.Forms.Padding(0);
             this.tabPreview.Name = "tabPreview";
-            this.tabPreview.Size = new System.Drawing.Size(564, 597);
+            this.tabPreview.Size = new System.Drawing.Size(560, 485);
             this.tabPreview.TabIndex = 1;
             this.tabPreview.Text = "Preview";
             this.tabPreview.UseVisualStyleBackColor = true;
@@ -783,7 +783,7 @@
             this.PreViewBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.PreViewBrowser.Name = "PreViewBrowser";
             this.PreViewBrowser.ScriptErrorsSuppressed = true;
-            this.PreViewBrowser.Size = new System.Drawing.Size(564, 597);
+            this.PreViewBrowser.Size = new System.Drawing.Size(560, 485);
             this.PreViewBrowser.TabIndex = 2;
             this.PreViewBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.PreViewBrowser_Navigating);
             this.PreViewBrowser.NewWindow += new System.ComponentModel.CancelEventHandler(this.PreViewBrowser_NewWindow);
@@ -803,7 +803,7 @@
             this.tabRequest.Location = new System.Drawing.Point(4, 26);
             this.tabRequest.Name = "tabRequest";
             this.tabRequest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRequest.Size = new System.Drawing.Size(564, 597);
+            this.tabRequest.Size = new System.Drawing.Size(560, 485);
             this.tabRequest.TabIndex = 3;
             this.tabRequest.Text = "Request";
             this.tabRequest.UseVisualStyleBackColor = true;
@@ -812,7 +812,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(392, 37);
+            this.label3.Location = new System.Drawing.Point(388, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 16);
             this.label3.TabIndex = 13;
@@ -822,17 +822,18 @@
             // txtName
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(349, 58);
+            this.txtName.Location = new System.Drawing.Point(345, 58);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(206, 23);
             this.txtName.TabIndex = 1;
             this.ToolTip.SetToolTip(this.txtName, "Optional name for this request. Displayed in the Url List instead of the name.");
+            this.txtName.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
             // lblName
             // 
             this.lblName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblName.Location = new System.Drawing.Point(345, 37);
+            this.lblName.Location = new System.Drawing.Point(341, 37);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(47, 18);
             this.lblName.TabIndex = 11;
@@ -843,7 +844,7 @@
             // 
             this.chkIsActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkIsActive.AutoSize = true;
-            this.chkIsActive.Location = new System.Drawing.Point(497, 12);
+            this.chkIsActive.Location = new System.Drawing.Point(493, 12);
             this.chkIsActive.Name = "chkIsActive";
             this.chkIsActive.Size = new System.Drawing.Size(59, 19);
             this.chkIsActive.TabIndex = 3;
@@ -851,6 +852,7 @@
             this.ToolTip.SetToolTip(this.chkIsActive, "If unchecked the request will not run in a stress test. You can still test the re" +
         "quest individually however.");
             this.chkIsActive.UseVisualStyleBackColor = true;
+            this.chkIsActive.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
             // HeadersContentSplitter
             // 
@@ -873,8 +875,8 @@
             this.HeadersContentSplitter.Panel2.Controls.Add(this.lblRequestContent);
             this.HeadersContentSplitter.Panel2.Controls.Add(this.txtRequestContent);
             this.HeadersContentSplitter.Panel2MinSize = 75;
-            this.HeadersContentSplitter.Size = new System.Drawing.Size(549, 470);
-            this.HeadersContentSplitter.SplitterDistance = 167;
+            this.HeadersContentSplitter.Size = new System.Drawing.Size(545, 358);
+            this.HeadersContentSplitter.SplitterDistance = 127;
             this.HeadersContentSplitter.TabIndex = 9;
             this.HeadersContentSplitter.TabStop = false;
             this.HeadersContentSplitter.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.HeadersContentSplitter_SplitterMoved);
@@ -900,9 +902,10 @@
             this.txtRequestHeaders.Multiline = true;
             this.txtRequestHeaders.Name = "txtRequestHeaders";
             this.txtRequestHeaders.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRequestHeaders.Size = new System.Drawing.Size(548, 146);
+            this.txtRequestHeaders.Size = new System.Drawing.Size(544, 106);
             this.txtRequestHeaders.TabIndex = 4;
             this.txtRequestHeaders.DoubleClick += new System.EventHandler(this.TextBoxEditor_DoubleClick);
+            this.txtRequestHeaders.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
             // label1
             // 
@@ -936,14 +939,15 @@
             this.txtRequestContent.Multiline = true;
             this.txtRequestContent.Name = "txtRequestContent";
             this.txtRequestContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRequestContent.Size = new System.Drawing.Size(548, 278);
+            this.txtRequestContent.Size = new System.Drawing.Size(544, 206);
             this.txtRequestContent.TabIndex = 5;
             this.txtRequestContent.DoubleClick += new System.EventHandler(this.TextBoxEditor_DoubleClick);
+            this.txtRequestContent.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
             // btnRunRequest
             // 
             this.btnRunRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRunRequest.Location = new System.Drawing.Point(88, 565);
+            this.btnRunRequest.Location = new System.Drawing.Point(7, 453);
             this.btnRunRequest.Name = "btnRunRequest";
             this.btnRunRequest.Size = new System.Drawing.Size(75, 23);
             this.btnRunRequest.TabIndex = 7;
@@ -955,12 +959,13 @@
             // 
             this.btnSaveRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSaveRequest.BackColor = System.Drawing.Color.Transparent;
-            this.btnSaveRequest.Location = new System.Drawing.Point(7, 565);
+            this.btnSaveRequest.Location = new System.Drawing.Point(97, 453);
             this.btnSaveRequest.Name = "btnSaveRequest";
             this.btnSaveRequest.Size = new System.Drawing.Size(75, 23);
             this.btnSaveRequest.TabIndex = 6;
             this.btnSaveRequest.Text = "&Save";
             this.btnSaveRequest.UseVisualStyleBackColor = false;
+            this.btnSaveRequest.Visible = false;
             this.btnSaveRequest.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // txtRequestUrl
@@ -969,8 +974,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRequestUrl.Location = new System.Drawing.Point(6, 58);
             this.txtRequestUrl.Name = "txtRequestUrl";
-            this.txtRequestUrl.Size = new System.Drawing.Size(337, 23);
+            this.txtRequestUrl.Size = new System.Drawing.Size(333, 23);
             this.txtRequestUrl.TabIndex = 0;
+            this.txtRequestUrl.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
             // lblUrl
             // 
@@ -999,6 +1005,7 @@
             this.txtHttpMethod.Size = new System.Drawing.Size(113, 23);
             this.txtHttpMethod.TabIndex = 8;
             this.txtHttpMethod.Text = "GET";
+            this.txtHttpMethod.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
             // tabOptions
             // 
@@ -1006,7 +1013,7 @@
             this.tabOptions.Location = new System.Drawing.Point(4, 26);
             this.tabOptions.Margin = new System.Windows.Forms.Padding(0);
             this.tabOptions.Name = "tabOptions";
-            this.tabOptions.Size = new System.Drawing.Size(564, 597);
+            this.tabOptions.Size = new System.Drawing.Size(560, 485);
             this.tabOptions.TabIndex = 2;
             this.tabOptions.Text = "Session Options";
             this.tabOptions.UseVisualStyleBackColor = true;
@@ -1021,7 +1028,7 @@
             this.OptionsPropertyGrid.Margin = new System.Windows.Forms.Padding(0);
             this.OptionsPropertyGrid.Name = "OptionsPropertyGrid";
             this.OptionsPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.OptionsPropertyGrid.Size = new System.Drawing.Size(564, 597);
+            this.OptionsPropertyGrid.Size = new System.Drawing.Size(560, 485);
             this.OptionsPropertyGrid.TabIndex = 1;
             this.OptionsPropertyGrid.ToolbarVisible = false;
             // 
@@ -1141,9 +1148,20 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
-            this.RecentFilesContextMenu.OwnerItem = this.tbOpen;
+            this.RecentFilesContextMenu.OwnerItem = this.btnRecentSessions;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
+            // 
+            // tbOpen
+            // 
+            this.tbOpen.DropDown = this.RecentFilesContextMenu;
+            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
+            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(110, 22);
+            this.tbOpen.Text = "Open Session";
+            this.tbOpen.ToolTipText = "Open session file";
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // btnEditFile
             // 
@@ -1404,17 +1422,6 @@
             this.MainToolStrip.Name = "MainToolStrip";
             this.MainToolStrip.Size = new System.Drawing.Size(421, 25);
             this.MainToolStrip.TabIndex = 1;
-            // 
-            // tbOpen
-            // 
-            this.tbOpen.DropDown = this.RecentFilesContextMenu;
-            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
-            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(110, 22);
-            this.tbOpen.Text = "Open Session";
-            this.tbOpen.ToolTipText = "Open session file";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator1
             // 

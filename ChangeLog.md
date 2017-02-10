@@ -1,6 +1,15 @@
 ﻿# West Wind WebSurge Change Log
 
-### Version 1.0.1
+### Version 1.0.2
+
+* **Add additional XML preview formats**  
+Added additional XML preview formats to shows as formatted XML.
+
+* **Fix Request Editing Focus Issues**   
+Changed the request editing to not require explicit **Save** operations. New entries are now immediately added to the Request list and displayed in the list and any updates are immediately reflected in the request - no explicit save operation required.
+
+
+### Version 1.01
 <i><small>Oct. 10th, 2016</small></i>
 
 * **Code Signed Exe's and Installer**  
@@ -12,14 +21,12 @@ The result Response pane now shows the byte size of the actual request. The actu
 * **File Exports are not auto-opened**  
 Due to the large file size of exported reports exported test results are no longer opened, but simply shown in Explorer and highlighted. You can choose to open the files from Explorer.
 
-
-
 ### Version 1.0
 <i><small>Sept. 2nd, 2015</small></i>
 
 * **Change licensing and remove limits on free version**  
 Remove limitations on the free version and change licensing to
-make for free personal use and paid for commercial use. 
+make free for personal use and paid for commercial use. 
 
 * **[Plugin Support for Extensibility](https://github.com/RickStrahl/WestWindWebSurge/wiki/Creating-a-WebSurge-Plugin)**  
 Initial plugin interface that allow hooking into request processing as requests are fired against the server. You can hook `OnBeforeRequestSent` and `OnAfterRequestSent` methods that allow you to manipulate inbound requests and capture result requests as they are completed for custom logging or live analytics.
