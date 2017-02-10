@@ -416,6 +416,54 @@ namespace WebSurge
 
         #endregion
 
+        #region Editing Requests
+
+        void LoadRequest(HttpRequestData request)
+        {
+            txtName.Text = request.Name;
+            txtHttpMethod.Text = request.HttpVerb;
+            txtRequestUrl.Text = request.Url;
+            txtRequestUrl.Tag = request;
+            chkIsActive.Checked = request.IsActive;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (var hd in request.Headers)
+            {
+                sb.AppendLine(hd.Name + ": " + hd.Value);
+            }
+            txtRequestHeaders.Text = sb.ToString();
+            txtRequestContent.Text = request.RequestContent;            
+        }
+
+        HttpRequestData SaveRequest(HttpRequestData request)
+        {                        
+            if (request == null)
+                request = new HttpRequestData();
+            
+            request.IsActive = chkIsActive.Checked;
+            request.Name = txtName.Text;
+            request.Url = txtRequestUrl.Text;
+            request.HttpVerb = txtHttpMethod.Text;
+            request.RequestContent = txtRequestContent.Text;
+            request.ParseHttpHeaders(txtRequestHeaders.Text);            
+
+            return request;
+        }
+
+        private void RequestData_Changed(object sender, EventArgs e)
+        {
+            string displayData = null;
+            if (ActiveRequest != null)
+                displayData = ActiveRequest.Url + "|" + ActiveRequest.Name;
+
+            SaveRequest(ActiveRequest);
+
+            if (displayData == null && ActiveRequest != null ||
+                (displayData != ActiveRequest.Url + "|" + ActiveRequest.Name))                
+                RenderRequests(Requests);
+        }
+        #endregion
+
         #region Progress
 
         void StressTester_Progress(ProgressInfo obj)
@@ -744,6 +792,7 @@ namespace WebSurge
             var filtered = requests;
 
             ListRequests.BeginUpdate();
+
             for (int i = 0; i < filtered.Count; i++)
             {
                 var request = filtered[i];
@@ -772,39 +821,6 @@ namespace WebSurge
 
             if (selectedIndex > -1 && selectedIndex < ListRequests.Items.Count)
                 ListRequests.Items[selectedIndex].Selected = true;
-        }
-
-
-        void LoadRequest(HttpRequestData request)
-        {
-            txtName.Text = request.Name;
-            txtHttpMethod.Text = request.HttpVerb;
-            txtRequestUrl.Text = request.Url;
-            txtRequestUrl.Tag = request;
-            chkIsActive.Checked = request.IsActive;
-            StringBuilder sb = new StringBuilder();
-            foreach (var hd in request.Headers)
-            {
-                sb.AppendLine(hd.Name + ": " + hd.Value);
-            }
-            txtRequestHeaders.Text = sb.ToString();
-            txtRequestContent.Text = request.RequestContent;            
-        }
-
-        HttpRequestData SaveRequest(HttpRequestData request)
-        {                        
-            if (request == null)
-                request = new HttpRequestData();
-
-            request.IsActive = chkIsActive.Checked;
-            request.Name = txtName.Text;
-            request.Url = txtRequestUrl.Text;
-            request.HttpVerb = txtHttpMethod.Text;
-            request.RequestContent = txtRequestContent.Text;
-            request.ParseHttpHeaders(txtRequestHeaders.Text);
-            
-
-            return request;
         }
 
 
@@ -1178,13 +1194,25 @@ namespace WebSurge
             }
             if (sender == tbNewRequest || sender == tbNewRequest2)
             {
-                txtRequestUrl.Tag = null;
+                var req = new HttpRequestData()
+                {
+                    HttpVerb = "GET",
+                    Url = "http://",
+                    RequestContent = string.Empty
+                };
+                req.Headers.Add( new HttpRequestHeader
+                {
+                    Name = "Accept-Encoding",
+                    Value = "gzip,deflate"
+                });
+                                
+                txtRequestUrl.Tag = req;
+                ActiveRequest = req;
+                LoadRequest(req);
 
-                txtHttpMethod.Text = "GET";
-                txtRequestUrl.Text = "http://";
+                Requests.Add(req);
+                RenderRequests(Requests);
 
-                txtRequestHeaders.Text = "Accept-Encoding: gzip,deflate";
-                txtRequestContent.Text = string.Empty;
                 TabsResult.SelectedTab = tabRequest;
                 chkIsActive.Checked = true;
                 txtRequestUrl.Focus();
@@ -1208,17 +1236,18 @@ namespace WebSurge
             }
             if (sender == btnSaveRequest)
             {
-                var req = txtRequestUrl.Tag as HttpRequestData;
-                bool isNew = req == null;
-                req = SaveRequest(req);                
+                RequestData_Changed(sender, e);
+                //var req = txtRequestUrl.Tag as HttpRequestData;
+                //bool isNew = req == null;
+                //req = SaveRequest(req);                
 
-                if (isNew)
-                {
-                    Requests.Add(req);
-                    txtRequestUrl.Tag = req;
-                }
+                //if (isNew)
+                //{
+                //    Requests.Add(req);
+                //    txtRequestUrl.Tag = req;
+                //}
 
-                RenderRequests(Requests);
+                //RenderRequests(Requests);
             }
             if (sender == btnRunRequest || sender == tbTestRequest2 || sender == tbTestRequest)
             {
@@ -1437,7 +1466,6 @@ any reported issues.";
             ActiveRequest = req;
 
             string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);            
-
             HtmlPreview(html);
 
             TabsResult.SelectedTab = tabPreview;
@@ -1531,7 +1559,7 @@ any reported issues.";
             if (ActiveControl != null)
             {
                 // *** Force focus to 'save'
-                Control ctrl = ActiveControl;
+                Control ctrl = ActiveControl;                                
                 label2.Focus();
                 Application.DoEvents();
                 ctrl.Focus();
@@ -1555,6 +1583,7 @@ any reported issues.";
         }
 
         #endregion
+
     }
 
 }
