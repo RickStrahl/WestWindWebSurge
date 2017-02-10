@@ -126,7 +126,7 @@ namespace WebSurge
                 return null;
             if (ct.Contains("text/html"))
                 return "html";
-            if (ct.Contains("text/xml") || ct.Contains("application/xml"))
+            if (ct.Contains("text/xml") || ct.Contains("application/xml") || ct.Contains("application/soap+xml"))
                 return "xml";
             if (ct.Contains("application/json"))
                 return "json";
