@@ -20,7 +20,10 @@ copy $src\*.config $tgt
 
 xcopy "$env:appData\West Wind WebSurge\html\*.*" $appData\html /S /E /Y
 remove-item  $AppData\html\_preview.*
-remove-item  $AppData\html\_results.html
+
+If (Test-Path $AppData\html\_results.html) {
+    remove-item  $AppData\html\_results.html
+}
 
 & "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\signtool.exe" sign /v /n "West Wind Technologies" /sm /s MY /tr "http://timestamp.digicert.com" /td SHA256 /fd SHA256 "$tgt\WebSurge.exe"
 & "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\signtool.exe" sign /v /n "West Wind Technologies"  /sm /s MY   /tr "http://timestamp.digicert.com" /td SHA256 /fd SHA256  "$tgt\WebSurgeCli.exe"

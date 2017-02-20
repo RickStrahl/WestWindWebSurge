@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge", "WebSurge\WebSurge.csproj", "{978F07C6-754B-43CF-9E3C-73D2AA716074}"
 EndProject
@@ -32,7 +32,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35CE5CBE-2C7A-4634-B0D1-D14CA232B375}"
 	ProjectSection(SolutionItems) = preProject
 		WebEssentials-Settings.json = WebEssentials-Settings.json
-		..\WestwindToolkit\Westwind.Utilities\Westwind.Utilities.csproj = ..\WestwindToolkit\Westwind.Utilities\Westwind.Utilities.csproj
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurgeSamplePlugin", "WebSurgeSamplePlugin\WebSurgeSamplePlugin.csproj", "{F7911D80-F226-46D1-92B0-4E2E420683EE}"

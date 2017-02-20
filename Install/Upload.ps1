@@ -9,8 +9,6 @@ $pwd = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
 
 if(!$pwd) {Exit;}
 
-curl.exe -T ".\WebSurge\ProductionInstall\WebSurgeSetup.exe"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
-curl.exe -T ".\WebSurge\ProductionInstall\WebSurgeSetup.zip"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
-curl.exe -T ".\WebSurge\ProductionInstall\WebSurge_Version.xml"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
-
-pause
+curl.exe -T ".\Builds\CurrentRelease\WebSurgeSetup.exe"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
+curl.exe -T ".\Builds\CurrentRelease\WebSurgeSetup.zip"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
+curl.exe -T ".\Builds\CurrentRelease\WebSurge_Version.xml"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
