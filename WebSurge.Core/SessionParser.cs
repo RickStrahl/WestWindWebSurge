@@ -96,7 +96,8 @@ namespace WebSurge
                 if (options == null)
                     options = new StressTesterConfiguration();                
 
-                options.Password = Encryption.DecryptString(options.Password, App.EncryptionMachineKey);
+                if(options.Password != null)
+                    options.Password = Encryption.DecryptString(options.Password, App.EncryptionMachineKey);
             }
 
             return options;
