@@ -747,6 +747,7 @@
             this.btnCopyResponseTraceToClipboard});
             this.BrowserContextMenu.Name = "BrowserContextMenu";
             this.BrowserContextMenu.Size = new System.Drawing.Size(273, 120);
+            this.BrowserContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.BrowserContextMenu_Opening);
             // 
             // btnOpenInDefaultBrowser
             // 

@@ -1620,8 +1620,12 @@ any reported issues.";
                        (e.TotalBytesToReceive/1000).ToString("n0") + "kb");
         }
 
-        #endregion
+        private void BrowserContextMenu_Opening(object sender, CancelEventArgs e)
+        {
+            btnCopyResponseTraceToClipboard.Enabled = !string.IsNullOrEmpty(ActiveRequest?.StatusCode);
+        }
 
+        #endregion
     }
 
 }
