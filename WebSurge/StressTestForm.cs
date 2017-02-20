@@ -1227,8 +1227,13 @@ namespace WebSurge
                 if (!newRequest.Url.EndsWith("_COPIED"))
                     newRequest.Url += "_COPIED";
 
+                ActiveRequest = newRequest;
                 LoadRequest(newRequest);
-                txtRequestUrl.Tag = null; // it's a new request
+
+                Requests.Add(newRequest);
+                RenderRequests(Requests);
+                
+                txtRequestUrl.Tag = newRequest; // it's a new request
 
                 TabsResult.SelectedTab = tabRequest;
                 txtRequestUrl.Focus();

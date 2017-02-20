@@ -69,6 +69,8 @@ namespace WebSurge
         public static HttpRequestData Copy(HttpRequestData req)
         {
             var rnew = req.MemberwiseClone() as HttpRequestData;
+            rnew.Id = DataUtils.GenerateUniqueNumericId();
+            rnew.Name = null;
             rnew.Headers = new List<HttpRequestHeader>(req.Headers);
             rnew.Timestamp = DateTime.UtcNow;
             return rnew;     
