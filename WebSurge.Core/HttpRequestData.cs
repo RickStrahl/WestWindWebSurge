@@ -373,9 +373,10 @@ namespace WebSurge
         /// Parses a single HttpRequestData object to a string.
         /// Creates Request headers and content only - no response data.
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="req">the request instance to turn into a string</param>
+        /// <param name="noWebSurgeHeaders">Determines whether WebSurge specific headers are returned</param>
         /// <returns></returns>
-        public string ToRequestHttpHeader()
+        public string ToRequestHttpHeader(bool noWebSurgeHeaders = false)
         {
             var req = this;
 
@@ -388,10 +389,14 @@ namespace WebSurge
             {                
                 sb.AppendLine(header.Name + ": " + header.Value);
             }
-            if (!IsActive)
-                sb.AppendLine("Websurge-Request-Inactive: 1");
-            if (!string.IsNullOrEmpty(Name))
-                sb.AppendLine("Websurge-Request-Name: " + Name);
+
+            if (!noWebSurgeHeaders)
+            {
+                if (!IsActive)
+                    sb.AppendLine("Websurge-Request-Inactive: 1");
+                if (!string.IsNullOrEmpty(Name))
+                    sb.AppendLine("Websurge-Request-Name: " + Name);
+            }
 
             if (!string.IsNullOrEmpty(req.RequestContent))
                 sb.AppendLine("\r\n" + req.RequestContent);

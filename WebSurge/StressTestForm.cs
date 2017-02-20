@@ -1276,6 +1276,36 @@ namespace WebSurge
                 var browser = context.SourceControl as WebBrowser;
                 ShellUtils.GoUrl(browser.Url.ToString());
             }
+            if (sender == btnOpenUrlInDefaultBrowser)
+            {
+                var context = ((ToolStripItem)sender).GetCurrentParent() as ContextMenuStrip;
+                if (context == null)
+                    return;
+
+                ShellUtils.GoUrl(ActiveRequest.Url);
+            }
+            if (sender == btnCopyRequestTraceToClipboard)
+            {
+                var context = ((ToolStripItem)sender).GetCurrentParent() as ContextMenuStrip;
+                if (context == null || ActiveRequest == null)
+                    return;
+                
+                var reqText = ActiveRequest.ToRequestHttpHeader(true);
+                Clipboard.SetText(reqText);
+
+                this.ShowStatus("Request data copied to the Clipboard...", 1, 7000);
+            }
+            if (sender == btnCopyResponseTraceToClipboard)
+            {
+                var context = ((ToolStripItem)sender).GetCurrentParent() as ContextMenuStrip;
+                if (context == null || ActiveRequest == null)
+                    return;
+
+                var reqText = ActiveRequest.ToResponseHttpHeader();
+                Clipboard.SetText(reqText);
+
+                this.ShowStatus("Response data copied to the Clipboard...", 1, 7000);
+            }
 
 
             if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2 ||

@@ -177,6 +177,10 @@
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Help = new System.Windows.Forms.HelpProvider();
+            this.btnOpenUrlInDefaultBrowser = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnCopyRequestTraceToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCopyResponseTraceToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -236,6 +240,7 @@
             // 
             this.statusBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.statusBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.statusBar.Dock = System.Windows.Forms.DockStyle.None;
             this.statusBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -445,7 +450,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(434, 502);
+            this.ListRequests.Size = new System.Drawing.Size(434, 506);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 1;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -735,15 +740,19 @@
             // BrowserContextMenu
             // 
             this.BrowserContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnOpenInDefaultBrowser});
+            this.btnOpenInDefaultBrowser,
+            this.btnOpenUrlInDefaultBrowser,
+            this.toolStripSeparator20,
+            this.btnCopyRequestTraceToClipboard,
+            this.btnCopyResponseTraceToClipboard});
             this.BrowserContextMenu.Name = "BrowserContextMenu";
-            this.BrowserContextMenu.Size = new System.Drawing.Size(229, 26);
+            this.BrowserContextMenu.Size = new System.Drawing.Size(273, 120);
             // 
             // btnOpenInDefaultBrowser
             // 
             this.btnOpenInDefaultBrowser.Name = "btnOpenInDefaultBrowser";
-            this.btnOpenInDefaultBrowser.Size = new System.Drawing.Size(228, 22);
-            this.btnOpenInDefaultBrowser.Text = "Open in default Web Browser";
+            this.btnOpenInDefaultBrowser.Size = new System.Drawing.Size(272, 22);
+            this.btnOpenInDefaultBrowser.Text = "Open Preview in default Web Browser";
             this.btnOpenInDefaultBrowser.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // txtConsole
@@ -822,9 +831,10 @@
             // txtName
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(345, 58);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(206, 23);
+            this.txtName.Size = new System.Drawing.Size(206, 25);
             this.txtName.TabIndex = 1;
             this.ToolTip.SetToolTip(this.txtName, "Optional name for this request. Displayed in the Url List instead of the name.");
             this.txtName.Leave += new System.EventHandler(this.RequestData_Changed);
@@ -897,7 +907,7 @@
             this.txtRequestHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRequestHeaders.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRequestHeaders.Font = new System.Drawing.Font("Consolas", 10F);
             this.txtRequestHeaders.Location = new System.Drawing.Point(0, 20);
             this.txtRequestHeaders.Multiline = true;
             this.txtRequestHeaders.Name = "txtRequestHeaders";
@@ -934,7 +944,7 @@
             this.txtRequestContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRequestContent.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRequestContent.Font = new System.Drawing.Font("Consolas", 10F);
             this.txtRequestContent.Location = new System.Drawing.Point(0, 20);
             this.txtRequestContent.Multiline = true;
             this.txtRequestContent.Name = "txtRequestContent";
@@ -972,9 +982,10 @@
             // 
             this.txtRequestUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRequestUrl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRequestUrl.Location = new System.Drawing.Point(6, 58);
             this.txtRequestUrl.Name = "txtRequestUrl";
-            this.txtRequestUrl.Size = new System.Drawing.Size(333, 23);
+            this.txtRequestUrl.Size = new System.Drawing.Size(333, 25);
             this.txtRequestUrl.TabIndex = 0;
             this.txtRequestUrl.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
@@ -1148,7 +1159,6 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
-            this.RecentFilesContextMenu.OwnerItem = this.btnRecentSessions;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
             // 
@@ -1597,6 +1607,32 @@
             // 
             this.Help.HelpNamespace = "WebSurge.chm";
             // 
+            // btnOpenUrlInDefaultBrowser
+            // 
+            this.btnOpenUrlInDefaultBrowser.Name = "btnOpenUrlInDefaultBrowser";
+            this.btnOpenUrlInDefaultBrowser.Size = new System.Drawing.Size(272, 22);
+            this.btnOpenUrlInDefaultBrowser.Text = "Open Request Url in Default Browser";
+            this.btnOpenUrlInDefaultBrowser.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(269, 6);
+            // 
+            // btnCopyRequestTraceToClipboard
+            // 
+            this.btnCopyRequestTraceToClipboard.Name = "btnCopyRequestTraceToClipboard";
+            this.btnCopyRequestTraceToClipboard.Size = new System.Drawing.Size(272, 22);
+            this.btnCopyRequestTraceToClipboard.Text = "Copy Request Trace to Clipboard";
+            this.btnCopyRequestTraceToClipboard.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // btnCopyResponseTraceToClipboard
+            // 
+            this.btnCopyResponseTraceToClipboard.Name = "btnCopyResponseTraceToClipboard";
+            this.btnCopyResponseTraceToClipboard.Size = new System.Drawing.Size(272, 22);
+            this.btnCopyResponseTraceToClipboard.Text = "Copy Response Trace to Clipboard";
+            this.btnCopyResponseTraceToClipboard.Click += new System.EventHandler(this.ButtonHandler);
+            // 
             // StressTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1815,6 +1851,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
         private System.Windows.Forms.ToolStripMenuItem tbOpenFromOneDrive;
         private System.Windows.Forms.ToolStripMenuItem tbSaveToOneDrive;
+        private System.Windows.Forms.ToolStripMenuItem btnOpenUrlInDefaultBrowser;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
+        private System.Windows.Forms.ToolStripMenuItem btnCopyRequestTraceToClipboard;
+        private System.Windows.Forms.ToolStripMenuItem btnCopyResponseTraceToClipboard;
     }
 }
 

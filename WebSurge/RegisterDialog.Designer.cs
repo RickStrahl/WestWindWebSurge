@@ -58,11 +58,11 @@
             // 
             // lnkRegister
             // 
-            this.lnkRegister.Font = new System.Drawing.Font("Segoe UI", 24F);
+            this.lnkRegister.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkRegister.LinkColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lnkRegister.Location = new System.Drawing.Point(210, 208);
+            this.lnkRegister.Location = new System.Drawing.Point(214, 203);
             this.lnkRegister.Name = "lnkRegister";
-            this.lnkRegister.Size = new System.Drawing.Size(245, 45);
+            this.lnkRegister.Size = new System.Drawing.Size(245, 53);
             this.lnkRegister.TabIndex = 13;
             this.lnkRegister.TabStop = true;
             this.lnkRegister.Text = "Register";
@@ -74,7 +74,7 @@
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label2.ForeColor = System.Drawing.SystemColors.Info;
-            this.label2.Location = new System.Drawing.Point(200, 94);
+            this.label2.Location = new System.Drawing.Point(204, 94);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(296, 127);
             this.label2.TabIndex = 12;
@@ -86,7 +86,7 @@
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(200, 44);
+            this.label1.Location = new System.Drawing.Point(204, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(304, 41);
             this.label1.TabIndex = 11;
@@ -96,7 +96,7 @@
             // 
             this.lblYouAreUsing.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lblYouAreUsing.ForeColor = System.Drawing.SystemColors.Info;
-            this.lblYouAreUsing.Location = new System.Drawing.Point(200, 16);
+            this.lblYouAreUsing.Location = new System.Drawing.Point(204, 16);
             this.lblYouAreUsing.Name = "lblYouAreUsing";
             this.lblYouAreUsing.Size = new System.Drawing.Size(284, 21);
             this.lblYouAreUsing.TabIndex = 10;
@@ -106,11 +106,11 @@
             // 
             this.lblClickClose.AutoSize = true;
             this.lblClickClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClickClose.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblClickClose.Location = new System.Drawing.Point(493, 3);
+            this.lblClickClose.Location = new System.Drawing.Point(503, 6);
             this.lblClickClose.Name = "lblClickClose";
-            this.lblClickClose.Size = new System.Drawing.Size(13, 14);
+            this.lblClickClose.Size = new System.Drawing.Size(16, 18);
             this.lblClickClose.TabIndex = 14;
             this.lblClickClose.Text = "x";
             this.lblClickClose.Click += new System.EventHandler(this.lblClickClose_Click);
@@ -120,7 +120,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(508, 278);
+            this.ClientSize = new System.Drawing.Size(524, 284);
             this.Controls.Add(this.lblClickClose);
             this.Controls.Add(this.lnkRegister);
             this.Controls.Add(this.label2);
