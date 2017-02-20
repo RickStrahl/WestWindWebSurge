@@ -451,7 +451,7 @@ project Flags=0x20 {
 			str Value: Default="<$shpath(33)=@<ShellFoldersCU>\\Cookies=_LocCookiesFolder>";
 		}
 		var Copyright: Flags=0x204, Type=0, Description="Copyright notice" {
-			str Value: Default="West Wind Technologies, 2014-2016";
+			str Value: Default="West Wind Technologies, 2014-2017";
 		}
 		var CostingComplete: Flags=0xE, Type=0, Description="[MSI] Costing is complete";
 		var DAOFolder64: Flags=0x200, Type=0 {
@@ -770,7 +770,7 @@ project Flags=0x20 {
 		}
 		var ProductState: Flags=0xE, Type=0, Description="[MSI] Product installation state";
 		var ProductVersion: Flags=0x204, Type=0, Description="Product version" {
-			str Value: Default="1.01";
+			str Value: Default="1.02";
 		}
 		var ProfileFolder: Flags=0x244, Type=1, Description="Current User profile base folder" {
 			str Value: Default="<$syspath(7)=$shpath(40)=%USERPROFILE=_LocProfileFolder>";
@@ -3700,14 +3700,14 @@ project Flags=0x20 {
 						}
 						folder ProgramGroupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=1 {
 							str Name: Default="<ProductName>";
-							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
-								str Title: Default="West Wind Web Monitor";
-								str Description: Default="West Wind Web Monitor";
-							}
 							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>\\WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
 								str Title: Default="West Wind Web Monitor (Task Tray)";
 								str Description: Default="Runs West Wind Web Monitor in Task Tray operation mode";
 								str Arguments: Default="-trayicon";
+							}
+							shlink Shortcut2_CB9AF45487D58F66: Flags=0x0, TargetPath="<INSTALLDIR>WebMonitor.exe", WorkDir="<INSTALLDIR>", IconIndex=0, ShowCmd=0 {
+								str Title: Default="West Wind Web Monitor";
+								str Description: Default="West Wind Web Monitor";
 							}
 						}
 						folder StartupFolder: Flags=0x0, Traits=0x80000000, InstallAction=0, RemoveAction=0 {
