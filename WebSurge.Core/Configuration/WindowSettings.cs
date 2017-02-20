@@ -12,6 +12,8 @@ namespace WebSurge
         public int Split { get; set; }
         public int HeadersContentSplit { get; set; }
 
+        public int Accesses { get; set; }
+
         public WindowSettings()
         {
             Left = -1;

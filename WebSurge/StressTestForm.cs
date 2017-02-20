@@ -235,14 +235,17 @@ namespace WebSurge
 
         private void StressTestForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
             Hide();
             Application.DoEvents();
 
             if(!UnlockKey.Unlocked)
             {
-                var form = new RegisterDialog();
-                form.ShowDialog();                
+                App.Configuration.WindowSettings.Accesses++;
+                if (App.Configuration.WindowSettings.Accesses % 3 == 0)
+                {
+                    var form = new RegisterDialog();
+                    form.ShowDialog();
+                }
             }
 
 
