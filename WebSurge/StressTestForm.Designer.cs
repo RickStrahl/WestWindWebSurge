@@ -84,6 +84,10 @@
             this.TestResultBrowser = new System.Windows.Forms.WebBrowser();
             this.BrowserContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnOpenInDefaultBrowser = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpenUrlInDefaultBrowser = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnCopyRequestTraceToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCopyResponseTraceToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.tabPreview = new System.Windows.Forms.TabPage();
             this.PreViewBrowser = new System.Windows.Forms.WebBrowser();
@@ -119,7 +123,6 @@
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRecentSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.RecentFilesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.btnEditFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -154,6 +157,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
@@ -177,10 +181,6 @@
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Help = new System.Windows.Forms.HelpProvider();
-            this.btnOpenUrlInDefaultBrowser = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnCopyRequestTraceToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnCopyResponseTraceToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -450,7 +450,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(434, 506);
+            this.ListRequests.Size = new System.Drawing.Size(434, 462);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 1;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -746,7 +746,7 @@
             this.btnCopyRequestTraceToClipboard,
             this.btnCopyResponseTraceToClipboard});
             this.BrowserContextMenu.Name = "BrowserContextMenu";
-            this.BrowserContextMenu.Size = new System.Drawing.Size(273, 120);
+            this.BrowserContextMenu.Size = new System.Drawing.Size(273, 98);
             this.BrowserContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.BrowserContextMenu_Opening);
             // 
             // btnOpenInDefaultBrowser
@@ -755,6 +755,32 @@
             this.btnOpenInDefaultBrowser.Size = new System.Drawing.Size(272, 22);
             this.btnOpenInDefaultBrowser.Text = "Open Preview in default Web Browser";
             this.btnOpenInDefaultBrowser.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // btnOpenUrlInDefaultBrowser
+            // 
+            this.btnOpenUrlInDefaultBrowser.Name = "btnOpenUrlInDefaultBrowser";
+            this.btnOpenUrlInDefaultBrowser.Size = new System.Drawing.Size(272, 22);
+            this.btnOpenUrlInDefaultBrowser.Text = "Open Request Url in Default Browser";
+            this.btnOpenUrlInDefaultBrowser.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(269, 6);
+            // 
+            // btnCopyRequestTraceToClipboard
+            // 
+            this.btnCopyRequestTraceToClipboard.Name = "btnCopyRequestTraceToClipboard";
+            this.btnCopyRequestTraceToClipboard.Size = new System.Drawing.Size(272, 22);
+            this.btnCopyRequestTraceToClipboard.Text = "Copy Request Trace to Clipboard";
+            this.btnCopyRequestTraceToClipboard.Click += new System.EventHandler(this.ButtonHandler);
+            // 
+            // btnCopyResponseTraceToClipboard
+            // 
+            this.btnCopyResponseTraceToClipboard.Name = "btnCopyResponseTraceToClipboard";
+            this.btnCopyResponseTraceToClipboard.Size = new System.Drawing.Size(272, 22);
+            this.btnCopyResponseTraceToClipboard.Text = "Copy Response Trace to Clipboard";
+            this.btnCopyResponseTraceToClipboard.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // txtConsole
             // 
@@ -1160,19 +1186,9 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
+            this.RecentFilesContextMenu.OwnerItem = this.tbOpen;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
-            // 
-            // tbOpen
-            // 
-            this.tbOpen.DropDown = this.RecentFilesContextMenu;
-            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
-            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(110, 22);
-            this.tbOpen.Text = "Open Session";
-            this.tbOpen.ToolTipText = "Open session file";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // btnEditFile
             // 
@@ -1434,6 +1450,17 @@
             this.MainToolStrip.Size = new System.Drawing.Size(421, 25);
             this.MainToolStrip.TabIndex = 1;
             // 
+            // tbOpen
+            // 
+            this.tbOpen.DropDown = this.RecentFilesContextMenu;
+            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
+            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(110, 22);
+            this.tbOpen.Text = "Open Session";
+            this.tbOpen.ToolTipText = "Open session file";
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -1607,32 +1634,6 @@
             // Help
             // 
             this.Help.HelpNamespace = "WebSurge.chm";
-            // 
-            // btnOpenUrlInDefaultBrowser
-            // 
-            this.btnOpenUrlInDefaultBrowser.Name = "btnOpenUrlInDefaultBrowser";
-            this.btnOpenUrlInDefaultBrowser.Size = new System.Drawing.Size(272, 22);
-            this.btnOpenUrlInDefaultBrowser.Text = "Open Request Url in Default Browser";
-            this.btnOpenUrlInDefaultBrowser.Click += new System.EventHandler(this.ButtonHandler);
-            // 
-            // toolStripSeparator20
-            // 
-            this.toolStripSeparator20.Name = "toolStripSeparator20";
-            this.toolStripSeparator20.Size = new System.Drawing.Size(269, 6);
-            // 
-            // btnCopyRequestTraceToClipboard
-            // 
-            this.btnCopyRequestTraceToClipboard.Name = "btnCopyRequestTraceToClipboard";
-            this.btnCopyRequestTraceToClipboard.Size = new System.Drawing.Size(272, 22);
-            this.btnCopyRequestTraceToClipboard.Text = "Copy Request Trace to Clipboard";
-            this.btnCopyRequestTraceToClipboard.Click += new System.EventHandler(this.ButtonHandler);
-            // 
-            // btnCopyResponseTraceToClipboard
-            // 
-            this.btnCopyResponseTraceToClipboard.Name = "btnCopyResponseTraceToClipboard";
-            this.btnCopyResponseTraceToClipboard.Size = new System.Drawing.Size(272, 22);
-            this.btnCopyResponseTraceToClipboard.Text = "Copy Response Trace to Clipboard";
-            this.btnCopyResponseTraceToClipboard.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // StressTestForm
             // 
