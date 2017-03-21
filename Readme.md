@@ -14,10 +14,10 @@ Here's what the stress testing output looks like:
 #### Web Stress Testing
 The goal of this tool is to make it drop dead easy to capture or craete HTTP request content and test and play it back easily under load. It provides simple results that are easy to understand and act on. It's so easy that you can *frequently* stress test Web applications for load  characteristics during development, testing and in production.
 
-* Easy capture or entry of URLs
+* Easy capture or manual entry of URLs
 * Interactive recording of screen sessions
 * Quickly access and run your test
-* Test and preview individual URLs
+* Test and preview individual URLs 
 * Immediate process feedback
 
 #### Interactive URL Testing
