@@ -100,6 +100,46 @@ namespace WebSurge
             return res.ToList();
         }
 
+        public IEnumerable<DistributionResult> TimeTakenDistribution(IEnumerable<HttpRequestData> resultData, int slotDuration, bool showStats)
+        {
+            List<DistributionResult> toReturn = new List<DistributionResult>();
+
+            var resultSets = (from rd in resultData
+                              where rd.IsError == false
+                              select new { rd.Url, rd.HttpVerb }).Distinct().ToList();
+
+            foreach (var dataSet in resultSets)
+            {
+                DistributionResult toAdd = new DistributionResult();
+                toAdd.Url = dataSet.Url;
+                toAdd.HttpVerb = dataSet.HttpVerb;
+                toAdd.MinDuration = (from rd in resultData select rd.TimeTakenMs).Min();
+                toAdd.MaxDuration = (from rd in resultData select rd.TimeTakenMs).Max();
+                Dictionary<int, int> groupedTimings = new Dictionary<int, int>(((toAdd.MaxDuration - toAdd.MinDuration) / slotDuration) + 1);
+
+                var toProcess = (from rd in resultData
+                                 where rd.Url.Equals(dataSet.Url) && rd.HttpVerb.Equals(dataSet.HttpVerb)
+                                 select rd);
+
+                foreach (var toProcElement in toProcess)
+                {
+                    int slotId = (toProcElement.TimeTakenMs / slotDuration) * slotDuration;
+                    int currentValue;
+                    groupedTimings.TryGetValue(slotId, out currentValue);
+                    groupedTimings[slotId] = currentValue + 1;
+                }
+                toAdd.SegmentList = new SortedDictionary<int, int>(groupedTimings);
+
+                if (showStats)
+                {
+                    //Populate stats
+                }
+
+                toReturn.Add(toAdd);
+            }
+            return toReturn;
+        }
+
         public IEnumerable<UrlSummary> UrlSummary(IEnumerable<HttpRequestData> resultData, int totalTimeTakenSecs)
         {
             // avoid divide by 0 error - assume at least 1 second
@@ -197,4 +237,20 @@ namespace WebSurge
         public bool IsError { get; set; }
     }
 
+    public class DistributionResult
+    {
+        public string Url { get; set; }
+        public string HttpVerb { get; set; }
+        public int MinDuration { get; set; }
+        public int MaxDuration { get; set; }
+        public SortedDictionary<int, int> SegmentList { get; set; }
+        public DistributionStats Stats { get; set; }
+    }
+
+    public class DistributionStats
+    {
+        float Average { get; set; }
+        float Mean { get; set; }
+        float StdDeviation { get; set; }
+    }
 }

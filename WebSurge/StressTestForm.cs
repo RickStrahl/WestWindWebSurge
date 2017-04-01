@@ -1366,6 +1366,15 @@ namespace WebSurge
                 }
 
             }
+            if (sender == tbDistributionGraph)
+            {
+                if (StressTester.Results.Count() > 0)
+                {
+                    var form = new ChartFormZed(StressTester.Results, null, ChartTypes.ResponseTimeDistribution);
+                    form.ParentForm = this;
+                    form.Show();
+                }
+            }
             else if (sender == btnFeedback)
             {
                 string msg = 

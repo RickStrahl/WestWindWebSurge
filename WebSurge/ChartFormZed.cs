@@ -56,6 +56,8 @@ namespace WebSurge
                 RenderTimeTaken();
             else if (ChartType == ChartTypes.RequestsPerSecond)
                 RenderRequestsPerSecond();
+            else if (ChartType == ChartTypes.ResponseTimeDistribution)
+                RenderResponseTimeDistribution();
 
             if (ParentForm != null)
                 ParentForm.Cursor = Cursors.Default;
@@ -106,6 +108,66 @@ namespace WebSurge
             pane.AxisChange();
         }
 
+        private void RenderResponseTimeDistribution(int slotDuration = 1, int minX = 0, int? maxX = null,
+            int minY = 0, int? maxY = null, bool showStats = false, string title = "Distribution of response times",
+            bool isSmooth = false, float smoothTension=0f )
+        {
+            ClearSeries();
+
+            var parser = new ResultsParser();
+            IEnumerable<DistributionResult> results = parser.TimeTakenDistribution(Results, slotDuration, showStats);
+
+            var pane = Chart.GraphPane;
+
+            pane.Title.Text = title;
+            pane.Title.FontSpec.FontColor = Color.DarkBlue;
+            pane.Title.FontSpec.Size = 14.25F;
+            pane.Title.FontSpec.IsBold = true;
+
+            pane.LineType = LineType.Normal;
+            pane.XAxis.Title.Text = "Milli-seconds";
+            pane.YAxis.Title.Text = "Occurrences";
+            pane.Chart.Fill = new Fill(Color.LightYellow, Color.PaleGoldenrod, 45.0F);
+            Chart.IsShowPointValues = true;
+
+            int curveCount = 0;
+            Color[] colorArray = { Color.Green, Color.Red, Color.Blue, Color.Black, Color.Yellow };
+
+            foreach (DistributionResult result in results)
+            {
+                PointPairList pointsList = new PointPairList(
+                    (from t in result.SegmentList
+                     select Convert.ToDouble(t.Key)).ToArray(),
+                    (from t in result.SegmentList
+                     select Convert.ToDouble(t.Value)).ToArray()
+                    );
+
+                var curve = pane.AddCurve(string.Format("{0} ({1})", result.Url, result.HttpVerb),
+                    pointsList, colorArray[curveCount], SymbolType.Circle);
+                curve.Line.Width = 2.0F;
+                curve.Line.IsSmooth = isSmooth;
+                curve.Line.SmoothTension = smoothTension;
+                curve.Line.IsAntiAlias = true;
+                curve.Symbol.Size = 4;
+
+                if (curveCount < colorArray.Length - 1)
+                {
+                    curveCount++;
+                }
+                else
+                {
+                    curveCount = 0;
+                }
+            }
+
+            pane.AxisChange();
+
+            //Add the extra menu entries that are specific to this graph
+            //ContextMenu customItemsMenu = new ContextMenu();
+            //customItemsMenu.MenuItems.Add(new MenuItem("Change Distribution Graph Options", this.DistributionGraphChanged));
+            //Chart.ContextMenu.MergeMenu(customItemsMenu);
+
+        }
 
         public void RenderTimeTaken()
         {
@@ -175,14 +237,34 @@ namespace WebSurge
         {
 
         }
-       
+
+        private void DistributionGraphChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Boo!");
+        }
+
+        private void Chart_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
+        {
+            //Add the extra menu entries that are specific to each graph
+            if(ChartType== ChartTypes.ResponseTimeDistribution)
+            {
+                ToolStripMenuItem distrGraphOptionsItem = new ToolStripMenuItem();
+                distrGraphOptionsItem.Name = "my_special_tag";
+                distrGraphOptionsItem.Tag = "my_special_tag";
+                distrGraphOptionsItem.Text = "Change Distribution Graph Options";
+                ContextMenu customItemsMenu = new ContextMenu();
+                distrGraphOptionsItem.Click += new System.EventHandler(DistributionGraphChanged);
+                menuStrip.Items.Add(distrGraphOptionsItem);
+            }
+        }
     }
 
     public enum ChartTypes
     {
         TimeTakenPerRequest,
         RequestsPerSecond,
-        RequestsPerSecondPerUrl
+        RequestsPerSecondPerUrl,
+        ResponseTimeDistribution
     }
 
 
