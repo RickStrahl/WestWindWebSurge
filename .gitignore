@@ -39,3 +39,4 @@ InstallerFiles/FilesToInstall/AppData/Html/_preview.json
 /WebSurgeWebSite/*.publishproj
 /Install/Distribution
 /Install/Builds
+/.vs/config/applicationhost.config
