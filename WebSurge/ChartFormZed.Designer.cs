@@ -49,7 +49,6 @@
             this.Chart.TabIndex = 0;
             this.Chart.UseExtendedPrintDialog = true;
             this.Chart.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.Chart_ContextMenuBuilder);
-            this.Chart.Load += new System.EventHandler(this.Chart_Load);
             // 
             // ChartFormZed
             // 

@@ -100,7 +100,7 @@ namespace WebSurge
             return res.ToList();
         }
 
-        public IEnumerable<DistributionResult> TimeTakenDistribution(IEnumerable<HttpRequestData> resultData, int slotDuration, bool showStats)
+        public IEnumerable<DistributionResult> TimeTakenDistribution(IEnumerable<HttpRequestData> resultData, int binSizeMilliseconds, bool showStats)
         {
             List<DistributionResult> toReturn = new List<DistributionResult>();
 
@@ -115,7 +115,11 @@ namespace WebSurge
                 toAdd.HttpVerb = dataSet.HttpVerb;
                 toAdd.MinDuration = (from rd in resultData select rd.TimeTakenMs).Min();
                 toAdd.MaxDuration = (from rd in resultData select rd.TimeTakenMs).Max();
-                Dictionary<int, int> groupedTimings = new Dictionary<int, int>(((toAdd.MaxDuration - toAdd.MinDuration) / slotDuration) + 1);
+
+                Dictionary<int, int> groupedTimings = new Dictionary<int, int>(((toAdd.MaxDuration - toAdd.MinDuration) / binSizeMilliseconds) + 1);
+                for(int i = toAdd.MinDuration; i<=toAdd.MaxDuration; i=i+ binSizeMilliseconds)
+                    groupedTimings.Add(i, 0);
+                
 
                 var toProcess = (from rd in resultData
                                  where rd.Url.Equals(dataSet.Url) && rd.HttpVerb.Equals(dataSet.HttpVerb)
@@ -123,7 +127,7 @@ namespace WebSurge
 
                 foreach (var toProcElement in toProcess)
                 {
-                    int slotId = (toProcElement.TimeTakenMs / slotDuration) * slotDuration;
+                    int slotId = (toProcElement.TimeTakenMs / binSizeMilliseconds) * binSizeMilliseconds;
                     int currentValue;
                     groupedTimings.TryGetValue(slotId, out currentValue);
                     groupedTimings[slotId] = currentValue + 1;
@@ -132,7 +136,8 @@ namespace WebSurge
 
                 if (showStats)
                 {
-                    //Populate stats
+                    toAdd.Average = (from p in toProcess select p.TimeTakenMs).Average();
+                    //TODO: calculate rest of statistics...
                 }
 
                 toReturn.Add(toAdd);
@@ -244,13 +249,10 @@ namespace WebSurge
         public int MinDuration { get; set; }
         public int MaxDuration { get; set; }
         public SortedDictionary<int, int> SegmentList { get; set; }
-        public DistributionStats Stats { get; set; }
-    }
-
-    public class DistributionStats
-    {
-        float Average { get; set; }
-        float Mean { get; set; }
-        float StdDeviation { get; set; }
+        public double Average { get; set; }
+        public double Median { get; set; }
+        public double Mode { get; set; }
+        public double Variance { get; set; }
+        public double StdDeviation { get; set; }
     }
 }
