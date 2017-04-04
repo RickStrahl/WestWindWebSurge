@@ -1,18 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26206.0
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge", "WebSurge\WebSurge.csproj", "{978F07C6-754B-43CF-9E3C-73D2AA716074}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.Tests", "WebSurge.Tests\WebSurge.Tests.csproj", "{AB515E3A-CD65-4359-AFA3-995B9BE943DA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B8F8A423-A77C-4D8E-98AB-02184DDB4424}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.Core", "WebSurge.Core\WebSurge.Core.csproj", "{9FFDE5F2-1DBF-43DF-BE64-FD543F355444}"
 EndProject
@@ -25,16 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{D2199721-D
 		ToDo.md = ToDo.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.Server", "WebSurge.Server\WebSurge.Server.csproj", "{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurge.SampleWeb", "WebSurge.SampleWeb\WebSurge.SampleWeb.csproj", "{8CA4E044-9411-40E7-85A8-4CE3E274AF95}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35CE5CBE-2C7A-4634-B0D1-D14CA232B375}"
 	ProjectSection(SolutionItems) = preProject
 		WebEssentials-Settings.json = WebEssentials-Settings.json
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSurgeSamplePlugin", "WebSurgeSamplePlugin\WebSurgeSamplePlugin.csproj", "{F7911D80-F226-46D1-92B0-4E2E420683EE}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSurgeWebSite", "WebSurgeWebSite\", "{26C094A5-41FA-4727-A44C-E128B5655C59}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -124,48 +111,6 @@ Global
 		{CC2FF462-53FA-4392-8D8B-53B932AA48A2}.SandBox|Any CPU.Build.0 = Release|Any CPU
 		{CC2FF462-53FA-4392-8D8B-53B932AA48A2}.Shareware|Any CPU.ActiveCfg = Release|Any CPU
 		{CC2FF462-53FA-4392-8D8B-53B932AA48A2}.Shareware|Any CPU.Build.0 = Release|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.DemoMode|Any CPU.ActiveCfg = Debug|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.DemoMode|Any CPU.Build.0 = Debug|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Deploy|Any CPU.Build.0 = Debug|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.net40|Any CPU.ActiveCfg = Release|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.net40|Any CPU.Build.0 = Release|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.SandBox|Any CPU.ActiveCfg = Release|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.SandBox|Any CPU.Build.0 = Release|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Shareware|Any CPU.ActiveCfg = Release|Any CPU
-		{4948FBD9-D4D8-4FB7-BB50-C18C1F1AA9F2}.Shareware|Any CPU.Build.0 = Release|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.DemoMode|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.DemoMode|Any CPU.Build.0 = Debug|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Deploy|Any CPU.Build.0 = Debug|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.net40|Any CPU.ActiveCfg = Release|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.net40|Any CPU.Build.0 = Release|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.SandBox|Any CPU.ActiveCfg = Release|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.SandBox|Any CPU.Build.0 = Release|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Shareware|Any CPU.ActiveCfg = Release|Any CPU
-		{8CA4E044-9411-40E7-85A8-4CE3E274AF95}.Shareware|Any CPU.Build.0 = Release|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.DemoMode|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.DemoMode|Any CPU.Build.0 = Debug|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Deploy|Any CPU.Build.0 = Debug|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.net40|Any CPU.ActiveCfg = Release|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.net40|Any CPU.Build.0 = Release|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.SandBox|Any CPU.ActiveCfg = Release|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.SandBox|Any CPU.Build.0 = Release|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Shareware|Any CPU.ActiveCfg = Release|Any CPU
-		{F7911D80-F226-46D1-92B0-4E2E420683EE}.Shareware|Any CPU.Build.0 = Release|Any CPU
 		{26C094A5-41FA-4727-A44C-E128B5655C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26C094A5-41FA-4727-A44C-E128B5655C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26C094A5-41FA-4727-A44C-E128B5655C59}.DemoMode|Any CPU.ActiveCfg = Debug|Any CPU
