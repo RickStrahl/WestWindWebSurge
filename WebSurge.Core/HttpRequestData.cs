@@ -19,7 +19,18 @@ namespace WebSurge
     /// </summary>
     public class HttpRequestData
     {
+        /// <summary>
+        /// Unique Id that identifies every request generated. Each
+        /// request run has a unique id        
+        /// </summary>
         public long Id { get; set; }
+
+
+        ///// <summary>
+        ///// Uniquely identifies the request URL.
+        ///// </summary>
+        //public long UrlId { get; set; }
+
         public DateTime Timestamp { get; set; }
         public bool IsActive { get; set; }
 
@@ -58,7 +69,7 @@ namespace WebSurge
 
         public HttpRequestData()
         {
-            Id = DataUtils.GenerateUniqueNumericId();
+            Id = DataUtils.GenerateUniqueNumericId();            
             IsActive = true;
             HttpVerb = "GET";
             Timestamp = DateTime.UtcNow;
@@ -69,8 +80,7 @@ namespace WebSurge
         public static HttpRequestData Copy(HttpRequestData req)
         {
             var rnew = req.MemberwiseClone() as HttpRequestData;
-            rnew.Id = DataUtils.GenerateUniqueNumericId();
-            rnew.Name = null;
+            rnew.Id = DataUtils.GenerateUniqueNumericId();            
             rnew.Headers = new List<HttpRequestHeader>(req.Headers);
             rnew.Timestamp = DateTime.UtcNow;
             return rnew;     

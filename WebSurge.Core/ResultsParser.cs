@@ -107,7 +107,7 @@ namespace WebSurge
                 totalTimeTakenSecs = 1;
 
             var urls = resultData
-                .GroupBy(res => res.HttpVerb +  " " + res.Url, rs => rs, (key, uls) =>
+                .GroupBy(res => res.HttpVerb +  " " + res.Url + (string.IsNullOrEmpty(res.Name) ? "" : " • " + res.Name), rs => rs, (key, uls) =>
                     new UrlSummary()
                     {
                         Url = key,                        
