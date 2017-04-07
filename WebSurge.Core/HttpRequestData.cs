@@ -86,7 +86,7 @@ namespace WebSurge
             return rnew;     
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return HttpVerb + " " + Url;
         }
@@ -169,7 +169,7 @@ namespace WebSurge
                 {
                     return JValue.Parse(data).ToString(Formatting.Indented);
                 }
-                catch (Exception ex)
+                catch
                 {
                     return "Invalid or partial JSON data cannot be formatted (try setting MaxResponseSize option to 0).\r\n" + data;                    
                 }
@@ -192,7 +192,7 @@ namespace WebSurge
                         return sw.ToString();
                     }
                 }
-                catch (Exception ex)
+                catch 
                 {
                     return "Invalid or partial XML data cannot be formatted (try setting  MaxResponseSize option to 0).\r\n" + data;
                 }
@@ -259,8 +259,7 @@ namespace WebSurge
 
             if(RequestContent.StartsWith("b64_"))
                 return Convert.FromBase64String(RequestContent.Replace("b64_",""));
-
-            byte[] bytes;
+            
             string textEncoding = TextEncoding.ToLower();
             if (textEncoding == "utf-8")
                return Encoding.UTF8.GetBytes(RequestContent);
