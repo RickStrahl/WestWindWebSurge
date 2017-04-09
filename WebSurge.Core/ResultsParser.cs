@@ -100,7 +100,8 @@ namespace WebSurge
             return res.ToList();
         }
 
-        public IEnumerable<DistributionResult> TimeTakenDistribution(IEnumerable<HttpRequestData> resultData, int binSizeMilliseconds, bool showStats)
+        public IEnumerable<DistributionResult> TimeTakenDistribution(IEnumerable<HttpRequestData> resultData, int binSizeMilliseconds, bool showStats,
+            int minX, int maxX)
         {
             List<DistributionResult> toReturn = new List<DistributionResult>();
 
@@ -115,14 +116,24 @@ namespace WebSurge
                 toAdd.HttpVerb = dataSet.HttpVerb;
                 toAdd.MinDuration = (from rd in resultData select rd.TimeTakenMs).Min();
                 toAdd.MaxDuration = (from rd in resultData select rd.TimeTakenMs).Max();
+                int minXMaxDurationRemainder = 0;
+                int groupedTimingsListSize = 0;
+                int sampleMinXToUse = minX;
+                int sampleMaxXToUse = maxX >= toAdd.MaxDuration ? toAdd.MaxDuration : maxX;
+               
+                minXMaxDurationRemainder = ((sampleMaxXToUse - sampleMinXToUse) % binSizeMilliseconds) == 0 ? 0 : 1;
+                groupedTimingsListSize = ((sampleMaxXToUse - sampleMinXToUse) / binSizeMilliseconds) + minXMaxDurationRemainder;
+               
 
-                Dictionary<int, int> groupedTimings = new Dictionary<int, int>(((toAdd.MaxDuration - toAdd.MinDuration) / binSizeMilliseconds) + 1);
-                for(int i = toAdd.MinDuration; i<=toAdd.MaxDuration; i=i+ binSizeMilliseconds)
+                Dictionary<int, int> groupedTimings = new Dictionary<int, int>(groupedTimingsListSize);
+
+                for(int i = sampleMinXToUse; i<= sampleMaxXToUse; i=i+ binSizeMilliseconds)
                     groupedTimings.Add(i, 0);
                 
 
                 var toProcess = (from rd in resultData
                                  where rd.Url.Equals(dataSet.Url) && rd.HttpVerb.Equals(dataSet.HttpVerb)
+                                 && rd.TimeTakenMs>= sampleMinXToUse && rd.TimeTakenMs<= sampleMaxXToUse
                                  select rd);
 
                 foreach (var toProcElement in toProcess)

@@ -61,6 +61,7 @@
             this.btnApply.TabIndex = 0;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // pnlOptions
             // 
@@ -78,6 +79,7 @@
             this.pgProperties.Name = "pgProperties";
             this.pgProperties.Size = new System.Drawing.Size(544, 367);
             this.pgProperties.TabIndex = 0;
+            this.pgProperties.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.pgProperties_PropertyValueChanged);
             // 
             // DistributionGraphOptionsForm
             // 
