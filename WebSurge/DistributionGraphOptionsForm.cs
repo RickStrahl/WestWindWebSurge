@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,12 +31,32 @@ namespace WebSurge
 
         private void pgProperties_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
-            string test = string.Empty;
+            string propertyName = e.ChangedItem.PropertyDescriptor.Name;
+            bool errorFound = false;
+            string errorMesage = string.Empty;
 
-            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(_newSettings);
+            if (propertyName.Equals(GetPropertyName((DistributionGraphSettings p) => p.BinSizeMilliseconds) , StringComparison.InvariantCultureIgnoreCase) )
+            {
+               if(_newSettings.BinSizeMilliseconds<=0 || _newSettings.BinSizeMilliseconds>int.MaxValue)
+                {
+                    string test = string.Empty;
+                }
+
+            }
 
 
-            //if (e.ChangedItem.PropertyDescriptor == properties.Find( System.Reflection.GetMemberInfo(_newSettings.MinX) ., false);
+            
         }
+
+        //based on https://handcraftsman.wordpress.com/2008/11/11/how-to-get-c-property-names-without-magic-strings/
+        private string GetPropertyName<T, TReturn>(Expression<Func<T, TReturn>> expression)
+        {
+            MemberExpression body = (MemberExpression)expression.Body;
+            return body.Member.Name;
+        }
+
+        
+
+
     }
 }
