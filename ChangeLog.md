@@ -1,6 +1,13 @@
 ﻿# West Wind WebSurge Change Log
 
 ### Version 1.0.2
+<i><small>Not released yet</small></i>
+
+* **Group Test Results by Verb + Url + Name**  
+Previously test results were grouped by Verb + URL only which caused problems for some scenarios like Web Services that are always using the same Url. Now the name is used in combination and combined with the Url and displayed on the test results page.
+
+### Version 1.0.2
+<i><small>February 30th, 2017</small></i>
 
 * **Add additional XML preview formats**  
 Added additional XML preview formats to shows as formatted XML.

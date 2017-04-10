@@ -578,8 +578,7 @@ namespace WebSurge
         public void RunSessions(object requests, bool runOnce = false)
         {
             List<HttpRequestData> reqs = null;
-            bool isFirstRequest = true;
-
+            
             if (Options.RandomizeRequests)
             {
                 var rqs = requests as List<HttpRequestData>;
