@@ -154,9 +154,32 @@ namespace WebSurge
                      select Convert.ToDouble(t.Value)).ToArray()
                     );
                 }
-                    
 
-                var curve = pane.AddCurve(string.Format("{0} ({1})", result.Url, result.HttpVerb),
+                pane.Legend.Position = ZedGraph.LegendPos.Bottom;
+                pane.Legend.Border = null;
+                string strLegend = string.Empty;
+                if (settings.ShowStats)
+                {
+                    string sigma = '\u03c3'.ToString();
+                    string square = '\u00b2'.ToString();
+
+                    strLegend = string.Format("{0} ({1}) [ Avg={2:F0} Med={3:F0} Mo={4:F0} {5}={6:F0} {5}{7}={8:F0} ms ]"
+                        , result.Url
+                        , result.HttpVerb
+                        , result.Average
+                        , result.Median
+                        , result.Mode
+                        , sigma
+                        , result.StdDeviation
+                        , square
+                        , result.Variance);  
+                }
+                else
+                {
+                    strLegend = string.Format("{0} ({1})", result.Url, result.HttpVerb);
+                }
+
+                var curve = pane.AddCurve(strLegend,
                     pointsList, colorArray[curveCount], SymbolType.Circle);
                 curve.Line.Width = 2.0F;
                 curve.Line.IsSmooth = settings.IsSmooth;
@@ -168,6 +191,8 @@ namespace WebSurge
                     curveCount++;
                 else
                     curveCount = 0;
+
+               
             }
 
             pane.AxisChange();

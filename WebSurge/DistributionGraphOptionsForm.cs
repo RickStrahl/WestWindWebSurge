@@ -46,7 +46,6 @@ namespace WebSurge
                     errorMessage = string.Format("'{0}' must have a value between 1 and {1}"
                         , e.ChangedItem.PropertyDescriptor.DisplayName
                         , int.MaxValue.ToString());
-                    //errorMessage = string.Concat("'", e.ChangedItem.PropertyDescriptor.DisplayName, "' must have a value between 1 and ", int.MaxValue.ToString());
                     _newSettings.BinSizeMilliseconds = Convert.ToInt32(e.OldValue);
                 }
             }
@@ -61,8 +60,6 @@ namespace WebSurge
                         , e.ChangedItem.PropertyDescriptor.DisplayName
                         , int.MaxValue.ToString()
                         , maxXDisplayName);
-                    //errorMessage = string.Concat("'", e.ChangedItem.PropertyDescriptor.DisplayName, "' must have a value between 1 and ",
-                    //    int.MaxValue.ToString(), " and must be smaller than the value of ", maxXDisplayName);
                     _newSettings.MinX = Convert.ToInt32(e.OldValue);
                 }
             }
@@ -77,8 +74,6 @@ namespace WebSurge
                         , e.ChangedItem.PropertyDescriptor.DisplayName
                         , int.MaxValue.ToString()
                         , minXDisplayName);
-                    //errorMessage = string.Concat("'", e.ChangedItem.PropertyDescriptor.DisplayName, "' must have a value between 1 and ",
-                    //    int.MaxValue.ToString(), " and must be greater than the value of '", minXDisplayName, "'");
                     _newSettings.MaxX = Convert.ToInt32(e.OldValue);
                 }
             }
@@ -90,8 +85,6 @@ namespace WebSurge
                     errorFound = true;
                     errorMessage = string.Format("'{0}' must have a value between 0 and 1, or else it will display some really weird results.." 
                         , e.ChangedItem.PropertyDescriptor.DisplayName);
-                    //errorMessage = string.Concat("'", e.ChangedItem.PropertyDescriptor.DisplayName, "' must have a value between 0 and 1",
-                    //    "or else it will display some really weird results..");
                     _newSettings.SmoothTension = Convert.ToInt32(e.OldValue);
                 }
             }
