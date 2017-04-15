@@ -11,7 +11,7 @@ using ZedGraph;
 
 namespace WebSurge
 {
-    public partial class ChartFormZed : Form
+    public partial class ChartFormZed : Form, IDistributionGraphContainer
     {
         private string Url;
         private IEnumerable<HttpRequestData> Results;
@@ -59,7 +59,7 @@ namespace WebSurge
                 RenderRequestsPerSecond();
             else if (ChartType == ChartTypes.ResponseTimeDistribution)
                 graphSettings = new DistributionGraphSettings();
-                RenderResponseTimeDistribution(graphSettings as DistributionGraphSettings);
+                ((IDistributionGraphContainer)this).RenderResponseTimeDistribution(graphSettings as DistributionGraphSettings);
             if (ParentForm != null)
                 ParentForm.Cursor = Cursors.Default;
         }
@@ -109,7 +109,7 @@ namespace WebSurge
             pane.AxisChange();
         }
 
-        protected internal void RenderResponseTimeDistribution(DistributionGraphSettings settings)
+        void IDistributionGraphContainer.RenderResponseTimeDistribution(DistributionGraphSettings settings)
         {
             ClearSeries();
 
@@ -244,7 +244,6 @@ namespace WebSurge
         {
             DistributionGraphOptionsForm settingsForm = new DistributionGraphOptionsForm(this, graphSettings as DistributionGraphSettings);
             settingsForm.ShowDialog();
-            //RenderResponseTimeDistribution(10, 0, 4000, 0, 5000, false, string.Empty, true, 0.5f);
         }
 
         private void Chart_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
@@ -285,14 +284,6 @@ namespace WebSurge
         [Description("The maximum value of the X-Axis")]
         public int MaxX { get; set; }
 
-        //[DisplayName("Minimum Y-axis value")]
-        //[Description("The minimum value of the Y-Axis")]
-        //public int MinY { get; set; }
-
-        //[DisplayName("Maximum Y-axis value")]
-        //[Description("The maximum value of the Y-Axis")]
-        //public int? MaxY { get; set; }
-
         [DisplayName("Smoothing Enabled")]
         [Description("Defines if any smoothing is applied to the resulting line chart")]
         public bool IsSmooth { get; set; }
@@ -306,8 +297,6 @@ namespace WebSurge
             Title = string.Empty;
             MinX = 0;
             MaxX = 2147483647;
-            //MinY = 0;
-            //MaxY = 2147483647;
             IsSmooth = false;
             SmoothTension = 0f;
         }
@@ -316,7 +305,7 @@ namespace WebSurge
     public class DistributionGraphSettings : GraphSettings
     {
         [DisplayName("Bin Size (ms)")]
-        [DescriptionAttribute("The class size (in milliseconds) to be used for grouping response times ")]
+        [Description("The class size (in milliseconds) to be used for grouping response times ")]
         [Category("Distribution Graph Settings")]
         public int BinSizeMilliseconds { get; set; }
 
@@ -334,6 +323,12 @@ namespace WebSurge
             SmoothTension = 0.3f;
             BinSizeMilliseconds = 10;
         }
+    }
+
+
+    public interface IDistributionGraphContainer
+    {
+        void RenderResponseTimeDistribution(DistributionGraphSettings settings);
     }
 
 }
