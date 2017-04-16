@@ -153,7 +153,7 @@ namespace WebSurge
                     string square = '\u00b2'.ToString();
 
                     strLegend = string.Format("{0} ({1}) [ Bin={2:0} Avg={3:F0} Med={4:F0} Mo={5:F0} {6}={7:F0} ms ]"
-                        , result.Url
+                        , string.IsNullOrEmpty(result.Name) ? result.Url : result.Name
                         , result.HttpVerb
                         , settings.BinSizeMilliseconds
                         , result.Average
@@ -164,7 +164,9 @@ namespace WebSurge
                 }
                 else
                 {
-                    strLegend = string.Format("{0} ({1})", result.Url, result.HttpVerb);
+                    strLegend = string.Format("{0} ({1})"
+                        , string.IsNullOrEmpty(result.Name) ? result.Url : result.Name
+                        , result.HttpVerb);
                 }
 
                 var curve = pane.AddCurve(strLegend,

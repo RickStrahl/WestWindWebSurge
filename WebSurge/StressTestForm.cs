@@ -1366,7 +1366,7 @@ namespace WebSurge
                 }
 
             }
-            if (sender == tbDistributionGraph)
+            if (sender == tbResponseTimesDistributionChart || sender== tbResponseTimeDistributionChart)
             {
                 if (StressTester.Results.Count() > 0)
                 {
