@@ -107,15 +107,16 @@ namespace WebSurge
 
             var resultSets = (from rd in resultData
                               where rd.IsError == false
-                              select new { rd.Url, rd.HttpVerb }).Distinct().ToList();
+                              select new { rd.Url, rd.HttpVerb, rd.Name }).Distinct().ToList();
 
             foreach (var dataSet in resultSets)
             {
                 DistributionResult toAdd = new DistributionResult();
+                toAdd.Name = dataSet.Name;
                 toAdd.Url = dataSet.Url;
                 toAdd.HttpVerb = dataSet.HttpVerb;
-                toAdd.MinDuration = (from rd in resultData select rd.TimeTakenMs).Min();
-                toAdd.MaxDuration = (from rd in resultData select rd.TimeTakenMs).Max();
+                toAdd.MinDuration = (from rd in resultData where !rd.IsError select rd.TimeTakenMs).Min();
+                toAdd.MaxDuration = (from rd in resultData where !rd.IsError select rd.TimeTakenMs).Max();
                 int minXMaxDurationRemainder = 0;
                 int groupedTimingsListSize = 0;
                 int sampleMinXToUse = minX;
@@ -125,25 +126,27 @@ namespace WebSurge
                 groupedTimingsListSize = ((sampleMaxXToUse - sampleMinXToUse) / binSizeMilliseconds) + minXMaxDurationRemainder;
                
 
-                Dictionary<int, int> groupedTimings = new Dictionary<int, int>(groupedTimingsListSize);
+                Dictionary<double, int> groupedTimings = new Dictionary<double, int>(groupedTimingsListSize);
 
-                for(int i = sampleMinXToUse; i<= sampleMaxXToUse; i=i+ binSizeMilliseconds)
-                    groupedTimings.Add(i, 0);
-                
+                for (int i = sampleMinXToUse; i <= sampleMaxXToUse; i = i + binSizeMilliseconds)
+                    groupedTimings.Add(DistributionResult.GetBinKeyValue(binSizeMilliseconds, i), 0);
+
 
                 var toProcess = (from rd in resultData
                                  where rd.Url.Equals(dataSet.Url) && rd.HttpVerb.Equals(dataSet.HttpVerb)
+                                 && ( (rd.Name==null && dataSet.Name== null) || (rd.Name != null && dataSet.Name != null && rd.Name.Equals(dataSet.Name)) )
                                  && rd.TimeTakenMs>= sampleMinXToUse && rd.TimeTakenMs<= sampleMaxXToUse
+                                 && !rd.IsError
                                  select rd);
 
                 foreach (var toProcElement in toProcess)
                 {
-                    int slotId = (toProcElement.TimeTakenMs / binSizeMilliseconds) * binSizeMilliseconds;
-                    int currentValue;
+                    double slotId = DistributionResult.GetBinKeyValue(binSizeMilliseconds, toProcElement.TimeTakenMs);
+                    int currentValue = 0;
                     groupedTimings.TryGetValue(slotId, out currentValue);
                     groupedTimings[slotId] = currentValue + 1;
                 }
-                toAdd.SegmentList = new SortedDictionary<int, int>(groupedTimings);
+                toAdd.SegmentList = new SortedDictionary<double, int>(groupedTimings);
 
                 if (showStats)
                 {
@@ -255,15 +258,28 @@ namespace WebSurge
 
     public class DistributionResult
     {
+        public string Name { get; set; }
         public string Url { get; set; }
         public string HttpVerb { get; set; }
         public int MinDuration { get; set; }
         public int MaxDuration { get; set; }
-        public SortedDictionary<int, int> SegmentList { get; set; }
+        public SortedDictionary<double, int> SegmentList { get; set; }
         public double Average { get; set; }
         public double Median { get; set; }
         public double Mode { get; set; }
         public double Variance { get; set; }
         public double StdDeviation { get; set; }
+
+        public static double GetBinKeyValue(int binSizeMilliseconds, int sampleValue)
+        {
+            double slotId = 0;
+
+            if (binSizeMilliseconds == 1)
+                slotId = sampleValue;
+            else
+                slotId = (sampleValue / binSizeMilliseconds) * binSizeMilliseconds + (double)(binSizeMilliseconds / 2d);
+
+            return slotId;
+        }
     }
 }

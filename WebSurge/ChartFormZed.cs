@@ -136,25 +136,14 @@ namespace WebSurge
             foreach (DistributionResult result in results)
             {
                 PointPairList pointsList;
-                if(settings.BinSizeMilliseconds==1)
-                {
-                    pointsList = new PointPairList(
-                    (from t in result.SegmentList
-                     select Convert.ToDouble(t.Key)).ToArray(),
-                    (from t in result.SegmentList
-                     select Convert.ToDouble(t.Value)).ToArray()
-                    );
-                }
-                else
-                {
-                    pointsList = new PointPairList(
-                    (from t in result.SegmentList
-                     select Convert.ToDouble(t.Key + (settings.BinSizeMilliseconds / 2))).ToArray(),
-                    (from t in result.SegmentList
-                     select Convert.ToDouble(t.Value)).ToArray()
-                    );
-                }
-
+                
+                pointsList = new PointPairList(
+                (from t in result.SegmentList
+                    select t.Key).ToArray(),
+                (from t in result.SegmentList
+                    select Convert.ToDouble(t.Value)).ToArray()
+                );
+               
                 pane.Legend.Position = ZedGraph.LegendPos.Bottom;
                 pane.Legend.Border = null;
                 string strLegend = string.Empty;
