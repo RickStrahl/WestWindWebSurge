@@ -150,8 +150,26 @@ namespace WebSurge
 
                 if (showStats)
                 {
+                    //Average/Mean: https://en.wikipedia.org/wiki/Average
                     toAdd.Average = (from p in toProcess select p.TimeTakenMs).Average();
-                    //TODO: calculate rest of statistics...
+                    //Mode: https://en.wikipedia.org/wiki/Mode_(statistics)s) )
+                    //This does not take into account cases where there are more than one Mode values. For 
+                    // the time being, we will display only the smallest (first ascending) key that is a Mode.
+                    toAdd.Mode = groupedTimings.OrderByDescending(g => g.Value).ThenBy(g=> g.Key).First().Key;
+                    //Median: https://en.wikipedia.org/wiki/Median
+                    var medianSortedList = toProcess.OrderBy(p => p.TimeTakenMs);
+                    if(medianSortedList.Count() % 2 !=0)
+                    {
+                        double firstValue = medianSortedList.ElementAt((medianSortedList.Count() - 1) / 2).TimeTakenMs;
+                        double secondValue = medianSortedList.ElementAt((medianSortedList.Count() + 1) / 2).TimeTakenMs;
+                        toAdd.Median = (firstValue + secondValue) / 2;
+                    }
+                    else
+                    {
+                        toAdd.Median = medianSortedList.ElementAt(medianSortedList.Count()/ 2).TimeTakenMs;
+                    }
+                    //Standard Deviation: https://en.wikipedia.org/wiki/Standard_deviation
+                    toAdd.StdDeviation = DistributionResult.StdDev(from p in toProcess select Convert.ToDouble(p.TimeTakenMs));
                 }
 
                 toReturn.Add(toAdd);
@@ -267,7 +285,6 @@ namespace WebSurge
         public double Average { get; set; }
         public double Median { get; set; }
         public double Mode { get; set; }
-        public double Variance { get; set; }
         public double StdDeviation { get; set; }
 
         public static double GetBinKeyValue(int binSizeMilliseconds, int sampleValue)
@@ -281,5 +298,25 @@ namespace WebSurge
 
             return slotId;
         }
+
+
+        public static double StdDev(IEnumerable<double> values)
+        {
+            double ret = 0;
+            int count = values.Count();
+            if (count > 1)
+            {
+                //Compute the Average
+                double avg = values.Average();
+
+                //Perform the Sum of (value-avg)^2
+                double sum = values.Sum(d => (d - avg) * (d - avg));
+
+                //Put it all together
+                ret = Math.Sqrt(sum / count);
+            }
+            return ret;
+        }
+
     }
 }

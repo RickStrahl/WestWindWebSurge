@@ -152,16 +152,15 @@ namespace WebSurge
                     string sigma = '\u03c3'.ToString();
                     string square = '\u00b2'.ToString();
 
-                    strLegend = string.Format("{0} ({1}) [ Avg={2:F0} Med={3:F0} Mo={4:F0} {5}={6:F0} {5}{7}={8:F0} ms ]"
+                    strLegend = string.Format("{0} ({1}) [ Bin={2:0} Avg={3:F0} Med={4:F0} Mo={5:F0} {6}={7:F0} ms ]"
                         , result.Url
                         , result.HttpVerb
+                        , settings.BinSizeMilliseconds
                         , result.Average
                         , result.Median
                         , result.Mode
                         , sigma
-                        , result.StdDeviation
-                        , square
-                        , result.Variance);  
+                        , result.StdDeviation);  
                 }
                 else
                 {
