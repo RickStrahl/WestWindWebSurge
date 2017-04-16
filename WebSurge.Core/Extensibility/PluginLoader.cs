@@ -27,7 +27,7 @@ namespace WebSurge.Extensibility
                 {
                     assembly = Assembly.LoadFile(file);
                 }
-                catch (Exception ex)
+                catch
                 {
                     App.Log("Failed to load plugin from " + assembly.FullName + ".");
                 }
@@ -47,7 +47,7 @@ namespace WebSurge.Extensibility
                     {
                         plugin = Activator.CreateInstance(type) as IWebSurgeExtensibility;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         App.Log("Failed to load plugin: " + type.Name + " from " + assembly.FullName + ".");
                     }

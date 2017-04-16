@@ -44,8 +44,6 @@ namespace WebSurge
         
         public static string RenderTemplate(string templateName, object model)
         {            
-            string compiledId = null;
-
             string result = hostContainer.RenderTemplate(templateName, model);
             if (result == null)
                 result = "<pre>" + hostContainer.ErrorMessage + "\r\n------\r\n" + hostContainer.Engine.LastGeneratedCode + "</pre>";
