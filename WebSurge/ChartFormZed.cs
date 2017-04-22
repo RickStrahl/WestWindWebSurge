@@ -58,8 +58,11 @@ namespace WebSurge
             else if (ChartType == ChartTypes.RequestsPerSecond)
                 RenderRequestsPerSecond();
             else if (ChartType == ChartTypes.ResponseTimeDistribution)
+            {
                 graphSettings = new DistributionGraphSettings();
                 ((IDistributionGraphContainer)this).RenderResponseTimeDistribution(graphSettings as DistributionGraphSettings);
+
+            }
             if (ParentForm != null)
                 ParentForm.Cursor = Cursors.Default;
         }
@@ -144,8 +147,6 @@ namespace WebSurge
                     select Convert.ToDouble(t.Value)).ToArray()
                 );
                
-                pane.Legend.Position = ZedGraph.LegendPos.Bottom;
-                pane.Legend.Border = null;
                 string strLegend = string.Empty;
                 if (settings.ShowStats)
                 {
@@ -185,6 +186,8 @@ namespace WebSurge
                
             }
 
+            pane.Legend.Position = ZedGraph.LegendPos.Bottom;
+            pane.Legend.Border = null;
             pane.AxisChange();
             Chart.Invalidate();
             Chart.Refresh();
@@ -240,7 +243,7 @@ namespace WebSurge
             curve2.Line.IsAntiAlias = true;
             curve2.Symbol.Fill = new Fill(Color.White);
             curve2.Symbol.Size = 4;
-            
+
             // Force refresh of chart
             pane.AxisChange();
         }
@@ -249,10 +252,6 @@ namespace WebSurge
         void ClearSeries()
         {
             Chart.GraphPane.CurveList.Clear();
-            //for (int i = Chart.GraphPane.CurveList.Count -1 ; i > -1; i--)
-            //{
-            //    Chart.GraphPane.CurveList.RemoveAt(i);
-            //}
         }
 
         private void DistributionGraphOptionsClick(object sender, EventArgs e)
