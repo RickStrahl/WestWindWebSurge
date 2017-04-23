@@ -61,7 +61,6 @@ namespace WebSurge
             {
                 graphSettings = new DistributionGraphSettings();
                 (this as IDistributionGraphContainer).RenderResponseTimeDistribution(Results, graphSettings as DistributionGraphSettings);
-
             }
             if (ParentForm != null)
                 ParentForm.Cursor = Cursors.Default;
