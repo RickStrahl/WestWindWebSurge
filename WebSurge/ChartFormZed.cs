@@ -185,7 +185,6 @@ namespace WebSurge
                 else
                     curveCount = 0;
 
-               
             }
 
             pane.Legend.Position = ZedGraph.LegendPos.Bottom;
