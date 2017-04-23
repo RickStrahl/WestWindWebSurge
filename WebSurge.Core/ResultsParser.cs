@@ -100,12 +100,12 @@ namespace WebSurge
             return res.ToList();
         }
 
-        public IEnumerable<DistributionResult> TimeTakenDistribution(IEnumerable<HttpRequestData> resultData, int binSizeMilliseconds, bool showStats,
+        public IEnumerable<DistributionResult> TimeTakenDistribution(IEnumerable<HttpRequestData> data, int binSizeMilliseconds, bool showStats,
             int minX, int maxX)
         {
             List<DistributionResult> toReturn = new List<DistributionResult>();
 
-            var resultSets = (from rd in resultData
+            var resultSets = (from rd in data
                               where rd.IsError == false
                               select new { rd.Url, rd.HttpVerb, rd.Name }).Distinct().ToList();
 
@@ -115,8 +115,8 @@ namespace WebSurge
                 toAdd.Name = dataSet.Name;
                 toAdd.Url = dataSet.Url;
                 toAdd.HttpVerb = dataSet.HttpVerb;
-                toAdd.MinDuration = (from rd in resultData where !rd.IsError select rd.TimeTakenMs).Min();
-                toAdd.MaxDuration = (from rd in resultData where !rd.IsError select rd.TimeTakenMs).Max();
+                toAdd.MinDuration = (from rd in data where !rd.IsError select rd.TimeTakenMs).Min();
+                toAdd.MaxDuration = (from rd in data where !rd.IsError select rd.TimeTakenMs).Max();
                 int minXMaxDurationRemainder = 0;
                 int groupedTimingsListSize = 0;
                 int sampleMinXToUse = minX;
@@ -132,7 +132,7 @@ namespace WebSurge
                     groupedTimings.Add(DistributionResult.GetBinKeyValue(binSizeMilliseconds, i), 0);
 
 
-                var toProcess = (from rd in resultData
+                var toProcess = (from rd in data
                                  where rd.Url.Equals(dataSet.Url) && rd.HttpVerb.Equals(dataSet.HttpVerb)
                                  && ( (rd.Name==null && dataSet.Name== null) || (rd.Name != null && dataSet.Name != null && rd.Name.Equals(dataSet.Name)) )
                                  && rd.TimeTakenMs>= sampleMinXToUse && rd.TimeTakenMs<= sampleMaxXToUse

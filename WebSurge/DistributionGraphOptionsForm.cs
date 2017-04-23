@@ -18,18 +18,20 @@ namespace WebSurge
     {
         IDistributionGraphContainer _chartForm;
         DistributionGraphSettings _newSettings;
+        IEnumerable<HttpRequestData> _data;
 
-        public DistributionGraphOptionsForm(IDistributionGraphContainer chartForm, DistributionGraphSettings settings)
+        public DistributionGraphOptionsForm(IDistributionGraphContainer chartForm, IEnumerable<HttpRequestData> data, DistributionGraphSettings settings)
         {
             InitializeComponent();
             _chartForm = chartForm;
             _newSettings = settings;
+            _data = data;
             pgProperties.SelectedObject = settings;
         }
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            _chartForm.RenderResponseTimeDistribution(_newSettings);
+            _chartForm.RenderResponseTimeDistribution(_data, _newSettings);
         }
 
         private void pgProperties_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)

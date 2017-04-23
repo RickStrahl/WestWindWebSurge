@@ -60,7 +60,7 @@ namespace WebSurge
             else if (ChartType == ChartTypes.ResponseTimeDistribution)
             {
                 graphSettings = new DistributionGraphSettings();
-                ((IDistributionGraphContainer)this).RenderResponseTimeDistribution(graphSettings as DistributionGraphSettings);
+                (this as IDistributionGraphContainer).RenderResponseTimeDistribution(Results, graphSettings as DistributionGraphSettings);
 
             }
             if (ParentForm != null)
@@ -112,12 +112,12 @@ namespace WebSurge
             pane.AxisChange();
         }
 
-        void IDistributionGraphContainer.RenderResponseTimeDistribution(DistributionGraphSettings settings)
+        void IDistributionGraphContainer.RenderResponseTimeDistribution(IEnumerable<HttpRequestData> data, DistributionGraphSettings settings)
         {
             ClearSeries();
 
             var parser = new ResultsParser();
-            IEnumerable<DistributionResult> results = parser.TimeTakenDistribution(Results, settings.BinSizeMilliseconds, settings.ShowStats, 
+            IEnumerable<DistributionResult> results = parser.TimeTakenDistribution(data, settings.BinSizeMilliseconds, settings.ShowStats, 
                 settings.MinX, settings.MaxX);
 
             var pane = Chart.GraphPane;
@@ -133,6 +133,7 @@ namespace WebSurge
             pane.Chart.Fill = new Fill(Color.LightYellow, Color.PaleGoldenrod, 45.0F);
             Chart.IsShowPointValues = true;
 
+
             int curveCount = 0;
             Color[] colorArray = { Color.Green, Color.Red, Color.Blue, Color.Black, Color.Yellow };
 
@@ -147,6 +148,7 @@ namespace WebSurge
                     select Convert.ToDouble(t.Value)).ToArray()
                 );
                
+
                 string strLegend = string.Empty;
                 if (settings.ShowStats)
                 {
@@ -169,7 +171,7 @@ namespace WebSurge
                         , string.IsNullOrEmpty(result.Name) ? result.Url : result.Name
                         , result.HttpVerb);
                 }
-
+               
                 var curve = pane.AddCurve(strLegend,
                     pointsList, colorArray[curveCount], SymbolType.Circle);
                 curve.Line.Width = 2.0F;
@@ -187,7 +189,7 @@ namespace WebSurge
             }
 
             pane.Legend.Position = ZedGraph.LegendPos.Bottom;
-            pane.Legend.Border = null;
+            pane.Legend.Border.IsVisible = false;
             pane.AxisChange();
             Chart.Invalidate();
             Chart.Refresh();
@@ -256,7 +258,7 @@ namespace WebSurge
 
         private void DistributionGraphOptionsClick(object sender, EventArgs e)
         {
-            DistributionGraphOptionsForm settingsForm = new DistributionGraphOptionsForm(this, graphSettings as DistributionGraphSettings);
+            DistributionGraphOptionsForm settingsForm = new DistributionGraphOptionsForm( this, Results, graphSettings as DistributionGraphSettings);
             settingsForm.ShowDialog();
         }
 
@@ -324,7 +326,7 @@ namespace WebSurge
         public int BinSizeMilliseconds { get; set; }
 
         [DisplayName("Show statistics")]
-        [Description("Display statistical data (average, median, variance etc.) at the footer of the graph")]
+        [Description("Display statistical data (average, median, standard deviation etc.) at the footer of the graph")]
         [Category("Graph Header/Footer")]
         public bool ShowStats { get; set; }
 
@@ -342,7 +344,7 @@ namespace WebSurge
 
     public interface IDistributionGraphContainer
     {
-        void RenderResponseTimeDistribution(DistributionGraphSettings settings);
+        void RenderResponseTimeDistribution(IEnumerable<HttpRequestData> data, DistributionGraphSettings settings);
     }
 
 }
