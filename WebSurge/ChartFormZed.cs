@@ -310,7 +310,7 @@ namespace WebSurge
         {
             Title = string.Empty;
             MinX = 0;
-            MaxX = 2147483647;
+            MaxX = int.MaxValue;
             IsSmooth = false;
             SmoothTension = 0f;
         }
