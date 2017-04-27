@@ -217,6 +217,11 @@ namespace WebSurge
                 {
                     webRequest.ContentLength = 0;
                 }
+                    // a POST AND A PUT Requires a content length even if its empty
+                else if (reqData.HttpVerb.Equals("POST") || reqData.HttpVerb.Equals("PUT"))
+                {
+                    webRequest.ContentLength = 0;
+                }
 
                 foreach (var header in result.Headers)
                 {
