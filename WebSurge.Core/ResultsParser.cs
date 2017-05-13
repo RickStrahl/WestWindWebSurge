@@ -100,6 +100,83 @@ namespace WebSurge
             return res.ToList();
         }
 
+        public IEnumerable<DistributionResult> TimeTakenDistribution(IEnumerable<HttpRequestData> data, int binSizeMilliseconds, bool showStats,
+            int minX, int maxX)
+        {
+            List<DistributionResult> toReturn = new List<DistributionResult>();
+
+            var resultSets = (from rd in data
+                              where rd.IsError == false
+                              select new { rd.Url, rd.HttpVerb, rd.Name }).Distinct().ToList();
+
+            foreach (var dataSet in resultSets)
+            {
+                DistributionResult toAdd = new DistributionResult();
+                toAdd.Name = dataSet.Name;
+                toAdd.Url = dataSet.Url;
+                toAdd.HttpVerb = dataSet.HttpVerb;
+                toAdd.MinDuration = (from rd in data where !rd.IsError select rd.TimeTakenMs).Min();
+                toAdd.MaxDuration = (from rd in data where !rd.IsError select rd.TimeTakenMs).Max();
+                int minXMaxDurationRemainder = 0;
+                int groupedTimingsListSize = 0;
+                int sampleMinXToUse = minX;
+                int sampleMaxXToUse = maxX >= toAdd.MaxDuration ? toAdd.MaxDuration : maxX;
+               
+                minXMaxDurationRemainder = ((sampleMaxXToUse - sampleMinXToUse) % binSizeMilliseconds) == 0 ? 0 : 1;
+                groupedTimingsListSize = ((sampleMaxXToUse - sampleMinXToUse) / binSizeMilliseconds) + minXMaxDurationRemainder;
+               
+
+                Dictionary<double, int> groupedTimings = new Dictionary<double, int>(groupedTimingsListSize);
+
+                for (int i = sampleMinXToUse; i <= sampleMaxXToUse; i = i + binSizeMilliseconds)
+                    groupedTimings.Add(DistributionResult.GetBinKeyValue(binSizeMilliseconds, i), 0);
+
+
+                var toProcess = (from rd in data
+                                 where rd.Url.Equals(dataSet.Url) && rd.HttpVerb.Equals(dataSet.HttpVerb)
+                                 && ( (rd.Name==null && dataSet.Name== null) || (rd.Name != null && dataSet.Name != null && rd.Name.Equals(dataSet.Name)) )
+                                 && rd.TimeTakenMs>= sampleMinXToUse && rd.TimeTakenMs<= sampleMaxXToUse
+                                 && !rd.IsError
+                                 select rd);
+
+                foreach (var toProcElement in toProcess)
+                {
+                    double slotId = DistributionResult.GetBinKeyValue(binSizeMilliseconds, toProcElement.TimeTakenMs);
+                    int currentValue = 0;
+                    groupedTimings.TryGetValue(slotId, out currentValue);
+                    groupedTimings[slotId] = currentValue + 1;
+                }
+                toAdd.SegmentList = new SortedDictionary<double, int>(groupedTimings);
+
+                if (showStats)
+                {
+                    //Average/Mean: https://en.wikipedia.org/wiki/Average
+                    toAdd.Average = (from p in toProcess select p.TimeTakenMs).Average();
+                    //Mode: https://en.wikipedia.org/wiki/Mode_(statistics)s) )
+                    //This does not take into account cases where there are more than one Mode values. For 
+                    // the time being, we will display only the smallest (first ascending) key that is a Mode.
+                    toAdd.Mode = groupedTimings.OrderByDescending(g => g.Value).ThenBy(g=> g.Key).First().Key;
+                    //Median: https://en.wikipedia.org/wiki/Median
+                    var medianSortedList = toProcess.OrderBy(p => p.TimeTakenMs);
+                    if(medianSortedList.Count() % 2 !=0)
+                    {
+                        double firstValue = medianSortedList.ElementAt((medianSortedList.Count() - 1) / 2).TimeTakenMs;
+                        double secondValue = medianSortedList.ElementAt((medianSortedList.Count() + 1) / 2).TimeTakenMs;
+                        toAdd.Median = (firstValue + secondValue) / 2;
+                    }
+                    else
+                    {
+                        toAdd.Median = medianSortedList.ElementAt(medianSortedList.Count()/ 2).TimeTakenMs;
+                    }
+                    //Standard Deviation: https://en.wikipedia.org/wiki/Standard_deviation
+                    toAdd.StdDeviation = DistributionResult.StdDev(from p in toProcess select Convert.ToDouble(p.TimeTakenMs));
+                }
+
+                toReturn.Add(toAdd);
+            }
+            return toReturn;
+        }
+
         public IEnumerable<UrlSummary> UrlSummary(IEnumerable<HttpRequestData> resultData, int totalTimeTakenSecs)
         {
             // avoid divide by 0 error - assume at least 1 second
@@ -197,4 +274,49 @@ namespace WebSurge
         public bool IsError { get; set; }
     }
 
+    public class DistributionResult
+    {
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public string HttpVerb { get; set; }
+        public int MinDuration { get; set; }
+        public int MaxDuration { get; set; }
+        public SortedDictionary<double, int> SegmentList { get; set; }
+        public double Average { get; set; }
+        public double Median { get; set; }
+        public double Mode { get; set; }
+        public double StdDeviation { get; set; }
+
+        public static double GetBinKeyValue(int binSizeMilliseconds, int sampleValue)
+        {
+            double slotId = 0;
+
+            if (binSizeMilliseconds == 1)
+                slotId = sampleValue;
+            else
+                slotId = (sampleValue / binSizeMilliseconds) * binSizeMilliseconds + (double)(binSizeMilliseconds / 2d);
+
+            return slotId;
+        }
+
+
+        public static double StdDev(IEnumerable<double> values)
+        {
+            double ret = 0;
+            int count = values.Count();
+            if (count > 1)
+            {
+                //Compute the Average
+                double avg = values.Average();
+
+                //Perform the Sum of (value-avg)^2
+                double sum = values.Sum(d => (d - avg) * (d - avg));
+
+                //Put it all together
+                ret = Math.Sqrt(sum / count);
+            }
+            return ret;
+        }
+
+    }
 }

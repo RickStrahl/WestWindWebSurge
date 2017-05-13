@@ -11,12 +11,13 @@ using ZedGraph;
 
 namespace WebSurge
 {
-    public partial class ChartFormZed : Form
+    public partial class ChartFormZed : Form, IDistributionGraphContainer
     {
         private string Url;
         private IEnumerable<HttpRequestData> Results;
         private ChartTypes ChartType;
         public new Form ParentForm;
+        public GraphSettings graphSettings;
 
         public ChartFormZed(IEnumerable<HttpRequestData> data, string url = null, ChartTypes chartType = ChartTypes.TimeTakenPerRequest, Form parentForm = null)
         {
@@ -56,7 +57,11 @@ namespace WebSurge
                 RenderTimeTaken();
             else if (ChartType == ChartTypes.RequestsPerSecond)
                 RenderRequestsPerSecond();
-
+            else if (ChartType == ChartTypes.ResponseTimeDistribution)
+            {
+                graphSettings = new DistributionGraphSettings();
+                (this as IDistributionGraphContainer).RenderResponseTimeDistribution(Results, graphSettings as DistributionGraphSettings);
+            }
             if (ParentForm != null)
                 ParentForm.Cursor = Cursors.Default;
         }
@@ -106,6 +111,79 @@ namespace WebSurge
             pane.AxisChange();
         }
 
+        void IDistributionGraphContainer.RenderResponseTimeDistribution(IEnumerable<HttpRequestData> data, DistributionGraphSettings settings)
+        {
+            ClearSeries();
+
+            var parser = new ResultsParser();
+            IEnumerable<DistributionResult> results = parser.TimeTakenDistribution(data, settings.BinSizeMilliseconds, settings.ShowStats, 
+                settings.MinX, settings.MaxX);
+
+            var pane = Chart.GraphPane;
+
+            pane.Title.Text = settings.Title;
+            pane.Title.FontSpec.FontColor = Color.DarkBlue;
+            pane.Title.FontSpec.Size = 14.25F;
+            pane.Title.FontSpec.IsBold = true;
+
+            pane.LineType = LineType.Normal;
+            pane.XAxis.Title.Text = "Milli-seconds";
+            pane.YAxis.Title.Text = "Occurrences";
+            pane.Chart.Fill = new Fill(Color.White, Color.WhiteSmoke, 45.0F);
+            Chart.IsShowPointValues = true;
+
+            ColorGenerator colorGenerator = new ColorGenerator();
+
+            foreach (DistributionResult result in results)
+            {
+                PointPairList pointsList;
+                
+                pointsList = new PointPairList(
+                (from t in result.SegmentList
+                    select t.Key).ToArray(),
+                (from t in result.SegmentList
+                    select Convert.ToDouble(t.Value)).ToArray()
+                );
+               
+
+                string strLegend = string.Empty;
+                if (settings.ShowStats)
+                {
+                    string sigma = '\u03c3'.ToString();
+                    string square = '\u00b2'.ToString();
+
+                    strLegend = string.Format("{0} ({1}) [ Bin={2:0} Avg={3:F0} Med={4:F0} Mo={5:F0} {6}={7:F0} ms ]"
+                        , string.IsNullOrEmpty(result.Name) ? result.Url : result.Name
+                        , result.HttpVerb
+                        , settings.BinSizeMilliseconds
+                        , result.Average
+                        , result.Median
+                        , result.Mode
+                        , sigma
+                        , result.StdDeviation);  
+                }
+                else
+                {
+                    strLegend = string.Format("{0} ({1})"
+                        , string.IsNullOrEmpty(result.Name) ? result.Url : result.Name
+                        , result.HttpVerb);
+                }
+               
+                var curve = pane.AddCurve(strLegend,
+                    pointsList, colorGenerator.GetNextColor(), SymbolType.Circle);
+                curve.Line.Width = 2.0F;
+                curve.Line.IsSmooth = settings.IsSmooth;
+                curve.Line.SmoothTension = settings.SmoothTension;
+                curve.Line.IsAntiAlias = true;
+                curve.Symbol.Size = 4;
+            }
+
+            pane.Legend.Position = ZedGraph.LegendPos.Bottom;
+            pane.Legend.Border.IsVisible = false;
+            pane.AxisChange();
+            Chart.Invalidate();
+            Chart.Refresh();
+        }
 
         public void RenderTimeTaken()
         {
@@ -157,33 +235,106 @@ namespace WebSurge
             curve2.Line.IsAntiAlias = true;
             curve2.Symbol.Fill = new Fill(Color.White);
             curve2.Symbol.Size = 4;
-            
+
             // Force refresh of chart
-            pane.AxisChange();   
+            pane.AxisChange();
         }
 
 
         void ClearSeries()
         {
-            for (int i = Chart.GraphPane.CurveList.Count -1 ; i > -1; i--)
+            Chart.GraphPane.CurveList.Clear();
+        }
+
+        private void DistributionGraphOptionsClick(object sender, EventArgs e)
+        {
+            DistributionGraphOptionsForm settingsForm = new DistributionGraphOptionsForm( this, Results, graphSettings as DistributionGraphSettings);
+            settingsForm.ShowDialog();
+        }
+
+        private void Chart_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
+        {
+            //Add the extra menu entries that are specific to each graph
+            if(ChartType== ChartTypes.ResponseTimeDistribution)
             {
-                Chart.GraphPane.CurveList.RemoveAt(i);
+                ToolStripMenuItem distrGraphOptionsItem = new ToolStripMenuItem();
+                distrGraphOptionsItem.Name = "distrGraphOptionsItem";
+                distrGraphOptionsItem.Tag = "distrGraphOptionsItem";
+                distrGraphOptionsItem.Text = "Change Distribution Graph Options";
+                ContextMenu customItemsMenu = new ContextMenu();
+                distrGraphOptionsItem.Click += new System.EventHandler(DistributionGraphOptionsClick);
+                menuStrip.Items.Add(distrGraphOptionsItem);
             }
         }
-
-        private void Chart_Load(object sender, EventArgs e)
-        {
-
-        }
-       
     }
 
     public enum ChartTypes
     {
         TimeTakenPerRequest,
         RequestsPerSecond,
-        RequestsPerSecondPerUrl
+        RequestsPerSecondPerUrl,
+        ResponseTimeDistribution
     }
 
+    public class GraphSettings
+    {
+        [Description("The title that appears at the top of the chart.")]
+        [Category("Graph Header/Footer")]
+        public string Title { get; set; }
+
+        [DisplayName("Minimum X-axis value")]
+        [Description("The minimum value of the X-Axis")]
+        public int MinX { get; set; }
+
+        [DisplayName("Maximum X-axis value")]
+        [Description("The maximum value of the X-Axis")]
+        public int MaxX { get; set; }
+
+        [DisplayName("Smoothing Enabled")]
+        [Description("Defines if any smoothing is applied to the resulting line chart")]
+        public bool IsSmooth { get; set; }
+
+        [DisplayName("Smoothing Tension")]
+        [Description("Defines the smooth tension factor applied to the line chart (value should be between 0 and 1)")]
+        public float SmoothTension { get; set; }
+
+        public GraphSettings()
+        {
+            Title = string.Empty;
+            MinX = 0;
+            MaxX = int.MaxValue;
+            IsSmooth = false;
+            SmoothTension = 0f;
+        }
+    }
+
+    public class DistributionGraphSettings : GraphSettings
+    {
+        [DisplayName("Bin Size (ms)")]
+        [Description("The class size (in milliseconds) to be used for grouping response times ")]
+        [Category("Distribution Graph Settings")]
+        public int BinSizeMilliseconds { get; set; }
+
+        [DisplayName("Show statistics")]
+        [Description("Display statistical data (average, median, standard deviation etc.) at the footer of the graph")]
+        [Category("Graph Header/Footer")]
+        public bool ShowStats { get; set; }
+
+        public DistributionGraphSettings() : base()
+        {
+            base.Title = "Distribution of response times";
+            BinSizeMilliseconds = 1;
+            ShowStats = false;
+            IsSmooth = true;
+            SmoothTension = 0.3f;
+            BinSizeMilliseconds = 10;
+        }
+    }
+
+
+    public interface IDistributionGraphContainer
+    {
+        void RenderResponseTimeDistribution(IEnumerable<HttpRequestData> data, DistributionGraphSettings settings);
+    }
 
 }

@@ -96,6 +96,12 @@
     <Compile Include="ChartFormZed.Designer.cs">
       <DependentUpon>ChartFormZed.cs</DependentUpon>
     </Compile>
+    <Compile Include="DistributionGraphOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DistributionGraphOptionsForm.Designer.cs">
+      <DependentUpon>DistributionGraphOptionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +139,9 @@
     </Compile>
     <EmbeddedResource Include="ChartFormZed.resx">
       <DependentUpon>ChartFormZed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DistributionGraphOptionsForm.resx">
+      <DependentUpon>DistributionGraphOptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditForm.resx">
       <DependentUpon>EditForm.cs</DependentUpon>
