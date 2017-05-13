@@ -129,12 +129,10 @@ namespace WebSurge
             pane.LineType = LineType.Normal;
             pane.XAxis.Title.Text = "Milli-seconds";
             pane.YAxis.Title.Text = "Occurrences";
-            pane.Chart.Fill = new Fill(Color.LightYellow, Color.PaleGoldenrod, 45.0F);
+            pane.Chart.Fill = new Fill(Color.White, Color.WhiteSmoke, 45.0F);
             Chart.IsShowPointValues = true;
 
-
-            int curveCount = 0;
-            Color[] colorArray = { Color.Green, Color.Red, Color.Blue, Color.Black, Color.Yellow };
+            ColorGenerator colorGenerator = new ColorGenerator();
 
             foreach (DistributionResult result in results)
             {
@@ -172,18 +170,12 @@ namespace WebSurge
                 }
                
                 var curve = pane.AddCurve(strLegend,
-                    pointsList, colorArray[curveCount], SymbolType.Circle);
+                    pointsList, colorGenerator.GetNextColor(), SymbolType.Circle);
                 curve.Line.Width = 2.0F;
                 curve.Line.IsSmooth = settings.IsSmooth;
                 curve.Line.SmoothTension = settings.SmoothTension;
                 curve.Line.IsAntiAlias = true;
                 curve.Symbol.Size = 4;
-
-                if (curveCount < (colorArray.Length - 1) )
-                    curveCount++;
-                else
-                    curveCount = 0;
-
             }
 
             pane.Legend.Position = ZedGraph.LegendPos.Bottom;
