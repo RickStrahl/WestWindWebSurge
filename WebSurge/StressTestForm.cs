@@ -455,14 +455,18 @@ namespace WebSurge
 
         private void RequestData_Changed(object sender, EventArgs e)
         {
-            string displayData = null;
+	        FixClickFocus();
+
+			string displayData = null;
             if (ActiveRequest != null)
                 displayData = ActiveRequest.Url + "|" + ActiveRequest.Name;
 
             SaveRequest(ActiveRequest);
 
+	        Debug.WriteLine($"{displayData} - {ActiveRequest.Url}|{ActiveRequest.Name} - {ActiveRequest?.RequestContent?.Take(100)}");
+
             if (displayData == null && ActiveRequest != null ||
-                (displayData != ActiveRequest.Url + "|" + ActiveRequest.Name))                
+                displayData != ActiveRequest.Url + "|" + ActiveRequest.Name)                
                 RenderRequests(Requests);
         }
         #endregion
@@ -1008,6 +1012,7 @@ namespace WebSurge
         #region Event Handling
         private void ButtonHandler(object sender, EventArgs e)
         {
+			// force active control to refresh the binding source
             FixClickFocus();
 
             if (sender == tbOpen || sender == btnOpen ||
@@ -1314,7 +1319,7 @@ namespace WebSurge
             if (sender == tbSaveAllRequests || sender == tbSaveAllRequests2 ||
                 sender == btnSaveAllRequests || sender == btnSaveAllRequestsAs ||
                 sender == tbSaveToDropbox || sender == tbSaveToOneDrive)
-            {
+            {	            
                 var parser = new SessionParser();
 
                 var path = App.UserDataPath;
