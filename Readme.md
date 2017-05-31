@@ -7,6 +7,8 @@
 * [Download WebSurge](https://websurge.west-wind.com) 
 * [Install WebSurge from Chocolatey](https://chocolatey.org/packages/WestwindWebSurge)
 
+Like what you see? Don't forget to  :star: Star the repo (top right).
+
 ### What's WebSurge?
 West Wind WebSurge is a Windows application that helps you to easily capture and play back URL requests, either individually for easy application, service and API testing scenarios, or under heavy load for stress testing scenarios. WebSurge makes it easy to save, share and reuse URL sessions you have created, so you can easily start up sessions again on your own or somebody else's machine. 
 
