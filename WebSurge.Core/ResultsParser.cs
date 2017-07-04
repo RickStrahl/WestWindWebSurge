@@ -31,6 +31,7 @@ namespace WebSurge
                 ThreadCount = threads,
                 TimeTakenSecs = totalTimeSecs,
                 FailedRequests = results.Count(req => req.IsError),
+                SuccessRequests = results.Count(req => !req.IsError),
                 RequestsPerSecond = ((decimal) results.Count/(decimal) totalTimeSecs),
                 AvgRequestTimeMs = (decimal) results.Average(req => req.TimeTakenMs),
                 MinRequestTimeMs = results.Min(req => req.TimeTakenMs),
