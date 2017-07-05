@@ -12,6 +12,72 @@ namespace SimpleStressTester.Tests
     [TestClass]
     public class ResultsParserTests
     {
+
+        [TestMethod]
+        public void ResultsReportTimeTakenTest()
+        {
+            var time = DateTime.UtcNow;
+
+            var requests = new List<HttpRequestData>()
+            {
+                new HttpRequestData()
+                {
+                    Timestamp = time,
+                    TimeTakenMs = 10
+                },
+                new HttpRequestData()
+                {
+                    Timestamp = time.AddMilliseconds(20),
+                    TimeTakenMs = 15
+                },
+                new HttpRequestData
+                {
+                    Timestamp = time.AddMilliseconds(220),
+                    TimeTakenMs = 15
+                },
+                new HttpRequestData
+                {
+                    Timestamp = time.AddMilliseconds(1020),
+                    TimeTakenMs = 20
+                },
+                new HttpRequestData
+                {
+                    Timestamp = time.AddMilliseconds(1050),
+                    TimeTakenMs = 20
+                },
+                new HttpRequestData
+                {
+                    Timestamp = time.AddMilliseconds(1200),
+                    TimeTakenMs = 20
+                },
+                new HttpRequestData
+                {
+                    Timestamp = time.AddMilliseconds(3020),
+                    TimeTakenMs = 20
+                },
+                new HttpRequestData
+                {
+                    Timestamp = time.AddMilliseconds(3050),
+                    TimeTakenMs = 20
+                },
+                new HttpRequestData
+                {
+                    Timestamp = time.AddMilliseconds(3200),
+                    TimeTakenMs = 20
+                },  new HttpRequestData
+                {
+                    Timestamp = time.AddMilliseconds(3500),
+                    TimeTakenMs = 50
+                }
+            };
+            var timeTakenMs = 30000;
+
+            var parser = new ResultsParser();
+            var results = parser.GetResultReport(requests, timeTakenMs, 10);
+
+            Assert.AreEqual(timeTakenMs / 1000, results.TestResult.TimeTakenSecs);
+        }
+
         [TestMethod]
         public void RequestPerSecondListTest()
         {

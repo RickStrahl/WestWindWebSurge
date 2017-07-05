@@ -364,7 +364,6 @@ namespace WebSurge
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.Message);
                 result.IsError = true;
                 result.ErrorMessage = "CheckSite Error: " + ex.GetBaseException().Message;
 
