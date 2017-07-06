@@ -66,6 +66,7 @@ namespace WebSurge
         public int SortOrder;
 
         private static Encoding WindowsEncoding = Encoding.GetEncoding(1252);
+        public string TextEncoding { get; set; }
 
         public HttpRequestData()
         {
@@ -76,6 +77,7 @@ namespace WebSurge
             Headers = new List<HttpRequestHeader>();
             IsError = true;
             ErrorMessage = string.Empty;
+            TextEncoding = "UTF-8";
         }
         public static HttpRequestData Copy(HttpRequestData req)
         {
@@ -375,8 +377,6 @@ namespace WebSurge
                 Headers.Add(hd);
             }
         }
-
-        public string TextEncoding { get; set; }
 
         /// <summary>
         /// Parses a single HttpRequestData object to a string.
