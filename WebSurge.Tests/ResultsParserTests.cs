@@ -158,21 +158,26 @@ namespace SimpleStressTester.Tests
                     Url = "http://localhost/",
                     Timestamp = time,
                     IsError = false,
-                    TimeTakenMs = 10
+                    TimeTakenMs = 10,
+                    ErrorMessage = "Invalid Server Response",
+                    StatusCode = "500"
                 },
                 new HttpRequestData()
                 {
                     Url = "http://localhost/wconnect",
                     Timestamp = time.AddMilliseconds(20),
                     IsError = false,
-                    TimeTakenMs = 15
+                    TimeTakenMs = 95
+                
                 },
                 new HttpRequestData
                 {
                     Url = "http://localhost/",
                     Timestamp = time.AddMilliseconds(220),
                     IsError = false,
-                    TimeTakenMs = 15
+                    TimeTakenMs = 15,
+                    ErrorMessage = "Bogus Invalid Server Response",
+                    StatusCode = "500"
                 },
                 new HttpRequestData
                 {

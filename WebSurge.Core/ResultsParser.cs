@@ -35,7 +35,10 @@ namespace WebSurge
                 AvgRequestTimeMs = (decimal) results.Average(req => req.TimeTakenMs),
                 MinRequestTimeMs = results.Min(req => req.TimeTakenMs),
                 MaxRequestTimeMs = results.Max(req => req.TimeTakenMs),
-                ErrorMessages = results.GroupBy(x => x.ErrorMessage).Where(g => g.Key != null).Select(g => new ErrorMessage()
+                ErrorMessages = results
+                                    .GroupBy(x => x.ErrorMessage)
+                                    .Where(g => g.Key != null)
+                                    .Select(g => new ErrorMessage()
                 {
                     Message = g.Key,
                     Count = g.Count()
