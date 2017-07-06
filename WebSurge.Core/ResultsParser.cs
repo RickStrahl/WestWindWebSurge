@@ -34,7 +34,15 @@ namespace WebSurge
                 RequestsPerSecond = ((decimal) results.Count/(decimal) totalTimeSecs),
                 AvgRequestTimeMs = (decimal) results.Average(req => req.TimeTakenMs),
                 MinRequestTimeMs = results.Min(req => req.TimeTakenMs),
-                MaxRequestTimeMs = results.Max(req => req.TimeTakenMs)
+                MaxRequestTimeMs = results.Max(req => req.TimeTakenMs),
+                ErrorMessages = results
+                                    .GroupBy(x => x.ErrorMessage)
+                                    .Where(g => g.Key != null)
+                                    .Select(g => new ErrorMessage()
+                {
+                    Message = g.Key,
+                    Count = g.Count()
+                })
             };
 
             return res;
@@ -108,21 +116,31 @@ namespace WebSurge
 
             var urls = resultData
                 .GroupBy(res => res.HttpVerb +  " " + res.Url + (string.IsNullOrEmpty(res.Name) ? "" : " • " + res.Name), rs => rs, (key, uls) =>
-                    new UrlSummary()
+                {
+                    // Prevent multiple enumerations
+                    var results = uls as IList<HttpRequestData> ?? uls.ToList();
+                    
+                    return new UrlSummary()
                     {
-                        Url = key,                        
+                        Url = key,
                         Results = new TestResult()
                         {
                             TimeTakenSecs = totalTimeTakenSecs,
-                            TotalRequests = uls.Count(),
-                            FailedRequests = uls.Count(u => u.IsError),
-                            SuccessRequests = uls.Count(u => !u.IsError),
-                            RequestsPerSecond = ((decimal) uls.Count()/(decimal) totalTimeTakenSecs),
-                            MinRequestTimeMs   = uls.Min( u=> u.TimeTakenMs),
-                            MaxRequestTimeMs = uls.Max(u => u.TimeTakenMs),
-                            AvgRequestTimeMs = (decimal) uls.Average(u=> u.TimeTakenMs),                            
+                            TotalRequests = results.Count(),
+                            FailedRequests = results.Count(u => u.IsError),
+                            SuccessRequests = results.Count(u => !u.IsError),
+                            RequestsPerSecond = ((decimal) results.Count() / (decimal) totalTimeTakenSecs),
+                            MinRequestTimeMs = results.Min(u => u.TimeTakenMs),
+                            MaxRequestTimeMs = results.Max(u => u.TimeTakenMs),
+                            AvgRequestTimeMs = (decimal) results.Average(u => u.TimeTakenMs),
+                            ErrorMessages = results.GroupBy(x => x.ErrorMessage).Where(g => g.Key != null).Select(g => new ErrorMessage()
+                            {
+                                Message = g.Key,
+                                Count = g.Count()
+                            })
                         }
-                    });
+                    };
+                });
 
 
 
@@ -130,9 +148,12 @@ namespace WebSurge
         }
 
         public TestResultView GetResultReport(IEnumerable<HttpRequestData> resultData,
-            int totalTimeTaken,
+            int totalTimeTakenMs,
             int threadCount)
         {
+            // Convert milliseconds to seconds
+            var totalTimeTaken = totalTimeTakenMs / 1000;
+
             var urlSummary = UrlSummary(resultData, totalTimeTaken);
             var testResult = ParseResults(resultData, totalTimeTaken, threadCount);
 
@@ -180,7 +201,15 @@ namespace WebSurge
         public decimal AvgRequestTimeMs { get; set; }
         public decimal MinRequestTimeMs { get; set; }
         public decimal MaxRequestTimeMs { get; set; }
-        public int TimeTakenSecs { get; set; }        
+        public int TimeTakenSecs { get; set; }
+        public IEnumerable<ErrorMessage> ErrorMessages { get; set; }
+    }
+
+    public class ErrorMessage
+    {
+        public string Message { get; set; }
+
+        public int Count { get; set; }
     }
 
     public class RequestsPerSecondResult

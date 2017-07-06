@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -96,6 +97,10 @@ namespace WebSurge.Cli
                 string json = JsonSerializationUtils.Serialize(result, formatJsonOutput: true);
                 Console.WriteLine(json);
                 Console.ForegroundColor = origColor;
+                if (options.OutputFile != null)
+                {
+                    File.WriteAllText(options.OutputFile, json);
+                }
                 return;
             }
 
@@ -118,6 +123,11 @@ namespace WebSurge.Cli
 
             Console.WriteLine();
             Console.WriteLine(resultText);
+
+            if (options.OutputFile != null)
+            {
+                File.WriteAllText(options.OutputFile, resultText);
+            }
 
             Console.ForegroundColor = origColor;
         }

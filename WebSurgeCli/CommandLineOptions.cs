@@ -37,6 +37,9 @@ namespace WebSurge.Cli
         [Option("json", HelpText="Generates only JSON output.")]
         public bool Json {get; set;}
 
+        [Option("outputFile", HelpText = "Saves the output to a file")]
+        public string OutputFile { get; set; }
+
         [HelpOption]
         public string GetUsage()
         {
@@ -46,7 +49,7 @@ namespace WebSurge.Cli
             sb.AppendLine("West Wind WebSurge v" + Program.GetVersion());            
 
             string options = @"------------------------
-usage:   WebSurgeCli <SessionFile|Url> -sXX -wXX -tXX -dXX -r -yX
+usage:   WebSurgeCli <SessionFile|Url> -sXX -wXX -tXX -dXX -r -yX --outputFile ""output.json""
 
 Parameters:
 -----------
@@ -77,6 +80,7 @@ Switches:
 Output:
 -------
 --json       Return results as JSON
+--outputFile Save the output to a filename
 
 Examples:
 ---------
