@@ -43,6 +43,9 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
@@ -52,9 +55,8 @@
     <Reference Include="Westwind.RazorHosting">
       <HintPath>..\packages\Westwind.RazorHosting.3.00\lib\net40\Westwind.RazorHosting.dll</HintPath>
     </Reference>
-    <Reference Include="Westwind.Utilities">
-      <HintPath>..\packages\Westwind.Utilities.2.71.1\lib\net45\Westwind.Utilities.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Westwind.Utilities, Version=3.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Westwind.Utilities.3.0.0.6-preview1-0\lib\net45\Westwind.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -79,7 +81,9 @@
     <Compile Include="Support\UnlockKey.cs" />
     <Compile Include="Support\TemplateRenderer.cs" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
