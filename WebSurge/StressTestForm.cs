@@ -455,17 +455,18 @@ namespace WebSurge
 
         private void RequestData_Changed(object sender, EventArgs e)
         {
-	        FixClickFocus();
-
-			string displayData = null;
-            if (ActiveRequest != null)
-                displayData = ActiveRequest.Url + "|" + ActiveRequest.Name;
-
+            if (ActiveRequest == null)
+                return;
+            
+            FixClickFocus();
+            
+            string displayData = null;
+            displayData = ActiveRequest.Url + "|" + ActiveRequest.Name;
             SaveRequest(ActiveRequest);
 
-	        Debug.WriteLine($"{displayData} - {ActiveRequest.Url}|{ActiveRequest.Name} - {ActiveRequest?.RequestContent?.Take(100)}");
+            Debug.WriteLine($"{displayData} - {ActiveRequest.Url}|{ActiveRequest.Name} - {ActiveRequest?.RequestContent?.Take(100)}");
 
-            if (displayData == null && ActiveRequest != null ||
+            if (displayData == null  ||
                 displayData != ActiveRequest.Url + "|" + ActiveRequest.Name)                
                 RenderRequests(Requests);
         }
