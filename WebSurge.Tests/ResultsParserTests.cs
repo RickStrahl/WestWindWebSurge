@@ -76,6 +76,8 @@ namespace SimpleStressTester.Tests
             var results = parser.GetResultReport(requests, timeTakenMs, 10);
 
             Assert.AreEqual(timeTakenMs / 1000, results.TestResult.TimeTakenSecs);
+
+            Console.WriteLine(JsonSerializationUtils.Serialize(results, false, true));
         }
 
         [TestMethod]
@@ -138,6 +140,7 @@ namespace SimpleStressTester.Tests
 
             var parser = new ResultsParser();
             var res = parser.RequestsPerSecond(requests);
+            
 
             Assert.IsNotNull(res);
             foreach (var r in res)

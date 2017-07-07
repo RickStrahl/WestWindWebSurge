@@ -116,32 +116,36 @@ namespace WebSurge
                 totalTimeTakenSecs = 1;
 
             var urls = resultData
-                .GroupBy(res => res.HttpVerb +  " " + res.Url + (string.IsNullOrEmpty(res.Name) ? "" : " • " + res.Name), rs => rs, (key, uls) =>
-                {
-                    // Prevent multiple enumerations
-                    var results = uls as IList<HttpRequestData> ?? uls.ToList();
-                    
-                    return new UrlSummary()
+                .GroupBy(res => res.HttpVerb + " " + res.Url + (string.IsNullOrEmpty(res.Name) ? "" : " • " + res.Name),
+                    rs => rs, (key, uls) =>
                     {
-                        Url = key,
-                        Results = new TestResult()
+                        // Prevent multiple enumerations
+                        var results = uls as IList<HttpRequestData> ?? uls.ToList();
+
+                        return new UrlSummary()
                         {
-                            TimeTakenSecs = totalTimeTakenSecs,
-                            TotalRequests = results.Count(),
-                            FailedRequests = results.Count(u => u.IsError),
-                            SuccessRequests = results.Count(u => !u.IsError),
-                            RequestsPerSecond = ((decimal) results.Count() / (decimal) totalTimeTakenSecs),
-                            MinRequestTimeMs = results.Min(u => u.TimeTakenMs),
-                            MaxRequestTimeMs = results.Max(u => u.TimeTakenMs),
-                            AvgRequestTimeMs = (decimal) results.Average(u => u.TimeTakenMs),
-                            ErrorMessages = results.GroupBy(x => x.ErrorMessage).Where(g => g.Key != null).Select(g => new ErrorMessage()
+                            Url = key,
+                            Results = new TestResult()
                             {
-                                Message = g.Key,
-                                Count = g.Count()
-                            })
-                        }
-                    };
-                });
+                                TimeTakenSecs = totalTimeTakenSecs,
+                                TotalRequests = results.Count(),
+                                FailedRequests = results.Count(u => u.IsError),
+                                SuccessRequests = results.Count(u => !u.IsError),
+                                RequestsPerSecond = ((decimal) results.Count() / (decimal) totalTimeTakenSecs),
+                                MinRequestTimeMs = results.Min(u => u.TimeTakenMs),
+                                MaxRequestTimeMs = results.Max(u => u.TimeTakenMs),
+                                AvgRequestTimeMs = (decimal) results.Average(u => u.TimeTakenMs),
+                                ErrorMessages = results
+                                    .GroupBy(x => x.ErrorMessage)
+                                    .Where(g => g.Key != null)
+                                    .Select(g => new ErrorMessage()
+                                    {
+                                        Message = g.Key,
+                                        Count = g.Count()
+                                    })
+                            }
+                        };
+                    });
 
 
 

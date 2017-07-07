@@ -91,16 +91,16 @@ namespace WebSurge.Cli
 
             if (options.Json)
             {
+                
                 var result = stressTester.ResultsParser.GetResultReport(stressTester.Results, 
                     stressTester.TimeTakenForLastRunMs,
                     stressTester.ThreadsUsed);
                 string json = JsonSerializationUtils.Serialize(result, formatJsonOutput: true);
+
                 Console.WriteLine(json);
                 Console.ForegroundColor = origColor;
                 if (options.OutputFile != null)
-                {
                     File.WriteAllText(options.OutputFile, json);
-                }
                 return;
             }
 
