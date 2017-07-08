@@ -1,12 +1,21 @@
 ﻿# West Wind WebSurge Change Log
 
-### Version 1.0.2
+### Version 1.05
 <i><small>Not released yet</small></i>
+
+* **Automatic Cookie Tracking Configuration Option**  
+Cookies are now automatically tracked per session (group of URLs). Each session runs on an isolated thread and cookies are reset as each session is restarted in a test. Use the `TrackSessionCookies` configuration flag to enable or disable Cookie tracking. If you don't need cookie tracking set this option to `false` as improves throughput. The default is `true`.
+
+* **Add --output Command Line Switch to WebSurgeCli**  
+The `--output` flag sends the final Web Surge report output or `--json` response from the WebSurgeCli to the specified file.
 
 * **Group Test Results by Verb + Url + Name**  
 Previously test results were grouped by Verb + URL only which caused problems for some scenarios like Web Services that are always using the same Url. Now the name is used in combination and combined with the Url and displayed on the test results page.
 
-### Version 1.0.2
+* **Fix: JSON Result Formatting**  
+Fix but with various values in the JSON result displaying as Milliseconds when they should display as seconds. 
+
+### Version 1.02
 <i><small>February 30th, 2017</small></i>
 
 * **Add additional XML preview formats**  
