@@ -1,0 +1,49 @@
+
+[
+  {
+    "LoginUrls": [
+      {
+        "Url": "http://west-wind.com/wconnect/login.wwd",
+        "Headers": [],
+        "FormVariables": [
+          {
+            "Key": "txtUsername",
+            "Value": "rstrahl@west-wind.com",
+            "BinaryValue": null
+          },
+          {
+            "Key": "txtPassword",
+            "Value": "seekrit",
+            "BinaryValue": null
+          }
+        ],
+        "ContentType": "application/x-www-form-urlencoded",
+        "HttpVerb": "POST"
+      }
+    ],
+    "AuthCookie": null
+  },
+  {
+    "LoginUrls": [
+      {
+        "Url": "http://west-wind.com/wconnect/login.wwd",
+        "Headers": [],
+        "FormVariables": [
+          {
+            "Key": "txtUsername",
+            "Value": "megger@eps-software.com",
+            "BinaryValue": null
+          },
+          {
+            "Key": "txtPassword",
+            "Value": "seekriteps",
+            "BinaryValue": null
+          }
+        ],
+        "ContentType": "application/x-www-form-urlencoded",
+        "HttpVerb": "POST"
+      }
+    ],
+    "AuthCookie": null
+  }
+]

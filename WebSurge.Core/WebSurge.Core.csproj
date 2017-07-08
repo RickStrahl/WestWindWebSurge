@@ -80,6 +80,8 @@
     <Compile Include="Support\MostRecentlyUsedList.cs" />
     <Compile Include="Support\UnlockKey.cs" />
     <Compile Include="Support\TemplateRenderer.cs" />
+    <Compile Include="UserManagement\UserEntry.cs" />
+    <Compile Include="UserManagement\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
