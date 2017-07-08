@@ -3,8 +3,8 @@
 ### Version 1.05
 <i><small>Not released yet</small></i>
 
-* **Automatic Cookie Tracking Configuration Option**  
-Cookies are now automatically tracked per session (group of URLs). Each session runs on an isolated thread and cookies are reset as each session is restarted in a test. Use the `TrackSessionCookies` configuration flag to enable or disable Cookie tracking. If you don't need cookie tracking set this option to `false` as improves throughput. The default is `true`.
+* **Automatic Cookie Tracking via Configuration Option**  
+Cookies are now automatically tracked per session (group of URLs). Each session runs on an isolated thread and cookies are reset as each session is restarted in a test run or individual test. Use the `TrackSessionCookies` configuration flag to enable or disable Cookie tracking. The default is `true` - set to `false` if you don't use Cookies that carry forward in your tests to improve test throughput.
 
 * **Add --output Command Line Switch to WebSurgeCli**  
 The `--output` flag sends the final Web Surge report output or `--json` response from the WebSurgeCli to the specified file.
@@ -29,7 +29,7 @@ Changed the request editing to not require explicit **Save** operations. New ent
 <i><small>Oct. 10th, 2016</small></i>
 
 * **Code Signed Exe's and Installer**  
-The WebSurge installer file and main binary EXEs are now code-signed for verfication purposes.
+The WebSurge installer file and main binary EXEs are now code-signed for verification purposes.
 
 * **Byte Size Display on Response Pane**  
 The result Response pane now shows the byte size of the actual request. The actual size may differ from the Content-Length if the content is encoded, or if the content is chunked and there is no Content-Length sent from the server.
