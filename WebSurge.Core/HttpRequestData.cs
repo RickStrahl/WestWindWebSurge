@@ -68,6 +68,9 @@ namespace WebSurge
         private static Encoding WindowsEncoding = Encoding.GetEncoding(1252);
         public string TextEncoding { get; set; }
 
+        public CookieContainer Cookies { get; set; }
+         
+
         public HttpRequestData()
         {
             Id = DataUtils.GenerateUniqueNumericId();            

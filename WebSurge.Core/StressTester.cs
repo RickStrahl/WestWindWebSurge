@@ -144,7 +144,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="reqData"></param>
         /// <returns></returns>
-        public HttpRequestData CheckSite(HttpRequestData reqData)
+        public HttpRequestData CheckSite(HttpRequestData reqData, CookieContainer cookieContainer = null)
         {
             if (CancelThreads)
                 return null;
@@ -286,6 +286,10 @@ namespace WebSurge
                     webRequest.Headers.Add(header.Name, header.Value);
                 }
 
+                // assign cookies if exist
+                if (cookieContainer != null)
+                    webRequest.CookieContainer = cookieContainer;
+
                 DateTime dt = DateTime.UtcNow;
 
                 if (CancelThreads)
@@ -315,7 +319,7 @@ namespace WebSurge
                     result.ResponseLength = httpOutput.Length;
                     
                 result.ResponseContent = httpOutput;
-
+                
                 StringBuilder sb = new StringBuilder();
                 foreach (string key in client.WebResponse.Headers.Keys)
                 {
@@ -574,7 +578,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="requests">HttpRequests to run</param>
         /// <param name="runOnce">When set only fires once</param>
-        public void RunSessions(object requests, bool runOnce = false)
+        public void RunSessions(object requests, bool runOnce)
         {
             List<HttpRequestData> reqs = null;
             
@@ -594,17 +598,23 @@ namespace WebSurge
             }
             else
                 reqs = requests as List<HttpRequestData>;
-
+            
+                            
             while (!CancelThreads)
             {
+                CookieContainer cookieContainer = App.Configuration.StressTester.TrackPerSessionCookies
+                    ? cookieContainer = new CookieContainer()
+                    : null;
 
                 foreach (var req in reqs)
                 {
                     if (CancelThreads)
                         break;
 
-                    var result = CheckSite(req);
+                    //Debug.WriteLine("Thread: " + Thread.CurrentThread.ManagedThreadId + " - " + req.Url + " Cookies: " + (cookieContainer?.Count ?? -1) );
 
+                    var result = CheckSite(req, cookieContainer);
+                    
                     if (result != null)
                         WriteResult(result);
 

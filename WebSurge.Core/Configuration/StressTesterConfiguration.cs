@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace WebSurge
@@ -45,29 +46,6 @@ namespace WebSurge
         public int MaxResponseSize { get; set; }
 
 
-        /// <summary>
-        /// A cookie value that is replaced instead of the 'real'
-        /// cookie header sent in the request.
-        /// 
-        /// Use this to simulate user authentication cookies if
-        /// necessary.
-        /// </summary>
-        [Description(
-            @"A cookie value that is replaced instead of the captured cookie of the captured trace.
-
-Use to force custom auth cookies to an existing session that has expired cookies."
-            )]
-        [Category("Header Replacement")]
-        public string ReplaceCookieValue { get; set; }
-
-        [Description(
-            @"When set replaces or adds the Authentication header with this value.
-
-Allows to add custom authentication to a request after you've captured say a bearer token."
-            )]
-        [Category("Header Replacement")]
-        public string ReplaceAuthorization { get; set;  }
-
         [Description(@"Replaces query string key value pairs on the URL when set. Use query string syntax for values to add or replace. Example: id=333123&format=json  - adds or replaces id and json query string values.")]
         [Category("Header Replacement")]
         public string ReplaceQueryStringValuePairs { get; set; }
@@ -93,12 +71,37 @@ Allows to add custom authentication to a request after you've captured say a bea
         public string ReplaceDomain { get; set; }
 
 
+        #region Authentication
+
+        /// <summary>
+        /// A cookie value that is replaced instead of the 'real'
+        /// cookie header sent in the request.
+        /// 
+        /// Use this to simulate user authentication cookies if
+        /// necessary.
+        /// </summary>
+        [Description(
+            @"A cookie value that is replaced instead of the captured cookie of the captured trace.
+
+Use to force custom auth cookies to an existing session that has expired cookies."
+        )]
+        [Category("Header Replacement")]
+        public string ReplaceCookieValue { get; set; }
+
+        [Description(
+            @"When set replaces or adds the Authentication header with this value.
+
+Allows to add custom authentication to a request after you've captured say a bearer token."
+        )]
+        [Category("Header Replacement")]
+        public string ReplaceAuthorization { get; set;  }
+
         /// <summary>
         /// Username to use for NTLM or Basic Authentication
         /// </summary>
-        
+
         [Category("Authentication")]
-        [Description("Username to use for NTLM or Basic Authentication.\r\nYou can also use 'AutoLogin' to use your current Windows Credentials for NTLM authentication and leave the password blank")]
+        [Description("Global Username to use for NTLM or Basic Authentication.\r\nYou can also use 'AutoLogin' to use your current Windows Credentials for NTLM authentication and leave the password blank")]
         public string Username { get; set;  }
 
         /// <summary>
@@ -106,11 +109,16 @@ Allows to add custom authentication to a request after you've captured say a bea
         /// </summary>
         [Category("Authentication")]
         [PasswordPropertyText(true)]
-        [Description(
-            "Password to use for NTLM or Basic Authentication. Important: This value is saved in the request configuration in encrypted format."
+        [Description("Global Password to use for NTLM or Basic Authentication. Important: This value is saved in the request configuration in encrypted format."
         )]
         public string Password { get; set; }
 
+
+        [Browsable(false)]
+        [Description("Optional specific users assigned to this test.")]
+        [Category("Authentication")]
+        public List<UserEntry> Users { get; set; }
+#endregion
 
         /// <summary>
         /// Determines whether requests are run in random
@@ -157,8 +165,11 @@ Allows to add custom authentication to a request after you've captured say a bea
         [Category("Test Operation")]
         public bool IgnoreCertificateErrors { get; set; }
 
+        [Description("Determines if cookies are trackked for requests in a single URL session. Initially cookies are empty but if you login cookies are then assigned and tracked which allows tracking an individual user for that session. Tip: Use in combination with Users for login Urls to simulate multiple **different** users.")]
+        [Category("Test Operation")]
+        public bool TrackPerSessionCookies { get; set; }
 
-
+        
         [Browsable(false)]
         public int LastSecondsToRun { get; set; }
 
@@ -175,10 +186,13 @@ Allows to add custom authentication to a request after you've captured say a bea
             WarmupSeconds = 2;
 
             LastSecondsToRun = 10;
-            LastThreads = 2;
+            LastThreads = 2;            
 
             IgnoreCertificateErrors = false;
+            TrackPerSessionCookies = true;
             FormattedPreviewTheme = "visualstudio";
+
+            Users = new List<UserEntry>();
         }
         
     }
