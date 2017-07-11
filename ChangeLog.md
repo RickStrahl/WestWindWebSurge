@@ -1,13 +1,13 @@
 ﻿# West Wind WebSurge Change Log
 
 ### Version 1.05
-<i><small>Not released yet</small></i>
+<i><small>July 12th, 2017</small></i>
 
 * **Automatic Cookie Tracking via Configuration Option**  
 Cookies are now automatically tracked per session (group of URLs). Each session runs on an isolated thread and cookies are reset as each session is restarted in a test run or individual test. Use the `TrackSessionCookies` configuration flag to enable or disable Cookie tracking. The default is `true` - set to `false` if you don't use Cookies that carry forward in your tests to improve test throughput.
 
 * **Experimental: User Management**  
-You can now set up multiple users that are assigned to sessions by mapping login URLs and login form data to specific users. This feature is experimental and doesn't support UI at the moment and requires configuration via JSON text for a WebSurge configuration file. More info.
+You can now set up multiple users that are assigned to sessions by mapping login URLs and login form data to specific users. This feature is experimental and doesn't support UI at the moment and requires configuration via JSON text for a WebSurge configuration file. [More info](https://websurge.west-wind.com/docs/_4ym15ftd2.htm).
 
 * **Add --output Command Line Switch to WebSurgeCli**  
 The `--output` flag sends the final Web Surge report output or `--json` response from the WebSurgeCli to the specified file.
