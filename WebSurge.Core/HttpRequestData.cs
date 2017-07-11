@@ -32,6 +32,9 @@ namespace WebSurge
         //public long UrlId { get; set; }
 
         public DateTime Timestamp { get; set; }
+
+        public int ThreadNumber { get; set; }
+
         public bool IsActive { get; set; }
 
         public string Name { get; set; }
@@ -85,9 +88,19 @@ namespace WebSurge
         public static HttpRequestData Copy(HttpRequestData req)
         {
             var rnew = req.MemberwiseClone() as HttpRequestData;
-            rnew.Id = DataUtils.GenerateUniqueNumericId();            
+            rnew.Url = req.Url;
+            rnew.HttpVerb = req.HttpVerb;
+            rnew.Host = req.Host;
             rnew.Headers = new List<HttpRequestHeader>(req.Headers);
+            rnew.ContentType = req.ContentType;
+            rnew.RequestContent = req.RequestContent;
+            rnew.Username = req.Username;
+            rnew.Password = req.Password;
+
+            rnew.Id = DataUtils.GenerateUniqueNumericId();
+            rnew.Name = req.Name;
             rnew.Timestamp = DateTime.UtcNow;
+
             return rnew;     
         }
 

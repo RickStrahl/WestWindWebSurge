@@ -14,7 +14,7 @@ namespace WebSurge
     /// can specify a dedicated AuthCookie (sets Cookies)
     /// or provide one or more LoginUrls with form variables
     /// and headers.
-    /// </summary>
+    /// </summary>    
     public class UserEntry
     {
         [Description("Any URLS that you need to send user specific data to.")]
@@ -32,8 +32,7 @@ namespace WebSurge
         public UserEntry()
         {
             LoginUrls = new List<LoginFormEntry>();
-        }
-
+        }        
     }
 
     [DebuggerDisplay("{Url}")]
@@ -48,6 +47,15 @@ namespace WebSurge
 
         public List<HttpFormVariable> FormVariables { get; set; }
         public string ContentType { get; set; }
+
+        /// <summary>
+        /// Optional Raw Content set to post to the server for login authentication
+        /// </summary>
+        public string RawContent { get; set; }
+
+        /// <summary>
+        /// HTTP Verb to apply to the content
+        /// </summary>
         public string HttpVerb { get; set; }
 
         public LoginFormEntry()

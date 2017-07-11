@@ -92,42 +92,7 @@ namespace WebSurge
 
         public List<IWebSurgeExtensibility> PlugIns = new List<IWebSurgeExtensibility>();
 
-        /// <summary>
-        /// Event fired after each request that provides the
-        /// current request.
-        /// </summary>
-        public event Action<HttpRequestData> RequestProcessed;
-
-        public void OnRequestProcessed(HttpRequestData request)
-        {
-            foreach (var plugin in App.Plugins)
-            {
-                try
-                {
-                    plugin.OnAfterRequestSent(request);
-                }
-                catch (Exception ex)
-                {
-                    App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
-                }
-            }
-
-            if (!Options.NoProgressEvents && RequestProcessed != null)
-                RequestProcessed(request);
-        }
-
-        /// <summary>
-        /// Event fired in intervals to provides progress information
-        /// on the test. Provides a progress structure with fields
-        /// with summary request data.
-        /// </summary>
-        public event Action<ProgressInfo> Progress;
-        public void OnProgress(ProgressInfo progressInfo)
-        {
-            if (Progress != null)
-                Progress(progressInfo);
-        }
-
+        #region Initialization
         public StressTester(StressTesterConfiguration options = null)
         {
             Options = options;
@@ -139,18 +104,29 @@ namespace WebSurge
             Results = new List<HttpRequestData>();
         }
 
+        #endregion
+
+        #region CheckSite
+
         /// <summary>
         /// Checks an individual site and returns a new HttpRequestData object
         /// </summary>
         /// <param name="reqData"></param>
-        /// <returns></returns>
-        public HttpRequestData CheckSite(HttpRequestData reqData, CookieContainer cookieContainer = null)
+        /// <param name="cookieContainer">Cookies cached for this session. Cookies are reset when an individual session (thread) restarts processing a squences of URLs</param>
+        /// <param name="user">An optional user to login</param>
+        /// <param name="threadNumber"></param>
+        /// <returns>result summary data</returns>
+        public HttpRequestData CheckSite(HttpRequestData reqData, 
+            CookieContainer cookieContainer = null,             
+            int threadNumber = 0)
         {
             if (CancelThreads)
                 return null;
 
-            // create a new instance
+            // Important: create a new instance so we can overwrite properties
+            //            without affecting original list data
             var result = HttpRequestData.Copy(reqData);
+            result.ThreadNumber = threadNumber;
 
             result.ErrorMessage = "Request is incomplete"; // assume not going to make it
 
@@ -158,206 +134,141 @@ namespace WebSurge
 
             try
             {
-                var client = new HttpClient();
-
-
-                if (!string.IsNullOrEmpty(Options.ReplaceDomain))
-                    result.Url = ReplaceDomain(result.Url);
-
-                if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
-                    result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
-
-                foreach (var plugin in App.Plugins)
+                using (var client = new HttpClient())
                 {
-                    try
+                    if (!string.IsNullOrEmpty(Options.ReplaceDomain))
+                        result.Url = ReplaceDomain(result.Url);
+
+                    if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
+                        result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
+
+                    foreach (var plugin in App.Plugins)
                     {
-                        if (!plugin.OnBeforeRequestSent(result))
-                            return result;
+                        try
+                        {
+                            if (!plugin.OnBeforeRequestSent(result))
+                                return result;
+                        }
+                        catch (Exception ex)
+                        {
+                            App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                        }
                     }
-                    catch (Exception ex)
+
+                    client.CreateWebRequestObject(result.Url);
+                    var webRequest = client.WebRequest;
+
+                    // TODO: Connection Groups might help with sharing connections more efficiently
+                    // Initial tests show no improvements - more research required
+                    //webRequest.ConnectionGroupName = "_WebSurge_" + Thread.CurrentContext.ContextID;
+
+                    if (!string.IsNullOrEmpty(Options.Username))
                     {
-                        App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                        client.Username = Options.Username;
+                        webRequest.UnsafeAuthenticatedConnectionSharing = true;
                     }
-                }
+                    if (!string.IsNullOrEmpty(Options.Password))
+                        client.Password = Options.Password;
 
-                client.CreateWebRequestObject(result.Url);
-                var webRequest = client.WebRequest;
+                    webRequest.Method = result.HttpVerb;
 
-                // TODO: Connection Groups might help with sharing connections more efficiently
-                // Initial tests show no improvements - more research required
-                //webRequest.ConnectionGroupName = "_WebSurge_" + Thread.CurrentContext.ContextID;
+                    client.ContentType = result.ContentType;
+                    client.Timeout = Options.RequestTimeoutMs / 1000;
 
-                if (!string.IsNullOrEmpty(Options.Username))
-                {
-                    client.Username = Options.Username;
-                    webRequest.UnsafeAuthenticatedConnectionSharing = true;
-                }
-                if (!string.IsNullOrEmpty(Options.Password))
-                    client.Password = Options.Password;
+                    // don't auto-add gzip headers and don't decode by default
+                    client.UseGZip = false;
 
-                webRequest.Method = reqData.HttpVerb;
+                    if (Options.NoContentDecompression)
+                        webRequest.AutomaticDecompression = DecompressionMethods.None;
+                    else
+                        webRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 
-                client.ContentType = reqData.ContentType;
-                client.Timeout = Options.RequestTimeoutMs / 1000;
-
-                // don't auto-add gzip headers and don't decode by default
-                client.UseGZip = false;
-
-                if (Options.NoContentDecompression)
-                    webRequest.AutomaticDecompression = DecompressionMethods.None;
-                else
-                    webRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-                if (!string.IsNullOrEmpty(reqData.RequestContent))
-                {
-                    var data = reqData.GetRequestContentBytes();
-                    client.AddPostKey(data);
-                }
-                else
-                {
-                    webRequest.ContentLength = 0;
-                }
-
-                foreach (var header in result.Headers)
-                {
-                    var lheader = header.Name.ToLower();
-
-                    // Header Overrides that fail if you try to set them
-                    // directly in HTTP
-                    if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
+                    if (!string.IsNullOrEmpty(result.RequestContent))
                     {
-                        string cookie = Options.ReplaceCookieValue;
-                        webRequest.Headers.Add("Cookie", cookie);
-                        header.Value = cookie;
-                        continue;
+                        var data = result.GetRequestContentBytes();
+                        client.AddPostKey(data);
                     }
-                    if (lheader == "authorization" && !string.IsNullOrEmpty(Options.ReplaceAuthorization))
+                    else
+                        webRequest.ContentLength = 0;
+
+                    foreach (var header in result.Headers)
+                        SetHttpHeader(header, client);
+
+                    // assign cookies if exist
+                    if (cookieContainer != null)
+                        webRequest.CookieContainer = cookieContainer;
+
+                    DateTime dt = DateTime.UtcNow;
+
+                    if (CancelThreads)
+                        return null;
+
+                    if (App.Configuration.StressTester.Users != null && App.Configuration.StressTester.Users.Count > 0)
+                        HandleUser(result,client);
+
+
+                    // *** REQUEST RUNS
+
+                    // using West Wind HttpClient
+                    string httpOutput = client.DownloadString(result.Url);
+
+                    // *** REQUEST DONE
+
+                    if (CancelThreads)
+                        return null;
+
+                    result.TimeTakenMs = (int)DateTime.UtcNow.Subtract(dt).TotalMilliseconds;                    
+
+                    if (client.Error || client.WebResponse == null)
                     {
-                        webRequest.Headers.Add("Authorization", Options.ReplaceAuthorization);
-                        header.Value = Options.ReplaceAuthorization;
-                        continue;
+                        result.ErrorMessage = client.ErrorMessage;
+                        return result;
                     }
-                    if (lheader == "user-agent")
-                    {
-                        client.UserAgent = header.Value;
-                        continue;
-                    }
-                    if (lheader == "accept")
-                    {
-                        webRequest.Accept = header.Value;
-                        continue;
-                    }
-                    if (lheader == "referer")
-                    {
-                        webRequest.Referer = header.Value;
-                        continue;
-                    }
-                    if (lheader == "connection")
-                    {
-                        if (header.Value.ToLower() == "keep-alive")
-                            webRequest.KeepAlive = true; // this has no effect
-                        else if (header.Value.ToLower() == "close")
-                            webRequest.KeepAlive = false;
-                        continue;
-                    }
-                    // set above view property
-                    if (lheader == "content-type")
-                        continue;
-                    // not handled at the moment
-                    if (lheader == "proxy-connection")
-                        continue; // TODO: Figure out what to do with this one
 
-                    // set explicitly via properties
-                    if (lheader == "transfer-encoding")
-                    {
-                        webRequest.TransferEncoding = header.Value;
-                        continue;
-                    }
-                    if (lheader == "date")
-                        continue;
-                    if (lheader == "expect")
-                    {
-                        //webRequest.Expect = header.Value;
-                        continue;
-                    }
-                    if (lheader == "if-modified-since")
-                        continue;
+                    result.StatusCode = ((int)client.WebResponse.StatusCode).ToString();
+                    result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
+                    result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
 
-                    webRequest.Headers.Add(header.Name, header.Value);
-                }
-
-                // assign cookies if exist
-                if (cookieContainer != null)
-                    webRequest.CookieContainer = cookieContainer;
-
-                DateTime dt = DateTime.UtcNow;
-
-                if (CancelThreads)
-                    return null;
-
-                // using West Wind HttpClient
-                string httpOutput = client.DownloadString(result.Url);
-
-                if (CancelThreads)
-                    return null;
-
-                result.TimeTakenMs = (int)DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
-                // result.TimeToFirstByteMs = client.Timings.TimeToFirstByteMs;
-
-                if (client.Error || client.WebResponse == null)
-                {
-                    result.ErrorMessage = client.ErrorMessage;
-                    return result;
-                }
-
-                result.StatusCode = ((int)client.WebResponse.StatusCode).ToString();
-                result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
-                result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
-
-                result.ResponseLength = (int)client.WebResponse.ContentLength;
-                if (result.ResponseLength < 1 && !string.IsNullOrEmpty(httpOutput))
-                    result.ResponseLength = httpOutput.Length;
+                    result.ResponseLength = (int)client.WebResponse.ContentLength;
+                    if (result.ResponseLength < 1 && !string.IsNullOrEmpty(httpOutput))
+                        result.ResponseLength = httpOutput.Length;
                     
-                result.ResponseContent = httpOutput;
+                    result.ResponseContent = httpOutput;
                 
-                StringBuilder sb = new StringBuilder();
-                foreach (string key in client.WebResponse.Headers.Keys)
-                {
-                    sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
+                    StringBuilder sb = new StringBuilder();
+                    foreach (string key in client.WebResponse.Headers.Keys)
+                    {
+                        sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
+                    }
+                    result.ResponseHeaders = sb.ToString();
+
+                    // update to actual Http headers sent
+                    result.Headers.Clear();
+                    foreach (string key in webRequest.Headers.Keys)
+                    {
+                        result.Headers.Add(new HttpRequestHeader() { Name = key, Value = webRequest.Headers[key] });
+                    }
+
+                    char statusCode = result.StatusCode[0];
+                    if (statusCode == '4' || statusCode == '5')
+                    {
+                        result.IsError = true;
+                        result.ErrorMessage = client.WebResponse.StatusDescription;
+                    }
+                    else
+                    {
+                        result.IsError = false;
+                        result.ErrorMessage = null;
+
+                        if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
+                            result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
+                    }
                 }
-
-                result.ResponseHeaders = sb.ToString();
-
-                // update to actual Http headers sent
-                result.Headers.Clear();
-                foreach (string key in webRequest.Headers.Keys)
-                {
-                    result.Headers.Add(new HttpRequestHeader() { Name = key, Value = webRequest.Headers[key] });
-                }
-
-                char statusCode = result.StatusCode[0];
-                if (statusCode == '4' || statusCode == '5')
-                {
-                    result.IsError = true;
-                    result.ErrorMessage = client.WebResponse.StatusDescription;
-                }
-                else
-                {
-                    result.IsError = false;
-                    result.ErrorMessage = null;
-
-                    if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
-                        result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
-                }
-
-                //} // using client
-                client.Dispose();
 
                 if (!CancelThreads)
                     OnRequestProcessed(result);
 
                 return result;
-
             }
 
             // these will occur on shutdown - don't log since they will return
@@ -378,34 +289,6 @@ namespace WebSurge
             }
         }
 
-        internal string ReplaceQueryStringValuePairs(string url, string replaceKeys)
-        {
-            if (string.IsNullOrEmpty(replaceKeys))
-                return url;
-
-            var urlQuery = new UrlEncodingParser(url);
-            var replaceQuery = new UrlEncodingParser(replaceKeys);
-
-            foreach (string key in replaceQuery.Keys)
-            {
-                urlQuery[key] = replaceQuery[key];
-            }
-
-            return urlQuery.ToString();
-        }
-
-        internal string ReplaceDomain(string url)
-        {
-            if (!string.IsNullOrEmpty(Options.ReplaceDomain))
-            {
-                var host = StringUtils.ExtractString(url, "://", "/", false, true);
-                url = url.Replace(host, Options.ReplaceDomain);
-            }
-
-            return url;
-        }
-
-
         /// <summary>
         /// This is the main Session processing routine. This routine creates the
         /// new threads to run each session on. It monitors for shutdown/cancel operation
@@ -418,15 +301,13 @@ namespace WebSurge
         /// <param name="threadCount"></param>
         /// <param name="seconds"></param>
         /// <returns></returns>
-        public List<HttpRequestData> CheckAllSites(IEnumerable<HttpRequestData> requests,
-                                                   int threadCount = 2,
-                                                   int seconds = 60,
-                                                   bool runOnce = false)
+        public List<HttpRequestData> CheckAllSites(List<HttpRequestData> requests,
+            int threadCount = 2,
+            int seconds = 60,
+            bool runOnce = false)
         {
-
-
-
             ThreadsUsed = threadCount;
+          
 
             //if (UnlockKey.RegType == RegTypes.Free &&
             //    (threadCount > UnlockKey.FreeThreadLimit ||
@@ -481,13 +362,19 @@ namespace WebSurge
             for (int i = 0; i < threadCount; i++)
             {
                 var thread = new Thread(RunSessions);
-                thread.Start(requests);
+                thread.Start(new  RunSessionsThreadStartParameter
+                {
+                    Requests = requests,
+                    Id = i
+                });
                 threads.Add(thread);
             }
 
+            // Control loop/thread  that checks for test completion
             var lastProgress = DateTime.UtcNow.AddSeconds(-10);
             while (!CancelThreads)
             {
+                // check for test done by time specified
                 if (DateTime.UtcNow.Subtract(StartTime).TotalSeconds > seconds + 1)
                 {
                     TimeTakenForLastRunMs = (int)DateTime.UtcNow.Subtract(StartTime).TotalMilliseconds;
@@ -559,11 +446,188 @@ namespace WebSurge
             return Results;
         }
 
+        /// <summary>
+        /// Handle user overrides for a provided Auth Cookie, or specific
+        /// Login Urls
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="client"></param>
+        private void HandleUser(HttpRequestData request, HttpClient client)
+        {
+            if (App.Configuration.StressTester.Users == null || App.Configuration.StressTester.Users.Count < 1)
+                return;
+
+            // retrieve a user for the current thread
+            var user = App.Configuration.StressTester.Users[request.ThreadNumber % App.Configuration.StressTester.Users.Count];
+            if (user == null)
+                return;
+
+            // if AuthCookie is provided - just replace the cookie
+            if (!string.IsNullOrEmpty(user.AuthCookie))
+            {
+                client.WebRequest.Headers["Cookie"] = user.AuthCookie;
+                return;
+            }
+
+            // check login urls for a match
+            if (user.LoginUrls == null || user.LoginUrls.Count == 0)
+                return;
+
+            LoginFormEntry login = null;
+            foreach (var loginUrl in user.LoginUrls)
+            {
+                string url = loginUrl.Url;
+                if (!string.IsNullOrEmpty(Options.ReplaceDomain))
+                    url = ReplaceDomain(url);
+
+                Debug.WriteLine(url + " " + request.Url + " - " + (url == request.Url));
+                if (url == request.Url)
+                {
+                    login = loginUrl;
+                    break;
+                }
+            }
+
+            if (login == null)
+                return;
+
+            //Debug.WriteLine(login.Url + " " + login.FormVariables.First(l => l.Key.Contains("Username")).Value + " " + login.FormVariables.First(l => l.Key.Contains("Password")).Value);
+
+            foreach (var header in login.Headers)
+            {                
+                SetHttpHeader(header,client);
+            }
+            if (login.FormVariables != null)
+            {
+                client.ResetPostData();
+                client.ContentType = login.ContentType;
+
+                if (!string.IsNullOrEmpty(login.RawContent))
+                    client.AddPostKey(login.RawContent);
+                else
+                {
+                    foreach (var formVar in login.FormVariables)
+                    {
+                        if (formVar.BinaryValue != null)
+                            client.AddPostKey(formVar.Key, formVar.BinaryValue);
+                        else
+                            client.AddPostKey(formVar.Key, formVar.Value);
+                    }
+                }
+
+                // update the request info
+                request.RequestContent = client.GetPostBuffer();
+            }
+
+        }
+
+        private void SetHttpHeader(HttpRequestHeader header, HttpClient client)
+        {
+            var lheader = header.Name.ToLower(); 
+
+            var webRequest = client.WebRequest;
+
+            // Header Overrides that fail if you try to set them
+            // directly in HTTP
+            if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
+            {
+                string cookie = Options.ReplaceCookieValue;
+                webRequest.Headers.Add("Cookie", cookie);
+                header.Value = cookie;
+                return;
+            }
+            if (lheader == "authorization" && !string.IsNullOrEmpty(Options.ReplaceAuthorization))
+            {
+                webRequest.Headers.Add("Authorization", Options.ReplaceAuthorization);
+                header.Value = Options.ReplaceAuthorization;
+                return;
+            }
+            if (lheader == "user-agent")
+            {
+                client.UserAgent = header.Value;
+                return;
+            }
+            if (lheader == "accept")
+            {
+                webRequest.Accept = header.Value;
+                return;
+            }
+            if (lheader == "referer")
+            {
+                webRequest.Referer = header.Value;
+                return;
+            }
+            if (lheader == "connection")
+            {
+                if (header.Value.ToLower() == "keep-alive")
+                    webRequest.KeepAlive = true; // this has no effect
+                else if (header.Value.ToLower() == "close")
+                    webRequest.KeepAlive = false;
+                return;
+            }
+            // set above view property
+            if (lheader == "content-type")
+                return;
+            // not handled at the moment
+            if (lheader == "proxy-connection")
+                return;
+
+            // set explicitly via properties
+            if (lheader == "transfer-encoding")
+            {
+                webRequest.TransferEncoding = header.Value;
+                return;
+            }
+            if (lheader == "date")
+                return;
+            if (lheader == "expect")
+            {
+                //webRequest.Expect = header.Value;
+                return;
+            }
+            if (lheader == "if-modified-since")
+                return;
+
+            webRequest.Headers[header.Name] = header.Value;
+            //webRequest.Headers.Add(header.Name, header.Value);
+        }
+        
+        internal string ReplaceQueryStringValuePairs(string url, string replaceKeys)
+        {
+            if (string.IsNullOrEmpty(replaceKeys))
+                return url;
+
+            var urlQuery = new UrlEncodingParser(url);
+            var replaceQuery = new UrlEncodingParser(replaceKeys);
+
+            foreach (string key in replaceQuery.Keys)
+            {
+                urlQuery[key] = replaceQuery[key];
+            }
+
+            return urlQuery.ToString();
+        }
+
+        internal string ReplaceDomain(string url)
+        {
+            if (!string.IsNullOrEmpty(Options.ReplaceDomain))
+            {
+                var host = StringUtils.ExtractString(url, "://", "/", false, true);
+                url = url.Replace(host, Options.ReplaceDomain);
+            }
+
+            return url;
+        }
+        #endregion
+
+        #region Session Multi-Threading
 
         public void RunSessions(object requests)
         {
-            RunSessions(requests, false);
+            var requestStart = requests as RunSessionsThreadStartParameter;
+            RunSessions(requestStart.Requests, false, requestStart.Id);
         }
+
 
         /// <summary>
         /// Checks an entire session in a loop until CancelThreads
@@ -578,7 +642,8 @@ namespace WebSurge
         /// </summary>
         /// <param name="requests">HttpRequests to run</param>
         /// <param name="runOnce">When set only fires once</param>
-        public void RunSessions(object requests, bool runOnce)
+        /// <param name="threadNumber">Thread number that identifies this thread. Id is used to map users to threads.</param>
+        public void RunSessions(List<HttpRequestData> requests, bool runOnce, int threadNumber = 0)
         {
             List<HttpRequestData> reqs = null;
             
@@ -605,15 +670,15 @@ namespace WebSurge
                 CookieContainer cookieContainer = App.Configuration.StressTester.TrackPerSessionCookies
                     ? cookieContainer = new CookieContainer()
                     : null;
-
+                
                 foreach (var req in reqs)
                 {
                     if (CancelThreads)
                         break;
 
                     //Debug.WriteLine("Thread: " + Thread.CurrentThread.ManagedThreadId + " - " + req.Url + " Cookies: " + (cookieContainer?.Count ?? -1) );
-
-                    var result = CheckSite(req, cookieContainer);
+                                            
+                    var result = CheckSite(req, cookieContainer, threadNumber);
                     
                     if (result != null)
                         WriteResult(result);
@@ -635,6 +700,9 @@ namespace WebSurge
             }
         }
 
+        #endregion
+
+        #region Result Processing
         /// <summary>
         /// Writes the actual result to the storage container
         /// </summary>
@@ -707,8 +775,48 @@ namespace WebSurge
 
             return requestDataList;
         }
+#endregion
 
 
+        #region Event Handling
+        /// <summary>
+        /// Event fired after each request that provides the
+        /// current request.
+        /// </summary>
+        public event Action<HttpRequestData> RequestProcessed;
+
+        public void OnRequestProcessed(HttpRequestData request)
+        {
+            foreach (var plugin in App.Plugins)
+            {
+                try
+                {
+                    plugin.OnAfterRequestSent(request);
+                }
+                catch (Exception ex)
+                {
+                    App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                }
+            }
+
+            if (!Options.NoProgressEvents && RequestProcessed != null)
+                RequestProcessed(request);
+        }
+
+        /// <summary>
+        /// Event fired in intervals to provides progress information
+        /// on the test. Provides a progress structure with fields
+        /// with summary request data.
+        /// </summary>
+        public event Action<ProgressInfo> Progress;
+        public void OnProgress(ProgressInfo progressInfo)
+        {
+            Progress?.Invoke(progressInfo);
+        }
+
+        #endregion
+
+        #region Error Messages
         public string ErrorMessage { get; set; }
 
         protected void SetError()
@@ -737,6 +845,13 @@ namespace WebSurge
 
             ErrorMessage = e.Message;
         }
+        #endregion
+    }
+
+    public class RunSessionsThreadStartParameter
+    {
+        public List<HttpRequestData> Requests { get; set; }
+        public int Id { get; set; }
     }
 
     public class ProgressInfo
