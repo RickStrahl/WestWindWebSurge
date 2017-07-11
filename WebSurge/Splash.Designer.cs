@@ -111,12 +111,12 @@
             // 
             this.lnkRegister.Font = new System.Drawing.Font("Segoe UI", 24F);
             this.lnkRegister.LinkColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lnkRegister.Location = new System.Drawing.Point(24, 442);
+            this.lnkRegister.Location = new System.Drawing.Point(24, 446);
             this.lnkRegister.Name = "lnkRegister";
             this.lnkRegister.Size = new System.Drawing.Size(302, 51);
             this.lnkRegister.TabIndex = 9;
             this.lnkRegister.TabStop = true;
-            this.lnkRegister.Text = "Register";
+            this.lnkRegister.Text = "Register your Copy";
             this.lnkRegister.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lnkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkRegister_LinkClicked);
             this.lnkRegister.Click += new System.EventHandler(this.lnkRegister_Click);
@@ -151,7 +151,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(345, 300);
+            this.ClientSize = new System.Drawing.Size(345, 310);
             this.Controls.Add(this.lblClickClose);
             this.Controls.Add(this.lnkRegister);
             this.Controls.Add(this.label2);

@@ -124,7 +124,7 @@
                         
                     </td>
                     <td class="price">
-                        $149.00
+                        $199.00
                     </td>
                 </tr>
                 <tr>
@@ -138,7 +138,7 @@
                         <small>(unlimited users for a single organization)</small>
                     </td>
                     <td class="price">
-                        $799.00
+                        $899.00
                     </td>
                 </tr>
                 </table>

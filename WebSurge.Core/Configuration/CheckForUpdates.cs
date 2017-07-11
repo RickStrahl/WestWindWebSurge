@@ -6,6 +6,7 @@ namespace WebSurge
     {
         public int Days { get; set; }
         public DateTime LastUpdateCheck { get; set; }
+        
 
         public CheckForUpdates()
         {

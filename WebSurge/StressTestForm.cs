@@ -128,7 +128,7 @@ namespace WebSurge
             Watcher = new FileSystemWatcher();            
 
             // resize the window with configured values
-            App.Configuration.WindowSettings.Load(this);
+            App.Configuration.WindowSettings.Load(this);            
 
             StressTester = new StressTester();
             StressTester.RequestProcessed += StressTester_RequestProcessed;
@@ -230,7 +230,7 @@ namespace WebSurge
 
             // manually assign threads and time
             tbtxtTimeToRun.Text = StressTester.Options.LastSecondsToRun.ToString();
-            tbtxtThreads.Text = StressTester.Options.LastThreads.ToString();
+            tbtxtThreads.Text = StressTester.Options.LastThreads.ToString();            
         }
 
         private void StressTestForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -238,22 +238,27 @@ namespace WebSurge
             Hide();
             Application.DoEvents();
 
-            if(!UnlockKey.Unlocked)
+            App.Configuration.WindowSettings.Accesses++;
+            if (!UnlockKey.Unlocked)
             {
-                App.Configuration.WindowSettings.Accesses++;
-                if (App.Configuration.WindowSettings.Accesses % 3 == 0)
+                var displayCount = 5;
+                if (App.Configuration.WindowSettings.Accesses > 250)
+                    displayCount = 1;
+                else if (App.Configuration.WindowSettings.Accesses > 100)
+                    displayCount = 2;
+                else if (App.Configuration.WindowSettings.Accesses > 50)
+                    displayCount = 3;
+
+                if (App.Configuration.WindowSettings.Accesses % displayCount == 0)
                 {
                     var form = new RegisterDialog();
                     form.ShowDialog();
                 }
             }
-
-
+            
             if (StressTester != null)
-            {                
-                StressTester.CancelThreads = true;                
-            }
-
+                StressTester.CancelThreads = true;
+            
             SaveOptions();
         }
 
@@ -864,10 +869,12 @@ namespace WebSurge
                 new Timer(p => Splash.Invoke(new Action(() =>
                 {
                     if (Splash != null)
-                        Splash.Close();
+                    {
+                        Splash.Close();                        
+                    }
                 })),
                 null, 1000, 
-                Timeout.Infinite);
+                Timeout.Infinite);                
             }
             Application.DoEvents();
         }

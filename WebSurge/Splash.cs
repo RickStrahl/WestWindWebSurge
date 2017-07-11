@@ -28,6 +28,25 @@ namespace WebSurge
                 Height = lnkRegister.Top + lnkRegister.Height + 20;
             if (startup)
                 lblClickClose.Visible = false;
+
+            FormClosed += Splash_FormClosed;
+        }
+
+        private void Splash_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+            if (StressForm != null && StressForm.Visible)
+                StressForm.Invoke(new Action(() =>
+                {
+                    if (StressForm != null)
+                    {
+                        StressForm.TopMost = true;
+                        Application.DoEvents();
+                        StressForm.TopMost = false;
+                    }
+                }));
+
+            StressForm = null;            
         }
 
         private void Splash_Load(object sender, EventArgs e)
@@ -68,6 +87,7 @@ namespace WebSurge
 
         public new void Close()
         {
+            TopMost = false;
             FadeOut();            
         }
 
@@ -109,18 +129,6 @@ namespace WebSurge
 
                     Visible = false;
 
-                    if (StressForm != null && StressForm.Visible)
-                        StressForm.Invoke(new Action(() =>
-                        {
-                            if (StressForm != null)
-                            {
-                                StressForm.TopMost = true;
-                                Application.DoEvents();
-                                StressForm.TopMost = false;
-                            }
-                        }));
-
-                    StressForm = null;
                     base.Close();
 
                 }
@@ -136,7 +144,7 @@ namespace WebSurge
 
         private void lnkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ShellUtils.GoUrl("http://websurge.west-wind.com/pricing.aspx");
+            ShellUtils.GoUrl("https://store.west-wind.com/product/websurge");
             Close();
         }
 

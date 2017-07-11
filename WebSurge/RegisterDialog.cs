@@ -26,7 +26,18 @@ namespace WebSurge
 
         private void Splash_Load(object sender, EventArgs e)
         {
-            
+            var accessCount = App.Configuration.WindowSettings.Accesses;
+
+            if (accessCount > 200)
+                txtUsed.ForeColor= Color.Red;
+            else if (accessCount > 120)
+                txtUsed.ForeColor = Color.Firebrick;
+            else if (accessCount > 50)
+                txtUsed.ForeColor = Color.Orange;
+            else if (accessCount > 10)
+                txtUsed.ForeColor = Color.Green;
+
+            txtUsed.Text = $"{accessCount} times.";
 
             Top -= 50;
             TopMost = true;
@@ -113,7 +124,7 @@ namespace WebSurge
 
         private void lnkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {            
-            ShellUtils.GoUrl("http://websurge.west-wind.com/pricing.aspx");
+            ShellUtils.GoUrl("https://store.west-wind.com/product/websurge");
             Close();
         }
 

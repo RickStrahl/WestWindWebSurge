@@ -37,6 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblYouAreUsing = new System.Windows.Forms.Label();
             this.lblClickClose = new System.Windows.Forms.Label();
+            this.txtUsed = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PictureLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,37 +59,37 @@
             // 
             // lnkRegister
             // 
-            this.lnkRegister.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkRegister.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
             this.lnkRegister.LinkColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lnkRegister.Location = new System.Drawing.Point(214, 203);
+            this.lnkRegister.Location = new System.Drawing.Point(202, 275);
             this.lnkRegister.Name = "lnkRegister";
-            this.lnkRegister.Size = new System.Drawing.Size(245, 53);
+            this.lnkRegister.Size = new System.Drawing.Size(299, 53);
             this.lnkRegister.TabIndex = 13;
             this.lnkRegister.TabStop = true;
-            this.lnkRegister.Text = "Register";
-            this.lnkRegister.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lnkRegister.Text = "Register your Copy";
+            this.lnkRegister.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lnkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkRegister_LinkClicked);
             this.lnkRegister.Click += new System.EventHandler(this.lnkRegister_Click);
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.label2.ForeColor = System.Drawing.SystemColors.Info;
-            this.label2.Location = new System.Drawing.Point(204, 94);
+            this.label2.Location = new System.Drawing.Point(205, 144);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(296, 127);
             this.label2.TabIndex = 12;
             this.label2.Text = "If you\'re using this tool commercially, or you find that you\'re using it frequent" +
-    "ly, please purchase a registered version of WebSurge.\r\n\r\nThank you for playing f" +
-    "air.";
+    "ly, please purchase a registered version of WebSurge.\r\n\r\nThanks for playing fair" +
+    ".";
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(204, 44);
+            this.label1.Location = new System.Drawing.Point(216, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(304, 41);
+            this.label1.Size = new System.Drawing.Size(293, 41);
             this.label1.TabIndex = 11;
             this.label1.Text = "Westwind WebSurge";
             // 
@@ -96,7 +97,7 @@
             // 
             this.lblYouAreUsing.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lblYouAreUsing.ForeColor = System.Drawing.SystemColors.Info;
-            this.lblYouAreUsing.Location = new System.Drawing.Point(204, 16);
+            this.lblYouAreUsing.Location = new System.Drawing.Point(205, 17);
             this.lblYouAreUsing.Name = "lblYouAreUsing";
             this.lblYouAreUsing.Size = new System.Drawing.Size(284, 21);
             this.lblYouAreUsing.TabIndex = 10;
@@ -106,21 +107,32 @@
             // 
             this.lblClickClose.AutoSize = true;
             this.lblClickClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14F);
             this.lblClickClose.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblClickClose.Location = new System.Drawing.Point(503, 6);
+            this.lblClickClose.Location = new System.Drawing.Point(513, 7);
             this.lblClickClose.Name = "lblClickClose";
-            this.lblClickClose.Size = new System.Drawing.Size(16, 18);
-            this.lblClickClose.TabIndex = 14;
+            this.lblClickClose.Size = new System.Drawing.Size(20, 22);
+            this.lblClickClose.TabIndex = 0;
             this.lblClickClose.Text = "x";
             this.lblClickClose.Click += new System.EventHandler(this.lblClickClose_Click);
+            // 
+            // txtUsed
+            // 
+            this.txtUsed.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.txtUsed.ForeColor = System.Drawing.SystemColors.Info;
+            this.txtUsed.Location = new System.Drawing.Point(204, 99);
+            this.txtUsed.Name = "txtUsed";
+            this.txtUsed.Size = new System.Drawing.Size(296, 25);
+            this.txtUsed.TabIndex = 15;
+            this.txtUsed.Text = "x times";
             // 
             // RegisterDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(524, 284);
+            this.ClientSize = new System.Drawing.Size(540, 364);
+            this.Controls.Add(this.txtUsed);
             this.Controls.Add(this.lblClickClose);
             this.Controls.Add(this.lnkRegister);
             this.Controls.Add(this.label2);
@@ -153,5 +165,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblYouAreUsing;
         private System.Windows.Forms.Label lblClickClose;
+        private System.Windows.Forms.Label txtUsed;
     }
 }

@@ -12,7 +12,10 @@ namespace WebSurge
     public class WebSurgeConfiguration : AppConfiguration
     {
         public string AppName { get; set; }
+
+        [JsonIgnore]
         public StressTesterConfiguration StressTester { get; set; }
+
         public UrlCaptureConfiguration UrlCapture { get; set; }
         public WindowSettings WindowSettings { get; set; }
         public CheckForUpdates CheckForUpdates { get; set; }
@@ -51,7 +54,9 @@ namespace WebSurge
             }
         }
         private string _lastFileName;
+
         
+       
         public WebSurgeConfiguration()
         {
             StressTester = new StressTesterConfiguration();
