@@ -1,7 +1,7 @@
 ﻿# West Wind WebSurge Change Log
 
-### Version 1.05
-<i><small>July 12th, 2017</small></i>
+### Version 1.07
+<i><small>July 14th, 2017</small></i>
 
 * **Automatic Cookie Tracking via Configuration Option**  
 Cookies are now automatically tracked per session (group of URLs). Each session runs on an isolated thread and cookies are reset as each session is restarted in a test run or individual test. Use the `TrackSessionCookies` configuration flag to enable or disable Cookie tracking. The default is `true` - set to `false` if you don't use Cookies that carry forward in your tests to improve test throughput.
