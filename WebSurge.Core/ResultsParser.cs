@@ -115,6 +115,7 @@ namespace WebSurge
             if (totalTimeTakenSecs == 0)
                 totalTimeTakenSecs = 1;
 
+
             var urls = resultData
                 .GroupBy(res => res.HttpVerb + " " + res.Url + (string.IsNullOrEmpty(res.Name) ? "" : " • " + res.Name),
                     rs => rs, (key, uls) =>
@@ -173,10 +174,10 @@ namespace WebSurge
         }
 
         public string GetResultReportHtml(IEnumerable<HttpRequestData> resultData, 
-                                       int totalTimeTaken, 
+                                       int totalTimeTakenMs, 
                                        int threadCount)
         {
-            var model = GetResultReport(resultData, totalTimeTaken, threadCount);
+            var model = GetResultReport(resultData, totalTimeTakenMs, threadCount);
             return TemplateRenderer.RenderTemplate("TestResult.cshtml",model);
         }
 

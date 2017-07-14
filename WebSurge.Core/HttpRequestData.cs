@@ -163,7 +163,9 @@ namespace WebSurge
             if (ct.Contains("text/css"))
                 return "css";
             if (ct.Contains("application/javascript") || ct.Contains("application/x-javascript"))
-                return "javascript";  
+                return "javascript";
+            if (ct.Contains("application/x-www-form-urlencoded"))
+                return "urlencoded";
           
             return null;
         }
@@ -214,6 +216,10 @@ namespace WebSurge
                 {
                     return "Invalid or partial XML data cannot be formatted (try setting  MaxResponseSize option to 0).\r\n" + data;
                 }
+            }
+            if (outputType == "urlencoded")
+            {
+                return StringUtils.UrlDecode(data.Replace("&", "\r\n"));
             }
 
             return data;

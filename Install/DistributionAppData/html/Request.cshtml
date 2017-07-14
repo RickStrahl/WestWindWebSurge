@@ -46,7 +46,7 @@
         <div class="header" style="margin-top: 0;">
             @if (!string.IsNullOrEmpty(requestBodyType))
             {
-                if ("json,xml".Contains(requestBodyType))
+                if ("json,xml,urlencoded".Contains(requestBodyType))
                 {
                     <div class="formattingRequestBody">
                         <a href="javascript:{}" data-id="Formatted" title="See a formatted and syntax colored view of the HTTP response based on the content type">Formatted @requestBodyType</a>
