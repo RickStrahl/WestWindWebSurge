@@ -714,7 +714,7 @@ namespace WebSurge
             TabSessions.SelectedTab = tabResults;
 
             var html = StressTester.ResultsParser.GetResultReportHtml(StressTester.Results,
-                StressTester.TimeTakenForLastRunMs/1000,StressTester.ThreadsUsed);
+                StressTester.TimeTakenForLastRunMs,StressTester.ThreadsUsed);
 
             HtmlPreview(html, false,"html\\_results.html");
 
@@ -902,6 +902,7 @@ namespace WebSurge
                         if (outputType == null)
                             return;
 
+                        
                         if (outputType == "html")
                             HtmlPreview(ActiveRequest.ResponseContent.Replace(@"""//",@"=""http://").Replace("'//","http://"),true);
                         else if (outputType == "json")                        

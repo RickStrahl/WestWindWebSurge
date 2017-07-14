@@ -173,6 +173,8 @@ namespace WebSurge
                     webRequest.Method = result.HttpVerb;
 
                     client.ContentType = result.ContentType;
+                    client.PostMode = HttpPostMode.Raw;   // have to force raw data
+                
                     client.Timeout = Options.RequestTimeoutMs / 1000;
 
                     // don't auto-add gzip headers and don't decode by default

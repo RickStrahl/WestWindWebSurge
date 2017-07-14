@@ -51,32 +51,32 @@ namespace WebSurge
             return result;
         }
 
-        public static string RenderTemplateOld(string templateName, object model)
-        {
-            string compiledId = null;            
+        //public static string RenderTemplateOld(string templateName, object model)
+        //{
+        //    string compiledId = null;            
 
-            if (!App.Configuration.StressTester.ReloadTemplates && 
-                compiledTemplates.Keys.Contains(templateName))
-                compiledId = compiledTemplates[templateName];
-            else
-            {
-                compiledTemplates.Remove(templateName);
+        //    if (!App.Configuration.StressTester.ReloadTemplates && 
+        //        compiledTemplates.Keys.Contains(templateName))
+        //        compiledId = compiledTemplates[templateName];
+        //    else
+        //    {
+        //        compiledTemplates.Remove(templateName);
 
-                string template = File.ReadAllText(App.UserDataPath + "Html\\" + templateName);
-                compiledId = host.CompileTemplate(template);
+        //        string template = File.ReadAllText(App.UserDataPath + "Html\\" + templateName);
+        //        compiledId = host.CompileTemplate(template);
 
-                if (compiledId == null)
-                    return "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";
+        //        if (compiledId == null)
+        //            return "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";
 
-                compiledTemplates.Add(templateName, compiledId);
-            }
+        //        compiledTemplates.Add(templateName, compiledId);
+        //    }
 
-            string result = host.RenderTemplateFromAssembly(compiledId, model);
+        //    string result = host.RenderTemplateFromAssembly(compiledId, model);
 
-            if (result == null)
-                result = "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";
+        //    if (result == null)
+        //        result = "<pre>" + host.ErrorMessage + "\r\n------\r\n" + host.LastGeneratedCode + "</pre>";
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

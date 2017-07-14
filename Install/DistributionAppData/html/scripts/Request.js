@@ -105,13 +105,18 @@ function configureAceEditor(editor, serverVars) {
 
 //setTimeout(function() {
 // attach ace to formatted code controls if they are loaded and visible
+
+    var lang = serverVars.requestLanguage;
+    if (lang == "urlencoded")
+        lang = "text";
+    
     try {
         window.aceEditorRequest = ace.edit("RequestBodyFormatted");
         configureAceEditor(aceEditorRequest, serverVars);
-        aceEditorRequest.getSession().setMode("ace/mode/" + serverVars.requestLanguage);
+        aceEditorRequest.getSession().setMode("ace/mode/" + lang);
     } catch (ex) {;
     }
-
+    
     try {
         window.aceEditor = ace.edit("ResponseBodyFormatted");
         configureAceEditor(aceEditor, serverVars);
