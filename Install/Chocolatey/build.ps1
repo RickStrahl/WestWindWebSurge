@@ -8,7 +8,7 @@ cd "$PSScriptRoot"
 
 $releasePath = "C:\projects2010\WebSurgeReleases"
 
-#$file = "MarkdownMonsterSetup-0.55.exe"
+#$file = "WebSurgeSetup-0.55.exe"
 $file = gci "$releasePath" | sort LastWriteTime | select -last 1 | select -ExpandProperty "Name"
 write-host $file
 
