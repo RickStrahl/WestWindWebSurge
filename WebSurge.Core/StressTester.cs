@@ -34,6 +34,25 @@ namespace WebSurge
         /// </summary>
         public int ThreadsUsed { get; set; }
 
+
+
+
+        /// <summary>
+        /// Cookie Container used for the Interactive Session
+        /// </summary>
+        public static CookieContainer InteractiveSessionCookieContainer
+        {
+            get
+            {
+                if (App.Configuration.StressTester.TrackPerSessionCookies)
+                    return _interactiveSessionCookieContainer ??
+                           (_interactiveSessionCookieContainer = new CookieContainer());
+                return null;
+            }
+            set => _interactiveSessionCookieContainer = value;
+        }
+        private static CookieContainer _interactiveSessionCookieContainer;
+
         /// <summary>
         /// Set this property to stop processing requests
         /// </summary>
@@ -198,8 +217,11 @@ namespace WebSurge
 
                     // assign cookies if exist
                     if (cookieContainer != null)
+                    {
                         webRequest.CookieContainer = cookieContainer;
-
+                        result.Cookies = cookieContainer;                        
+                    }
+                    
                     DateTime dt = DateTime.UtcNow;
 
                     if (CancelThreads)
@@ -248,7 +270,11 @@ namespace WebSurge
                     result.Headers.Clear();
                     foreach (string key in webRequest.Headers.Keys)
                     {
-                        result.Headers.Add(new HttpRequestHeader() { Name = key, Value = webRequest.Headers[key] });
+                        result.Headers.Add(new HttpRequestHeader()
+                        {
+                            Name = key,
+                            Value = webRequest.Headers[key]
+                        });                        
                     }
 
                     char statusCode = result.StatusCode[0];
@@ -531,7 +557,7 @@ namespace WebSurge
 
             // Header Overrides that fail if you try to set them
             // directly in HTTP
-            if (lheader == "cookie" && !string.IsNullOrEmpty(Options.ReplaceCookieValue))
+            if (lheader == "cookie" && !string.IsNullOrWhiteSpace(Options.ReplaceCookieValue))
             {
                 string cookie = Options.ReplaceCookieValue;
                 webRequest.Headers.Add("Cookie", cookie);
@@ -767,13 +793,17 @@ namespace WebSurge
             var options = Options;
             var requestDataList = parser.ParseFile(fileName, ref options);
             if (options != null)
-                Options = options;
+                Options = options;            
 
             if (requestDataList == null)
             {
                 SetError(parser.ErrorMessage);
                 return null;
             }
+
+            StressTester.InteractiveSessionCookieContainer = App.Configuration.StressTester.TrackPerSessionCookies ? 
+                new CookieContainer() : 
+                null;
 
             return requestDataList;
         }

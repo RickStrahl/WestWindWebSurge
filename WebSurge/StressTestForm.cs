@@ -82,6 +82,10 @@ namespace WebSurge
         }
         List<HttpRequestData> _Requests;
 
+
+   
+
+
         FileSystemWatcher Watcher { get; set; }
         public Splash Splash { get; set; }
 
@@ -183,7 +187,8 @@ namespace WebSurge
             };
             OptionsPropertyGrid.SelectedObject = StressTester.Options;
 
-            StressTester.Results = new List<HttpRequestData>();      
+            StressTester.Results = new List<HttpRequestData>();
+            StressTester.InteractiveSessionCookieContainer = null;
                   
             // render an empty list
             RenderResultList(StressTester.Results);
@@ -196,6 +201,7 @@ namespace WebSurge
 
             try
             {
+                // force to clear memory
                 GC.Collect();
             }
             catch
@@ -575,16 +581,16 @@ namespace WebSurge
 
 
         private void TestSiteUrl(HttpRequestData req)
-        {
+        {            
             Cursor = Cursors.WaitCursor;
 
             StressTester.CancelThreads = false;
             
             var action = new Action<HttpRequestData>(rq =>
             {
-                ShowStatus("Checking URL: " + rq.Url); 
-
-                ActiveRequest = StressTester.CheckSite(rq);
+                ShowStatus("Checking URL: " + rq.Url);
+           
+                ActiveRequest = StressTester.CheckSite(rq, StressTester.InteractiveSessionCookieContainer);
                 string html = TemplateRenderer.RenderTemplate("Request.cshtml", ActiveRequest);                
 
                 Invoke(new Action<string>(htmlText =>
@@ -1124,7 +1130,7 @@ namespace WebSurge
             if (sender == tbRequestsPerSecondChart || sender == tbRequestPerSecondChart ||
                 sender == btnRequestsPerSecondChart)
             {
-                if (StressTester.Results.Count() > 0)
+                if (StressTester.Results.Count > 0)
                 {
                     var form = new ChartFormZed(StressTester.Results, null, ChartTypes.RequestsPerSecond);
                     form.ParentForm = this;
@@ -1610,8 +1616,9 @@ any reported issues.";
         {
             if (ActiveControl != null)
             {
-                // *** Force focus to 'save'
-                Control ctrl = ActiveControl;                                
+                // *** Force focus to 'save' content
+                Control ctrl = ActiveControl;
+                Application.DoEvents();
                 label2.Focus();
                 Application.DoEvents();
                 ctrl.Focus();

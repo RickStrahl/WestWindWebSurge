@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -538,7 +539,7 @@ namespace WebSurge
 
     }
 
-
+    [DebuggerDisplay("{Name} - {Value}")]
     public class HttpRequestHeader
     {
         public string Name { get; set; }

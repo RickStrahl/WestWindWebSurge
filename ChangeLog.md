@@ -1,10 +1,17 @@
 ﻿# West Wind WebSurge Change Log
 
+
+### Version 1.08
+<i><small>not released yet</small></i>
+
+* **Cookie Tracking in Interactive Session**  
+If `TrackSessionCookies=true` in the configuration, the interactive test session now tracks cookies created by a test and passes forward that same cookie on subsequent requests. This means you can run an authenticate link to get a cookie and then run subsequent requests that use that same cookie. Tracked cookies override both explicit cookies in the request header, as well as `ReplaceCookieValue` overrides.
+
 ### Version 1.07
 <i><small>July 14th, 2017</small></i>
 
 * **Automatic Cookie Tracking via Configuration Option**  
-Cookies are now automatically tracked per session (group of URLs). Each session runs on an isolated thread and cookies are reset as each session is restarted in a test run or individual test. Use the `TrackSessionCookies` configuration flag to enable or disable Cookie tracking. The default is `true` - set to `false` if you don't use Cookies that carry forward in your tests to improve test throughput.
+Cookies are now automatically tracked per session (group of URLs) when used in a test run. Each session runs on an isolated thread and cookies are reset as each session is restarted in a test run or individual test. Use the `TrackSessionCookies` configuration flag to enable or disable Cookie tracking. The default is `true` - set to `false` if you don't use Cookies that carry forward in your tests to improve test throughput.
 
 * **UrlEncoded Form Request Data Formatting**  
 UrlEncoded form data with content type of `application/x-www-form-urlencoded` automatically displays formatted key value pairs rather than the raw UrlEncoded data. Raw View shows the original URL encoded data. This makes it easier to understand form encoded data.
