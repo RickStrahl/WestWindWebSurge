@@ -54,8 +54,8 @@
     <Reference Include="Westwind.RazorHosting">
       <HintPath>..\packages\Westwind.RazorHosting.3.00\lib\net40\Westwind.RazorHosting.dll</HintPath>
     </Reference>
-    <Reference Include="Westwind.Utilities, Version=3.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Westwind.Utilities.3.0.0.9-preview1-0\lib\net45\Westwind.Utilities.dll</HintPath>
+    <Reference Include="Westwind.Utilities, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Westwind.Utilities.3.0.1\lib\net45\Westwind.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

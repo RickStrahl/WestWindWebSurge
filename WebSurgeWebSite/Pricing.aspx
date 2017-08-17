@@ -97,7 +97,7 @@
                 </a> topic in the documentation.                
             </p>--%>
                                  
-            <table class="table table-bordered table-striped ta" style="width: 80%">
+            <table class="table table-bordered table-striped" style="width: 80%">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -152,6 +152,21 @@
                 </ul>
     
             </p>
+            
+            <h3>Contribute - Get a Free License</h3>
+            <p>
+                Contributors that provide valuable feedback with quality bug reports or enhancement requests,
+                or help out with code via Pull Requests, or support WebSurge in a significant way are
+                all eligible for a free license.
+            </p>
+            <p>
+                Microsoft employees and Microsoft MVPs as well as employees of any company offering free tools to
+                the Micorosoft MVP or Insiders programs also qualify for a free license.
+            </p>
+            <p>
+                Contact Rick for more info or - just as likely - I'll be contacting you.
+            </p>
+
             <h3>Feature Matrix</h3>
             <a name="FeatureMatrix"></a>
             <p>
