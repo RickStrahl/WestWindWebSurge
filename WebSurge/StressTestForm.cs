@@ -434,6 +434,9 @@ namespace WebSurge
 
         void LoadRequest(HttpRequestData request)
         {
+            if (request == null)
+                request = new HttpRequestData();
+
             txtName.Text = request.Name;
             txtHttpMethod.Text = request.HttpVerb;
             txtRequestUrl.Text = request.Url;
@@ -590,8 +593,8 @@ namespace WebSurge
             {
                 ShowStatus("Checking URL: " + rq.Url);
            
-                ActiveRequest = StressTester.CheckSite(rq, StressTester.InteractiveSessionCookieContainer);
-                string html = TemplateRenderer.RenderTemplate("Request.cshtml", ActiveRequest);                
+                var result = StressTester.CheckSite(rq, StressTester.InteractiveSessionCookieContainer);
+                string html = TemplateRenderer.RenderTemplate("Request.cshtml", result);                
 
                 Invoke(new Action<string>(htmlText =>
                 {

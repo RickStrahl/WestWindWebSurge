@@ -215,11 +215,35 @@ namespace WebSurge
                     foreach (var header in result.Headers)
                         SetHttpHeader(header, client);
 
-                    // assign cookies if exist
+                    // assign cookies if exist - Cookie Container clears existing cookies
                     if (cookieContainer != null)
-                    {
-                        webRequest.CookieContainer = cookieContainer;
-                        result.Cookies = cookieContainer;                        
+                    {                        
+                        webRequest.CookieContainer = cookieContainer;                        
+                        result.Cookies = cookieContainer;
+
+                        // check if we need to add cookie again
+                        if (cookieContainer.Count < 1)
+                        {                            
+                            var cookie = result.Headers.FirstOrDefault(hd => hd.Name == "Cookie");
+                            string cookieValue = cookie?.Value;
+
+                            if (!string.IsNullOrEmpty(cookieValue) && !string.IsNullOrEmpty(result.Url))
+                            {
+                                var values = cookieValue.Split(new[] { ';', ',', '=' },
+                                    StringSplitOptions.RemoveEmptyEntries);
+                                var col = new CookieCollection();
+                                for (int x = 0; x < values.Length; x = x + 2)
+                                {
+                                    string key = values[x];
+                                    string value = values[x + 1];
+                                    var cookieObj = new Cookie(key, value);
+
+                                    cookieObj.Domain = new Uri(result.Url).Authority;
+                                    webRequest.CookieContainer.Add(cookieObj);
+                                }                                
+                            }
+                            
+                        }
                     }
                     
                     DateTime dt = DateTime.UtcNow;
