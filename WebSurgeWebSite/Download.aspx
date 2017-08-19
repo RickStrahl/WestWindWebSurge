@@ -59,8 +59,9 @@
             <div class="well well-lg">
                 <div class="row">
                     <div class=" col-sm-5">
+                        <img src="Images/WebSurgeLogo.png"  style="width: 195px; margin-bottom: 4px; display: block"/>
                         
-                        <p><b>Always Free Version</b> &nbsp; <i class="fa fa-windows" style="color: steelblue"></i></p>
+                        <p><b>West Wind Web Surge</b> &nbsp; <i class="fa fa-windows" style="color: steelblue"></i></p>
                         <dl>                            
                             <dt>Version:</dt>
                             <dd>v<%= Version %></dd>

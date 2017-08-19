@@ -1,8 +1,17 @@
 ﻿# West Wind WebSurge Change Log
 
+### Version 1.08.5
+<i><small>not released yet</small></i>
+
+* **Fix: DataBinding Bug for Request Data Editing**  
+Fixed issue where request data was not properly saved after running a test as the active request was overwritten by newly created instance.
+
+* **Fix: Cookie TrackSessions Tweaks**   
+Change `TrackSessions` behavior so if no Cookies are yet assigned the original cookies from the request are sent. Cookie Container is also cleared now when you turn `TrackSessions` to `false`.
+
 
 ### Version 1.08
-<i><small>not released yet</small></i>
+<i><small>August 12th, 2017</small></i>
 
 * **Cookie Tracking in Interactive Session**  
 If `TrackSessionCookies=true` in the configuration, the interactive test session now tracks cookies created by a test and passes forward that same cookie on subsequent requests. This means you can run an authenticate link to get a cookie and then run subsequent requests that use that same cookie. Tracked cookies override both explicit cookies in the request header, as well as `ReplaceCookieValue` overrides.
