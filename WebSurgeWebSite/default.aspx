@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>West Wind WebSurge Load Tester</title>
-    <meta name="description" content="West Wind Web Surge - Because Load Testing Web Applications shouldn't be difficult." />
+    <title>West Wind WebSurge Load Tester</title>    
     <meta name="keywords" content="Load,Testing,Web,Server,ASP.NET,Capture,Playback,Threads" />
+    <meta name="description" content="West Wind Web Surge - Easy Windows based load and URL testing for Web sites and services." />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -28,10 +28,9 @@
         </span>        
         <div id="TopMenu" class="right">
             <a href="./" class="active">Home</a>            
+            <a href="download.aspx">Download</a>                                    
             <a href="https://youtu.be/O5J8mDfVZH8">Video</a>
-            <a href="features.aspx">Features</a>
-            <a href="download.aspx">Download</a>                        
-            <a href="pricing.aspx">License</a>                        
+            <a href="features.aspx">Features</a>            
         </div>            
     </div>
 
@@ -206,7 +205,8 @@
                                 <div><i class="fa fa-check-circle"></i> Filter captures by domain or process Id</div>
                                 <div><i class="fa fa-check-circle"></i> Import sessions from Fiddler</div>
                                 <div><i class="fa fa-check-circle"></i> Manually create and edit sessions</div>
-                                <div><i class="fa fa-check-circle"></i> Complete HTTP and SSL Support</div>                                  
+                                <div><i class="fa fa-check-circle"></i> Complete HTTP and SSL Support</div>   
+                                <div><i class="fa fa-check-circle"></i> Automatic Cookie Tracking</div>
                                 <div><i class="fa fa-check-circle"></i> Test HTML, AJAX, REST and SOAP Services</div>    
                                 <div><i class="fa fa-check-circle"></i> Test individual URLs</div>                                                                                                
                                 <div><i class="fa fa-check-circle"></i> Test with unlimited load</div>                                                                

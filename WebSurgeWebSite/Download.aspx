@@ -25,6 +25,35 @@
         .panel {
             min-height: 110px;
         }
+
+        
+        th {
+             background: #535353;
+             color: whitesmoke;
+             text-align: center;
+         }
+        td a {
+            font-weight: bold;
+        }
+        .price {
+            text-align: right;
+            font-weight: bold;
+        }
+        .centered {
+            text-align: center;                
+            background: #b4fae1;    
+        }
+        .centered .fa {
+            color: #02b402; 
+
+        }
+        .centered.not-available 
+        {
+            background: white;
+        }
+        #FeatureTable td {
+            min-width: 75px;
+        }    
     </style>
 </head>
 <body>
@@ -39,8 +68,7 @@
         <div id="TopMenu" class="right">
             <a href="./" >Home</a>            
             <a href="features.aspx" >Features</a>    
-            <a  class="active">Download</a>                                    
-            <a href="pricing.aspx" >License</a>
+            <a  class="active">Download</a>                                                
         </div>       
     </div>
     
@@ -93,7 +121,7 @@
                                 West Wind WebSurge is free for personal use, for use on open source projects and for checking out features. This
                                 download provides a fully functional, non-limited version that includes all features. For 
                                 commercial or institutional use, please 
-                                <a href="pricing.aspx">purchase one of our reasonably priced licenses</a>. Thanks for playing fair.                                
+                                <a href="#Licensing">purchase one of our reasonably priced licenses</a>. Thanks for playing fair.                                
                                 
                               
                             </small>
@@ -143,8 +171,278 @@
                     </div>
                 </div>
         </div>
+            
+            
+        <h3 id="Licensing">Licensing and Pricing of West Wind WebSurge</h3>
+        <p>
+            West Wind WebSurge is open source with source code <a href="https://github.com/rickstrahl/WestwindWebSurge">available on GitHub</a>, 
+            but it is a licensed product.                                                 
+            A <b>free</b> version is available that can be used without explicit registration 
+            or usage limits for <b>personal use</b> and checking out of WebSurge's features.
+        </p>
+                
+        <p>
+            For use in a commercial or institutional environment, please purchase a Professional or 
+            Organizational license. Each licensed user requires a separate license, but a 
+            single user may use multiple copies of West Wind WebSurge on multiple machines, 
+            given that only one copy at a time is in use. An organizational license is 
+            available to allow any number of users running unlimited numbers of 
+            West Wind WebSurge within a single organization. Any purchased license is 
+            valid for the duration of the major release that it was purchased for (ie. 1.00-1.99). 
+        </p>
+            
+        <p>
+            To allow you to check out WebSurge completely, we provide a fully functional, 
+            unlimited version of West Wind WebSurge for download, so we rely on the 
+            honor system from users for supporting this product.
+        </p>
+        <p>
+            <b>Thanks for playing fair!</b>
+        </p>
+        <%--            <p>
+                For more licensing information please check out the 
+                <a href="http://websurge.west-wind.com/docs/?page=_433179ec8.htm">
+                    West Wind WebSurge Licensing
+                </a> topic in the documentation.                
+            </p>--%>
+                                 
+        <table class="table table-bordered table-striped" style="width: 80%">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>
+                    <a href="download.aspx">WebSurge Free</a><br/>
+                    <small>(for personal use or checking out WebSurge features)</small>
+                </td>
+                <td class="price">
+                    <span style="font-weight: bold; color: maroon">FREE</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://store.west-wind.com/product/websurge" class="pull-right btn btn-sm btn-primary" style="width: 70px;">
+                        <i class="fa fa-credit-card"></i>
+                        Buy
+                    </a>
+                    <a href="http://store.west-wind.com/product/websurge">WebSurge Professional</a><br/>
+                    <small>(required for commercial use, suggested for continued personal use)</small>
+                        
+                </td>
+                <td class="price">
+                    $199.00
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://store.west-wind.com/product/websurge" class="pull-right btn btn-sm btn-primary" style="width: 70px;">
+                        <i class="fa fa-credit-card"></i>
+                        Buy
+                    </a>
+
+                    <a href="http://store.west-wind.com/product/websurge_org">WebSurge Organizational License</a><br/>
+                    <small>(unlimited users for a single organization)</small>
+                </td>
+                <td class="price">
+                    $899.00
+                </td>
+            </tr>
+        </table>
+            
+        <p>
+            Product purchases can be made through our secure online store. For more information on other order arrangements please visit our order policies page.
+
+            <ul>
+                <li><a href="http://store.west-wind.com/products?search=Web+Surge">Purchase in our online Store</a></li>
+            </ul>
+    
+        </p>
+            
+        <h3>Contribute - Get a Free License</h3>
+        <p>
+            Contributors that provide valuable feedback with quality bug reports or enhancement requests,
+            or help out with code via Pull Requests, or support WebSurge in a significant way are
+            all eligible for a free license.
+        </p>
+        <p>
+            Microsoft employees and Microsoft MVPs as well as employees of any company offering free tools to
+            the Micorosoft MVP or Insiders programs also qualify for a free license.
+        </p>
+        <p>
+            Contact Rick for more info or - just as likely - I'll be contacting you.
+        </p>
+
+        <h3>Feature Matrix</h3>
+        <a name="FeatureMatrix"></a>
+        <p>
+            Not sure which version to get? Here's a feature matrix that can help you decide.
+        </p>
+        <table id="FeatureTable" class="table table-bordered" style="width: 80%">
+            <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Free</th>
+                <th>Professional</th>
+                <th>Org</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    Max number of 
+                    URLs in session
+                </td>
+                <td class="centered">
+                    unlimited   
+                </td>
+                <td class="centered">
+                    unlimited
+                </td>
+                <td class="centered">unlimited
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Max number of 
+                    simultaneous sessions
+                </td>
+                <td class="centered">
+                    unlimited   
+                </td>
+                <td class="centered">
+                    unlimited
+                </td>
+                <td class="centered">unlimited
+                </td>
+            </tr>
+                       
+            <tr>
+                <td>
+                    Built-in HTTP Capture Tool</td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Capture any Windows HTTP traffic from Web Browsers or Apps</td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Filter captures by domain, process or user defined exclusions</td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Support for advanced HTTP features and SSL</td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>    
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Support for <a href="http://telerik.com/fiddler">Telerik&#39;s Fiddler Exports</a>
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>    
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Export results to JSON, XML, HTML
+                    and raw HTTP Headers
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>    
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Test locally within your Firewall or VPN
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>    
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Multiple Users within an Organization
+                </td>
+                <td class="centered not-available">
+                    &nbsp;
+                </td>
+                <td class="centered not-available">
+                    &nbsp;
+                </td>
+                <td class="centered">
+                    <i class="fa fa-check fa-2x"></i>  
+                </td>
+            </tr>
+            </tbody>
+        </table>
+            
+
+
+        </div>
+            
+            
+
+            
+            
+
         <div class="clearfix"></div>            
-    </div>
+
+
         <div style="height: 50px;"></div>
    </div>
 
