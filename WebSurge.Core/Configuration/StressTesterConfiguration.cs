@@ -168,7 +168,7 @@ Allows to add custom authentication to a request after you've captured say a bea
         
 
         [Description(
-            "Determines if cookies are trackked for requests in a single URL session. Initially cookies are empty but if you login cookies are then assigned and tracked which allows tracking an individual user for that session. Tip: Use in combination with Users for login Urls to simulate multiple **different** users.")]
+            "Determines if cookies are tracked for requests in a single URL session. Initially cookies are empty but if you login cookies are then assigned and tracked which allows tracking an individual user for that session. Tip: Use in combination with Users for login Urls to simulate multiple **different** users.")]
         [Category("Test Operation")]
         public bool TrackPerSessionCookies
         {
