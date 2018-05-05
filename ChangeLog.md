@@ -1,7 +1,13 @@
 ﻿# West Wind WebSurge Change Log
 
-### Version 1.08.5
+### Version 1.09
 <i><small>not released yet</small></i>
+
+* **Add Paste Raw HTTP Request to Request Entry Form**  
+You can now paste a raw HTTP request into an the Request entry form. You can now capture a raw request trace from tools like fiddler or a documentation form and simply paste it as is using a new link button on the request form. The request is automatically parsed and then displayed without having to separate out headers, verb and URL.
+
+* **Word Wrap Checkbox on Headers Field on Request Form**  
+There's now a button on the Headers field to make it easier to view and edit header data. The default not wrapping to show 'raw' data which usually makes it easier to see the overall header content. Wrap mode makes it easier to view and edit long fields like cookies.
 
 * **Fix: DataBinding Bug for Request Data Editing**  
 Fixed issue where request data was not properly saved after running a test as the active request was overwritten by newly created instance.

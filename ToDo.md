@@ -26,6 +26,12 @@ to retrieve perf data to client. Have to create background thread that
 periodically picks up this performance data and either graphs or displays
 the progress.
 
+* **Export Urls to Common Test Formats**   
+WCAT, CURL Batch file, Something Fiddler can import. Postman?
+
+* **Import Urls from Other Formats**  
+First and foremost a PostMan import might bring more users.
+
 
 
 
