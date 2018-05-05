@@ -1,13 +1,13 @@
 ﻿# West Wind WebSurge
+[![Download WebSurge](https://img.shields.io/badge/WebSurge-Installer-blue.svg)](https://websurge.west-wind.com/download.aspx)
+[![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
+[![Web Site](https://img.shields.io/badge/WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
+
 #### Quick and easy URL and load testing for your Web applications
 
-<img src="http://websurge.west-wind.com/images/websurgelogo.png" height="250"  /> 
+<img src="http://websurge.west-wind.com/images/websurgelogo.png" height="220"  /> 
 
-### Get it
-* [Download WebSurge](https://websurge.west-wind.com) 
-* [Install WebSurge from Chocolatey](https://chocolatey.org/packages/WestwindWebSurge)
-
-Like what you see? Don't forget to  :star: Star the repo (top right).
+Like what you see? Don't forget to :star: Star the repo (top right).
 
 ### What's WebSurge?
 West Wind WebSurge is a Windows application that helps you to easily capture and play back URL requests, either individually for easy application, service and API testing scenarios, or under heavy load for stress testing scenarios. WebSurge makes it easy to save, share and reuse URL sessions you have created, so you can easily start up sessions again on your own or somebody else's machine. 
