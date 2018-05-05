@@ -1,4 +1,10 @@
-﻿# West Wind WebSurge Change Log
+﻿<img src="WebSurgeLogo.png" align="right" />
+
+# West Wind WebSurge Change Log
+
+[![Download WebSurge](https://img.shields.io/badge/Download-Installer-blue.svg)](https://websurge.west-wind.com/download.aspx)
+[![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
+[![Web Site](https://img.shields.io/badge/Markdown_Monster-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 ### Version 1.09
 <i><small>not released yet</small></i>
@@ -14,7 +20,6 @@ Fixed issue where request data was not properly saved after running a test as th
 
 * **Fix: Cookie TrackSessions Tweaks**   
 Change `TrackSessions` behavior so if no Cookies are yet assigned the original cookies from the request are sent. Cookie Container is also cleared now when you turn `TrackSessions` to `false`.
-
 
 ### Version 1.08
 <i><small>August 12th, 2017</small></i>
