@@ -33,13 +33,13 @@ And here is a screen shot that demonstrates simple URL testing or reviewing
 of individual request output from a test run.
 <img src="http://west-wind.com/websurge/Images/WebSurge_RequestDisplay.png" />
 
-**Use Cases:**
+#### Use Cases
 
 * Load testing Web applications and services
 * Easy URL testing and debugging for REST and data services
 * URL management for saving, sharing, restoring
 
-**Features:**
+#### Features
 
 * Easy to set up, easy to run tests
 * Built-in capture tool
@@ -56,34 +56,29 @@ of individual request output from a test run.
 * Optional Command Line Interface
 
 
-**More info:**
-
-* [WebSurge Product Page](http://west-wind.com/websurge/)
+### More info
+* [WebSurge Product Page](https://websurge.west-wind.com/)
+* [WebSurge Download](https://websurge.west-wind.com/download.aspx)
+* [WebSurge Chocolatey Package](https://chocolatey.org/packages/WestwindWebSurge)
 * [Getting started with WebSurge Video](http://youtu.be/O5J8mDfVZH8)
 * [Introducing WebSurge Blog Post](http://weblog.west-wind.com/posts/2014/Jul/15/West-Wind-WebSurge-an-easy-way-to-Load-Test-Web-Applications)
 * [Licensing](http://west-wind.com/websurge/pricing.aspx)
 * [Download](http://www.west-wind.com/files/WebSurgeSetup.zip) or
   [install from Chocolatey](http://chocolatey.org/packages/WestwindWebSurge)
 
-**Developer Info:**
+### Developer Info
 
 * [Change Log](ChangeLog.md)
 * [To Do List](ToDo.md)
 
-**Requirements:**
+### Requirements
 
-* Windows 10, 8, 7, Vista, 1, 2008, 2012
+* Windows 7+, Windows 2008 R2+
 * .NET 4.5
 
-**License:**
+### License
 
-This tool is open source, but it is a licensed product that may require a paid license. 
-This means the full source code is available and available for modification,
-but both free and commercial versions of the product are available.
+This tool is open source, but it is a licensed product that may require a paid license.  This means the full source code is available and available for modification, but both free and commercial versions of the product are available.
 
 Please check this link for additional
 [Licensing and Pricing information](http://west-wind.com/websurge/pricing.aspx).
-
-**Warranty Disclaimer: No Warranty!**
-
-IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THIS PROGRAM AND DOCUMENTATION, BE LIABLE FOR ANY COMMERCIAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR LOSSES SUSTAINED BY THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
