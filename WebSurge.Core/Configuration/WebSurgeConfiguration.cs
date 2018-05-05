@@ -52,11 +52,11 @@ namespace WebSurge
                     .Take(10)
                     .ToList();
             }
-        }
+        }        
         private string _lastFileName;
 
-        
-       
+        public bool WrapHeaderText { get; set; }
+
         public WebSurgeConfiguration()
         {
             StressTester = new StressTesterConfiguration();

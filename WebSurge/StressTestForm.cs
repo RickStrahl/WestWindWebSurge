@@ -467,6 +467,43 @@ namespace WebSurge
             return request;
         }
 
+        private void btn_PasteRawRequest_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (ActiveRequest == null)
+            {
+                ShowStatus("There's no active request active to paste into. Please select New or select a request to edit first.", 6000);
+                return;
+            }
+
+            var clipText = Clipboard.GetText();
+            if (string.IsNullOrEmpty(clipText))
+            {
+                ShowStatus("No request data on the clipboard.",timeout:6000);
+                return;
+            }
+
+            if (!(clipText.Contains("http") || clipText.Contains(": ") || clipText.Contains("HTTP/")))
+            {
+                if (MessageBox.Show("It looks like this is not an HTTP request.\r\nDo you want to try and parse it anyway?",
+                        "Paste HTTP Request", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    return;
+            }
+
+            var name = ActiveRequest.Name;
+
+            var parser = new SessionParser();
+            var request = parser.ParseRequest(clipText);
+
+            if (!string.IsNullOrEmpty(name))
+                request.Name = name;
+
+            DataUtils.CopyObjectData(request, ActiveRequest, "Id");           
+            LoadRequest(ActiveRequest);
+
+            RequestData_Changed(null, null);
+            RenderRequests(Requests);
+        }
+
         private void RequestData_Changed(object sender, EventArgs e)
         {
             if (ActiveRequest == null)
@@ -480,8 +517,7 @@ namespace WebSurge
 
             Debug.WriteLine($"{displayData} - {ActiveRequest.Url}|{ActiveRequest.Name} - {ActiveRequest?.RequestContent?.Take(100)}");
 
-            if (displayData == null  ||
-                displayData != ActiveRequest.Url + "|" + ActiveRequest.Name)                
+            if (displayData != ActiveRequest.Url + "|" + ActiveRequest.Name)                
                 RenderRequests(Requests);
         }
         #endregion
@@ -1650,6 +1686,16 @@ any reported issues.";
         }
 
         #endregion
+
+        private void chkWrapHeaderText_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkBox = sender as CheckBox;
+            if (checkBox == null)
+                return;
+
+            txtRequestHeaders.WordWrap = checkBox.Checked;
+            App.Configuration.WrapHeaderText = true;
+        }
     }
 
 }

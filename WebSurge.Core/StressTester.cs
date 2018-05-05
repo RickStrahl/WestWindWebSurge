@@ -189,8 +189,8 @@ namespace WebSurge
                     if (!string.IsNullOrEmpty(Options.Password))
                         client.Password = Options.Password;
 
-                    webRequest.Method = result.HttpVerb;
-
+                    client.HttpVerb = result.HttpVerb;
+                    
                     client.ContentType = result.ContentType;
                     client.PostMode = HttpPostMode.Raw;   // have to force raw data
                 
