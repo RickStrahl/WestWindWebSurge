@@ -212,8 +212,12 @@ namespace WebSurge
                     else
                         webRequest.ContentLength = 0;
 
+                    string cookieHeader = null;
                     foreach (var header in result.Headers)
-                        SetHttpHeader(header, client);
+                    {
+                        if(!header.Name.Equals("Cookies",StringComparison.InvariantCultureIgnoreCase))
+                            SetHttpHeader(header, client);
+                    }
 
                     // assign cookies if exist - Cookie Container clears existing cookies
                     if (cookieContainer != null)
@@ -221,30 +225,52 @@ namespace WebSurge
                         webRequest.CookieContainer = cookieContainer;                        
                         result.Cookies = cookieContainer;
 
-                        // check if we need to add cookie again
-                        if (cookieContainer.Count < 1)
-                        {                            
-                            var cookie = result.Headers.FirstOrDefault(hd => hd.Name == "Cookie");
-                            string cookieValue = cookie?.Value;
+                        var cookie = result.Headers.FirstOrDefault(hd => hd.Name == "Cookie");
+                        string cookieValue = cookie?.Value;
 
-                            if (!string.IsNullOrEmpty(cookieValue) && !string.IsNullOrEmpty(result.Url))
+                        if (!string.IsNullOrEmpty(cookieValue) && !string.IsNullOrEmpty(result.Url))
+                        {
+                            var rawCookies = cookieContainer.GetCookies(new Uri(result.Url));
+
+                            var values = cookieValue.Split(new[] { ';', ',', '=' },
+                                StringSplitOptions.RemoveEmptyEntries);
+
+
+                            for (int x = 0; x < values.Length; x = x + 2)
                             {
-                                var values = cookieValue.Split(new[] { ';', ',', '=' },
-                                    StringSplitOptions.RemoveEmptyEntries);
-                                var col = new CookieCollection();
-                                for (int x = 0; x < values.Length; x = x + 2)
+                                bool exists = false;
+                                var key = values[x].Trim();
+                                foreach (Cookie ck in rawCookies)
                                 {
-                                    string key = values[x];
-                                    string value = values[x + 1];
-                                    var cookieObj = new Cookie(key, value);
+                                    if (ck.Name ==key)
+                                    {
+                                        exists = true;
+                                        break;
+                                    }
+                                }   
+                                
+                                if (!exists)
+                                {                                    
+                                    string value = values[x + 1].Trim();
 
-                                    cookieObj.Domain = new Uri(result.Url).Authority;
+                                    var requestUri = new Uri(result.Url);
+                                    var cookieObj = new Cookie(key, WebUtility.UrlEncode(value),"/", requestUri.Authority);
+
+                                    //cookieObj.Port = requestUri.Port.ToString();
+
+                                    //if (requestUri.Port != 80 && requestUri.Port != 443)
+                                    //    cookieObj.Port = requestUri.Port.ToString();
+                                    //else
+                                    //    cookieObj.Port = null;
+
                                     webRequest.CookieContainer.Add(cookieObj);
-                                }                                
+                                }
                             }
-                            
-                        }
+                        }            
                     }
+
+                    if (cookieContainer == null)
+                        SetHttpHeader(new HttpRequestHeader {Name = "Cookies", Value = cookieHeader}, client);
                     
                     DateTime dt = DateTime.UtcNow;
 
