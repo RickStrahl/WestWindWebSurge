@@ -97,7 +97,8 @@ namespace WebSurge
                     "/chrome-sync/",
                     "client=chrome-omni",
                     "doubleclick.net",
-                    "googleads.com"
+                    "googleads.com",
+                    "/__browserLink/"
                 };
             }
             if (UrlCapture.ExtensionFilterExclusions.Count < 1)

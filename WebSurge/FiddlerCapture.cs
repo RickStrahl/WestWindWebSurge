@@ -67,7 +67,7 @@ namespace WebSurge
 
             if (!string.IsNullOrEmpty(CaptureConfiguration.CaptureDomain))
             {
-                if (sess.hostname.ToLower() != CaptureConfiguration.CaptureDomain.Trim().ToLower())
+                if (sess.fullUrl.IndexOf($"://{CaptureConfiguration.CaptureDomain}",StringComparison.InvariantCultureIgnoreCase) < 0)
                     return;
             }
 
@@ -85,7 +85,8 @@ namespace WebSurge
                 var filters = CaptureConfiguration.UrlFilterExclusions;
                 foreach (var urlFilter in filters)
                 {
-                    if (url.Contains(urlFilter))
+                    // if we match - ignore the resource
+                    if (url.IndexOf(urlFilter, StringComparison.InvariantCultureIgnoreCase) > -1)
                         return;
                 }
             }
@@ -129,7 +130,7 @@ namespace WebSurge
                             Separator + "\r\n\r\n";
 
             // must marshal and synchronize to UI thread
-            BeginInvoke(new Action<string>((text) =>
+            BeginInvoke(new Action<string>(text =>
             {
                 try
                 {

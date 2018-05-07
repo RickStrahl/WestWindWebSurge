@@ -443,6 +443,9 @@ namespace WebSurge
             txtRequestUrl.Tag = request;
             chkIsActive.Checked = request.IsActive;
 
+            chkWrapHeaderText.Checked = App.Configuration.WrapHeaderText;
+            txtRequestHeaders.WordWrap = App.Configuration.WrapHeaderText;            
+            
             StringBuilder sb = new StringBuilder();
             foreach (var hd in request.Headers)
             {
@@ -462,7 +465,8 @@ namespace WebSurge
             request.Url = txtRequestUrl.Text;
             request.HttpVerb = txtHttpMethod.Text;
             request.RequestContent = txtRequestContent.Text;
-            request.ParseHttpHeaders(txtRequestHeaders.Text);            
+            request.ParseHttpHeaders(txtRequestHeaders.Text);
+            App.Configuration.WrapHeaderText = chkWrapHeaderText.Checked;
 
             return request;
         }

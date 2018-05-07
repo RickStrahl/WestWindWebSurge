@@ -98,6 +98,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.chkIsActive = new System.Windows.Forms.CheckBox();
             this.HeadersContentSplitter = new System.Windows.Forms.SplitContainer();
+            this.chkWrapHeaderText = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtRequestHeaders = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -124,7 +125,6 @@
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRecentSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.RecentFilesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.btnEditFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -159,6 +159,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
@@ -182,7 +183,6 @@
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Help = new System.Windows.Forms.HelpProvider();
-            this.chkWrapHeaderText = new System.Windows.Forms.CheckBox();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -452,7 +452,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(434, 484);
+            this.ListRequests.Size = new System.Drawing.Size(434, 486);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 1;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -935,6 +935,20 @@
             this.HeadersContentSplitter.TabStop = false;
             this.HeadersContentSplitter.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.HeadersContentSplitter_SplitterMoved);
             // 
+            // chkWrapHeaderText
+            // 
+            this.chkWrapHeaderText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkWrapHeaderText.AutoSize = true;
+            this.chkWrapHeaderText.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.chkWrapHeaderText.Location = new System.Drawing.Point(468, 2);
+            this.chkWrapHeaderText.Name = "chkWrapHeaderText";
+            this.chkWrapHeaderText.Size = new System.Drawing.Size(74, 17);
+            this.chkWrapHeaderText.TabIndex = 1;
+            this.chkWrapHeaderText.Text = "wrap text";
+            this.chkWrapHeaderText.UseVisualStyleBackColor = true;
+            this.chkWrapHeaderText.CheckedChanged += new System.EventHandler(this.chkWrapHeaderText_CheckedChanged);
+            this.chkWrapHeaderText.Leave += new System.EventHandler(this.RequestData_Changed);
+            // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -1205,20 +1219,9 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
-            this.RecentFilesContextMenu.OwnerItem = this.btnRecentSessions;
+            this.RecentFilesContextMenu.OwnerItem = this.tbOpen;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
-            // 
-            // tbOpen
-            // 
-            this.tbOpen.DropDown = this.RecentFilesContextMenu;
-            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
-            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(110, 22);
-            this.tbOpen.Text = "Open Session";
-            this.tbOpen.ToolTipText = "Open session file";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // btnEditFile
             // 
@@ -1480,6 +1483,17 @@
             this.MainToolStrip.Size = new System.Drawing.Size(421, 25);
             this.MainToolStrip.TabIndex = 1;
             // 
+            // tbOpen
+            // 
+            this.tbOpen.DropDown = this.RecentFilesContextMenu;
+            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
+            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(110, 22);
+            this.tbOpen.Text = "Open Session";
+            this.tbOpen.ToolTipText = "Open session file";
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -1653,19 +1667,6 @@
             // Help
             // 
             this.Help.HelpNamespace = "WebSurge.chm";
-            // 
-            // chkWrapHeaderText
-            // 
-            this.chkWrapHeaderText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkWrapHeaderText.AutoSize = true;
-            this.chkWrapHeaderText.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.chkWrapHeaderText.Location = new System.Drawing.Point(468, 2);
-            this.chkWrapHeaderText.Name = "chkWrapHeaderText";
-            this.chkWrapHeaderText.Size = new System.Drawing.Size(74, 17);
-            this.chkWrapHeaderText.TabIndex = 1;
-            this.chkWrapHeaderText.Text = "wrap text";
-            this.chkWrapHeaderText.UseVisualStyleBackColor = true;
-            this.chkWrapHeaderText.CheckedChanged += new System.EventHandler(this.chkWrapHeaderText_CheckedChanged);
             // 
             // StressTestForm
             // 

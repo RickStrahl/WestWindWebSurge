@@ -128,246 +128,6 @@ namespace WebSurge
         #region CheckSite
 
         /// <summary>
-        /// Checks an individual site and returns a new HttpRequestData object
-        /// </summary>
-        /// <param name="reqData"></param>
-        /// <param name="cookieContainer">Cookies cached for this session. Cookies are reset when an individual session (thread) restarts processing a squences of URLs</param>
-        /// <param name="user">An optional user to login</param>
-        /// <param name="threadNumber"></param>
-        /// <returns>result summary data</returns>
-        public HttpRequestData CheckSite(HttpRequestData reqData, 
-            CookieContainer cookieContainer = null,             
-            int threadNumber = 0)
-        {
-            if (CancelThreads)
-                return null;
-
-            // Important: create a new instance so we can overwrite properties
-            //            without affecting original list data
-            var result = HttpRequestData.Copy(reqData);
-            result.ThreadNumber = threadNumber;
-
-            result.ErrorMessage = "Request is incomplete"; // assume not going to make it
-
-            result.IsWarmupRequest = StartTime.AddSeconds(Options.WarmupSeconds) > DateTime.UtcNow;
-
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    if (!string.IsNullOrEmpty(Options.ReplaceDomain))
-                        result.Url = ReplaceDomain(result.Url);
-
-                    if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
-                        result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
-
-                    foreach (var plugin in App.Plugins)
-                    {
-                        try
-                        {
-                            if (!plugin.OnBeforeRequestSent(result))
-                                return result;
-                        }
-                        catch (Exception ex)
-                        {
-                            App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
-                        }
-                    }
-
-                    client.CreateWebRequestObject(result.Url);
-                    var webRequest = client.WebRequest;
-
-                    // TODO: Connection Groups might help with sharing connections more efficiently
-                    // Initial tests show no improvements - more research required
-                    //webRequest.ConnectionGroupName = "_WebSurge_" + Thread.CurrentContext.ContextID;
-
-                    if (!string.IsNullOrEmpty(Options.Username))
-                    {
-                        client.Username = Options.Username;
-                        webRequest.UnsafeAuthenticatedConnectionSharing = true;
-                    }
-                    if (!string.IsNullOrEmpty(Options.Password))
-                        client.Password = Options.Password;
-
-                    client.HttpVerb = result.HttpVerb;
-                    
-                    client.ContentType = result.ContentType;
-                    client.PostMode = HttpPostMode.Raw;   // have to force raw data
-                
-                    client.Timeout = Options.RequestTimeoutMs / 1000;
-
-                    // don't auto-add gzip headers and don't decode by default
-                    client.UseGZip = false;
-
-                    if (Options.NoContentDecompression)
-                        webRequest.AutomaticDecompression = DecompressionMethods.None;
-                    else
-                        webRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-                    if (!string.IsNullOrEmpty(result.RequestContent))
-                    {
-                        var data = result.GetRequestContentBytes();
-                        client.AddPostKey(data);
-                    }
-                    else
-                        webRequest.ContentLength = 0;
-
-                    string cookieHeader = null;
-                    foreach (var header in result.Headers)
-                    {
-                        if(!header.Name.Equals("Cookies",StringComparison.InvariantCultureIgnoreCase))
-                            SetHttpHeader(header, client);
-                    }
-
-                    // assign cookies if exist - Cookie Container clears existing cookies
-                    if (cookieContainer != null)
-                    {                        
-                        webRequest.CookieContainer = cookieContainer;                        
-                        result.Cookies = cookieContainer;
-
-                        var cookie = result.Headers.FirstOrDefault(hd => hd.Name == "Cookie");
-                        string cookieValue = cookie?.Value;
-
-                        if (!string.IsNullOrEmpty(cookieValue) && !string.IsNullOrEmpty(result.Url))
-                        {
-                            var rawCookies = cookieContainer.GetCookies(new Uri(result.Url));
-
-                            var values = cookieValue.Split(new[] { ';', ',', '=' },
-                                StringSplitOptions.RemoveEmptyEntries);
-
-
-                            for (int x = 0; x < values.Length; x = x + 2)
-                            {
-                                bool exists = false;
-                                var key = values[x].Trim();
-                                foreach (Cookie ck in rawCookies)
-                                {
-                                    if (ck.Name ==key)
-                                    {
-                                        exists = true;
-                                        break;
-                                    }
-                                }   
-                                
-                                if (!exists)
-                                {                                    
-                                    string value = values[x + 1].Trim();
-
-                                    var requestUri = new Uri(result.Url);
-                                    var cookieObj = new Cookie(key, WebUtility.UrlEncode(value),"/", requestUri.Authority);
-
-                                    //cookieObj.Port = requestUri.Port.ToString();
-
-                                    //if (requestUri.Port != 80 && requestUri.Port != 443)
-                                    //    cookieObj.Port = requestUri.Port.ToString();
-                                    //else
-                                    //    cookieObj.Port = null;
-
-                                    webRequest.CookieContainer.Add(cookieObj);
-                                }
-                            }
-                        }            
-                    }
-
-                    if (cookieContainer == null)
-                        SetHttpHeader(new HttpRequestHeader {Name = "Cookies", Value = cookieHeader}, client);
-                    
-                    DateTime dt = DateTime.UtcNow;
-
-                    if (CancelThreads)
-                        return null;
-
-                    if (App.Configuration.StressTester.Users != null && App.Configuration.StressTester.Users.Count > 0)
-                        HandleUser(result,client);
-
-
-                    // *** REQUEST RUNS
-
-                    // using West Wind HttpClient
-                    string httpOutput = client.DownloadString(result.Url);
-
-                    // *** REQUEST DONE
-
-                    if (CancelThreads)
-                        return null;
-
-                    result.TimeTakenMs = (int)DateTime.UtcNow.Subtract(dt).TotalMilliseconds;                    
-
-                    if (client.Error || client.WebResponse == null)
-                    {
-                        result.ErrorMessage = client.ErrorMessage;
-                        return result;
-                    }
-
-                    result.StatusCode = ((int)client.WebResponse.StatusCode).ToString();
-                    result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
-                    result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
-
-                    result.ResponseLength = (int)client.WebResponse.ContentLength;
-                    if (result.ResponseLength < 1 && !string.IsNullOrEmpty(httpOutput))
-                        result.ResponseLength = httpOutput.Length;
-                    
-                    result.ResponseContent = httpOutput;
-                
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string key in client.WebResponse.Headers.Keys)
-                    {
-                        sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
-                    }
-                    result.ResponseHeaders = sb.ToString();
-
-                    // update to actual Http headers sent
-                    result.Headers.Clear();
-                    foreach (string key in webRequest.Headers.Keys)
-                    {
-                        result.Headers.Add(new HttpRequestHeader()
-                        {
-                            Name = key,
-                            Value = webRequest.Headers[key]
-                        });                        
-                    }
-
-                    char statusCode = result.StatusCode[0];
-                    if (statusCode == '4' || statusCode == '5')
-                    {
-                        result.IsError = true;
-                        result.ErrorMessage = client.WebResponse.StatusDescription;
-                    }
-                    else
-                    {
-                        result.IsError = false;
-                        result.ErrorMessage = null;
-
-                        if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
-                            result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
-                    }
-                }
-
-                if (!CancelThreads)
-                    OnRequestProcessed(result);
-
-                return result;
-            }
-
-            // these will occur on shutdown - don't log since they will return
-            // unstable results - just ignore
-            catch (ThreadAbortException)
-            {
-                return null;
-            }
-            catch (Exception ex)
-            {
-                result.IsError = true;
-                result.ErrorMessage = "CheckSite Error: " + ex.GetBaseException().Message;
-
-                if (!CancelThreads)
-                    OnRequestProcessed(result);
-
-                return result;
-            }
-        }
-
-        /// <summary>
         /// This is the main Session processing routine. This routine creates the
         /// new threads to run each session on. It monitors for shutdown/cancel operation
         /// and then shuts down the worker threads and summarizes the results.
@@ -525,6 +285,247 @@ namespace WebSurge
         }
 
         /// <summary>
+        /// Checks an individual site and returns a new HttpRequestData object
+        /// </summary>
+        /// <param name="reqData"></param>
+        /// <param name="cookieContainer">Cookies cached for this session. Cookies are reset when an individual session (thread) restarts processing a squences of URLs</param>
+        /// <param name="user">An optional user to login</param>
+        /// <param name="threadNumber"></param>
+        /// <returns>result summary data</returns>
+        public HttpRequestData CheckSite(HttpRequestData reqData, 
+            CookieContainer cookieContainer = null,             
+            int threadNumber = 0)
+        {
+            if (CancelThreads)
+                return null;
+
+            // Important: create a new instance so we can overwrite properties
+            //            without affecting original list data
+            var result = HttpRequestData.Copy(reqData);
+            result.ThreadNumber = threadNumber;
+
+            result.ErrorMessage = "Request is incomplete"; // assume not going to make it
+
+            result.IsWarmupRequest = StartTime.AddSeconds(Options.WarmupSeconds) > DateTime.UtcNow;
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    if (!string.IsNullOrEmpty(Options.ReplaceDomain))
+                        result.Url = ReplaceDomain(result.Url);
+
+                    if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
+                        result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
+
+                    foreach (var plugin in App.Plugins)
+                    {
+                        try
+                        {
+                            if (!plugin.OnBeforeRequestSent(result))
+                                return result;
+                        }
+                        catch (Exception ex)
+                        {
+                            App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                        }
+                    }
+
+                    client.CreateWebRequestObject(result.Url);
+                    var webRequest = client.WebRequest;
+                    if (webRequest == null)
+                        throw new InvalidOperationException($"Couldn't create Webclient - {client.ErrorMessage}");
+
+
+                    // TODO: Connection Groups might help with sharing connections more efficiently
+                    // Initial tests show no improvements - more research required
+                    //webRequest.ConnectionGroupName = "_WebSurge_" + Thread.CurrentContext.ContextID;
+
+                    if (!string.IsNullOrEmpty(Options.Username))
+                    {
+                        client.Username = Options.Username;
+                        webRequest.UnsafeAuthenticatedConnectionSharing = true;
+                    }
+                    if (!string.IsNullOrEmpty(Options.Password))
+                        client.Password = Options.Password;
+
+                    client.HttpVerb = result.HttpVerb;
+                    
+                    client.ContentType = result.ContentType;
+                    client.PostMode = HttpPostMode.Raw;   // have to force raw data
+                
+                    client.Timeout = Options.RequestTimeoutMs / 1000;
+
+                    // don't auto-add gzip headers and don't decode by default
+                    client.UseGZip = false;
+
+                    if (Options.NoContentDecompression)
+                        webRequest.AutomaticDecompression = DecompressionMethods.None;
+                    else
+                        webRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+                    if (!string.IsNullOrEmpty(result.RequestContent))
+                    {
+                        var data = result.GetRequestContentBytes();
+                        client.AddPostKey(data);
+                    }
+                    //else
+                    //    webRequest.ContentLength = 0;
+
+                    HandleCookies(result, cookieContainer, client);
+
+                    if (App.Configuration.StressTester.Users != null && App.Configuration.StressTester.Users.Count > 0)
+                        HandleUser(result,client);
+
+                    if (CancelThreads)
+                        return null;
+
+                    // *** REQUEST RUNS
+                    DateTime dt = DateTime.UtcNow;
+
+                    // using West Wind HttpClient
+                    string httpOutput = client.DownloadString(result.Url);
+
+                    
+                    if (CancelThreads)
+                        return null;
+
+                    result.TimeTakenMs = (int)DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
+                    
+                    if (client.Error || client.WebResponse == null)
+                    {
+                        result.ErrorMessage = client.ErrorMessage;
+                        return result;
+                    }
+                    // *** REQUEST DONE
+
+
+                    result.StatusCode = ((int)client.WebResponse.StatusCode).ToString();
+                    result.StatusDescription = client.WebResponse.StatusDescription ?? string.Empty;
+                    result.TimeToFirstByteMs = client.HttpTimings.TimeToFirstByteMs;
+
+                    result.ResponseLength = (int)client.WebResponse.ContentLength;
+                    if (result.ResponseLength < 1 && !string.IsNullOrEmpty(httpOutput))
+                        result.ResponseLength = httpOutput.Length;
+                    
+                    result.ResponseContent = httpOutput;
+                
+                    StringBuilder sb = new StringBuilder();
+                    foreach (string key in client.WebResponse.Headers.Keys)
+                    {
+                        sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
+                    }
+                    result.ResponseHeaders = sb.ToString();
+
+                    if (result.Url.Contains("login.aspx"))
+                    {
+                        int x = 1;
+                    }
+
+                    // update to actual Http headers sent
+                    result.Headers.Clear();
+                    foreach (string key in webRequest.Headers.Keys)
+                    {
+                        result.Headers.Add(new HttpRequestHeader()
+                        {
+                            Name = key,
+                            Value = webRequest.Headers[key]
+                        });                        
+                    }
+
+                    char statusCode = result.StatusCode[0];
+                    if (statusCode == '4' || statusCode == '5')
+                    {
+                        result.IsError = true;
+                        result.ErrorMessage = client.WebResponse.StatusDescription;
+                    }
+                    else
+                    {
+                        result.IsError = false;
+                        result.ErrorMessage = null;
+
+                        if (Options.MaxResponseSize > 0 && result.ResponseContent.Length > Options.MaxResponseSize)
+                            result.ResponseContent = result.ResponseContent.Substring(0, Options.MaxResponseSize);
+                    }
+                }
+
+                if (!CancelThreads)
+                    OnRequestProcessed(result);
+
+                return result;
+            }
+
+            // these will occur on shutdown - don't log since they will return
+            // unstable results - just ignore
+            catch (ThreadAbortException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                result.IsError = true;
+                result.ErrorMessage = "CheckSite Error: " + ex.GetBaseException().Message;
+
+                if (!CancelThreads)
+                    OnRequestProcessed(result);
+
+                return result;
+            }
+        }
+
+        private void HandleCookies(HttpRequestData result,
+            CookieContainer cookieContainer,
+            HttpClient client)                        
+        {
+            string cookieHeader = null;
+            foreach (var header in result.Headers)
+            {
+                if (!header.Name.Equals("Cookies", StringComparison.InvariantCultureIgnoreCase))
+                    SetHttpHeader(header, client);
+            }
+
+            // assign cookies if exist - Cookie Container clears existing cookies
+            if (cookieContainer != null)
+            {
+                client.WebRequest.CookieContainer = cookieContainer;
+                result.Cookies = cookieContainer;
+
+                var cookie = result.Headers.FirstOrDefault(hd => hd.Name == "Cookie");
+                string cookieValue = cookie?.Value;
+
+                if (!string.IsNullOrEmpty(cookieValue) && !string.IsNullOrEmpty(result.Url))
+                {
+                    // check if the cookie already exists in the container
+                    var rawCookies = cookieContainer.GetCookies(new Uri(result.Url));
+
+                    var values = cookieValue.Split(new[] { ';', ',', '=' },
+                        StringSplitOptions.RemoveEmptyEntries);
+
+                    for (int x = 0; x < values.Length; x = x + 2)
+                    {
+                        bool exists = false;
+                        var key = values[x].Trim();
+                        foreach (Cookie ck in rawCookies)
+                        {
+                            if (ck.Name == key)
+                            {                             
+                                exists = true;
+                                break;
+                            }
+                        }
+
+                        if (!exists)
+                        {
+                            string value = values[x + 1].Trim();
+
+                            cookieContainer.Add(new Cookie(key,WebUtility.UrlEncode(value),"/",new Uri(result.Url).DnsSafeHost));
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Handle user overrides for a provided Auth Cookie, or specific
         /// Login Urls
         /// </summary>
@@ -532,7 +533,9 @@ namespace WebSurge
         /// <param name="client"></param>
         private void HandleUser(HttpRequestData request, HttpClient client)
         {
-            if (App.Configuration.StressTester.Users == null || App.Configuration.StressTester.Users.Count < 1)
+            if (App.Configuration.StressTester.Users == null || 
+                App.Configuration.StressTester.Users.Count < 1 || 
+                (request.HttpVerb != "POST" && request.HttpVerb != "PUT"))
                 return;
 
             // retrieve a user for the current thread
@@ -559,7 +562,8 @@ namespace WebSurge
                     url = ReplaceDomain(url);
 
                 Debug.WriteLine(url + " " + request.Url + " - " + (url == request.Url));
-                if (url == request.Url)
+
+                if (url.Equals(request.Url,StringComparison.InvariantCultureIgnoreCase))
                 {
                     login = loginUrl;
                     break;
@@ -595,6 +599,7 @@ namespace WebSurge
 
                 // update the request info
                 request.RequestContent = client.GetPostBuffer();
+                //client.WebRequest.ContentLength = request.RequestContent.Length;
             }
 
         }
