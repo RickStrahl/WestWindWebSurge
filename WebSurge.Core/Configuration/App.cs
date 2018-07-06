@@ -17,6 +17,10 @@ namespace WebSurge
         public static string InstallerDownloadUrl { get; set; }   
         public static string InstallerDownloadPage { get; set; }
         public static string WebHomeUrl { get; set; }
+        public static string PurchaseUrl { get; set; }
+
+        public static string DocsUrl { get; set; }
+
         public bool ReloadTemplates { get; set; }
 
         internal static string EncryptionMachineKey { get; set; }
@@ -32,10 +36,12 @@ namespace WebSurge
                 Directory.CreateDirectory(UserDataPath);
 
             LogFile = UserDataPath + "WebSurgeErrors.log";
-            VersionCheckUrl = "http://west-wind.com/files/WebSurge_Version.xml";
-            InstallerDownloadUrl = "http://west-wind.com/files/WebsurgeSetup.exe";
-            InstallerDownloadPage = "http://websurge.west-wind.com/download.aspx";
-            WebHomeUrl = "http://west-wind.com/websurge";
+            VersionCheckUrl = "https://west-wind.com/files/WebSurge_Version.xml";
+            InstallerDownloadUrl = "https://west-wind.com/files/WebsurgeSetup.exe";
+            InstallerDownloadPage = "https://websurge.west-wind.com/download.aspx";
+            WebHomeUrl = "https://websurge.west-wind.com";
+            PurchaseUrl = "https://store.west-wind.com/product/order/websurge";
+            DocsUrl = "https://websurge.west-wind.com/docs/";
 
             Configuration = new WebSurgeConfiguration();
             //Configuration.Initialize();
@@ -56,8 +62,6 @@ namespace WebSurge
 
             Plugins = PluginLoader.LoadPlugIns();
         }
-
-        
 
 
         /// <summary>
