@@ -144,7 +144,7 @@ namespace WebSurge
 
         private void lnkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ShellUtils.GoUrl("https://store.west-wind.com/product/websurge");
+            ShellUtils.GoUrl(App.PurchaseUrl);
             Close();
         }
 

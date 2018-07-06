@@ -159,13 +159,7 @@ namespace WebSurge
 
             AddRecentFiles();
 
-            if (!UnlockKey.IsRegistered())
-            {           
-                var t = new System.Windows.Forms.Timer();
-                t.Interval = 15*60*1000; // 15 mins
-                t.Tick += t_Tick;
-                t.Start();
-            }
+            
 
             UpdateButtonStatus();
         }
@@ -272,6 +266,34 @@ namespace WebSurge
         private void StressTestForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             CheckForNewVersion(false);
+
+            if (!UnlockKey.IsRegistered())
+            {
+                var accessed = App.Configuration.WindowSettings.Accesses;
+                var displayCount = 10;
+
+                if (accessed > 150)
+                    displayCount = 1;
+                else if (accessed > 100)
+                    displayCount = 2;
+                else if (accessed > 70)
+                    displayCount = 4;
+                else if (accessed > 30)
+                    displayCount = 7;
+
+                if (accessed % displayCount == 0)
+                {
+                    regForm = new RegisterDialog();
+                    regForm.StartPosition = FormStartPosition.Manual;
+                    regForm.Left = Left + Width / 2 - regForm.Width / 2;
+                    regForm.Top = Top + Height / 2 - regForm.Height / 2 + 40;
+                    regForm.TopMost = true;
+
+                    Hide();
+
+                    regForm.ShowDialog();
+                }
+            }
         }
 
         void Export(string mode)
@@ -1138,9 +1160,9 @@ namespace WebSurge
                 splashForm.Show();
             }
             else if (sender == btnGotoWebSite)
-                ShellUtils.GoUrl("http://websurge.west-wind.com");
+                ShellUtils.GoUrl(App.WebHomeUrl);
             else if (sender == btnGotoRegistration)
-                ShellUtils.GoUrl("http://store.west-wind.com/product/websurge");
+                ShellUtils.GoUrl(App.PurchaseUrl);
             else if (sender == btnRegistration)
             {
                 var regForm = new UnlockKeyForm("Web Surge");
@@ -1491,9 +1513,7 @@ any reported issues.";
             else if (sender == btnCheckForNewVersion)
                 CheckForNewVersion(true);
             else if (sender == btnHelp)
-                System.Windows.Forms.Help.ShowHelp(this,"websurge.chm",HelpNavigator.TableOfContents);
-            else if(sender == btnHelpIndex)
-                System.Windows.Forms.Help.ShowHelp(this, "websurge.chm", HelpNavigator.KeywordIndex);
+                ShellUtils.GoUrl("https://websurge.west-wind.com/docs/");            
             else if (sender == btnExit)
                 Close();
 
@@ -1668,15 +1688,7 @@ any reported issues.";
             }
         }
 
-        void t_Tick(object sender, EventArgs e)
-        {
-            regForm = new RegisterDialog();
-            regForm.StartPosition = FormStartPosition.Manual;
-            regForm.Left = Left + Width/2 - regForm.Width/2 ;
-            regForm.Top = Top + Height/2 - regForm.Height/2 + 40;
-            regForm.TopMost = true;
-            regForm.Show();
-        }
+      
 
         void updater_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {

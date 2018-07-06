@@ -73,11 +73,11 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.75F);
             this.label2.ForeColor = System.Drawing.SystemColors.Info;
             this.label2.Location = new System.Drawing.Point(205, 144);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(296, 127);
+            this.label2.Size = new System.Drawing.Size(304, 127);
             this.label2.TabIndex = 12;
             this.label2.Text = "If you\'re using this tool commercially, or you find that you\'re using it frequent" +
     "ly, please purchase a registered version of WebSurge.\r\n\r\nThanks for playing fair" +
@@ -99,7 +99,7 @@
             this.lblYouAreUsing.ForeColor = System.Drawing.SystemColors.Info;
             this.lblYouAreUsing.Location = new System.Drawing.Point(205, 17);
             this.lblYouAreUsing.Name = "lblYouAreUsing";
-            this.lblYouAreUsing.Size = new System.Drawing.Size(284, 21);
+            this.lblYouAreUsing.Size = new System.Drawing.Size(296, 21);
             this.lblYouAreUsing.TabIndex = 10;
             this.lblYouAreUsing.Text = "You\'ve been using the Free version of";
             // 
