@@ -36,6 +36,9 @@ namespace WebSurge
                 AvgRequestTimeMs = (decimal) results.Average(req => req.TimeTakenMs),
                 MinRequestTimeMs = results.Min(req => req.TimeTakenMs),
                 MaxRequestTimeMs = results.Max(req => req.TimeTakenMs),
+                Percentile90 = results.Percentile(req => req.TimeTakenMs, 0.9M),
+                Percentile95 = results.Percentile(req => req.TimeTakenMs, 0.95M),
+                Percentile99 = results.Percentile(req => req.TimeTakenMs, 0.99M),
                 ErrorMessages = results
                                     .GroupBy(x => x.ErrorMessage)
                                     .Where(g => g.Key != null)
@@ -74,6 +77,9 @@ namespace WebSurge
                 sb.AppendLine(string.Format("      Avg Time: {0:n2} ms", result.AvgRequestTimeMs));
                 sb.AppendLine(string.Format("      Min Time: {0:n2} ms", result.MinRequestTimeMs));
                 sb.AppendLine(string.Format("      Max Time: {0:n2} ms", result.MaxRequestTimeMs));
+                sb.AppendLine(string.Format("      90th Percentile: {0:n2} ms", result.Percentile90));
+                sb.AppendLine(string.Format("      95th Percentile: {0:n2} ms", result.Percentile95));
+                sb.AppendLine(string.Format("      99th Percentile: {0:n2} ms", result.Percentile99));
             }
 
             return sb.ToString();
@@ -136,6 +142,9 @@ namespace WebSurge
                                 MinRequestTimeMs = results.Min(u => u.TimeTakenMs),
                                 MaxRequestTimeMs = results.Max(u => u.TimeTakenMs),
                                 AvgRequestTimeMs = (decimal) results.Average(u => u.TimeTakenMs),
+                                Percentile90 = results.Percentile(req => req.TimeTakenMs, 0.9M),
+                                Percentile95 = results.Percentile(req => req.TimeTakenMs, 0.95M),
+                                Percentile99 = results.Percentile(req => req.TimeTakenMs, 0.99M),
                                 ErrorMessages = results
                                     .GroupBy(x => x.ErrorMessage)
                                     .Where(g => g.Key != null)
@@ -207,6 +216,9 @@ namespace WebSurge
         public decimal AvgRequestTimeMs { get; set; }
         public decimal MinRequestTimeMs { get; set; }
         public decimal MaxRequestTimeMs { get; set; }
+        public decimal Percentile90 { get; set; }
+        public decimal Percentile95 { get; set; }
+        public decimal Percentile99 { get; set; }
         public int TimeTakenSecs { get; set; }
         public IEnumerable<ErrorMessage> ErrorMessages { get; set; }
     }
