@@ -416,12 +416,7 @@ namespace WebSurge
                         sb.AppendLine(key + ": " + client.WebResponse.Headers[key]);
                     }
                     result.ResponseHeaders = sb.ToString();
-
-                    if (result.Url.Contains("login.aspx"))
-                    {
-                        int x = 1;
-                    }
-
+                    
                     // update to actual Http headers sent
                     result.Headers.Clear();
                     foreach (string key in webRequest.Headers.Keys)
@@ -476,8 +471,7 @@ namespace WebSurge
         private void HandleCookies(HttpRequestData result,
             CookieContainer cookieContainer,
             HttpClient client)                        
-        {
-            string cookieHeader = null;
+        {            
             foreach (var header in result.Headers)
             {
                 if (!header.Name.Equals("Cookies", StringComparison.InvariantCultureIgnoreCase))
@@ -732,16 +726,18 @@ namespace WebSurge
             
             if (Options.RandomizeRequests)
             {
-                var rqs = requests as List<HttpRequestData>;
+                var rqs = requests;
                 reqs = new List<HttpRequestData>();
+                reqs.AddRange( rqs.Where( r2=> r2.SortNoRandmomize).OrderBy(r2=> r2.SortOrder) );
 
                 var r = new Random();
-                foreach (var req in rqs
+                foreach (var req in rqs.Where(r2=> !r2.SortNoRandmomize) 
                     .OrderBy(rq => r.NextDouble())
                     .ToList())
                 {
                     reqs.Add(req);
                 }
+
                 rqs = null;
             }
             else

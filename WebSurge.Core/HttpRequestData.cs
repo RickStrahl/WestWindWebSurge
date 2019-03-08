@@ -67,7 +67,13 @@ namespace WebSurge
         public int TimeToFirstByteMs { get; set; }        
 
         public bool IsWarmupRequest { get; set; }
+        
         public int SortOrder;
+        
+        /// <summary>
+        /// When true forces the editor
+        /// </summary>
+        public bool SortNoRandmomize;
 
         private static Encoding WindowsEncoding = Encoding.GetEncoding(1252);
         public string TextEncoding { get; set; }
@@ -396,7 +402,11 @@ namespace WebSurge
                     Name = hd.Value;
                     continue;
                 }
-
+                if (name == "websurge-request-sortnorandomize")
+                {
+                    SortNoRandmomize = true;
+                    continue;
+                }
                 Headers.Add(hd);
             }
         }
@@ -428,6 +438,8 @@ namespace WebSurge
                     sb.AppendLine("Websurge-Request-Inactive: 1");
                 if (!string.IsNullOrEmpty(Name))
                     sb.AppendLine("Websurge-Request-Name: " + Name);
+                if(SortNoRandmomize)
+                    sb.AppendLine("Websurge-Request-SortNoRandomize: true");
             }
 
             if (!string.IsNullOrEmpty(req.RequestContent))
