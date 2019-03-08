@@ -88,7 +88,8 @@ namespace WebSurge
         public new void Close()
         {
             TopMost = false;
-            FadeOut();            
+            FadeOut();       
+            base.Close();
         }
 
         bool InFadeOut = false;
@@ -108,7 +109,7 @@ namespace WebSurge
             }
 
             int duration = 500;//in milliseconds
-            int steps = 50;
+            int steps = 80;
             Timer timer = new Timer();
             timer.Interval = duration / steps;
             timer.Enabled = true;
@@ -124,13 +125,12 @@ namespace WebSurge
                     timer.Stop();
                     timer.Dispose();                   
 
-                    if (Startup)
-                        Application.ExitThread();
+                    //if (Startup)
+                    //    Application.ExitThread();
 
                     Visible = false;
 
                     base.Close();
-
                 }
             };
 

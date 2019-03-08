@@ -94,7 +94,10 @@ namespace WebSurge
             if (!string.IsNullOrEmpty(fileName))
                 FileName = fileName;
 
-            InitializeComponent();            
+            InitializeComponent();
+
+            var form = new Splash(true);
+            form.Show();
         }
 
         public void OpenFile(string fileName = null)
@@ -474,7 +477,8 @@ namespace WebSurge
                 sb.AppendLine(hd.Name + ": " + hd.Value);
             }
             txtRequestHeaders.Text = sb.ToString();
-            txtRequestContent.Text = request.RequestContent;            
+            txtRequestContent.Text = request.RequestContent;
+            chkNoRandomize.Checked = request.SortNoRandmomize;
         }
 
         HttpRequestData SaveRequest(HttpRequestData request)
@@ -489,6 +493,7 @@ namespace WebSurge
             request.RequestContent = txtRequestContent.Text;
             request.ParseHttpHeaders(txtRequestHeaders.Text);
             App.Configuration.WrapHeaderText = chkWrapHeaderText.Checked;
+            request.SortNoRandmomize = chkNoRandomize.Checked;
 
             return request;
         }
