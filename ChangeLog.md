@@ -8,15 +8,20 @@
 
 
 
-
-### Version 1.10
-<i><small>not released yet</small></i>
+### Version 1.12
+<i><small>March 7, 2019</small></i>
 
 * **Add SortNoRandomize Option to Entry**  
 You can now specify that a URL should not randomize when all requests are randomized. This allows you to randomize all requests **except** those that are marked so they always run at the beginning. Useful for ensuring that login URLs are always fired before other requests.
 
 * **Add Paste Raw HTTP Request to Request Entry Form**  
 You can now paste a raw HTTP request into an the Request entry form. You can now capture a raw request trace from tools like fiddler or a documentation form and simply paste it as is using a new link button on the request form. The request is automatically parsed and then displayed without having to separate out headers, verb and URL.
+
+* **Fix: Splash Screen Startup Issues**  
+Fix issue with the splash screen in some environments where threading issues were causing WebSurge to quit on startup. Fixed by moving the splash screen inline.
+
+### Version 1.10
+<i><small>July 6th, 2018</small></i>
 
 * **Word Wrap Checkbox on Headers Field on Request Form**  
 There's now a button on the Headers field to make it easier to view and edit header data. The default not wrapping to show 'raw' data which usually makes it easier to see the overall header content. Wrap mode makes it easier to view and edit long fields like cookies.
