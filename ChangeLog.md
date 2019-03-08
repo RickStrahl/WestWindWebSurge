@@ -6,8 +6,14 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/Markdown_Monster-WebSite-blue.svg)](https://websurge.west-wind.com)
 
-### Version 1.09
+
+
+
+### Version 1.10
 <i><small>not released yet</small></i>
+
+* **Add SortNoRandomize Option to Entry**  
+You can now specify that a URL should not randomize when all requests are randomized. This allows you to randomize all requests **except** those that are marked so they always run at the beginning. Useful for ensuring that login URLs are always fired before other requests.
 
 * **Add Paste Raw HTTP Request to Request Entry Form**  
 You can now paste a raw HTTP request into an the Request entry form. You can now capture a raw request trace from tools like fiddler or a documentation form and simply paste it as is using a new link button on the request form. The request is automatically parsed and then displayed without having to separate out headers, verb and URL.

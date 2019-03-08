@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("West Wind Technologies")]
 [assembly: AssemblyProduct("West Wind WebSurge")]
-[assembly: AssemblyCopyright("© West Wind Technologies, 2014-2018")]
+[assembly: AssemblyCopyright("© West Wind Technologies, 2014-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

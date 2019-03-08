@@ -23,6 +23,7 @@ Thumbs.db
 *.lib
 *.sbr
 *.nupkg
+.idea/
 ProductionInstall*.xml
 obj/
 [Rr]elease*/
