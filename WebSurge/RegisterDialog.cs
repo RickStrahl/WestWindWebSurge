@@ -37,7 +37,7 @@ namespace WebSurge
             else if (accessCount > 10)
                 txtUsed.ForeColor = Color.Green;
 
-            txtUsed.Text = $"{accessCount} times.";
+            txtUsed.Text = $"{accessCount + 1} times.";
 
             Top -= 50;
             TopMost = true;
