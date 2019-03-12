@@ -35,6 +35,50 @@ namespace WebSurge.Tests
             }
         }
 
+
+        [TestMethod]
+        public void TestParserLf()
+        {
+            SessionParser parser = new SessionParser();
+            var options = new StressTesterConfiguration();
+
+            string reqs = @"POST http://localhost:5000/api/BodyTypes/JsonStringBody HTTP/1.1
+Accept - Encoding: gzip,deflate
+Content - type: application / json
+Websurge - Request - Name: JsonStringBody
+
+""Windy Rivers are the best!""
+
+------------------------------------------------------------------
+
+POST http://localhost:5000/api/BodyTypes/JsonPlainBody HTTP/1.1
+Accept - Encoding: gzip,deflate
+Content - type: text / plain
+Websurge - Request - Name: JsonPlainBody
+
+    Windy Rivers are the best!
+";
+            reqs = reqs.Replace("\r\n", "\n");
+
+
+            List<HttpRequestData> httpRequests = parser.Parse(reqs, ref options);
+
+            Assert.IsNotNull(httpRequests);
+
+            Console.WriteLine(httpRequests.Count);
+            foreach (var req in httpRequests)
+            {
+                Console.WriteLine("--\r\n");
+                Console.WriteLine(req.HttpVerb + " -- " + req.Url);
+                Console.WriteLine(req.Host);
+                foreach (var header in req.Headers)
+                {
+                    Console.WriteLine(" " + header.Name + ": " + header.Value);
+                }
+                Console.WriteLine("\r\n" + req.RequestContent);
+            }
+        }
+
         //[TestMethod]
         //public async Task TestCheckSiteAsync()
         //{
