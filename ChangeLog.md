@@ -7,11 +7,14 @@
 [![Web Site](https://img.shields.io/badge/Markdown_Monster-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 
-### Version 1.14
-<i><small>not released yet</small></i>
+### Version 1.13
+<i><small>March 13th, 2019</small></i>
 
 * **Fix: Import WebSurge/Fiddler Session Files with LF only Formatting**  
-Fixed session import which didn't work with files using only LF instead of CRLF for linefeeds. Refactored session importer completely to be more resilient various format issues.
+Fixed session import which didn't work with files using only LF instead of CRLF for line feeds. Refactored session importer completely to be more resilient various format issues.
+
+* **Fix: Splash Screen Startup Issues**  
+Fix issue with the splash screen in some environments and especially on Remote instances where threading issues were causing WebSurge to quit on startup. Fixed by moving the splash screen inline and removing the fade out behavior.
 
 ### Version 1.12
 <i><small>March 7, 2019</small></i>
@@ -22,8 +25,6 @@ You can now specify that a URL should not randomize when all requests are random
 * **Add Paste Raw HTTP Request to Request Entry Form**  
 You can now paste a raw HTTP request into an the Request entry form. You can now capture a raw request trace from tools like fiddler or a documentation form and simply paste it as is using a new link button on the request form. The request is automatically parsed and then displayed without having to separate out headers, verb and URL.
 
-* **Fix: Splash Screen Startup Issues**  
-Fix issue with the splash screen in some environments where threading issues were causing WebSurge to quit on startup. Fixed by moving the splash screen inline.
 
 ### Version 1.10
 <i><small>July 6th, 2018</small></i>

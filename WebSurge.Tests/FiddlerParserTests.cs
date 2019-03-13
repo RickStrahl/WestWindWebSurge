@@ -31,7 +31,9 @@ namespace WebSurge.Tests
                 {
                     Console.WriteLine(" " + header.Name + ": " + header.Value);
                 }
-                Console.WriteLine(req.RequestContent);
+
+                if(!string.IsNullOrEmpty(req.RequestContent))
+                    Console.WriteLine("\r\n" + req.RequestContent);
             }
         }
 
@@ -43,20 +45,20 @@ namespace WebSurge.Tests
             var options = new StressTesterConfiguration();
 
             string reqs = @"POST http://localhost:5000/api/BodyTypes/JsonStringBody HTTP/1.1
-Accept - Encoding: gzip,deflate
-Content - type: application / json
-Websurge - Request - Name: JsonStringBody
+Accept-Encoding: gzip,deflate
+Content-type: application / json
+Websurge-Request-Name: JsonStringBody
 
 ""Windy Rivers are the best!""
 
 ------------------------------------------------------------------
 
 POST http://localhost:5000/api/BodyTypes/JsonPlainBody HTTP/1.1
-Accept - Encoding: gzip,deflate
-Content - type: text / plain
-Websurge - Request - Name: JsonPlainBody
+Accept-Encoding: gzip,deflate
+Content-type: text/plain
+Websurge-Request-Name: JsonPlainBody
 
-    Windy Rivers are the best!
+Windy Rivers are the best!
 ";
             reqs = reqs.Replace("\r\n", "\n");
 
@@ -75,7 +77,8 @@ Websurge - Request - Name: JsonPlainBody
                 {
                     Console.WriteLine(" " + header.Name + ": " + header.Value);
                 }
-                Console.WriteLine("\r\n" + req.RequestContent);
+                if (!string.IsNullOrEmpty(req.RequestContent))
+                    Console.WriteLine("\r\n" + req.RequestContent);
             }
         }
 
