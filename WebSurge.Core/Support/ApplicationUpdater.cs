@@ -162,8 +162,12 @@ namespace WebSurge.Core
                 if (ver != null)
                 {
                     VersionInfo = ver;
+                    
+                    // Normalize to Major.Minor version string
+                    var onlineVersion = new Version(new Version(VersionInfo.Version).ToString(2));
+                    var localVersion = new Version(new Version(CurrentVersion).ToString(2));
 
-                    if (ver.Version.CompareTo(CurrentVersion) > 0)
+                    if (onlineVersion.CompareTo(localVersion) > 0)
                         return true;
                 }
             }

@@ -1042,8 +1042,7 @@ namespace WebSurge
 
         public void CheckForNewVersion(bool force = false)
         {
-            var updater = new ApplicationUpdater(typeof(Program));
-            //updater.LastCheck = DateTime.UtcNow.AddDays(-50);
+            var updater = new ApplicationUpdater(typeof(Program));            
             if (updater.NewVersionAvailable(!force))
             {
                 if (MessageBox.Show(updater.VersionInfo.Detail + "\r\n" +
