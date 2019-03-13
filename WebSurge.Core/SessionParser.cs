@@ -105,73 +105,11 @@ namespace WebSurge
         }
 
 
-
         /// <summary>
         /// Parses an individual requests in HTTP header format.
         /// Expects the URL to be part of the first HTTP header line:
-        /// 
-        /// </summary>
-        /// <param name="requestData"></param>
-        /// <returns></returns>
-        public HttpRequestData ParseRequestOLD(string requestData)
-        {
-            var tokens = requestData.Split( new [] {"\r\nHTTP", "\nHTTP"}, StringSplitOptions.None);
-            if (tokens.Length == 0)
-                return null;
-
-            var reqHttp = new HttpRequestData();
-            reqHttp.FullRequest = tokens[0];
-
-            // normalize
-            string fullHeader = tokens[0].Replace("\r\n","\n");
-
-            string header, body;
-            int contentIndex = fullHeader.IndexOf("\n\n");
-            if (contentIndex > -1)
-            {
-                body = fullHeader.Substring(contentIndex).TrimStart('\n');
-                header = fullHeader.Substring(0, contentIndex);
-            }
-            else
-            {
-                body = null;
-                header = fullHeader.TrimEnd() + "\n";
-            }
-                
-            
-            var lines = StringUtils.GetLines(header);
-            reqHttp.Url = StringUtils.ExtractString(lines[0], " ", " HTTP/");
-            reqHttp.HttpVerb = StringUtils.ExtractString(lines[0], "", " ");
-
-            // ignore CONNECT requests
-            if (reqHttp.HttpVerb == "CONNECT")
-            {
-                return null;
-            }
-
-            if (reqHttp.HttpVerb != "GET" && !string.IsNullOrEmpty(body))
-                reqHttp.RequestContent = body;
-            
-            if (lines.Length > 0)
-            {
-                lines[0] = string.Empty;
-                reqHttp.ParseHttpHeaders(lines);
-            }
-
-            reqHttp.Host = reqHttp.Headers
-                .Where(hd => hd.Name == "Host")
-                .Select(hd => hd.Value)
-                .FirstOrDefault();                
-
-            return reqHttp;
-        }
-
-
-
-        /// <summary>
-        /// Parses an individual requests in HTTP header format.
-        /// Expects the URL to be part of the first HTTP header line:
-        /// 
+        ///
+        /// Parser supports both CRLF and LF only
         /// </summary>
         /// <param name="requestData"></param>
         /// <returns></returns>
