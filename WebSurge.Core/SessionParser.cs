@@ -113,7 +113,7 @@ namespace WebSurge
         /// </summary>
         /// <param name="requestData"></param>
         /// <returns></returns>
-        public HttpRequestData ParseRequest(string requestData)
+        public HttpRequestData ParseRequestOLD(string requestData)
         {
             var tokens = requestData.Split( new [] {"\r\nHTTP", "\nHTTP"}, StringSplitOptions.None);
             if (tokens.Length == 0)
@@ -165,6 +165,80 @@ namespace WebSurge
 
             return reqHttp;
         }
+
+
+
+        /// <summary>
+        /// Parses an individual requests in HTTP header format.
+        /// Expects the URL to be part of the first HTTP header line:
+        /// 
+        /// </summary>
+        /// <param name="requestData"></param>
+        /// <returns></returns>
+        public HttpRequestData ParseRequest(string requestData)
+        {
+            StringBuilder sbHeader = new StringBuilder();
+            StringBuilder sbBody = new StringBuilder();
+
+            var reqLines = StringUtils.GetLines(requestData.TrimStart());
+
+            var reqHttp = new HttpRequestData();
+            reqHttp.Url = StringUtils.ExtractString(reqLines[0], " ", " HTTP/");
+            reqHttp.HttpVerb = StringUtils.ExtractString(reqLines[0], "", " ");
+
+            // ignore CONNECT requests
+            if (reqHttp.HttpVerb == "CONNECT")            
+                return null;
+            
+            int state = 0;    // 0 header, 1 body, 2  Response/done
+            bool lastLineEmpty = false;
+            for (var index = 0; index < reqLines.Length; index++)
+            {
+                var line = reqLines[index];
+                if (state == 0)
+                {
+                    if (string.IsNullOrEmpty(line))  // transition to body
+                    {
+                        state = 1;                        
+                        continue;
+                    }
+                    if (line.StartsWith("HTTP/"))   // done                  
+                        break;                    
+
+                    sbHeader.AppendLine(line);
+                }
+
+                if (state == 1)
+                {
+                    if (line.StartsWith("HTTP/"))
+                        break;
+
+                    sbBody.AppendLine(line);
+                }
+            }
+            
+            reqHttp.FullRequest = sbHeader + ( sbBody.Length > 0 ? "\r\n" + sbBody.ToString().TrimEnd() :  string.Empty) ;
+
+            if (reqLines.Length > 0)
+            {
+                var lines = StringUtils.GetLines(sbHeader.ToString());
+                lines[0] = string.Empty; // HTTP header is not a 'real' header
+                reqHttp.ParseHttpHeaders(lines);
+            }
+
+            if (reqHttp.HttpVerb != "GET" && sbBody.Length > 0)
+                reqHttp.RequestContent = sbBody.ToString().TrimEnd();
+
+            
+            reqHttp.Host = reqHttp.Headers
+                .Where(hd => hd.Name == "Host")
+                .Select(hd => hd.Value)
+                .FirstOrDefault();
+
+            return reqHttp;
+        }
+
+
 
 
         /// <summary>
