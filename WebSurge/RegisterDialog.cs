@@ -53,10 +53,10 @@ namespace WebSurge
             Close();
         }
 
-        public new void Close()
-        {
-            FadeOut();            
-        }
+        //public new void Close()
+        //{
+        //    //FadeOut();            
+        //}
 
         bool InFadeOut = false;
         void FadeOut()

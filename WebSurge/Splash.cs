@@ -88,7 +88,7 @@ namespace WebSurge
         public new void Close()
         {
             TopMost = false;
-            FadeOut();       
+            //FadeOut();       
             base.Close();
         }
 
