@@ -16,6 +16,9 @@ Fixed session import which didn't work with files using only LF instead of CRLF 
 * **Fix: Splash Screen Startup Issues**  
 Fix issue with the splash screen in some environments and especially on Remote instances where threading issues were causing WebSurge to quit on startup. Fixed by moving the splash screen inline and removing the fade out behavior.
 
+* **Fix: Version Update Checks only for Minor Version Changes**  
+WebSurge no longer considers a build change when prompting for new version updates. Updates now only show on shutdown when the minor (or major) version changes.
+
 ### Version 1.12
 <i><small>March 7, 2019</small></i>
 
