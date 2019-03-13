@@ -44,7 +44,7 @@
             // 
             // StartupTimer
             // 
-            this.StartupTimer.Interval = 4000;
+            this.StartupTimer.Interval = 3000;
             this.StartupTimer.Tick += new System.EventHandler(this.StartupTimer_Tick);
             // 
             // lblRegisterType
@@ -88,13 +88,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(14, 339);
+            this.label1.Location = new System.Drawing.Point(20, 339);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(312, 41);
+            this.label1.Size = new System.Drawing.Size(303, 38);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Westwind WebSurge";
+            this.label1.Text = "West Wind WebSurge";
             // 
             // label2
             // 
@@ -109,7 +109,7 @@
             // 
             // lnkRegister
             // 
-            this.lnkRegister.Font = new System.Drawing.Font("Segoe UI", 24F);
+            this.lnkRegister.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Bold);
             this.lnkRegister.LinkColor = System.Drawing.SystemColors.ActiveCaption;
             this.lnkRegister.Location = new System.Drawing.Point(24, 446);
             this.lnkRegister.Name = "lnkRegister";
@@ -125,11 +125,11 @@
             // 
             this.lblClickClose.AutoSize = true;
             this.lblClickClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClickClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClickClose.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblClickClose.Location = new System.Drawing.Point(330, 2);
+            this.lblClickClose.Location = new System.Drawing.Point(328, 2);
             this.lblClickClose.Name = "lblClickClose";
-            this.lblClickClose.Size = new System.Drawing.Size(13, 14);
+            this.lblClickClose.Size = new System.Drawing.Size(17, 17);
             this.lblClickClose.TabIndex = 18;
             this.lblClickClose.Text = "x";
             this.lblClickClose.Click += new System.EventHandler(this.lblClickClose_Click);
@@ -151,7 +151,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(345, 310);
+            this.ClientSize = new System.Drawing.Size(345, 308);
+            this.ControlBox = false;
             this.Controls.Add(this.lblClickClose);
             this.Controls.Add(this.lnkRegister);
             this.Controls.Add(this.label2);
@@ -163,6 +164,8 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Splash";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

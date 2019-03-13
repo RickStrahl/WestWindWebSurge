@@ -91,13 +91,16 @@ namespace WebSurge
 
         public StressTestForm(string fileName)
         {
+            var form = new Splash(true);
+            form.Show();
+            Application.DoEvents();
+
             if (!string.IsNullOrEmpty(fileName))
                 FileName = fileName;
 
             InitializeComponent();
 
-            var form = new Splash(true);
-            form.Show();
+          
         }
 
         public void OpenFile(string fileName = null)

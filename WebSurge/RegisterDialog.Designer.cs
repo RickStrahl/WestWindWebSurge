@@ -87,11 +87,11 @@
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(216, 47);
+            this.label1.Location = new System.Drawing.Point(207, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(293, 41);
+            this.label1.Size = new System.Drawing.Size(307, 41);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Westwind WebSurge";
+            this.label1.Text = "West Wind WebSurge";
             // 
             // lblYouAreUsing
             // 
