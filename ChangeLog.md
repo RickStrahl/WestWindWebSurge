@@ -7,6 +7,11 @@
 [![Web Site](https://img.shields.io/badge/Markdown_Monster-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 
+### Version 1.14
+<i><small>not released yet</small></i>
+
+* **Fix: Import WebSurge/Fiddler Session Files with LF only Formatting**  
+Fixed session import which didn't work with files using only LF instead of CRLF for linefeeds. Refactored session importer completely to be more resilient various format issues.
 
 ### Version 1.12
 <i><small>March 7, 2019</small></i>
