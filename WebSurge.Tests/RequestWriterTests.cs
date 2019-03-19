@@ -17,8 +17,10 @@ namespace SimpleStressTester.Tests
         {
             var stressTester = new StressTester();
             var writer = new MemoryCollectionRquestWriter(stressTester);
-            
-            for (int i = 0; i < 50; i++)
+
+            int requestCount = 10_000_001;
+
+            for (int i = 0; i < requestCount; i++)
             {
                 var req = new HttpRequestData
                 {
@@ -30,8 +32,8 @@ namespace SimpleStressTester.Tests
                 writer.Write(req);
             }
 
-            Assert.IsTrue(writer.RequestsProcessed == 50);
-            Assert.IsTrue(writer.GetResults().Count == 50);
+            Assert.IsTrue(writer.RequestsProcessed == requestCount);
+            Assert.IsTrue(writer.GetResults().Count == requestCount);
         }
 
         [TestMethod]
@@ -44,9 +46,9 @@ namespace SimpleStressTester.Tests
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            
+
             using (var writer = new FileCollectionRequestWriter(stressTester)
-            { MaxCollectionItems = 11_000_000})
+            { MaxCollectionItems = 10_000})
             {
                 for (int i = 0; i < requestCount; i++)
                 {
@@ -59,7 +61,8 @@ namespace SimpleStressTester.Tests
                     };
 
                     writer.Write(req);
-                    //Thread.Sleep(0);
+
+                    Thread.Sleep(0);
                 }
 
                 watch.Stop();

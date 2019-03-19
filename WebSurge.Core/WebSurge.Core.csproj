@@ -56,12 +56,6 @@
     <Reference Include="Westwind.Utilities, Version=3.0.24.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Westwind.Utilities.3.0.24\lib\net40\Westwind.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="ZeroFormatter, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroFormatter.1.6.4\lib\net45\ZeroFormatter.dll</HintPath>
-    </Reference>
-    <Reference Include="ZeroFormatter.Interfaces, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZeroFormatter.Interfaces.1.6.4\lib\net45\ZeroFormatter.Interfaces.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\App.cs" />

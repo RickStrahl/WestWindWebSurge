@@ -99,28 +99,15 @@ namespace WebSurge
                     FileWriteParms parms = (FileWriteParms) parm;
 
                     var file = Path.Combine(TempFolderName, BaseFilename + parms.FileCount + ".json");
-                    
-                    //JsonSerializationUtils.SerializeToFile(parms.Requests, file, false);
-          
-                    using (FileStream fileStream = new FileStream(file, FileMode.CreateNew, FileAccess.Write))
-                    {
-                      using (StreamWriter streamWriter = new StreamWriter((Stream) fileStream, Encoding.UTF8))
-                      {
-                        using (JsonTextWriter jsonTextWriter = new JsonTextWriter((TextWriter) streamWriter))
-                        {
-                          jsonTextWriter.QuoteChar = '"';
-                          jsonNet.Serialize((JsonWriter) jsonTextWriter, parms.Requests);
-                        }
-                      }
-                    }
+                    JsonSerializationUtils.SerializeToFile(parms.Requests, file, false);
 
                     //SerializationUtils.SerializeObject(parms.Requests, file, true);
 
-                    //if(ResultsList == null)
+                    //if (ResultsList == null)
                     //    ResultsList = new List<List<HttpRequestData>>();
 
                     //ResultsList.Add(parms.Requests);
-                    //ResultsList.Add(null);
+                    ////ResultsList.Add(null);
                     //ResultsList[ResultsList.Count-1] = parms.Requests;
 
                     //var r = parms.Requests;

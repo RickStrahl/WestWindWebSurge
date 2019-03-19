@@ -27,6 +27,8 @@ namespace WebSurge
         public int RequestsFailed { get; set; }
         public int RequestsProcessed { get; set; }
 
+        public int MaxSucessRequestsToCapture { get; set; } = 30_000;
+
         protected readonly StressTester _stressTester;
        
 
@@ -58,8 +60,13 @@ namespace WebSurge
 
             lock (InsertLock)
             {
-                Results.Add(result);
                 RequestsProcessed++;
+                
+                // log unless we are over the limit of requests we want to capture
+                // Errors are ALWAYS blocked
+                if (RequestsProcessed < MaxSucessRequestsToCapture || result.IsError)
+                    Results.Add(result);
+
                 if (result.IsError)
                     RequestsFailed++;
             }
