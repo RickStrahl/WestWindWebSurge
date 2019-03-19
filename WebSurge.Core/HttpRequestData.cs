@@ -18,6 +18,7 @@ namespace WebSurge
     /// This is the data point stored for each Web Surge request
     /// that captures all the required request information.
     /// </summary>
+    [Serializable]
     public class HttpRequestData
     {
         /// <summary>
@@ -551,6 +552,7 @@ namespace WebSurge
 
     }
 
+    [Serializable]
     [DebuggerDisplay("{Name} - {Value}")]
     public class HttpRequestHeader
     {

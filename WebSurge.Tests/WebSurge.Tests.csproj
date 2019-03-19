@@ -72,6 +72,7 @@
     <Compile Include="MruListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestEncoding.cs" />
+    <Compile Include="RequestWriterTests.cs" />
     <Compile Include="ResultsParserTests.cs" />
     <Compile Include="ApplicationUpdaterTests.cs" />
     <Compile Include="SiteValidatorTests.cs" />
