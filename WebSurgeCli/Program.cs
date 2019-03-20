@@ -92,7 +92,7 @@ namespace WebSurge.Cli
             if (options.Json)
             {
                 
-                var result = stressTester.ResultsParser.GetResultReport(stressTester.Results, 
+                var result = stressTester.ResultsParser.GetResultReport(stressTester.RequestWriter, 
                     stressTester.TimeTakenForLastRunMs,
                     stressTester.ThreadsUsed);
                 string json = JsonSerializationUtils.Serialize(result, formatJsonOutput: true);
@@ -104,7 +104,7 @@ namespace WebSurge.Cli
                 return;
             }
 
-            string resultText = stressTester.ParseResults(results);
+            string resultText = stressTester.ParseResults(stressTester.RequestWriter);
 
             if (options.Silent != 0)
             {

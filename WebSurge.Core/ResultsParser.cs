@@ -12,13 +12,13 @@ namespace WebSurge
     public class ResultsParser
     {
 
-        public TestResult ParseResults(IEnumerable<HttpRequestData> resultData, int totalTimeSecs, int threads)
+        public TestResult ParseResults(RequestWriter requestWriter, int totalTimeSecs, int threads)
         {
             // avoid divide by zero errors
             if (totalTimeSecs < 1)
                 totalTimeSecs = 1;
-            
-            var results = resultData.ToList();
+
+            var results = requestWriter.GetResults();
             var count = results.Count;
 
             TestResult res;
@@ -49,10 +49,10 @@ namespace WebSurge
             return res;
         }
 
-        public string ParseResultsToString(IEnumerable<HttpRequestData> resultData, int totalTimeSecs, int threads)
+        public string ParseResultsToString(RequestWriter writer, int totalTimeSecs, int threads)
         {
-            var result = ParseResults(resultData, totalTimeSecs, threads);
-
+            var result = ParseResults(writer, totalTimeSecs, threads);
+            
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Total Requests: " + result.TotalRequests.ToString("n0"));
 
@@ -94,9 +94,11 @@ namespace WebSurge
                 }).ToList();
         }
 
-        public IEnumerable<RequestsPerSecondResult> RequestsPerSecond(IEnumerable<HttpRequestData> resultData,
+        public IEnumerable<RequestsPerSecondResult> RequestsPerSecond(RequestWriter requestWriter,
             string url = null)
         {
+            IEnumerable<HttpRequestData> resultData = requestWriter.GetResults();
+
             if (!string.IsNullOrEmpty(url))
                 resultData = resultData.Where(rd => rd.Url.ToLower() == url.ToLower());
 
@@ -109,13 +111,13 @@ namespace WebSurge
             return res.ToList();
         }
 
-        public IEnumerable<UrlSummary> UrlSummary(IEnumerable<HttpRequestData> resultData, int totalTimeTakenSecs)
+        public IEnumerable<UrlSummary> UrlSummary(RequestWriter requestWriter, int totalTimeTakenSecs)
         {
             // avoid divide by 0 error - assume at least 1 second
             if (totalTimeTakenSecs == 0)
                 totalTimeTakenSecs = 1;
 
-
+            IEnumerable<HttpRequestData> resultData = requestWriter.GetResults();
             var urls = resultData
                 .GroupBy(res => res.HttpVerb + " " + res.Url + (string.IsNullOrEmpty(res.Name) ? "" : " • " + res.Name),
                     rs => rs, (key, uls) =>
@@ -148,20 +150,18 @@ namespace WebSurge
                         };
                     });
 
-
-
             return urls.ToList();
         }
 
-        public TestResultView GetResultReport(IEnumerable<HttpRequestData> resultData,
+        public TestResultView GetResultReport(RequestWriter requestWriter,
             int totalTimeTakenMs,
             int threadCount)
         {
             // Convert milliseconds to seconds
             var totalTimeTaken = totalTimeTakenMs / 1000;
 
-            var urlSummary = UrlSummary(resultData, totalTimeTaken);
-            var testResult = ParseResults(resultData, totalTimeTaken, threadCount);
+            var urlSummary = UrlSummary(requestWriter, totalTimeTaken);
+            var testResult = ParseResults(requestWriter, totalTimeTaken, threadCount);
 
             var model = new TestResultView()
             {
@@ -173,11 +173,11 @@ namespace WebSurge
             return model;
         }
 
-        public string GetResultReportHtml(IEnumerable<HttpRequestData> resultData, 
+        public string GetResultReportHtml(RequestWriter writer, 
                                        int totalTimeTakenMs, 
                                        int threadCount)
         {
-            var model = GetResultReport(resultData, totalTimeTakenMs, threadCount);
+            var model = GetResultReport(writer, totalTimeTakenMs, threadCount);
             return TemplateRenderer.RenderTemplate("TestResult.cshtml",model);
         }
 

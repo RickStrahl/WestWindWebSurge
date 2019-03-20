@@ -416,7 +416,7 @@ namespace WebSurge
                         File.Delete(diag.FileName);
 
                     var result = StressTester.ResultsParser.GetResultReport(
-                        StressTester.Results,
+                        StressTester.RequestWriter,
                         StressTester.TimeTakenForLastRunMs, 
                         StressTester.ThreadsUsed);
                     string json = JsonSerializationUtils.Serialize(result, false, true);
@@ -792,7 +792,7 @@ namespace WebSurge
         {
             TabSessions.SelectedTab = tabResults;
 
-            var html = StressTester.ResultsParser.GetResultReportHtml(StressTester.Results,
+            var html = StressTester.ResultsParser.GetResultReportHtml(StressTester.RequestWriter,
                 StressTester.TimeTakenForLastRunMs,StressTester.ThreadsUsed);
 
             HtmlPreview(html, false,"html\\_results.html");
@@ -1194,7 +1194,7 @@ namespace WebSurge
                 {
                     var listItem = ListResults.SelectedItems[0];
                     var request = listItem.Tag as HttpRequestData;
-                    var form = new ChartFormZed(StressTester.Results, request.Url, ChartTypes.TimeTakenPerRequest);
+                    var form = new ChartFormZed(StressTester.RequestWriter, request.Url, ChartTypes.TimeTakenPerRequest);
                     form.ParentForm = this;
                     form.Show();
                 }
@@ -1204,7 +1204,7 @@ namespace WebSurge
             {
                 if (StressTester.Results.Count > 0)
                 {
-                    var form = new ChartFormZed(StressTester.Results, null, ChartTypes.RequestsPerSecond);
+                    var form = new ChartFormZed(StressTester.RequestWriter, null, ChartTypes.RequestsPerSecond);
                     form.ParentForm = this;
                     form.Show();
                 }

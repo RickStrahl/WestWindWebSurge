@@ -15,15 +15,17 @@ namespace WebSurge
     {
         private string Url;
         private IEnumerable<HttpRequestData> Results;
+        private RequestWriter RequestWriter;
         private ChartTypes ChartType;
         public new Form ParentForm;
 
-        public ChartFormZed(IEnumerable<HttpRequestData> data, string url = null, ChartTypes chartType = ChartTypes.TimeTakenPerRequest, Form parentForm = null)
+        public ChartFormZed(RequestWriter requestWriter, string url = null, ChartTypes chartType = ChartTypes.TimeTakenPerRequest, Form parentForm = null)
         {
             InitializeComponent();
 
             Url = url;
-            Results = data;
+            Results = requestWriter.GetResults();
+            RequestWriter = requestWriter;
             ChartType = chartType;
             ParentForm = null;
 
@@ -66,7 +68,7 @@ namespace WebSurge
             ClearSeries();
 
             var parser = new ResultsParser();
-            var reqs = parser.RequestsPerSecond(Results);
+            var reqs = parser.RequestsPerSecond(RequestWriter);
 
             var pane = Chart.GraphPane;
 

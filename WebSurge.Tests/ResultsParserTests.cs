@@ -72,8 +72,12 @@ namespace SimpleStressTester.Tests
             };
             var timeTakenMs = 30000;
 
+            var stressTester = new StressTester();
+            var writer = new RequestWriter(stressTester);
+            writer.SetResults(requests);
+
             var parser = new ResultsParser();
-            var results = parser.GetResultReport(requests, timeTakenMs, 10);
+            var results = parser.GetResultReport(writer, timeTakenMs, 10);
 
             Assert.AreEqual(timeTakenMs / 1000, results.TestResult.TimeTakenSecs);
 
@@ -138,8 +142,10 @@ namespace SimpleStressTester.Tests
                 }
             };
 
+            var writer = new RequestWriter(null, requests);
+
             var parser = new ResultsParser();
-            var res = parser.RequestsPerSecond(requests);
+            var res = parser.RequestsPerSecond(writer);
             
 
             Assert.IsNotNull(res);
@@ -253,8 +259,11 @@ namespace SimpleStressTester.Tests
 
             };
 
+            var writer = new RequestWriter(null, requests);
+            
+
             var parser = new ResultsParser();
-            var res = parser.UrlSummary(requests, 200);
+            var res = parser.UrlSummary(writer, 200);
 
             Assert.IsNotNull(res);
             Assert.IsTrue(res.Count() > 0);
@@ -265,7 +274,7 @@ namespace SimpleStressTester.Tests
             }
 
 
-            var html = parser.GetResultReportHtml(requests,10,2);            
+            var html = parser.GetResultReportHtml(writer,10,2);            
             Console.WriteLine(html);
 
             var file = App.UserDataPath + "html\\_preview.html";

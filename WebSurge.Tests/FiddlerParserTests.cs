@@ -178,7 +178,7 @@ Windy Rivers are the best!
 
             long totalTime = swatch.ElapsedMilliseconds / 1000;
 
-            Console.WriteLine(tester.ParseResults(results, (int) totalTime));
+            Console.WriteLine(tester.ParseResults(tester.RequestWriter, (int) totalTime));
 
             int count = 0;
             foreach (var result in results.OrderByDescending(res => res.StatusCode))

@@ -21,17 +21,22 @@ namespace WebSurge
         public int RequestsFailed { get; set; }
         public int RequestsProcessed { get; set; }
 
-        public int MaxSucessRequestsToCapture { get; set; } = 30_000;
+        public int MaxSucessRequestsToCapture { get; set; } = 1_999_999_999;
 
         protected readonly StressTester _stressTester;
        
 
         private static object InsertLock = new object();
 
-        public RequestWriter(StressTester stressTester)
+        public RequestWriter(StressTester stressTester, List<HttpRequestData> resultData = null)
         {
-            Results = new List<HttpRequestData>();
+            if (resultData == null)
+                Results = new List<HttpRequestData>();
+            else
+                Results = resultData;
+
             _stressTester = stressTester;
+
         }
 
         public virtual void Write(HttpRequestData result)
@@ -77,6 +82,11 @@ namespace WebSurge
         public virtual List<HttpRequestData> GetResults()
         {
             return Results;
+        }
+
+        public virtual void SetResults(List<HttpRequestData> requestData)
+        {
+            Results = requestData;
         }
 
         public virtual void Dispose()

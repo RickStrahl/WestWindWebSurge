@@ -800,14 +800,14 @@ namespace WebSurge
         /// <param name="results">Results to process. If not passed uses internal Results</param>
         /// <param name="totalTime">Total request time in seconds</param>
         /// <returns></returns>
-        public string ParseResults(IEnumerable<HttpRequestData> resultData = null, int totalTime = 0)
+        public string ParseResults(RequestWriter writer, int totalTime = 0)
         {
-            if (resultData == null)
-                resultData = RequestWriter?.GetResults();
+            if (writer == null)
+                writer = RequestWriter;
             if (totalTime == 0)
                 totalTime = TimeTakenForLastRunMs / 1000;
 
-            return ResultsParser.ParseResultsToString(resultData, totalTime, ThreadsUsed);
+            return ResultsParser.ParseResultsToString(writer, totalTime, ThreadsUsed);
         }
 
 
