@@ -16,7 +16,7 @@ namespace SimpleStressTester.Tests
         public void MemoryRequestWriterBasic()
         {
             var stressTester = new StressTester();
-            var writer = new MemoryCollectionRquestWriter(stressTester);
+            var writer = new RequestWriter(stressTester);
 
             int requestCount = 10_000_001;
 

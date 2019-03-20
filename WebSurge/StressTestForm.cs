@@ -187,11 +187,11 @@ namespace WebSurge
             };
             OptionsPropertyGrid.SelectedObject = StressTester.Options;
 
-            StressTester.Results = new List<HttpRequestData>();
+            StressTester.RequestWriter = new RequestWriter(StressTester);
             StressTester.InteractiveSessionCookieContainer = null;
                   
             // render an empty list
-            RenderResultList(StressTester.Results);
+            RenderResultList(StressTester.RequestWriter.GetResults());
 
             var request = new HttpRequestData();
             LoadRequest(request);
@@ -333,7 +333,7 @@ namespace WebSurge
                     if (File.Exists(diag.FileName))
                         File.Delete(diag.FileName);
 
-                    if (SerializationUtils.SerializeObject(StressTester.Results, diag.FileName, false))
+                    if (SerializationUtils.SerializeObject(StressTester.RequestWriter.GetResults(), diag.FileName, false))
                        App.OpenFileInExplorer(diag.FileName);
                     
                 }
@@ -693,7 +693,7 @@ namespace WebSurge
 
             TabsResult.SelectedTab = tabOutput;
             Application.DoEvents();            
-            StressTester.Results.Clear();
+            StressTester.RequestWriter.Clear();
 
             StressTester.CancelThreads = false;
             
@@ -708,7 +708,7 @@ namespace WebSurge
                 ShowStatus("Running all requests completed.", 5);
                 Application.DoEvents();
                 
-                BeginInvoke(new Action<List<HttpRequestData>>(ParseResults), StressTester.Results);
+                BeginInvoke(new Action<List<HttpRequestData>>(ParseResults), StressTester.RequestWriter.GetResults());
             });
             t.Start();
 

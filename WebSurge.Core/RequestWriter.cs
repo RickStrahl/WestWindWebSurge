@@ -5,19 +5,13 @@ using System.Threading;
 
 namespace WebSurge
 {
-
-    public class MemoryCollectionRquestWriter : RequestWriterBase
-    {
-        public MemoryCollectionRquestWriter(StressTester tester) : base(tester)
-        {
-        }
-    }
+    
 
 
     /// <summary>
     /// Writes Request Data into a simple collection all in memory
     /// </summary>
-    public class RequestWriterBase : IDisposable
+    public class RequestWriter : IDisposable
     {
         /// <summary>
         /// List of result request objects with data filled in.
@@ -34,7 +28,7 @@ namespace WebSurge
 
         private static object InsertLock = new object();
 
-        public RequestWriterBase(StressTester stressTester)
+        public RequestWriter(StressTester stressTester)
         {
             Results = new List<HttpRequestData>();
             _stressTester = stressTester;
@@ -70,6 +64,14 @@ namespace WebSurge
                 if (result.IsError)
                     RequestsFailed++;
             }
+        }
+
+        public virtual void Clear()
+        {
+            RequestsProcessed = 0;
+            RequestsFailed = 0;
+           
+            Results = new List<HttpRequestData>();
         }
 
         public virtual List<HttpRequestData> GetResults()

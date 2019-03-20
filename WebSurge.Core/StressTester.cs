@@ -21,7 +21,15 @@ namespace WebSurge
         /// <summary>
         /// List of result request objects with data filled in.
         /// </summary>
-        public List<HttpRequestData> Results { get; set; }
+        public List<HttpRequestData> Results {
+            get
+            {
+                if (RequestWriter == null)
+                    return new RequestWriter(this).GetResults();
+
+                return RequestWriter?.GetResults();
+            }
+        }
 
         /// <summary>
         /// Returns the the total time taken for the last set of 
@@ -34,6 +42,8 @@ namespace WebSurge
         /// </summary>
         public int ThreadsUsed { get; set; }
 
+
+        public RequestWriter RequestWriter { get; set; }
 
 
 
@@ -81,16 +91,6 @@ namespace WebSurge
         public bool Running { get; set; }
 
         /// <summary>
-        /// Number of requests processed
-        /// </summary>
-        private int RequestsProcessed;
-
-        /// <summary>
-        /// Number of requests processed
-        /// </summary>
-        private int RequestsFailed;
-
-        /// <summary>
         /// Results list Insert Lock
         /// </summary>
         static readonly object InsertLock = new object();
@@ -120,7 +120,8 @@ namespace WebSurge
             Options.MaxResponseSize = 5000;
             StartTime = new DateTime(1900, 1, 1);
 
-            Results = new List<HttpRequestData>();
+            RequestWriter = new RequestWriter(this);
+
         }
 
         #endregion
@@ -168,10 +169,9 @@ namespace WebSurge
                 }
             }
 
+            RequestWriter.Clear();
 
-            Results = new List<HttpRequestData>();
             requests = requests.Where(req => req.IsActive).ToList();
-
 
             foreach (var plugin in App.Plugins)
             {
@@ -190,8 +190,9 @@ namespace WebSurge
 
             var threads = new List<Thread>();
             CancelThreads = false;
-            RequestsProcessed = 0;
-            RequestsFailed = 0;
+
+            RequestWriter.RequestsProcessed = 0;
+            RequestWriter.RequestsFailed = 0;
 
             // add warmup seconds to the request
             seconds += Options.WarmupSeconds;
@@ -236,8 +237,8 @@ namespace WebSurge
                     {
                         SecondsProcessed = (int)DateTime.UtcNow.Subtract(StartTime).TotalSeconds,
                         TotalSecondsToProcessed = seconds,
-                        RequestsProcessed = RequestsProcessed,
-                        RequestsFailed = RequestsFailed,
+                        RequestsProcessed = RequestWriter.RequestsProcessed,
+                        RequestsFailed = RequestWriter.RequestsFailed,
                     });
 
                 }
@@ -247,8 +248,10 @@ namespace WebSurge
 
             seconds = seconds - Options.WarmupSeconds;
 
+            var originalResults = RequestWriter.GetResults();
+
             // strip off WarmupSeconds
-            var results = Results.Where(res => !res.IsWarmupRequest);
+            var results = originalResults.Where(res => !res.IsWarmupRequest);
 
             var result = results.FirstOrDefault();
             var min = StartTime;
@@ -259,11 +262,11 @@ namespace WebSurge
             }
             var max = min.AddSeconds(seconds + 1).AddMilliseconds(-1);
 
-            Results = results.Where(res => res.Timestamp > min && res.Timestamp < max).ToList();
+            originalResults = results.Where(res => res.Timestamp > min && res.Timestamp < max).ToList();
 
-            if (Results.Count > 0)
+            if (originalResults.Count > 0)
             {
-                max = Results.Max(res => res.Timestamp);
+                max = originalResults.Max(res => res.Timestamp);
                 TimeTakenForLastRunMs = (int)TimeUtils.Truncate(max).Subtract(min).TotalMilliseconds;
             }
             else
@@ -273,7 +276,7 @@ namespace WebSurge
             {
                 try
                 {
-                    plugin.OnLoadTestCompleted(Results, TimeTakenForLastRunMs);
+                    plugin.OnLoadTestCompleted(originalResults, TimeTakenForLastRunMs);
                 }
                 catch (Exception ex)
                 {
@@ -281,7 +284,7 @@ namespace WebSurge
                 }
             }
 
-            return Results;
+            return originalResults;
         }
 
         /// <summary>
@@ -760,7 +763,7 @@ namespace WebSurge
                     var result = CheckSite(req, cookieContainer, threadNumber);
                     
                     if (result != null)
-                        WriteResult(result);
+                        RequestWriter.Write(result);
 
                     if (Options.DelayTimeMs == 0)
                     {
@@ -788,29 +791,7 @@ namespace WebSurge
         /// <param name="result"></param>
         public virtual void WriteResult(HttpRequestData result)
         {
-            // don't log request detail data for non errors over a certain no of requests
-            if (!result.IsError && Results.Count > 30000)
-            {
-                // always clear response
-                result.ResponseContent = null;
-
-                // detail data only if we explicitly requested
-                if (Options.CaptureMinimalResponseData)
-                {
-                    result.Headers = null;
-                    result.ResponseHeaders = null;
-                    result.FullRequest = null;
-                    result.RequestContent = null;
-                }
-            }
-
-            lock (InsertLock)
-            {
-                Results.Add(result);
-                RequestsProcessed++;
-                if (result.IsError)
-                    RequestsFailed++;
-            }
+            RequestWriter.Write(result);
         }
 
         /// <summary>
@@ -822,7 +803,7 @@ namespace WebSurge
         public string ParseResults(IEnumerable<HttpRequestData> resultData = null, int totalTime = 0)
         {
             if (resultData == null)
-                resultData = Results;
+                resultData = RequestWriter?.GetResults();
             if (totalTime == 0)
                 totalTime = TimeTakenForLastRunMs / 1000;
 

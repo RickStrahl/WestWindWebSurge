@@ -17,7 +17,7 @@ namespace WebSurge
     /// writes out to a file as serialization. Retrieving the collection
     /// reconstructs the collection.
     /// </summary>
-    public class FileCollectionRequestWriter : RequestWriterBase
+    public class FileCollectionRequestWriter : RequestWriter
     {
         public string TempFolderName { get; set; }
         
