@@ -31,7 +31,7 @@ WebSurge is great for load testing, but it's also an excellent URL test tool for
 
 And here is a screen shot that demonstrates simple URL testing or reviewing
 of individual request output from a test run.
-<img src="http://west-wind.com/websurge/Images/WebSurge_RequestDisplay.png" />
+<img src="https://websurge.west-wind.com/Images/WebSurge_RequestDisplay.png" />
 
 #### Use Cases
 
