@@ -619,7 +619,7 @@ namespace WebSurge
             if (lheader == "authorization" && !string.IsNullOrEmpty(Options.ReplaceAuthorization))
             {
                 webRequest.Headers.Add("Authorization", Options.ReplaceAuthorization);
-                header.Value = Options.ReplaceAuthorization;
+                header.Value = Options.ReplaceAuthorization;                
                 return;
             }
             if (lheader == "user-agent")

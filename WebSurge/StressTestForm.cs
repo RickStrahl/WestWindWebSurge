@@ -495,6 +495,10 @@ namespace WebSurge
             request.HttpVerb = txtHttpMethod.Text;
             request.RequestContent = txtRequestContent.Text;
             request.ParseHttpHeaders(txtRequestHeaders.Text);
+
+            request.ResponseContent = null;
+            request.ResponseHeaders = null;
+      
             App.Configuration.WrapHeaderText = chkWrapHeaderText.Checked;
             request.SortNoRandmomize = chkNoRandomize.Checked;
 
@@ -668,8 +672,13 @@ namespace WebSurge
 
                 Invoke(new Action<string>(htmlText =>
                 {
+
+                    ActiveRequest.ResponseContent = result.ResponseContent;
+                    ActiveRequest.ResponseHeaders = result.ResponseHeaders;
+
                     HtmlPreview(html);
-                    TabsResult.SelectedTab = tabPreview;                    
+                    TabsResult.SelectedTab = tabPreview;       
+
                     ShowStatus("URL check complete.", 1, 5000);
 
                 }),html);
@@ -1408,6 +1417,8 @@ namespace WebSurge
                 sender == tbSaveToDropbox || sender == tbSaveToOneDrive)
             {	            
                 var parser = new SessionParser();
+
+                SaveRequest(ActiveRequest);
 
                 var path = App.UserDataPath;
 
