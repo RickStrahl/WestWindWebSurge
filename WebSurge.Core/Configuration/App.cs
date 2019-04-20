@@ -26,7 +26,7 @@ namespace WebSurge
         internal static string EncryptionMachineKey { get; set; }
         internal static string ProKey { get; set; }
 
-        public static List<IWebSurgeExtensibility> Plugins { get; set; }
+        public static List<IWebSurgeExtensibility> Addins { get; set; }
 
         static App()
         {
@@ -60,7 +60,7 @@ namespace WebSurge
             ProKey = "Kuhela_100";  // "3bd0f6e";
 
 
-            Plugins = PluginLoader.LoadPlugIns();
+            Addins = AddinLoader.LoadAddins();
         }
 
 

@@ -109,7 +109,7 @@ namespace WebSurge
         }
         private ResultsParser _parser;
 
-        public List<IWebSurgeExtensibility> PlugIns = new List<IWebSurgeExtensibility>();
+        public List<IWebSurgeExtensibility> Addins = new List<IWebSurgeExtensibility>();
 
         #region Initialization
         public StressTester(StressTesterConfiguration options = null)
@@ -173,16 +173,16 @@ namespace WebSurge
 
             requests = requests.Where(req => req.IsActive).ToList();
 
-            foreach (var plugin in App.Plugins)
+            foreach (var addin in App.Addins)
             {
                 try
                 {
-                    if (!plugin.OnLoadTestStarted(requests as List<HttpRequestData>))
+                    if (!addin.OnLoadTestStarted(requests as List<HttpRequestData>))
                         return null;
                 }
                 catch (Exception ex)
                 {
-                    App.Log(plugin.GetType().Name + " failed in OnLoadTestStarted(): " + ex.Message);
+                    App.Log(addin.GetType().Name + " failed in OnLoadTestStarted(): " + ex.Message);
                 }
             }
 
@@ -272,15 +272,15 @@ namespace WebSurge
             else
                 TimeTakenForLastRunMs = (int)TimeUtils.Truncate(DateTime.UtcNow).Subtract(min).TotalMilliseconds;
 
-            foreach (var plugin in App.Plugins)
+            foreach (var addin in App.Addins)
             {
                 try
                 {
-                    plugin.OnLoadTestCompleted(originalResults, TimeTakenForLastRunMs);
+                    addin.OnLoadTestCompleted(originalResults, TimeTakenForLastRunMs);
                 }
                 catch (Exception ex)
                 {
-                    App.Log(plugin.GetType().Name + " failed in OnLoadTestCompleted(): " + ex.Message);
+                    App.Log(addin.GetType().Name + " failed in OnLoadTestCompleted(): " + ex.Message);
                 }
             }
 
@@ -321,16 +321,16 @@ namespace WebSurge
                     if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
                         result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
 
-                    foreach (var plugin in App.Plugins)
+                    foreach (var addin in App.Addins)
                     {
                         try
                         {
-                            if (!plugin.OnBeforeRequestSent(result))
+                            if (!addin.OnBeforeRequestSent(result))
                                 return result;
                         }
                         catch (Exception ex)
                         {
-                            App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                            App.Log(addin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
                         }
                     }
 
@@ -851,15 +851,15 @@ namespace WebSurge
 
         public void OnRequestProcessed(HttpRequestData request)
         {
-            foreach (var plugin in App.Plugins)
+            foreach (var addin in App.Addins)
             {
                 try
                 {
-                    plugin.OnAfterRequestSent(request);
+                    addin.OnAfterRequestSent(request);
                 }
                 catch (Exception ex)
                 {
-                    App.Log(plugin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
+                    App.Log(addin.GetType().Name + " failed in OnBeforeRequestSent(): " + ex.Message);
                 }
             }
 

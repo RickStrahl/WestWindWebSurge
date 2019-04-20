@@ -195,3 +195,107 @@ hr {
     background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, #eeeeee 100%); /* W3C */
 }
+
+
+/* REPORT PAGE */
+
+#ReportDate {
+    color: steelblue;                                  
+}
+#ResultsTable {                 
+    font-size: 0.925em;
+}
+#ResultsTable td {
+    padding: 1px;
+}
+#ResultsTable td:first-child {
+    text-align: right;
+    padding-right: 15px;
+    font-weight: bold;
+}
+.item {
+   padding: 2px;
+   border-bottom: 1px dotted silver;
+   margin-bottom: 5px;
+}
+.item-detail {
+   margin: 5px 20px;                
+   line-height: 1.2em;
+}
+.item-detail tr {
+   font-size: 0.9em;
+}
+.item-detail td {
+   padding: 1px;
+}
+.url {
+   font-weight: bold;
+   font-size: 0.9em;
+}
+.success {
+   color: green;
+}
+.failed {
+   color: #ff0000
+}
+.error {
+    color: firebrick;
+}
+.warning {
+   color: goldenrod;
+}
+.secondary {
+    color: #aaa;
+}
+a {
+   text-decoration: none;
+   text-decoration-color: transparent;
+}
+.highlight-container {
+    clear: both;
+    margin: 20px 0 35px;
+
+    display: flex; 
+    justify-content: flex-start;
+    align-items: center;    
+    flex-wrap: wrap;    
+    
+}
+
+.highlight-numbers {
+   font-size: 2.5em; 
+   font-weight: bold;
+   border-left: solid 9px green;                
+   padding-top: 12px;   
+   padding-bottom: 12px;   
+   padding-left: 15px;
+   padding-right: 50px;
+   margin-bottom: 5px;   
+
+   display: flex;                   
+   align-items: center;                                
+}
+.highlight-numbers:last-child {
+    padding-right: 10px;
+}
+.highlight-numbers>div:nth-child(2) {
+   font-size: 0.6em;     
+   padding-left: 8px;
+   margin-top: 3px; 
+   font-weight: 600;  
+}
+.stat-container{
+    display:flex;
+    flex-wrap: wrap;
+}
+.highlight-numbers.small {
+    font-size: 1.5em;    
+    padding-top: 3px;   
+    padding-bottom: 6px;   
+    padding-left: 10px;    
+    border-left: solid 5px slategray;
+    margin-bottom: 8px
+}
+.highlight-numbers.stats {
+    border-left: solid 5px goldenrod;
+}    

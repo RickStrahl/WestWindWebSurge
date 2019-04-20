@@ -61,7 +61,7 @@
     <Compile Include="Configuration\App.cs" />
     <Compile Include="Configuration\WebSurgeConfiguration.cs" />
     <Compile Include="Extensibility\IWebSurgeExtensibility.cs" />
-    <Compile Include="Extensibility\PluginLoader.cs" />
+    <Compile Include="Extensibility\AddinLoader.cs" />
     <Compile Include="Extensibility\WebSurgeExtensibilityBase.cs" />
     <Compile Include="FileCollectionRequestWriter.cs" />
     <Compile Include="RequestWriter.cs" />
