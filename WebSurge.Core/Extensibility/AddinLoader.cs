@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace WebSurge.Extensibility
 {
-    public class PluginLoader
+    public class AddinLoader
     {
-        public static List<IWebSurgeExtensibility> LoadPlugIns()
+        public static List<IWebSurgeExtensibility> LoadAddins()
         {
-            var plugins = new List<IWebSurgeExtensibility>();
+            var addins = new List<IWebSurgeExtensibility>();
 
-            var path = Path.Combine(Environment.CurrentDirectory, "plugins");
+            var path = Path.Combine(Environment.CurrentDirectory, "Addins");
             if (!Directory.Exists(path))
-                return plugins;
+                return addins;
 
             var files = Directory.GetFiles(path, "*.dll");
 
@@ -29,37 +29,37 @@ namespace WebSurge.Extensibility
                 }
                 catch
                 {
-                    App.Log("Failed to load plugin from " + assembly.FullName + ".");
+                    App.Log("Failed to load addin from " + assembly.FullName + ".");
                 }
 
                 if (assembly == null)
-                    return plugins;
+                    return addins;
                 
-                var pluginTypes = assembly.GetTypes()
+                var addinTypes = assembly.GetTypes()
                                       .Where(typ => typeof (IWebSurgeExtensibility).IsAssignableFrom(typ));
 
 
-                foreach (var type in pluginTypes)
+                foreach (var type in addinTypes)
                 {
 
-                    IWebSurgeExtensibility plugin = null;
+                    IWebSurgeExtensibility addin = null;
                     try
                     {
-                        plugin = Activator.CreateInstance(type) as IWebSurgeExtensibility;
+                        addin = Activator.CreateInstance(type) as IWebSurgeExtensibility;
                     }
                     catch
                     {
-                        App.Log("Failed to load plugin: " + type.Name + " from " + assembly.FullName + ".");
+                        App.Log("Failed to load addin: " + type.Name + " from " + assembly.FullName + ".");
                     }
-                    if (plugin != null)
-                        plugins.Add(plugin);
+                    if (addin != null)
+                        addins.Add(addin);
                     else
-                        App.Log("Failed to load plugin: " + type.Name + " from " + assembly.FullName + ".");
+                        App.Log("Failed to load addin: " + type.Name + " from " + assembly.FullName + ".");
                 }
 
             }
 
-            return plugins;
+            return addins;
         }
     }
 }

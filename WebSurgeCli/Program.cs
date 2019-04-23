@@ -152,11 +152,16 @@ namespace WebSurge.Cli
         {            
             if (progress.SecondsProcessed < 1)
                 return;
-            
-            string text = progress.RequestsProcessed.ToString("n0") +
+
+            string text;
+
+            if (progress.IsWarmingUp)
+                text = "Warming up...";
+            else
+                text = progress.RequestsProcessed.ToString("n0") +
                           " requests, " + progress.RequestsFailed.ToString("n0") + " failed | " +
                           progress.SecondsProcessed + " of " +
-                          progress.TotalSecondsToProcessed + " secs " +            
+                          progress.TotalSecondsToProcess + " secs " +            
                             "| " + (progress.RequestsProcessed / progress.SecondsProcessed).ToString("n0") + " requests/sec ";
 
             lock (consoleLock2)

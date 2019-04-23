@@ -4,7 +4,17 @@
 
 [![Download WebSurge](https://img.shields.io/badge/Download-Installer-blue.svg)](https://websurge.west-wind.com/download.aspx)
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
-[![Web Site](https://img.shields.io/badge/Markdown_Monster-WebSite-blue.svg)](https://websurge.west-wind.com)
+[![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
+
+
+### Version 1.14
+<i><small>April 22nd, 2019</small></i>
+
+* **Update Report Summary Display Page**  
+Created a new more visual display for the Report Summary section. Shout out the request per seconds and failures at the top and group test stats vs. result stats using colored visual bars.
+
+* **Fix: Warmup Request Count Interference**  
+Fix warmup request count that was interfering with partial seconds adding to the total request count. Simplified request code to separate warm up and proper test operation.
 
 
 ### Version 1.13
