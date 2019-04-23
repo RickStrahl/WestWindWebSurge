@@ -576,14 +576,26 @@ namespace WebSurge
 
         void ShowProgress(ProgressInfo progress)
         {
-            string text = progress.RequestsProcessed.ToString("n0") +
+            string text;
+
+            if (progress.IsWarmingUp)
+                text = "Warming up:  " + progress.RequestsProcessed.ToString("n0") + " requests | " +
+                          progress.SecondsProcessed + " of " + StressTester.Options.WarmupSeconds + " secs";
+            else
+            {
+
+                text = progress.RequestsProcessed.ToString("n0") +
                           " requests, " + progress.RequestsFailed.ToString("n0") + " failed | " +
                           progress.SecondsProcessed + " of " +
-                          progress.TotalSecondsToProcessed + " secs ";
-            if (progress.SecondsProcessed > 0)
-                text += "| " + (progress.RequestsProcessed / progress.SecondsProcessed).ToString("n0") + " request/sec ";
-            
-            if (progress.RequestsFailed > 0)
+                          progress.TotalSecondsToProcess + " secs ";
+                if (progress.SecondsProcessed > 0)
+                        text += "| " + (progress.RequestsProcessed / progress.SecondsProcessed).ToString("n0") +
+                              " request/sec ";
+            }
+
+            if(progress.IsWarmingUp)
+                txtProcessingTime.ForeColor = Color.SlateGray;
+            else if (progress.RequestsFailed > 0)
                 txtProcessingTime.ForeColor = Color.Red;
             else
                 txtProcessingTime.ForeColor = Color.DarkGreen;
@@ -780,7 +792,7 @@ namespace WebSurge
                     MessageBoxIcon.Exclamation);
 
                 if (StressTester.ErrorMessage.Contains("The free version"))
-                    ShellUtils.GoUrl("http://west-wind.com/websurge/pricing.aspx");
+                    ShellUtils.GoUrl("https://websurge.west-wind.com/pricing.aspx");
 
                 return;
             }

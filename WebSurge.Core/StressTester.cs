@@ -90,6 +90,8 @@ namespace WebSurge
         /// </summary>
         public bool Running { get; set; }
 
+        public bool IsWarmingUp { get; set; }
+
         /// <summary>
         /// Results list Insert Lock
         /// </summary>
@@ -187,6 +189,7 @@ namespace WebSurge
             }
 
             Running = true;
+            IsWarmingUp = true;
 
             var threads = new List<Thread>();
             CancelThreads = false;
@@ -195,9 +198,9 @@ namespace WebSurge
             RequestWriter.RequestsFailed = 0;
 
             // add warmup seconds to the request
-            seconds += Options.WarmupSeconds;
 
             StartTime = DateTime.UtcNow;
+
             for (int i = 0; i < threadCount; i++)
             {
                 var thread = new Thread(RunSessions);
@@ -220,6 +223,7 @@ namespace WebSurge
 
                     CancelThreads = true;
 
+                    // allows some time to catch up
                     Thread.Sleep(3000);
                     foreach (var thread in threads)
                         thread.Abort();
@@ -233,12 +237,17 @@ namespace WebSurge
                 {
                     lastProgress = DateTime.UtcNow;
 
+                    var secs = seconds - Options.WarmupSeconds;
+                    if (secs < 0)
+                        secs = 0;
+
                     OnProgress(new ProgressInfo()
                     {
                         SecondsProcessed = (int)DateTime.UtcNow.Subtract(StartTime).TotalSeconds,
-                        TotalSecondsToProcessed = seconds,
+                        TotalSecondsToProcess = secs,
                         RequestsProcessed = RequestWriter.RequestsProcessed,
                         RequestsFailed = RequestWriter.RequestsFailed,
+                        IsWarmingUp = IsWarmingUp
                     });
 
                 }
@@ -246,12 +255,10 @@ namespace WebSurge
 
             Running = false;
 
-            seconds = seconds - Options.WarmupSeconds;
-
             var originalResults = RequestWriter.GetResults();
 
             // strip off WarmupSeconds
-            var results = originalResults.Where(res => !res.IsWarmupRequest);
+            var results = originalResults;
 
             var result = results.FirstOrDefault();
             var min = StartTime;
@@ -287,6 +294,8 @@ namespace WebSurge
             return originalResults;
         }
 
+        private static object _warmupLock = new object();
+
         /// <summary>
         /// Checks an individual site and returns a new HttpRequestData object
         /// </summary>
@@ -310,6 +319,19 @@ namespace WebSurge
             result.ErrorMessage = "Request is incomplete"; // assume not going to make it
 
             result.IsWarmupRequest = StartTime.AddSeconds(Options.WarmupSeconds) > DateTime.UtcNow;
+            if (IsWarmingUp && !result.IsWarmupRequest)
+            {
+                lock (_warmupLock)
+                {
+                    if (IsWarmingUp)
+                    {
+                        RequestWriter.Clear();
+                        StartTime = DateTime.UtcNow;
+                        
+                        IsWarmingUp = false;
+                    }
+                }
+            }
 
             try
             {
@@ -384,8 +406,9 @@ namespace WebSurge
                         return null;
 
                     // *** REQUEST RUNS
-                    DateTime dt = DateTime.UtcNow;
-
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+                    
                     // using West Wind HttpClient
                     string httpOutput = client.DownloadString(result.Url);
 
@@ -393,7 +416,8 @@ namespace WebSurge
                     if (CancelThreads)
                         return null;
 
-                    result.TimeTakenMs = (int)DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
+                    sw.Stop();
+                    result.TimeTakenMs = (int)sw.ElapsedMilliseconds;  //(int)DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
                     
                     if (client.Error || client.WebResponse == null)
                     {
@@ -921,9 +945,10 @@ namespace WebSurge
     public class ProgressInfo
     {
         public int SecondsProcessed { get; set; }
-        public int TotalSecondsToProcessed { get; set; }
+        public int TotalSecondsToProcess { get; set; }
         public int RequestsProcessed { get; set; }
         public int RequestsFailed { get; set; }
+        public bool IsWarmingUp { get; set; }
     }
 }
 

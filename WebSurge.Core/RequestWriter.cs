@@ -22,7 +22,7 @@ namespace WebSurge
         public int RequestsProcessed { get; set; }
 
         public int MaxSucessRequestsToCapture { get; set; } = 1_999_999_999;
-
+        
         protected readonly StressTester _stressTester;
        
 
@@ -75,7 +75,6 @@ namespace WebSurge
         {
             RequestsProcessed = 0;
             RequestsFailed = 0;
-           
             Results = new List<HttpRequestData>();
         }
 
