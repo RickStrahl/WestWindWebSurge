@@ -92,6 +92,7 @@
             this.tabPreview = new System.Windows.Forms.TabPage();
             this.PreViewBrowser = new System.Windows.Forms.WebBrowser();
             this.tabRequest = new System.Windows.Forms.TabPage();
+            this.chkNoRandomize = new System.Windows.Forms.CheckBox();
             this.btn_PasteRawRequest = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -159,6 +160,7 @@
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
             this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
+            this.tbCreateNewSession = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
             this.tbStop = new System.Windows.Forms.ToolStripButton();
@@ -182,7 +184,7 @@
             this.tbNoProgressEvents = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.Help = new System.Windows.Forms.HelpProvider();
-            this.chkNoRandomize = new System.Windows.Forms.CheckBox();
+            this.btnCreateNewSession = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -223,11 +225,11 @@
             // toolStripContainer.ContentPanel
             // 
             this.toolStripContainer.ContentPanel.Controls.Add(this.BottomSplitContainer);
-            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1012, 523);
+            this.toolStripContainer.ContentPanel.Size = new System.Drawing.Size(1029, 523);
             this.toolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer.Name = "toolStripContainer";
-            this.toolStripContainer.Size = new System.Drawing.Size(1012, 619);
+            this.toolStripContainer.Size = new System.Drawing.Size(1029, 619);
             this.toolStripContainer.TabIndex = 0;
             this.toolStripContainer.Text = "toolStripContainer1";
             // 
@@ -251,7 +253,7 @@
             this.txtProcessingTime});
             this.statusBar.Location = new System.Drawing.Point(0, 0);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(1012, 22);
+            this.statusBar.Size = new System.Drawing.Size(1029, 22);
             this.statusBar.TabIndex = 0;
             this.statusBar.Text = "statusStrip1";
             // 
@@ -292,14 +294,14 @@
             // BottomSplitContainer.Panel1
             // 
             this.BottomSplitContainer.Panel1.Controls.Add(this.TabSessions);
-            this.BottomSplitContainer.Panel1MinSize = 440;
+            this.BottomSplitContainer.Panel1MinSize = 485;
             // 
             // BottomSplitContainer.Panel2
             // 
             this.BottomSplitContainer.Panel2.Controls.Add(this.TabsResult);
             this.BottomSplitContainer.Panel2MinSize = 360;
-            this.BottomSplitContainer.Size = new System.Drawing.Size(1012, 523);
-            this.BottomSplitContainer.SplitterDistance = 440;
+            this.BottomSplitContainer.Size = new System.Drawing.Size(1029, 523);
+            this.BottomSplitContainer.SplitterDistance = 485;
             this.BottomSplitContainer.SplitterIncrement = 2;
             this.BottomSplitContainer.TabIndex = 0;
             // 
@@ -311,7 +313,7 @@
             this.TabSessions.Location = new System.Drawing.Point(0, 0);
             this.TabSessions.Name = "TabSessions";
             this.TabSessions.SelectedIndex = 0;
-            this.TabSessions.Size = new System.Drawing.Size(440, 523);
+            this.TabSessions.Size = new System.Drawing.Size(485, 523);
             this.TabSessions.TabIndex = 0;
             // 
             // tabSession
@@ -321,7 +323,7 @@
             this.tabSession.Location = new System.Drawing.Point(4, 24);
             this.tabSession.Margin = new System.Windows.Forms.Padding(0);
             this.tabSession.Name = "tabSession";
-            this.tabSession.Size = new System.Drawing.Size(432, 495);
+            this.tabSession.Size = new System.Drawing.Size(477, 495);
             this.tabSession.TabIndex = 0;
             this.tabSession.Text = "Session";
             this.tabSession.UseVisualStyleBackColor = true;
@@ -342,7 +344,7 @@
             this.tbEditFile});
             this.SessionToolStrip.Location = new System.Drawing.Point(0, 0);
             this.SessionToolStrip.Name = "SessionToolStrip";
-            this.SessionToolStrip.Size = new System.Drawing.Size(432, 25);
+            this.SessionToolStrip.Size = new System.Drawing.Size(477, 25);
             this.SessionToolStrip.TabIndex = 0;
             // 
             // tbNewRequest2
@@ -350,8 +352,8 @@
             this.tbNewRequest2.Image = ((System.Drawing.Image)(resources.GetObject("tbNewRequest2.Image")));
             this.tbNewRequest2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbNewRequest2.Name = "tbNewRequest2";
-            this.tbNewRequest2.Size = new System.Drawing.Size(51, 22);
-            this.tbNewRequest2.Text = "&New";
+            this.tbNewRequest2.Size = new System.Drawing.Size(96, 22);
+            this.tbNewRequest2.Text = "&New Request";
             this.tbNewRequest2.ToolTipText = "Create a new request";
             this.tbNewRequest2.Click += new System.EventHandler(this.ButtonHandler);
             // 
@@ -420,7 +422,7 @@
             this.tbSaveAllRequests2.Image = ((System.Drawing.Image)(resources.GetObject("tbSaveAllRequests2.Image")));
             this.tbSaveAllRequests2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbSaveAllRequests2.Name = "tbSaveAllRequests2";
-            this.tbSaveAllRequests2.Size = new System.Drawing.Size(51, 22);
+            this.tbSaveAllRequests2.Size = new System.Drawing.Size(51, 20);
             this.tbSaveAllRequests2.Text = "Save";
             this.tbSaveAllRequests2.ToolTipText = "Save session to disk (Ctrl-s)";
             this.tbSaveAllRequests2.Click += new System.EventHandler(this.ButtonHandler);
@@ -430,7 +432,7 @@
             this.tbEditFile.Image = ((System.Drawing.Image)(resources.GetObject("tbEditFile.Image")));
             this.tbEditFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbEditFile.Name = "tbEditFile";
-            this.tbEditFile.Size = new System.Drawing.Size(47, 22);
+            this.tbEditFile.Size = new System.Drawing.Size(47, 20);
             this.tbEditFile.Text = "Edit";
             this.tbEditFile.ToolTipText = "Edit session file as text";
             this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler);
@@ -452,7 +454,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(434, 490);
+            this.ListRequests.Size = new System.Drawing.Size(481, 494);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 1;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -713,7 +715,7 @@
             this.TabsResult.Name = "TabsResult";
             this.TabsResult.Padding = new System.Drawing.Point(0, 0);
             this.TabsResult.SelectedIndex = 0;
-            this.TabsResult.Size = new System.Drawing.Size(568, 523);
+            this.TabsResult.Size = new System.Drawing.Size(540, 523);
             this.TabsResult.TabIndex = 0;
             // 
             // tabOutput
@@ -723,7 +725,7 @@
             this.tabOutput.Location = new System.Drawing.Point(4, 26);
             this.tabOutput.Margin = new System.Windows.Forms.Padding(0);
             this.tabOutput.Name = "tabOutput";
-            this.tabOutput.Size = new System.Drawing.Size(560, 493);
+            this.tabOutput.Size = new System.Drawing.Size(619, 493);
             this.tabOutput.TabIndex = 0;
             this.tabOutput.Text = "Output";
             // 
@@ -735,7 +737,7 @@
             this.TestResultBrowser.Location = new System.Drawing.Point(0, 0);
             this.TestResultBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.TestResultBrowser.Name = "TestResultBrowser";
-            this.TestResultBrowser.Size = new System.Drawing.Size(560, 493);
+            this.TestResultBrowser.Size = new System.Drawing.Size(619, 493);
             this.TestResultBrowser.TabIndex = 3;
             this.TestResultBrowser.Visible = false;
             // 
@@ -797,7 +799,7 @@
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtConsole.Size = new System.Drawing.Size(560, 493);
+            this.txtConsole.Size = new System.Drawing.Size(619, 493);
             this.txtConsole.TabIndex = 2;
             this.txtConsole.WordWrap = false;
             // 
@@ -807,7 +809,7 @@
             this.tabPreview.Location = new System.Drawing.Point(4, 26);
             this.tabPreview.Margin = new System.Windows.Forms.Padding(0);
             this.tabPreview.Name = "tabPreview";
-            this.tabPreview.Size = new System.Drawing.Size(560, 493);
+            this.tabPreview.Size = new System.Drawing.Size(619, 493);
             this.tabPreview.TabIndex = 1;
             this.tabPreview.Text = "Preview";
             this.tabPreview.UseVisualStyleBackColor = true;
@@ -821,7 +823,7 @@
             this.PreViewBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.PreViewBrowser.Name = "PreViewBrowser";
             this.PreViewBrowser.ScriptErrorsSuppressed = true;
-            this.PreViewBrowser.Size = new System.Drawing.Size(560, 493);
+            this.PreViewBrowser.Size = new System.Drawing.Size(619, 493);
             this.PreViewBrowser.TabIndex = 2;
             this.PreViewBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.PreViewBrowser_Navigating);
             this.PreViewBrowser.NewWindow += new System.ComponentModel.CancelEventHandler(this.PreViewBrowser_NewWindow);
@@ -843,16 +845,30 @@
             this.tabRequest.Location = new System.Drawing.Point(4, 26);
             this.tabRequest.Name = "tabRequest";
             this.tabRequest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRequest.Size = new System.Drawing.Size(560, 493);
+            this.tabRequest.Size = new System.Drawing.Size(532, 493);
             this.tabRequest.TabIndex = 3;
             this.tabRequest.Text = "Request";
             this.tabRequest.UseVisualStyleBackColor = true;
+            // 
+            // chkNoRandomize
+            // 
+            this.chkNoRandomize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkNoRandomize.AutoSize = true;
+            this.chkNoRandomize.Location = new System.Drawing.Point(410, 459);
+            this.chkNoRandomize.Name = "chkNoRandomize";
+            this.chkNoRandomize.Size = new System.Drawing.Size(113, 19);
+            this.chkNoRandomize.TabIndex = 16;
+            this.chkNoRandomize.Text = "don\'t randomize";
+            this.ToolTip.SetToolTip(this.chkNoRandomize, "if checked forces this request to the top of the list when you randomize requests" +
+        " during testing. Use for logins or other requests that have to run before others" +
+        ".");
+            this.chkNoRandomize.UseVisualStyleBackColor = true;
             // 
             // btn_PasteRawRequest
             // 
             this.btn_PasteRawRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_PasteRawRequest.AutoSize = true;
-            this.btn_PasteRawRequest.Location = new System.Drawing.Point(392, 12);
+            this.btn_PasteRawRequest.Location = new System.Drawing.Point(364, 12);
             this.btn_PasteRawRequest.Name = "btn_PasteRawRequest";
             this.btn_PasteRawRequest.Size = new System.Drawing.Size(87, 15);
             this.btn_PasteRawRequest.TabIndex = 14;
@@ -865,7 +881,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(388, 37);
+            this.label3.Location = new System.Drawing.Point(360, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 16);
             this.label3.TabIndex = 13;
@@ -876,7 +892,7 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(345, 58);
+            this.txtName.Location = new System.Drawing.Point(317, 58);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(206, 25);
             this.txtName.TabIndex = 3;
@@ -887,7 +903,7 @@
             // 
             this.lblName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblName.Location = new System.Drawing.Point(341, 37);
+            this.lblName.Location = new System.Drawing.Point(313, 37);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(47, 18);
             this.lblName.TabIndex = 11;
@@ -898,7 +914,7 @@
             // 
             this.chkIsActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkIsActive.AutoSize = true;
-            this.chkIsActive.Location = new System.Drawing.Point(493, 12);
+            this.chkIsActive.Location = new System.Drawing.Point(465, 12);
             this.chkIsActive.Name = "chkIsActive";
             this.chkIsActive.Size = new System.Drawing.Size(59, 19);
             this.chkIsActive.TabIndex = 1;
@@ -930,8 +946,8 @@
             this.HeadersContentSplitter.Panel2.Controls.Add(this.lblRequestContent);
             this.HeadersContentSplitter.Panel2.Controls.Add(this.txtRequestContent);
             this.HeadersContentSplitter.Panel2MinSize = 75;
-            this.HeadersContentSplitter.Size = new System.Drawing.Size(545, 366);
-            this.HeadersContentSplitter.SplitterDistance = 129;
+            this.HeadersContentSplitter.Size = new System.Drawing.Size(517, 366);
+            this.HeadersContentSplitter.SplitterDistance = 115;
             this.HeadersContentSplitter.TabIndex = 5;
             this.HeadersContentSplitter.TabStop = false;
             this.HeadersContentSplitter.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.HeadersContentSplitter_SplitterMoved);
@@ -941,7 +957,7 @@
             this.chkWrapHeaderText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkWrapHeaderText.AutoSize = true;
             this.chkWrapHeaderText.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.chkWrapHeaderText.Location = new System.Drawing.Point(468, 2);
+            this.chkWrapHeaderText.Location = new System.Drawing.Point(440, 2);
             this.chkWrapHeaderText.Name = "chkWrapHeaderText";
             this.chkWrapHeaderText.Size = new System.Drawing.Size(74, 17);
             this.chkWrapHeaderText.TabIndex = 1;
@@ -971,7 +987,7 @@
             this.txtRequestHeaders.Multiline = true;
             this.txtRequestHeaders.Name = "txtRequestHeaders";
             this.txtRequestHeaders.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRequestHeaders.Size = new System.Drawing.Size(544, 108);
+            this.txtRequestHeaders.Size = new System.Drawing.Size(516, 94);
             this.txtRequestHeaders.TabIndex = 0;
             this.txtRequestHeaders.WordWrap = false;
             this.txtRequestHeaders.DoubleClick += new System.EventHandler(this.TextBoxEditor_DoubleClick);
@@ -1009,7 +1025,7 @@
             this.txtRequestContent.Multiline = true;
             this.txtRequestContent.Name = "txtRequestContent";
             this.txtRequestContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRequestContent.Size = new System.Drawing.Size(544, 212);
+            this.txtRequestContent.Size = new System.Drawing.Size(516, 226);
             this.txtRequestContent.TabIndex = 0;
             this.txtRequestContent.DoubleClick += new System.EventHandler(this.TextBoxEditor_DoubleClick);
             this.txtRequestContent.Leave += new System.EventHandler(this.RequestData_Changed);
@@ -1045,7 +1061,7 @@
             this.txtRequestUrl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRequestUrl.Location = new System.Drawing.Point(6, 58);
             this.txtRequestUrl.Name = "txtRequestUrl";
-            this.txtRequestUrl.Size = new System.Drawing.Size(333, 25);
+            this.txtRequestUrl.Size = new System.Drawing.Size(305, 25);
             this.txtRequestUrl.TabIndex = 2;
             this.txtRequestUrl.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
@@ -1113,7 +1129,7 @@
             this.helpToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(1012, 24);
+            this.MainMenu.Size = new System.Drawing.Size(1029, 24);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "menuStrip1";
             // 
@@ -1127,6 +1143,7 @@
             this.toolStripSeparator15,
             this.btnRecentSessions,
             this.btnEditFile,
+            this.btnCreateNewSession,
             this.btnClose,
             this.toolStripSeparator10,
             this.btnCapture,
@@ -1220,7 +1237,6 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
-            this.RecentFilesContextMenu.OwnerItem = this.tbOpen;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
             // 
@@ -1278,21 +1294,21 @@
             // btnStart
             // 
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(108, 22);
+            this.btnStart.Size = new System.Drawing.Size(180, 22);
             this.btnStart.Text = "&Start";
             this.btnStart.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // btnStop
             // 
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(108, 22);
+            this.btnStop.Size = new System.Drawing.Size(180, 22);
             this.btnStop.Text = "S&top";
             this.btnStop.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(105, 6);
+            this.toolStripSeparator14.Size = new System.Drawing.Size(177, 6);
             // 
             // btnExport
             // 
@@ -1301,7 +1317,7 @@
             this.btnExportJson,
             this.btnExportHtml});
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(108, 22);
+            this.btnExport.Size = new System.Drawing.Size(180, 22);
             this.btnExport.Text = "E&xport";
             // 
             // btnExportXml
@@ -1331,7 +1347,7 @@
             this.btnRequestsPerSecondChart,
             this.btnTimeTakenPerUrlChart});
             this.btnCharts.Name = "btnCharts";
-            this.btnCharts.Size = new System.Drawing.Size(108, 22);
+            this.btnCharts.Size = new System.Drawing.Size(180, 22);
             this.btnCharts.Text = "Charts";
             this.btnCharts.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
@@ -1464,6 +1480,7 @@
             this.MainToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbOpen,
+            this.tbCreateNewSession,
             this.toolStripSeparator1,
             this.tbStart,
             this.tbStop,
@@ -1473,7 +1490,7 @@
             this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainToolStrip.Location = new System.Drawing.Point(3, 24);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(421, 25);
+            this.MainToolStrip.Size = new System.Drawing.Size(444, 25);
             this.MainToolStrip.TabIndex = 1;
             // 
             // tbOpen
@@ -1486,6 +1503,16 @@
             this.tbOpen.Text = "Open Session";
             this.tbOpen.ToolTipText = "Open session file";
             this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
+            // 
+            // tbCreateNewSession
+            // 
+            this.tbCreateNewSession.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbCreateNewSession.Image = ((System.Drawing.Image)(resources.GetObject("tbCreateNewSession.Image")));
+            this.tbCreateNewSession.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbCreateNewSession.Name = "tbCreateNewSession";
+            this.tbCreateNewSession.Size = new System.Drawing.Size(23, 22);
+            this.tbCreateNewSession.ToolTipText = "Create a new session";
+            this.tbCreateNewSession.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // toolStripSeparator1
             // 
@@ -1661,26 +1688,19 @@
             // 
             this.Help.HelpNamespace = "WebSurge.chm";
             // 
-            // chkNoRandomize
+            // btnCreateNewSession
             // 
-            this.chkNoRandomize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkNoRandomize.AutoSize = true;
-            this.chkNoRandomize.Location = new System.Drawing.Point(438, 459);
-            this.chkNoRandomize.Name = "chkNoRandomize";
-            this.chkNoRandomize.Size = new System.Drawing.Size(113, 19);
-            this.chkNoRandomize.TabIndex = 16;
-            this.chkNoRandomize.Text = "don\'t randomize";
-            this.ToolTip.SetToolTip(this.chkNoRandomize, "if checked forces this request to the top of the list when you randomize requests" +
-        " during testing. Use for logins or other requests that have to run before others" +
-        ".");
-            this.chkNoRandomize.UseVisualStyleBackColor = true;
+            this.btnCreateNewSession.Name = "btnCreateNewSession";
+            this.btnCreateNewSession.Size = new System.Drawing.Size(237, 22);
+            this.btnCreateNewSession.Text = "New Session";
+            this.btnCreateNewSession.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // StressTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1012, 619);
+            this.ClientSize = new System.Drawing.Size(1029, 619);
             this.Controls.Add(this.toolStripContainer);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Help.SetHelpKeyword(this, "_435016xwo.htm");
@@ -1688,7 +1708,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.MainMenu;
-            this.MinimumSize = new System.Drawing.Size(800, 650);
+            this.MinimumSize = new System.Drawing.Size(900, 400);
             this.Name = "StressTestForm";
             this.Help.SetShowHelp(this, true);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1762,7 +1782,7 @@
         private System.Windows.Forms.ToolStripButton tbCapture;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tbStart;
-        private System.Windows.Forms.ToolStripButton tbStop;
+        private System.Windows.Forms.ToolStripButton tbCreateNewSession;
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnOpen;
@@ -1898,6 +1918,8 @@
         private System.Windows.Forms.LinkLabel btn_PasteRawRequest;
         private System.Windows.Forms.CheckBox chkWrapHeaderText;
         private System.Windows.Forms.CheckBox chkNoRandomize;
+        private System.Windows.Forms.ToolStripButton tbStop;
+        private System.Windows.Forms.ToolStripMenuItem btnCreateNewSession;
     }
 }
 

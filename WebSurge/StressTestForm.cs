@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -1152,7 +1153,7 @@ namespace WebSurge
                     OpenFile(FileName);
                 }
             }
-            else if (sender == btnClose)
+            else if (sender == btnClose || sender == tbCreateNewSession)
             {
                 CloseSession();
             }
@@ -1308,7 +1309,9 @@ namespace WebSurge
                     TabsResult.SelectedTab = tabRequest;
                 }
             }
-            if (sender == tbNewRequest || sender == tbNewRequest2)
+
+            if (sender == tbNewRequest || sender == tbNewRequest2 ||
+                sender == btnCreateNewSession || sender == tbCreateNewSession)
             {
                 var req = new HttpRequestData()
                 {
@@ -1316,12 +1319,12 @@ namespace WebSurge
                     Url = "http://",
                     RequestContent = string.Empty
                 };
-                req.Headers.Add( new HttpRequestHeader
+                req.Headers.Add(new HttpRequestHeader
                 {
                     Name = "Accept-Encoding",
                     Value = "gzip,deflate"
                 });
-                                
+
                 txtRequestUrl.Tag = req;
                 ActiveRequest = req;
                 LoadRequest(req);
@@ -1330,9 +1333,13 @@ namespace WebSurge
                 RenderRequests(Requests);
 
                 TabsResult.SelectedTab = tabRequest;
+                TabsResult.SelectedTab.Focus();
+
                 chkIsActive.Checked = true;
+                
                 txtRequestUrl.Focus();
             }
+
             if (sender == tbCopyFromRequest)
             {
                 var req = txtRequestUrl.Tag as HttpRequestData;
@@ -1352,6 +1359,7 @@ namespace WebSurge
                 txtRequestUrl.Tag = newRequest; // it's a new request
 
                 TabsResult.SelectedTab = tabRequest;
+                tabRequest.Focus();
                 txtRequestUrl.Focus();
 
             }

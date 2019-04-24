@@ -8,10 +8,16 @@
 
 
 ### Version 1.14
-<i><small>April 22nd, 2019</small></i>
+<i><small>April 22rd, 2019</small></i>
 
 * **Update Report Summary Display Page**  
 Created a new more visual display for the Report Summary section. Shout out the request per seconds and failures at the top and group test stats vs. result stats using colored visual bars.
+
+* **Add New Session Button and Menu Item** 
+Added options to more obviously create a new session, rather than just closing. Create New Session closes the old session and creates a new and highlights a new request entry.
+
+* **Fix New Request Focus Issues**  
+New requests now properly focus the new request tab and URL controls to avoid having to click or tab to the right field. Small thing but saves a few key strokes/mouse clicks.
 
 * **Fix: Warmup Request Count Interference**  
 Fix warmup request count that was interfering with partial seconds adding to the total request count. Simplified request code to separate warm up and proper test operation.
