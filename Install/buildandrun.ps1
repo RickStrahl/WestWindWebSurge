@@ -1,2 +1,2 @@
 .\build.ps1
-.\Builds\CurrentRelease\WebSurgeSetup.exe -SILENT
+.\Builds\CurrentRelease\WebSurgeSetup.exe /SILENT
