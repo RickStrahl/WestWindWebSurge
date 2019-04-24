@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Fiddler;
+using Westwind.Utilities;
 
 namespace WebSurge
 {
@@ -95,6 +96,7 @@ namespace WebSurge
                 return;
 
             string headers = sess.oRequest.headers.ToString();
+            headers = StringUtils.NormalizeLineFeeds(headers, LineFeedTypes.CrLf);
 
             string contentType =
                 sess.oRequest.headers.Where(hd => hd.Name.ToLower() == "content-type")
@@ -113,7 +115,9 @@ namespace WebSurge
                     reqBody = sess.GetRequestBodyAsString();                    
                 }
             }
+
             
+
             // if you wanted to capture the response
             //string respHeaders = session.oResponse.headers.ToString();
             //var respBody = Encoding.UTF8.GetString(session.ResponseBody);
@@ -123,7 +127,7 @@ namespace WebSurge
             int at = headers.IndexOf("\r\n");
             if (at < 0)
                 return;
-            headers = firstLine + "\r\n" + headers.Substring(at + 1);
+            headers = firstLine + "\r\n" + headers.Substring(at + 2);
 
             string output = headers + "\r\n" +
                             (!string.IsNullOrEmpty(reqBody) ? reqBody + "\r\n" : string.Empty) +
@@ -248,6 +252,7 @@ namespace WebSurge
                     if (File.Exists(diag.FileName))
                         File.Delete(diag.FileName);
 
+                    // Fix Fiddler import bug with extra \n at the end of the 1st HTTP header
                     File.WriteAllText(diag.FileName, txtCapture.Text);
 
                     MainForm.OpenFile(diag.FileName);
