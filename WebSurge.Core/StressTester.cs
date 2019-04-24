@@ -217,14 +217,35 @@ namespace WebSurge
             while (!CancelThreads)
             {
                 // check for test done by time specified
-                if (DateTime.UtcNow.Subtract(StartTime).TotalSeconds > seconds + 1)
+                if (DateTime.UtcNow.Subtract(StartTime).TotalSeconds > seconds)
                 {
                     TimeTakenForLastRunMs = (int)DateTime.UtcNow.Subtract(StartTime).TotalMilliseconds;
 
                     CancelThreads = true;
 
+                    OnProgress(new ProgressInfo()
+                    {
+                        SecondsProcessed = seconds,
+                        TotalSecondsToProcess = seconds,
+                        RequestsProcessed = RequestWriter.RequestsProcessed,
+                        RequestsFailed = RequestWriter.RequestsFailed,
+                        IsWarmingUp = IsWarmingUp
+                    });
+
                     // allows some time to catch up
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
+
+                    OnProgress(new ProgressInfo()
+                    {
+                        SecondsProcessed = seconds,
+                        TotalSecondsToProcess = seconds,
+                        RequestsProcessed = RequestWriter.RequestsProcessed,
+                        RequestsFailed = RequestWriter.RequestsFailed,
+                        IsWarmingUp = IsWarmingUp
+                    });
+
+                    Thread.Sleep(1000);
+
                     foreach (var thread in threads)
                         thread.Abort();
                     Thread.Sleep(1000);
@@ -233,11 +254,11 @@ namespace WebSurge
                 }
                 Thread.Sleep(100);
 
-                if (DateTime.UtcNow.Subtract(lastProgress).TotalMilliseconds > 950)
+                if (DateTime.UtcNow.Subtract(lastProgress).TotalMilliseconds > 990)
                 {
                     lastProgress = DateTime.UtcNow;
 
-                    var secs = seconds - Options.WarmupSeconds;
+                    var secs = seconds;
                     if (secs < 0)
                         secs = 0;
 
@@ -249,9 +270,10 @@ namespace WebSurge
                         RequestsFailed = RequestWriter.RequestsFailed,
                         IsWarmingUp = IsWarmingUp
                     });
-
                 }
             }
+
+            
 
             Running = false;
 
@@ -327,7 +349,6 @@ namespace WebSurge
                     {
                         RequestWriter.Clear();
                         StartTime = DateTime.UtcNow;
-                        
                         IsWarmingUp = false;
                     }
                 }
