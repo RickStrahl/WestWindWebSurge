@@ -36,6 +36,9 @@ namespace WebSurge
                 AvgRequestTimeMs = (decimal) results.Average(req => req.TimeTakenMs),
                 MinRequestTimeMs = results.Min(req => req.TimeTakenMs),
                 MaxRequestTimeMs = results.Max(req => req.TimeTakenMs),
+                TotalBytesSent = results.Sum(req=> req.ResponseLength),
+                TotalBytesPosted = results.Sum(req=> string.IsNullOrEmpty(req.RequestContent) ? 0 : req.RequestContent.Length),
+
                 ErrorMessages = results
                                     .GroupBy(x => x.ErrorMessage)
                                     .Where(g => g.Key != null)
@@ -69,11 +72,22 @@ namespace WebSurge
                                   ((decimal) result.TotalRequests/(decimal) result.TimeTakenSecs).ToString("n2") +
                                   "\r\n");
             }
+
+            string totalBytesSent = "0 bytes";
+            if (result.TotalBytesSent > 0)
+            {
+            
+            }
+
+
+
             if (result.TotalRequests > 0)
             {
-                sb.AppendLine(string.Format("      Avg Time: {0:n2} ms", result.AvgRequestTimeMs));
-                sb.AppendLine(string.Format("      Min Time: {0:n2} ms", result.MinRequestTimeMs));
-                sb.AppendLine(string.Format("      Max Time: {0:n2} ms", result.MaxRequestTimeMs));
+                sb.AppendLine($"      Avg Time: {result.AvgRequestTimeMs:n2} ms");
+                sb.AppendLine($"      Min Time: {result.MinRequestTimeMs:n2} ms");
+                sb.AppendLine($"      Max Time: {result.MaxRequestTimeMs:n2} ms");
+                sb.AppendLine($" data returned: {result.ByteSizeString(result.TotalBytesSent)}");
+                sb.AppendLine($" data   posted: {result.ByteSizeString(result.TotalBytesPosted)}");
             }
 
             return sb.ToString();
@@ -138,6 +152,9 @@ namespace WebSurge
                                 MinRequestTimeMs = results.Min(u => u.TimeTakenMs),
                                 MaxRequestTimeMs = results.Max(u => u.TimeTakenMs),
                                 AvgRequestTimeMs = (decimal) results.Average(u => u.TimeTakenMs),
+                                TotalBytesSent = results.Sum(req => req.ResponseLength),
+                                TotalBytesPosted = results.Sum(req => string.IsNullOrEmpty(req.RequestContent) ? 0 : req.RequestContent.Length),
+
                                 ErrorMessages = results
                                     .GroupBy(x => x.ErrorMessage)
                                     .Where(g => g.Key != null)
@@ -209,6 +226,27 @@ namespace WebSurge
         public decimal MaxRequestTimeMs { get; set; }
         public int TimeTakenSecs { get; set; }
         public IEnumerable<ErrorMessage> ErrorMessages { get; set; }
+        public int TotalBytesSent { get; set; }
+        public int TotalBytesPosted { get; set; }
+
+
+
+        public string ByteSizeString(int byteCount)
+        {
+            string res = null;
+            if (byteCount < 9900)
+                res = byteCount.ToString() + " bytes";
+            else if (byteCount < 1_500_000)
+                res = ((decimal) byteCount / 1000).ToString("n0") + "kb";
+            else if (byteCount < 9_000_000)
+                res = ((decimal)byteCount / 1000000).ToString("n1") + "mb";
+            else if (byteCount < 1_000_000_000)
+                res = ((decimal) byteCount / 1000000).ToString("n0") + "mb";
+            else if (byteCount < 1_000_000_000)
+                res = ((decimal)byteCount / 1_000_000_000).ToString("n1") + "gb";
+
+            return res;
+        }
     }
 
     public class ErrorMessage

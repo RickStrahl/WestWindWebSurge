@@ -47,6 +47,7 @@ namespace WebSurge
         
         public string FullRequest { get; set; }
         public string RequestContent { get; set; }
+
         
         public string Username { get; set; }
         public string Password { get; set; }

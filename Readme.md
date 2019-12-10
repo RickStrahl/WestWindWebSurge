@@ -53,7 +53,7 @@ of individual request output from a test run.
 * Simple summarized results
 * Export results to Xml,Json,Html, Raw Headers
 * Test locally and within your Firewall/VPN
-* Optional Command Line Interface
+* Separate Console application for automated Command Line Execution
 
 
 ### More info

@@ -1,4 +1,4 @@
-﻿<img src="WebSurgeLogo.png" align="right" />
+<img src="WebSurgeLogo.png" align="right" />
 
 # West Wind WebSurge Change Log
 
@@ -6,6 +6,15 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+
+### Version 1.15
+<i><small>not released yet</small></i>
+
+* **Import and Export Postman Collections**  
+You can now use the **File -> Import** to import Postman collections into WebSurge and **File -> Export** to export WebSurge sessions into Postman Collections.
+
+* **Add Total Bytes Sent and Total Bytes Posted to Summaries**  
+Added Total bytes send and posted to the WebSurge summary result screens of both the GUI and Console apps.
 
 ### Version 1.14
 <i><small>April 22rd, 2019</small></i>
