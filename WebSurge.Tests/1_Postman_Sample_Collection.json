@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "243f7688-7778-46b1-a369-04b48c5bd244",
+		"name": "Vue Sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost/vue/todos.wcvue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/vue/todos.wcvue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"vue",
+						"todos.wcvue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/vue/todo.wcvue?id=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/vue/todo.wcvue?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"vue",
+						"todo.wcvue"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/vue/todo.wcvue",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "BASIC",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "rstrahlBASIC",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   id: \"\",\r\n   title: \"Prepare for sessions\",\r\n   description: \"Get ready for conference and create slides and white paper\",\r\n  \"isEditing\": false,\r\n  \"entered\": \"2019-08-31T22:52:05.999Z\"\r\n  \r\n}"
+				},
+				"url": {
+					"raw": "http://localhost/vue/todo.wcvue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"vue",
+						"todo.wcvue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/vue/toggleTodo.wcvue",
+			"request": {
+				"auth": {
+					"type": "ntlm",
+					"ntlm": [
+						{
+							"key": "password",
+							"value": "ntlm",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "rstrahl",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Encoding",
+						"value": " gzip,deflate",
+						"type": "text"
+					},
+					{
+						"key": "Content-type",
+						"value": " application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   id: \"1\",\r\n   completed: true\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost/vue/toggleTodo.wcvue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"vue",
+						"toggleTodo.wcvue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/vue/reloaddata.wcvue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/vue/reloaddata.wcvue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"vue",
+						"reloaddata.wcvue"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,174 @@
+﻿GET https://localhost:5001/api/audits/ HTTP/1.1
+Accept: application/json
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/audits/AddRemoveUser/Westwind HTTP/1.1
+Accept-Encoding: gzip,deflate
+Accept: application/json
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/audits/error HTTP/1.1
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/values HTTP/1.1
+Accept: application/json
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/account/userstate HTTP/1.1
+Accept-Encoding: gzip,deflate
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/account/user/testarticles HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Origin: http://localhost:4200
+
+------------------------------------------------------------------
+
+POST https://localhost:5001/api/account/user/testarticle HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Websurge-Request-Name: Set Test Article
+
+1
+
+------------------------------------------------------------------
+
+POST https://localhost:5001/api/account/user/testarticle HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Websurge-Request-Name: Invalid TestArticle Id - clears Test Article for user
+
+0
+
+------------------------------------------------------------------
+
+OPTIONS https://localhost:5001/api/api/values HTTP/1.1
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Access-Control-Request-Method: GET
+Origin: http://localhost:4200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3915.0 Safari/537.36 Edg/79.0.287.3
+Access-Control-Request-Headers: authorization
+Accept: */*
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Referer: http://localhost:4200/articleselection
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Websurge-Request-Name: Values with OPTIONS
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/account/userstate HTTP/1.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3915.0 Safari/537.36 Edg/79.0.287.3
+Sec-Fetch-User: ?1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: __utmz=111872281.1557000280.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); WebStoreUser=; _ga=GA1.1.1593582071.1557000280; .AspNet.Consent=yes; weblog_user=Rick Strahl; weblog_email=rstrahl@west-wind.com; wwt=6EYWGHcnCkBkUyCL; __utma=111872281.1593582071.1557000280.1569911705.1569917482.17; ftdb-token=023AD39E6344ACF2DF291525080B9B1AE79823956E5C1FC3351DE8AC24E4CA328F7868AC8F7DE6A869FAE3423E02F14BBD010110ECAB844A75008462DF3386E0
+Websurge-Request-Name: UserState 2 (from Browser with manual logon - works
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/account/userstate HTTP/1.1
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3915.0 Safari/537.36 Edg/79.0.287.3
+Sec-Fetch-User: ?1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: __utmz=111872281.1557000280.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); WebStoreUser=; _ga=GA1.1.1593582071.1557000280; .AspNet.Consent=yes; weblog_user=Rick Strahl; weblog_email=rstrahl@west-wind.com; wwt=6EYWGHcnCkBkUyCL; __utma=111872281.1593582071.1557000280.1569911705.1569917482.17
+Websurge-Request-Name: UserState 3 (from Browser with auto-logon)
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/account/users HTTP/1.1
+Accept-Encoding: gzip,deflate
+
+------------------------------------------------------------------
+
+GET https://localhost:5001/api/account/user/1 HTTP/1.1
+Accept-Encoding: gzip,deflate
+
+------------------------------------------------------------------
+
+POST https://localhost:5001/api/account/user HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "department": 346,
+  "firstName": "Markus",
+  "lastName": "Eggered",
+  "userId": "megger",
+  "userPk": 3,
+  "privileges": [
+    {
+      "accessKey": "FTWA.WriteWorkOrder",
+      "privPk": 70,
+      "userPk": 3
+    },
+    {
+      "accessKey": "FTWA.CreateDatabase",
+      "privPk": 71,
+      "userPk": 3
+    }
+  ],
+  "windowsGroups": []
+}
+
+------------------------------------------------------------------
+
+DELETE https://localhost:5001/api/account/user/164 HTTP/1.1
+Accept: application/json
+
+------------------------------------------------------------------
+
+
+----- Start WebSurge Options -----
+
+{
+  "NoProgressEvents": false,
+  "DelayTimeMs": 0,
+  "NoContentDecompression": false,
+  "CaptureMinimalResponseData": false,
+  "MaxResponseSize": 0,
+  "ReplaceQueryStringValuePairs": null,
+  "ReplaceDomain": "",
+  "ReplaceCookieValue": null,
+  "ReplaceAuthorization": "",
+  "Username": "rstrahl",
+  "Password": "gvVbI+GBcHIDcJ2twEDe2A==",
+  "Users": [],
+  "RandomizeRequests": false,
+  "RequestTimeoutMs": 15000,
+  "WarmupSeconds": 2,
+  "ReloadTemplates": false,
+  "FormattedPreviewTheme": "visualstudio",
+  "LastThreads": 2,
+  "IgnoreCertificateErrors": false,
+  "TrackPerSessionCookies": false,
+  "LastSecondsToRun": 10
+}
+
+// This file was generated by West Wind WebSurge
+// Get your free copy at https://websurge.west-wind.com
+// to easily test or load test the requests in this file.
+
+----- End WebSurge Options -----
+

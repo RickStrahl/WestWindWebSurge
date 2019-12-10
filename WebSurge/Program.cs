@@ -41,11 +41,7 @@ namespace WebSurge
             Application.SetCompatibleTextRenderingDefault(false);
 
             var mainForm = new StressTestForm(fileName);            
-                  
-            //Thread newThread = new Thread(RunSplash);
-            //newThread.SetApartmentState(ApartmentState.STA);
-            //newThread.Name = "Splash";
-            //newThread.Start(mainForm);
+        
 
             Application.ThreadException += Application_ThreadException;
             try

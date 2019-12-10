@@ -65,6 +65,7 @@
     <Compile Include="Extensibility\WebSurgeExtensibilityBase.cs" />
     <Compile Include="FileCollectionRequestWriter.cs" />
     <Compile Include="RequestWriter.cs" />
+    <Compile Include="Support\PostmanIntegration.cs" />
     <Compile Include="Support\SiteValidator.cs" />
     <Compile Include="Support\ApplicationUpdater.cs" />
     <Compile Include="Configuration\CheckForUpdates.cs" />

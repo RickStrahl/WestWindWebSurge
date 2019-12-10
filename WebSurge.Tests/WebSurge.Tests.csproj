@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="FiddlerParserTests.cs" />
     <Compile Include="MruListTests.cs" />
+    <Compile Include="PostmanIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestEncoding.cs" />
     <Compile Include="RequestWriterTests.cs" />
@@ -91,14 +92,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1_Full.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="1_Postman_Sample_Collection.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <Content Include="WebSurgeRequests.websurge">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Templates\" />
