@@ -1022,6 +1022,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRequestContent.Font = new System.Drawing.Font("Consolas", 11F);
             this.txtRequestContent.Location = new System.Drawing.Point(0, 20);
+            this.txtRequestContent.MaxLength = 2147483647;
             this.txtRequestContent.Multiline = true;
             this.txtRequestContent.Name = "txtRequestContent";
             this.txtRequestContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
