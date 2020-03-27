@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSurge.Core;
+using WebSurge.Support;
 using Westwind.Utilities;
 using Timer = System.Threading.Timer;
 
@@ -1489,6 +1490,39 @@ namespace WebSurge
                 }
 
             }
+            else if (sender == btnPostmanExport)
+            {
+                var fileOnly = Path.GetFileNameWithoutExtension(FileName);
+                
+                SaveFileDialog sd = new SaveFileDialog
+                {
+                    Filter = "json files (*.json)|*.json|All files (*.*)|*.*",
+                    FilterIndex = 1,
+                    FileName = fileOnly + ".json",
+                    CheckFileExists = false,
+                    OverwritePrompt = false,
+                    AutoUpgradeEnabled = true,
+                    CheckPathExists = true,
+                    InitialDirectory = Path.GetDirectoryName(FileName),
+                    RestoreDirectory = true
+                };
+
+                var result = sd.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    var postman = new PostmanIntegration();
+                    if (postman.Export(StringUtils.FromCamelCase(fileOnly), 
+                            Requests, 
+                            App.Configuration.StressTester,
+                            sd.FileName) == null)
+                        ShowStatus("Export failed", timeout: 5000);
+                    else
+                    {
+                        ShowStatus("Export completed", timeout: 5000);
+                        Westwind.Utilities.ShellUtils.OpenFileInExplorer(sd.FileName);
+                    }
+                }
+            }
             else if (sender == btnFeedback)
             {
                 string msg = 
@@ -1574,7 +1608,7 @@ any reported issues.";
             btnStop.Enabled = tbStop.Enabled;
 
             var hasResults = StressTester.Results.Count > 0;
-            btnExport.Enabled = hasResults;
+            //btnExport.Enabled = hasResults;
             tbExport.Enabled = hasResults;            
 
             tbCharts.Enabled = hasResults;
@@ -1749,6 +1783,11 @@ any reported issues.";
 
             txtRequestHeaders.WordWrap = checkBox.Checked;
             App.Configuration.WrapHeaderText = true;
+        }
+
+        private void postmanCollectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
