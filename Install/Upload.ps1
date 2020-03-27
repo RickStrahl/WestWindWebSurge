@@ -28,6 +28,6 @@ if(!$pwd) {Exit;}
 
 # if(!$pwd) {Exit;}
 
-curl.exe -T ".\Builds\CurrentRelease\WebSurgeSetup.exe"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
-curl.exe -T ".\Builds\CurrentRelease\WebSurgeSetup.zip"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
-curl.exe -T ".\Builds\CurrentRelease\WebSurge_Version.xml"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
+\utl\curl.exe -T ".\Builds\CurrentRelease\WebSurgeSetup.exe"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
+\utl\curl.exe -T ".\Builds\CurrentRelease\WebSurgeSetup.zip"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
+\utl\curl.exe -T ".\Builds\CurrentRelease\WebSurge_Version.xml"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
