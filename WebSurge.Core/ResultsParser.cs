@@ -73,21 +73,16 @@ namespace WebSurge
                                   "\r\n");
             }
 
-            string totalBytesSent = "0 bytes";
-            if (result.TotalBytesSent > 0)
-            {
             
-            }
-
-
 
             if (result.TotalRequests > 0)
             {
                 sb.AppendLine($"      Avg Time: {result.AvgRequestTimeMs:n2} ms");
                 sb.AppendLine($"      Min Time: {result.MinRequestTimeMs:n2} ms");
                 sb.AppendLine($"      Max Time: {result.MaxRequestTimeMs:n2} ms");
-                sb.AppendLine($" data returned: {result.ByteSizeString(result.TotalBytesSent)}");
-                sb.AppendLine($" data   posted: {result.ByteSizeString(result.TotalBytesPosted)}");
+                sb.AppendLine($"     data sent: {result.ByteSizeString(result.TotalBytesSent)}");
+                if (result.TotalBytesPosted > 0)
+                    sb.AppendLine($"   data posted: {result.ByteSizeString(result.TotalBytesPosted)}");
             }
 
             return sb.ToString();
