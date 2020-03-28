@@ -32,9 +32,9 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tbSave = new System.Windows.Forms.ToolStripButton();
             this.tbCancel = new System.Windows.Forms.ToolStripButton();
-            this.txtEditor = new System.Windows.Forms.TextBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbReload = new System.Windows.Forms.ToolStripButton();
+            this.txtEditor = new System.Windows.Forms.TextBox();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +68,20 @@
             this.tbCancel.Size = new System.Drawing.Size(63, 22);
             this.tbCancel.Text = "Cancel";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tbReload
+            // 
+            this.tbReload.Image = ((System.Drawing.Image)(resources.GetObject("tbReload.Image")));
+            this.tbReload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbReload.Name = "tbReload";
+            this.tbReload.Size = new System.Drawing.Size(108, 22);
+            this.tbReload.Text = "Reload Original";
+            this.tbReload.Click += new System.EventHandler(this.tbReload_Click);
+            // 
             // txtEditor
             // 
             this.txtEditor.AcceptsTab = true;
@@ -82,20 +96,6 @@
             this.txtEditor.Size = new System.Drawing.Size(916, 609);
             this.txtEditor.TabIndex = 1;
             this.txtEditor.TextChanged += new System.EventHandler(this.txtEditor_TextChanged);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tbReload
-            // 
-            this.tbReload.Image = ((System.Drawing.Image)(resources.GetObject("tbReload.Image")));
-            this.tbReload.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbReload.Name = "tbReload";
-            this.tbReload.Size = new System.Drawing.Size(108, 22);
-            this.tbReload.Text = "Reload Original";
-            this.tbReload.Click += new System.EventHandler(this.tbReload_Click);
             // 
             // EditForm
             // 
@@ -120,10 +120,10 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.TextBox txtEditor;
         private System.Windows.Forms.ToolStripButton tbSave;
         private System.Windows.Forms.ToolStripButton tbCancel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tbReload;
+        private System.Windows.Forms.TextBox txtEditor;
     }
 }

@@ -970,6 +970,15 @@ namespace WebSurge
         }
 
 
+        public void UpdateRequestHtmlPreview(HttpRequestData req = null)
+        {
+            if (req == null)
+                req = ActiveRequest;
+
+            string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
+            HtmlPreview(html);
+        }
+
         private void StressTestForm_Shown(object sender, EventArgs e)
         {
             if (Splash != null)
@@ -1617,6 +1626,17 @@ any reported issues.";
             UpdateButtonStatus();
         }
 
+        private void TabsResult_Click(object sender, EventArgs e)
+        {
+            var tab = TabsResult.SelectedTab;
+            if (tab == tabPreview)
+            {
+                // explicitly force a refresh if manually updating
+                UpdateRequestHtmlPreview();
+            }
+
+        }
+
         public void UpdateButtonStatus()
         {
             tbOpen.Enabled = !StressTester.Running;
@@ -1702,9 +1722,7 @@ any reported issues.";
 
             ActiveRequest = req;
 
-            string html = TemplateRenderer.RenderTemplate("Request.cshtml", req);
-
-            HtmlPreview(html);
+            UpdateRequestHtmlPreview(ActiveRequest);
 
             LoadRequest(req);
 
@@ -1803,11 +1821,6 @@ any reported issues.";
 
             txtRequestHeaders.WordWrap = checkBox.Checked;
             App.Configuration.WrapHeaderText = true;
-        }
-
-        private void postmanCollectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 
