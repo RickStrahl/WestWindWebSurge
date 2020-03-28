@@ -93,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AceInterop.cs" />
     <Compile Include="ChartFormZed.cs">
       <SubType>Form</SubType>
     </Compile>

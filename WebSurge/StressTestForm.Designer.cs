@@ -829,6 +829,7 @@
             this.PreViewBrowser.ScriptErrorsSuppressed = true;
             this.PreViewBrowser.Size = new System.Drawing.Size(532, 493);
             this.PreViewBrowser.TabIndex = 2;
+            this.PreViewBrowser.DocumentCompleted += PreViewBrowser_DocumentCompleted;
             this.PreViewBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.PreViewBrowser_Navigating);
             this.PreViewBrowser.NewWindow += new System.ComponentModel.CancelEventHandler(this.PreViewBrowser_NewWindow);
             // 
@@ -1798,6 +1799,7 @@
 
         }
 
+
         #endregion
 
         private System.Windows.Forms.ToolStripContainer toolStripContainer;
@@ -1814,7 +1816,7 @@
         private System.Windows.Forms.TabPage tabOutput;
         private System.Windows.Forms.TabPage tabPreview;
         private System.Windows.Forms.TextBox txtConsole;
-        private System.Windows.Forms.WebBrowser PreViewBrowser;
+        public System.Windows.Forms.WebBrowser PreViewBrowser;
         private System.Windows.Forms.ToolStripButton tbCapture;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tbStart;
@@ -1927,8 +1929,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem btnExportResultSummary;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtRequestHeaders;
-        private System.Windows.Forms.TextBox txtRequestContent;
+        public System.Windows.Forms.TextBox txtRequestHeaders;
+        public System.Windows.Forms.TextBox txtRequestContent;
         public System.Windows.Forms.SplitContainer HeadersContentSplitter;
         private System.Windows.Forms.CheckBox chkIsActive;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;

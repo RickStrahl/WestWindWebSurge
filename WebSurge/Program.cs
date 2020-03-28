@@ -7,6 +7,10 @@ namespace WebSurge
 {
     public static class Program
     {
+        
+        public static StressTestForm WebSurgeForm { get; set; }
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -40,19 +44,22 @@ namespace WebSurge
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var mainForm = new StressTestForm(fileName);            
-        
+            
+            WebSurgeForm = new StressTestForm(fileName);            
+            
 
             Application.ThreadException += Application_ThreadException;
             try
             {
-                Application.Run(mainForm);
+                Application.Run(WebSurgeForm);
+                WebSurgeForm = null;
             }
             catch (Exception ex)
             {
                 Application_ThreadException(null, new ThreadExceptionEventArgs(ex));
             } 
         }
+
         
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {

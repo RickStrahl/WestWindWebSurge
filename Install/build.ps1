@@ -1,5 +1,5 @@
 
-$src = "C:\projects2010\WebSurge\WebSurge\bin\Release"
+$src = "..\WebSurge\bin\Release"
 $tgt = ".\Distribution"
 $appdata = ".\DistributionAppData"
 $release = ".\Builds\CurrentRelease"

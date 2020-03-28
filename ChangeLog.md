@@ -10,6 +10,14 @@
 ### Version 1.15
 <i><small>not released yet</small></i>
 
+* **Allow editing Request Data in Previewer**  
+You can now interactively edit the request data in the preview window using rich JSON/XML editing to edit the content for the POST content which is more flexible than the static text box.
+
+```
+int x = 1;
+x++
+```
+
 * **Import and Export Postman Collections**  
 You can now use the **File -> Import** to import Postman collections into WebSurge and **File -> Export** to export WebSurge sessions into Postman Collections.
 

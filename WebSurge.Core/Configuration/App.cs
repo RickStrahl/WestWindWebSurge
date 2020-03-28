@@ -27,6 +27,7 @@ namespace WebSurge
         internal static string ProKey { get; set; }
 
         public static List<IWebSurgeExtensibility> Addins { get; set; }
+        
 
         static App()
         {

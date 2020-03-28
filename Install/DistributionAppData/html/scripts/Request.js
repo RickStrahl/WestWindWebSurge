@@ -3,6 +3,10 @@
 showTab("Formatted", "response");
 showTab("Formatted", "request");
 
+var websurge = {
+    application: null    
+};
+
 // code to activate relevant tab
 $(".formattingResponseBody a").click(function (e) {
     var el = this;
@@ -79,11 +83,29 @@ function configureAceEditor(editor, serverVars) {
     //session.setMode("ace/mode/" + serverVars.language);
     editor.setFontSize(13);
 
-    if (!serverVars.allowEdit) {
-        editor.setReadOnly(true);
-        editor.setHighlightActiveLine(false);
-    } else
-        editor.setHighlightActiveLine(true);
+    editor.setHighlightActiveLine(false);
+    editor.setReadOnly(true);
+
+    
+
+    if (serverVars.allowEdit) {            
+        editor.on("focus", function() {
+            editor.setReadOnly(false);
+            editor.setHighlightActiveLine(true);            
+        });
+
+        // Notify WPF of focus change
+        editor.on("blur", function() { 
+            editor.setReadOnly(true);
+            editor.setHighlightActiveLine(false);
+            var text = editor.getSession().getValue(); 
+            debugger;           
+            if (websurge.application) {                
+                websurge.application.updatefromeditor(text, editor.id);
+            }
+        });
+    }
+
     editor.renderer.setShowGutter(serverVars.showLineNumbers);
     editor.renderer.setPadding(10);
 
@@ -106,24 +128,36 @@ function configureAceEditor(editor, serverVars) {
 //setTimeout(function() {
 // attach ace to formatted code controls if they are loaded and visible
 
-    var lang = serverVars.requestLanguage;
-    if (lang == "urlencoded")
-        lang = "text";
-    
-    try {
-        window.aceEditorRequest = ace.edit("RequestBodyFormatted");
-        configureAceEditor(aceEditorRequest, serverVars);
-        aceEditorRequest.getSession().setMode("ace/mode/" + lang);
-    } catch (ex) {;
-    }
-    
-    try {
-        window.aceEditor = ace.edit("ResponseBodyFormatted");
-        configureAceEditor(aceEditor, serverVars);
-        aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
-    } catch (ex) {;
-    }
+var lang = serverVars.requestLanguage;
+if (lang == "urlencoded")
+    lang = "text";
+
+try {
+    window.aceEditorRequest = ace.edit("RequestBodyFormatted");
+    window.aceEditorRequest.id = "RequestBodyFormatted";
+    serverVars.allowEdit = true;
+    configureAceEditor(aceEditorRequest, serverVars);
+    aceEditorRequest.getSession().setMode("ace/mode/" + lang);
+}
+catch(e) { }
+
+try {
+    window.aceEditor = ace.edit("ResponseBodyFormatted");
+    window.aceEditor.id = "ResponseBodyFormatted";
+    serverVars.allowEdit = false;
+    configureAceEditor(aceEditor, serverVars);
+    aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
+} 
+catch(e) { }
+
 //}, 0);
+
+
+// Pass WebSurge AceInterop object into the browser so we can edit
+function initializeInterop(webSurgeAceInterop) {    
+    if (webSurgeAceInterop)
+        websurge.application = webSurgeAceInterop;
+}
 
 
 //setTimeout(function () {

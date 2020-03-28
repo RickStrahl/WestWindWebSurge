@@ -21,9 +21,9 @@ namespace WebSurge
 {
     public partial class StressTestForm : Form
     {
-        StressTester StressTester { get; set; }
+        public StressTester StressTester { get; set; }
 
-        HttpRequestData ActiveRequest { get; set;  }
+        public HttpRequestData ActiveRequest { get; set;  }
 
         public string FileName
         {
@@ -63,9 +63,8 @@ namespace WebSurge
 
           
                 if (!string.IsNullOrEmpty(value) && 
-                    !value.Contains("Professional") && 
-                    !value.Contains("Free Version"))
-                    text += " - " + value;
+                    !value.Contains("West Wind WebSurge ("))
+                    text = $"{value} - {text}";
 
                 base.Text = text;
             }
@@ -170,6 +169,8 @@ namespace WebSurge
             
 
             UpdateButtonStatus();
+
+            
         }
 
         private void CloseSession()
@@ -495,6 +496,11 @@ namespace WebSurge
             request.Name = txtName.Text;
             request.Url = txtRequestUrl.Text;
             request.HttpVerb = txtHttpMethod.Text;
+            if (!string.IsNullOrEmpty(request.RequestContent) && request.HttpVerb == "GET")
+            {
+                request.HttpVerb = "POST";
+                txtHttpMethod.Text = "POST";
+            }
             request.RequestContent = txtRequestContent.Text;
             request.ParseHttpHeaders(txtRequestHeaders.Text);
 
@@ -544,7 +550,7 @@ namespace WebSurge
             RenderRequests(Requests);
         }
 
-        private void RequestData_Changed(object sender, EventArgs e)
+        public void RequestData_Changed(object sender, EventArgs e)
         {
             if (ActiveRequest == null)
                 return;
@@ -981,6 +987,110 @@ namespace WebSurge
             Application.DoEvents();
         }
 
+        public void CheckForNewVersion(bool force = false)
+        {
+            var updater = new ApplicationUpdater(typeof(Program));            
+            if (updater.NewVersionAvailable(!force))
+            {
+                if (MessageBox.Show(updater.VersionInfo.Detail + "\r\n" +
+                    "Do you want to download and install this version?",
+                    updater.VersionInfo.Title,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    ShellUtils.GoUrl(App.InstallerDownloadPage);
+                    //updater.DownloadProgressChanged += updater_DownloadProgressChanged;
+                    //ShowStatus("Downloading Update - Version " + updater.VersionInfo.Version);
+                    //updater.Download();
+                    //updater.ExecuteDownloadedFile();
+                    //ShowStatus("Download completed.");
+                    Application.Exit();
+                }
+            }
+            App.Configuration.CheckForUpdates.LastUpdateCheck = DateTime.UtcNow.Date;            
+        }
+
+
+        private RegisterDialog regForm;
+
+        void AddRecentFiles(object sender = null, CancelEventArgs e = null)
+        {
+            RecentFilesContextMenu.Items.Clear();
+
+            if (App.Configuration.RecentFiles == null)
+                return;
+
+            int x = 0;
+            foreach (var s in App.Configuration.RecentFiles)
+            {
+                x++;
+
+                if (!File.Exists(s))
+                    continue;
+
+                if (!string.IsNullOrEmpty(FileName) &&
+                    s.ToLower() == FileName.ToLower())
+                    continue;
+                
+                var btn = new ToolStripMenuItem
+                {
+                    Text = s,
+                    Name = "RecentFile_" + (x -1),
+                    ImageKey = "websurge"
+                };
+
+                btn.Click +=
+                    (snd, args) =>
+                    {
+                        var bt = snd as ToolStripMenuItem;
+                        OpenFile(bt.Text);                        
+                    };
+
+                RecentFilesContextMenu.ImageList = Images;
+                RecentFilesContextMenu.Items.Add(btn);   
+            }
+        }
+
+        public void ShowStatus(string text = null, int panelId = 1, int timeout = 0)
+        {
+
+            var action = new Action<string, int>(ShowStatus_Internal);
+            try
+            {
+                Invoke(action, text, panelId);
+            }
+            catch { }
+
+
+            if (timeout > 0)
+            {
+                new Timer(id =>
+                {
+                    try
+                    {
+                        Invoke(action, "Ready", (int) id);
+                    }
+                    catch { }
+                }, panelId, timeout ,0);                                
+            }
+
+                
+        }
+
+        #endregion
+
+        #region  Preview Browser and Ace Editor Interaction
+
+        private AceInterop AceInterop;
+
+        private void PreViewBrowser_DocumentCompleted(object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e)
+        {
+            if (AceInterop == null)
+                AceInterop = new AceInterop(this);
+
+            AceInterop.InitializeInterop();
+        }
+
         private void PreViewBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
             string url = e.Url.ToString();
@@ -1027,96 +1137,11 @@ namespace WebSurge
             e.Cancel = true;
         }
 
-
-        void AddRecentFiles(object sender = null, CancelEventArgs e = null)
+        private void BrowserContextMenu_Opening(object sender, CancelEventArgs e)
         {
-            RecentFilesContextMenu.Items.Clear();
-
-            if (App.Configuration.RecentFiles == null)
-                return;
-
-            int x = 0;
-            foreach (var s in App.Configuration.RecentFiles)
-            {
-                x++;
-
-                if (!File.Exists(s))
-                    continue;
-
-                if (!string.IsNullOrEmpty(FileName) &&
-                    s.ToLower() == FileName.ToLower())
-                    continue;
-                
-                var btn = new ToolStripMenuItem
-                {
-                    Text = s,
-                    Name = "RecentFile_" + (x -1),
-                    ImageKey = "websurge"
-                };
-
-                btn.Click +=
-                    (snd, args) =>
-                    {
-                        var bt = snd as ToolStripMenuItem;
-                        OpenFile(bt.Text);                        
-                    };
-
-                RecentFilesContextMenu.ImageList = Images;
-                RecentFilesContextMenu.Items.Add(btn);   
-            }
+            btnCopyResponseTraceToClipboard.Enabled = !string.IsNullOrEmpty(ActiveRequest?.StatusCode);
         }
 
-        public void CheckForNewVersion(bool force = false)
-        {
-            var updater = new ApplicationUpdater(typeof(Program));            
-            if (updater.NewVersionAvailable(!force))
-            {
-                if (MessageBox.Show(updater.VersionInfo.Detail + "\r\n" +
-                    "Do you want to download and install this version?",
-                    updater.VersionInfo.Title,
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Information) == DialogResult.Yes)
-                {
-                    ShellUtils.GoUrl(App.InstallerDownloadPage);
-                    //updater.DownloadProgressChanged += updater_DownloadProgressChanged;
-                    //ShowStatus("Downloading Update - Version " + updater.VersionInfo.Version);
-                    //updater.Download();
-                    //updater.ExecuteDownloadedFile();
-                    //ShowStatus("Download completed.");
-                    Application.Exit();
-                }
-            }
-            App.Configuration.CheckForUpdates.LastUpdateCheck = DateTime.UtcNow.Date;            
-        }
-
-
-        private RegisterDialog regForm;
-
-        public void ShowStatus(string text = null, int panelId = 1, int timeout = 0)
-        {
-
-            var action = new Action<string, int>(ShowStatus_Internal);
-            try
-            {
-                Invoke(action, text, panelId);
-            }
-            catch { }
-
-
-            if (timeout > 0)
-            {
-                new Timer(id =>
-                {
-                    try
-                    {
-                        Invoke(action, "Ready", (int) id);
-                    }
-                    catch { }
-                }, panelId, timeout ,0);                                
-            }
-
-                
-        }
         #endregion
 
         #region Event Handling
@@ -1766,11 +1791,6 @@ any reported issues.";
         {
             ShowStatus("Downloading Update: " + (e.BytesReceived/1000).ToString("n0") + "kb  of  " +
                        (e.TotalBytesToReceive/1000).ToString("n0") + "kb");
-        }
-
-        private void BrowserContextMenu_Opening(object sender, CancelEventArgs e)
-        {
-            btnCopyResponseTraceToClipboard.Enabled = !string.IsNullOrEmpty(ActiveRequest?.StatusCode);
         }
 
         #endregion
