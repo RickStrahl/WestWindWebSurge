@@ -8,11 +8,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSurge.Core;
+using WebSurge.Editor;
 using WebSurge.Support;
 using Westwind.Utilities;
 using Timer = System.Threading.Timer;
@@ -1781,8 +1781,32 @@ any reported issues.";
             if (tb == null)
                 return;
 
-            var editForm = new EditForm(tb);
+            var header= ActiveRequest.Headers.FirstOrDefault(h => h.Name.Equals("content-type", StringComparison.OrdinalIgnoreCase));
+            string format = "text";
+            if (tb == txtRequestHeaders)
+                format = "http";
+            else if (header != null && tb == txtRequestContent)
+            {
+                var ct = header.Value;
+                if (ct == "text/xml")
+                    format = "xml";
+                if (ct == "application/json")
+                    format = "json";
+            }
+
+            var editForm = new EditForm(new EditorFormParameters
+            {
+                Content = tb.Text, 
+                Syntax = format, 
+                // not updated since Content is passed
+                TextBoxToUpdate = tb
+            });
+            editForm.Text = $"Content Editor ({format})";
             editForm.ShowDialog();
+
+            if (!editForm.Cancelled)
+                tb.Text = editForm.EditorText;
+
         }
 
         private void HeadersContentSplitter_SplitterMoved(object sender, SplitterEventArgs e)
