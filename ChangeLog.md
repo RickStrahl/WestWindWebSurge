@@ -7,16 +7,14 @@
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 
-### Version 1.15
+### Version 1.16
 <i><small>not released yet</small></i>
 
 * **Allow editing Request Data in Previewer**  
-You can now interactively edit the request data in the preview window using rich JSON/XML editing to edit the content for the POST content which is more flexible than the static text box.
+You can now interactively edit the request data in the preview window using rich JSON/XML and HTTP header editing to edit the content for POST content and the HTTP Headers for each request. Editing in the preview is quicker and provides a richer editing experience than using the request entry form. Requests still have to be created in the request editor, but once created updating and customization of requests can be done in the previewer.
 
-```
-int x = 1;
-x++
-```
+* **Add Syntax Highlighting to pop-out Request Editor**  
+Added syntax highlighting to the popout editor available when double clicking on the request editor. The editor pops up with the appropriate syntax highlighting for HTTP headers or Request content in xml, json format. The editor is a full editor interface with better support for text spacing and re-alignment that makes it easier to edit text.
 
 * **Import and Export Postman Collections**  
 You can now use the **File -> Import** to import Postman collections into WebSurge and **File -> Export** to export WebSurge sessions into Postman Collections.
