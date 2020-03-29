@@ -40,7 +40,6 @@ namespace SimpleStressTester.Tests
         public void FileRequestWriterBasic()
         {
             var stressTester = new StressTester();
-            List<HttpRequestData> reqs;
 
             int requestCount = 10_000_001;
 
@@ -67,28 +66,28 @@ namespace SimpleStressTester.Tests
 
                 watch.Stop();
                 Console.WriteLine("Time: " + watch.ElapsedMilliseconds.ToString("n0"));
-                Console.WriteLine("Memory: " + Process.GetCurrentProcess().PrivateMemorySize.ToString("n0"));
+                Console.WriteLine("Memory: " + Process.GetCurrentProcess().PrivateMemorySize64.ToString("n0"));
                 
                 return;
                 
-                watch.Reset();
-                watch.Start();
+                //watch.Reset();
+                //watch.Start();
 
 
              
-                reqs = writer.GetResults();
+                //reqs = writer.GetResults();
 
-                watch.Stop();
-                Console.WriteLine("Assemble Time: " + watch.ElapsedMilliseconds.ToString("n0"));
+                //watch.Stop();
+                //Console.WriteLine("Assemble Time: " + watch.ElapsedMilliseconds.ToString("n0"));
 
 
-                return;
+                //return;
 
-                Assert.IsNotNull(reqs, "Requests are null");
+                //Assert.IsNotNull(reqs, "Requests are null");
 
-                Assert.IsTrue(writer.RequestsProcessed == requestCount);
+                //Assert.IsTrue(writer.RequestsProcessed == requestCount);
 
-                Assert.IsTrue(reqs.Count == requestCount);
+                //Assert.IsTrue(reqs.Count == requestCount);
             }
 
         }

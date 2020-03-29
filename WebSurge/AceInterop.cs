@@ -47,7 +47,7 @@ namespace WebSurge
             {
                 Program.WebSurgeForm.PreViewBrowser.Document.InvokeScript("initializeInterop", new object[] {this});
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

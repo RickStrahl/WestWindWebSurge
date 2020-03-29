@@ -78,9 +78,15 @@ namespace WebSurge.Editor
                     if (Parameters.Content == null && Parameters.TextBoxToUpdate != null)
                         Parameters.TextBoxToUpdate.Text = text;
                 };
+                
+                var theme = Program.WebSurgeForm.StressTester?.Options?.FormattedPreviewTheme;
+                if (!string.IsNullOrEmpty(theme))
+                    AceEditorInterop.SetTheme(theme);
+
                 AceEditorInterop.SetSyntax(Parameters.Syntax);
                 AceEditorInterop.SetValue(OriginalText);
                 AceEditorInterop.SetFocus();
+                
 
                 // set cursor position
                 if (Parameters.TextBoxToUpdate != null)

@@ -140,7 +140,11 @@ namespace WebSurge.Editor
             Invoke("setselection", text);
         }
 
-
+        
+        public void SetTheme(string theme)
+        {
+            Invoke("setTheme", theme);
+        }
         #endregion
 
 
@@ -153,7 +157,7 @@ namespace WebSurge.Editor
                 var jsEditor = webBrowser.Document.InvokeScript("initializeinteropsimple", new object[] {this});
                 return jsEditor;
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

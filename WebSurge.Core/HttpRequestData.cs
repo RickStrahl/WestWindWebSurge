@@ -510,7 +510,7 @@ namespace WebSurge
             if (!string.IsNullOrEmpty(req.RequestContent))
             {
                 sb.AppendLine();
-                sb.AppendLine(HtmlUtils.HtmlEncode(req.RequestContent.Trim()));
+                sb.AppendLine(WebUtility.HtmlEncode(req.RequestContent.Trim()));
             }
 
             sb.AppendLine("</pre>");
@@ -535,7 +535,7 @@ namespace WebSurge
                 sb.AppendLine(req.ResponseHeaders);
 
                 if (req.ResponseContent != null)
-                    sb.Append(HtmlUtils.HtmlEncode(req.ResponseContent.Trim()));
+                    sb.Append(WebUtility.HtmlEncode(req.ResponseContent.Trim()));
             }
 
             if (!asDocument)

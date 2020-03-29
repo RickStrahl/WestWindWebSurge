@@ -30,7 +30,7 @@ namespace SimpleStressTester.Tests
         }
 
         [TestMethod]
-        public async Task ReusePlainHTtpRequest()
+        public void ReusePlainHTtpRequest()
         {
             string url = "http://localhost/aspnetperf/static.htm";
 
@@ -51,7 +51,7 @@ namespace SimpleStressTester.Tests
         }
 
         [TestMethod]
-        public async Task RecreatePlainHttpRequest()
+        public void RecreatePlainHttpRequest()
         {
             string url = "http://localhost/aspnetperf/static.htm";
 
