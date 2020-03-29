@@ -538,19 +538,27 @@ namespace WebSurge
                 if (!string.IsNullOrEmpty(cookieValue) && !string.IsNullOrEmpty(result.Url))
                 {
                     // check if the cookie already exists in the container
-                    var rawCookies = cookieContainer.GetCookies(new Uri(result.Url));
+                    var cookieCollection = cookieContainer.GetCookies(new Uri(result.Url));
 
-                    var values = cookieValue.Split(new[] { ';', ',', '=' },
-                        StringSplitOptions.RemoveEmptyEntries);
-
-                    for (int x = 0; x < values.Length; x = x + 2)
+                    var fullCookies = cookieValue.Split(';');
+                    for (var i = 0; i < fullCookies.Length; i++)
                     {
+                        var fullCookie = fullCookies[i].Trim();
+
+                        var ix = fullCookie.IndexOf('=');
+                        if (ix < 0)
+                            continue;
+
+                        string key = fullCookie.Substring(0, ix);
+                        string value = null;
+                        if (fullCookie.Length > ix + 1)
+                            value = fullCookie.Substring(ix + 1);
+
                         bool exists = false;
-                        var key = values[x].Trim();
-                        foreach (Cookie ck in rawCookies)
+                        foreach (Cookie ck in cookieCollection)
                         {
                             if (ck.Name == key)
-                            {                             
+                            {
                                 exists = true;
                                 break;
                             }
@@ -558,9 +566,9 @@ namespace WebSurge
 
                         if (!exists)
                         {
-                            string value = values[x + 1].Trim();
-
-                            cookieContainer.Add(new Cookie(key,WebUtility.UrlEncode(value),"/",new Uri(result.Url).DnsSafeHost));
+                            cookieContainer.Add(new Cookie(key,
+                                WebUtility.UrlEncode(value), "/",
+                                new Uri(result.Url).DnsSafeHost));
                         }
                     }
                 }
