@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebSurge</RootNamespace>
     <AssemblyName>WebSurge.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -53,8 +53,8 @@
     <Reference Include="Westwind.RazorHosting, Version=3.3.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Westwind.RazorHosting.3.3.9\lib\net45\Westwind.RazorHosting.dll</HintPath>
     </Reference>
-    <Reference Include="Westwind.Utilities, Version=3.0.30.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Westwind.Utilities.3.0.30\lib\net40\Westwind.Utilities.dll</HintPath>
+    <Reference Include="Westwind.Utilities, Version=3.0.36.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Westwind.Utilities.3.0.36\lib\net46\Westwind.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

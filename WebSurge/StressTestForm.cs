@@ -963,7 +963,9 @@ namespace WebSurge
                     txtConsole.Visible = false;
                 }
                 else
+                {
                     PreViewBrowser.Url = new Uri(file);
+                }
             }
             else
                 ShellUtils.GoUrl(file);
@@ -1594,10 +1596,26 @@ namespace WebSurge
                         ShowStatus("Postman import failed.", timeout: 5000);
                     else
                     {
-                        CloseSession();
-                        Requests = requests.Requests;
+                        if (Requests != null && Requests.Count > 0)
+                        {
+                            if (MessageBox.Show(
+                                "Do you want to append the imported requests to the current WebSurge session?",
+                                "Import from PostMan",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question,
+                                MessageBoxDefaultButton.Button1) == DialogResult.No)
+                            {
+                                CloseSession();
+                                Requests = requests.Requests;
+                            }
+                            else
+                                Requests.AddRange(requests.Requests);
+                        }
+                        else 
+                            Requests = requests.Requests;
+
                         RenderRequests(Requests);
-                        ShowStatus("Import completed", timeout: 5000);
+                        ShowStatus("Postman Session Import completed.", timeout: 5000);
                     }
                 }
 

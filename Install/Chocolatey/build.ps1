@@ -6,7 +6,7 @@
 
 cd "$PSScriptRoot" 
 
-$releasePath = "C:\projects2010\WebSurgeReleases"
+$releasePath = "C:\projects\WebSurgeReleases"
 
 #$file = "WebSurgeSetup-0.55.exe"
 $file = gci "$releasePath" | sort LastWriteTime | select -last 1 | select -ExpandProperty "Name"
