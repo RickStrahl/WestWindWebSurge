@@ -1,5 +1,6 @@
 ﻿@inherits Westwind.RazorHosting.RazorTemplateFolderHost<HttpRequestData>
 @using WebSurge
+@using System.Linq
 @{    
     string responseBodyType = Model.GetTypeOfContent();
     string requestBodyType = Model.GetTypeOfContent(Model.ContentType);
@@ -32,14 +33,31 @@
 
         <i class="fa fa-minus-square code-collapse"></i> <i class="fa fa-upload"></i> Request Headers
     </div>
+<style>
+    .first-line {
+        margin: 8px 10px 0;
+        font-family: Consolas;        
+    }
+    #HttpVerb {
+        color: darkred;font-size: 1.3em;
+    }
+    #RequestHeaders, #ResponseHeaders {
+        border: none;
+        margin: 10px 0 0
+    }    
+</style>
+@{
+    var sb = new StringBuilder();
+    foreach (WebSurge.HttpRequestHeader header in @Model.Headers.Where(h=> !string.IsNullOrEmpty(h.Value) )) {
+        sb.AppendLine(header.Name + ": " + header.Value);
+    }
+    var headers = sb.ToString().Trim();
+}
 
-    <div class="codewrapper">
-        <pre class="grey-gradient">
-<div class="first-line wrapline"><span style="color: darkred;font-size: 1.3em;">@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>@foreach (WebSurge.HttpRequestHeader header in @Model.Headers)
-    {
-<text>@header.Name: @header.Value</text>
-    }</pre>
-    </div>
+<div class="codewrapper grey-gradient">        
+    <div class="first-line"><span id="HttpVerb">@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>
+    <pre id="RequestHeaders">@headers</pre>
+</div>
     @if (!string.IsNullOrEmpty(Model.RequestContent))
     {
 
@@ -82,8 +100,9 @@
                 First byte: <b>@(Model.TimeToFirstByteMs.ToString("n0"))ms</b>                
             </div>
         </div>
-        <div class="codewrapper">
-            <pre class="grey-gradient"><div class="@cssClass first-line wrapline">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>@Model.ResponseHeaders</pre>
+        <div class="codewrapper grey-gradient">            
+            <div class="@cssClass first-line">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>
+            <pre id="ResponseHeaders">@Model.ResponseHeaders</pre>        
         </div>
 
         if (Model.ResponseContent != null)
@@ -94,10 +113,11 @@
                 {
                     if ("html,json,xml,css,javascript".Contains(responseBodyType))
                     {
-                        <div class="formattingResponseBody">
-                            @if ("xml,html,json".Contains(responseBodyType))
+                        <div class="formattingResponseBody">                            
+                            @if ("xml,html,json,js".Contains(responseBodyType))
                             {
-                                <a href="app://preview/" title="Use the configured Shell association to view the content. This is your default browser for HTML and editor or viewer for XML and JSON typically">Viewer</a>
+                                <a href="app://preview/" 
+                                   title="Use the configured Shell association to view the content. This is your default browser for HTML and editor or viewer for XML and JSON typically">Viewer</a>
                             }
                             <a href="javascript:{}" data-id="Formatted" title="See a formatted and syntax colored view of the HTTP response based on the content type">Formatted @responseBodyType</a>
                             <a href="javascript:{}" data-id="Raw" class="active" title="The raw HTTP response content as returned by the server">Raw Response</a>

@@ -4,7 +4,7 @@
         }
         .header, .header-response {
              margin-top: 20px;
-             margin-bottom: 0;
+             margin-bottom: 5px;
              font-size: 1.1em;
              padding: 5px 10px 5px;
         }
@@ -15,7 +15,7 @@
             font-family: Consolas, "Courier New", monospace;
             font-size: 10pt;
             color: #222 !important;
-            padding: 5px 12px 15px;            
+            padding: 15px 12px 5px;            
         }    
 		
 		.code>div {
@@ -65,15 +65,17 @@
             max-width: 100%;
             overflow-x: scroll;
         }
-       .ace_editor, .ace_editor * {
-            font-family: "Menlo", Consolas,  "Courier New", monospace !important;
-            font-size: 10pt !important;            
-            font-weight: normal !important;
-            letter-spacing: 0 !important;
-            background: transparent;           
+       .ace_editor {
+            font-family:  Consolas, monospace;
+            font-weight: 500;
+            font-size: 13.5px;
+            line-height: 1.3;
+            background: transparent;  
+            border: none
+               
         }
-        .ace_content {
+        /* .ace_content {
             padding-top: 5px !important;
             padding-left: 0px;                        
-        }    
+        }     */
     

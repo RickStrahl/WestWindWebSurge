@@ -81,25 +81,24 @@ function configureAceEditor(editor, serverVars) {
 
     // set below
     //session.setMode("ace/mode/" + serverVars.language);
-    editor.setFontSize(13);
+    //editor.setFontSize(13);
 
-    editor.setHighlightActiveLine(false);
-    editor.setReadOnly(true);
-
+    editor.setOptions({readOnly: true, highlightActiveLine: false, highlightGutterLine: false});    
+    editor.renderer.$cursorLayer.element.style.display = "none" // hide cursor
     
 
     if (serverVars.allowEdit) {            
         editor.on("focus", function() {
-            editor.setReadOnly(false);
-            editor.setHighlightActiveLine(true);            
+            editor.setOptions({readOnly: false, highlightActiveLine: true, highlightGutterLine: true});
+            editor.renderer.$cursorLayer.element.style.display = "block"
         });
 
         // Notify WPF of focus change
         editor.on("blur", function() { 
-            editor.setReadOnly(true);
-            editor.setHighlightActiveLine(false);
-            var text = editor.getSession().getValue(); 
-            debugger;           
+            editor.setOptions({readOnly: true, highlightActiveLine: false, highlightGutterLine: false});
+            editor.renderer.$cursorLayer.element.style.display = "none" // hide cursor
+
+            var text = editor.getSession().getValue();                      
             if (websurge.application) {                
                 websurge.application.updatefromeditor(text, editor.id);
             }
@@ -132,12 +131,31 @@ var lang = serverVars.requestLanguage;
 if (lang == "urlencoded")
     lang = "text";
 
-try {
+try {    
+    window.aceEditorRequest = ace.edit("RequestHeaders");
+    window.aceEditorRequest.id = "RequestHeaders";
+    serverVars.allowEdit = true;
+    configureAceEditor(aceEditorRequest, serverVars);
+    aceEditorRequest.getSession().setMode("ace/mode/http");
+}
+catch(e) { }
+
+try {    
     window.aceEditorRequest = ace.edit("RequestBodyFormatted");
     window.aceEditorRequest.id = "RequestBodyFormatted";
     serverVars.allowEdit = true;
     configureAceEditor(aceEditorRequest, serverVars);
     aceEditorRequest.getSession().setMode("ace/mode/" + lang);
+}
+catch(e) { }
+
+
+try {    
+    window.aceEditorRequest = ace.edit("ResponseHeaders");
+    window.aceEditorRequest.id = "ResponseHeaders";
+    serverVars.allowEdit = false;
+    configureAceEditor(aceEditorRequest, serverVars);
+    aceEditorRequest.getSession().setMode("ace/mode/http");
 }
 catch(e) { }
 
@@ -149,6 +167,7 @@ try {
     aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
 } 
 catch(e) { }
+
 
 //}, 0);
 
