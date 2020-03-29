@@ -1,5 +1,7 @@
 var editorSettings = {
   "dictionary": "EN_US",
+  "enableSpellChecking": true,
+  "spellcheckerErrorLimit": 150, // limit of errors per screen before considered wrong language
   "theme": "vscodelight",
   "font": "Consolas",
   "fontSize": 14,

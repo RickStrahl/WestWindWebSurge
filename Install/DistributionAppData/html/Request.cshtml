@@ -33,9 +33,6 @@
 
         <i class="fa fa-minus-square code-collapse"></i> <i class="fa fa-upload"></i> Request Headers
     </div>
-<style>
-    
-</style>
 @{
     var sb = new StringBuilder();
     foreach (WebSurge.HttpRequestHeader header in @Model.Headers.Where(h=> !string.IsNullOrEmpty(h.Value) )) {

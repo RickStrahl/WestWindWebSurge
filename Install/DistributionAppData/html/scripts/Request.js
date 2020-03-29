@@ -73,15 +73,6 @@ function configureAceEditor(editor, serverVars) {
     var session = editor.getSession();
 
     editor.setTheme("ace/theme/" + serverVars.theme);
-    //editor.setTheme("ace/theme/textmate");
-    //editor.setTheme("ace/theme/clouds");
-    //editor.setTheme("ace/theme/xcode");
-    //editor.setTheme("ace/theme/eclipse");
-    //editor.setTheme("ace/theme/mono_industrial");
-
-    // set below
-    //session.setMode("ace/mode/" + serverVars.language);
-    //editor.setFontSize(13);
 
     editor.setOptions({readOnly: true, highlightActiveLine: false, highlightGutterLine: false});    
     editor.renderer.$cursorLayer.element.style.display = "none" // hide cursor
@@ -95,11 +86,12 @@ function configureAceEditor(editor, serverVars) {
 
         // Notify WPF of focus change
         editor.on("blur", function() { 
+            
             editor.setOptions({readOnly: true, highlightActiveLine: false, highlightGutterLine: false});
             editor.renderer.$cursorLayer.element.style.display = "none" // hide cursor
 
-            var text = editor.getSession().getValue();                      
-            if (websurge.application) {                
+            var text = editor.getSession().getValue();                                  
+            if (websurge.application) {                         
                 websurge.application.updatefromeditor(text, editor.id);
             }
         });
@@ -140,7 +132,6 @@ try {
 }
 catch(e) { }
 
-
 try {    
     window.aceEditorRequest = ace.edit("RequestBodyFormatted");
     window.aceEditorRequest.id = "RequestBodyFormatted";
@@ -169,7 +160,7 @@ setTimeout(function() {
         aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
     } 
     catch(e) { }
-},20);
+},50);
 
 
 //}, 0);
