@@ -3,8 +3,8 @@
             margin: 0;
         }
         .header, .header-response {
-             margin-top: 20px;
-             margin-bottom: 5px;
+             margin-top: 20px; 
+             margin-bottom: 0;            
              font-size: 1.1em;
              padding: 5px 10px 5px;
         }
@@ -13,8 +13,7 @@
         pre,.code {            
 			margin: 0;
             font-family: Consolas, "Courier New", monospace;
-            font-size: 10pt;
-            color: #222 !important;
+            font-size: 10pt;            
             padding: 15px 12px 5px;            
         }    
 		
@@ -22,13 +21,7 @@
 			margin: 0 0 1px 0;
 			padding: 0;
 		}
-		.first-line {            
-			font-size: 1.07em;
-            font-weight: bold;
-			padding: 4px 0px 5px 0;
-			margin-bottom: 3px;
-			border-bottom: 1px solid lightgrey;
-        }
+		
 		.wrapline {
 		   text-indent: -31px;
 		   padding-left: 31px !important;
@@ -58,6 +51,24 @@
             .formattingResponseBody a:hover {
                 background: lightsteelblue;                                
             }
+
+        .first-line {            
+            font-size: 1.30em;
+            font-weight: 600;
+            padding: 4px 0 0 0;						        
+            margin: 8px 0 0 10px;
+            font-family: Consolas;    
+            font-weight: 600;    
+        }
+        #HttpVerb {
+            color: darkred;
+            font-size: 1.12em;
+            font-weight:bold;
+        }
+        #RequestHeaders, #ResponseHeaders {
+            border: none;
+            margin: 5px 0 0
+        }                
         .codedisplay {
             padding: 15px;
             opacity: 1;
@@ -68,14 +79,19 @@
        .ace_editor {
             font-family:  Consolas, monospace;
             font-weight: 500;
-            font-size: 13.5px;
-            line-height: 1.3;
-            background: transparent;  
-            border: none
-               
+            font-size: 13.5px;                      
+            border: none;    
+            padding-bottom: 8px; 
+            line-height: 1.45;       
         }
-        /* .ace_content {
-            padding-top: 5px !important;
-            padding-left: 0px;                        
-        }     */
-    
+        .ace_content {
+            margin-top: 8px;            
+                              
+        }     
+
+        .ace-vslight, .ace-vs {
+            color: #050505;
+            background-color: #FCFCFC;
+            background: linear-gradient(to bottom, #fcfcfc 0%, #eee 100%);
+        }
+            

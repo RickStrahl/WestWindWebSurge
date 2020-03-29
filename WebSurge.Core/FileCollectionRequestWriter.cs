@@ -143,18 +143,13 @@ namespace WebSurge
 
             foreach (var file in files)
             {
-                int x = 0;
-
                 if (!EnsureFileExists(file))
                     return null;
 
                 var reqs = JsonSerializationUtils.DeserializeFromFile(file, typeof(List<HttpRequestData>),true) as List<HttpRequestData>;
                 if(reqs != null)
                     list.AddRange(reqs);
-                else
-                {
-                    int yx = 1;
-                }
+              
             }
 
             list.AddRange(Results);

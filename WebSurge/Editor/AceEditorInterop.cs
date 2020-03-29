@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Westwind.Utilities;
 
 namespace WebSurge.Editor
@@ -22,7 +25,7 @@ namespace WebSurge.Editor
         /// Notifies you when text is updated:
         /// `TextUpdated = text => this.editorText = text;`
         /// </summary>
-        public Action<string> TextUpdated {get; set;}
+        public Action<string> TextUpdated { get; set; }
 
 
         public AceEditorInterop(WebBrowser webBrowser)
@@ -40,7 +43,7 @@ namespace WebSurge.Editor
 
         public string GetValue()
         {
-            return Invoke("getvalue",false) as string;
+            return Invoke("getvalue", false) as string;
         }
 
         public void SetValue(string text)
@@ -48,17 +51,18 @@ namespace WebSurge.Editor
             Invoke("setvalue", text);
         }
 
-      
+
 
         protected void OnTextUpdated(string text)
         {
             TextUpdated?.Invoke(text);
         }
+
         #endregion
 
 
         #region Callbacks from Editor
-        
+
         /// <summary>
         /// ACE Editor Notification when focus is lost
         /// </summary>
@@ -107,7 +111,7 @@ namespace WebSurge.Editor
         public void CopyOperation()
         {
             var text = GetSelection();
-            text =StringUtils.NormalizeLineFeeds(text, LineFeedTypes.CrLf);
+            text = StringUtils.NormalizeLineFeeds(text, LineFeedTypes.CrLf);
             Clipboard.SetText(text);
         }
 
@@ -116,7 +120,23 @@ namespace WebSurge.Editor
         {
         }
 
-        
+
+        /// <summary>
+        /// Configure Ace Editor from a configuration object passed as JSON
+        /// to the client.
+        /// </summary>
+        /// <param name="config"></param>
+        public void ConfigureEditor(AceEditorConfiguration config)
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            };
+            var json =  JsonConvert.SerializeObject(config, settings);
+            Invoke("setEditorStyle", json);
+        }
+
+
         /// <summary>
         /// Sets focus to the editor
         /// </summary>
@@ -134,17 +154,18 @@ namespace WebSurge.Editor
             return Invoke("getselection", false) as string;
         }
 
-        
+
         public void SetSelection(string text)
         {
             Invoke("setselection", text);
         }
 
-        
+
         public void SetTheme(string theme)
         {
             Invoke("setTheme", theme);
         }
+
         #endregion
 
 
@@ -157,14 +178,14 @@ namespace WebSurge.Editor
                 var jsEditor = webBrowser.Document.InvokeScript("initializeinteropsimple", new object[] {this});
                 return jsEditor;
             }
-            catch 
+            catch
             {
 
             }
 
             return null;
         }
-        
+
 
         private const BindingFlags flags =
             BindingFlags.Public | BindingFlags.NonPublic |
@@ -186,7 +207,8 @@ namespace WebSurge.Editor
             try
             {
 #endif
-                return EditorInteropType.InvokeMember(method, flags | BindingFlags.InvokeMethod, null, EditorInstance, parameters );
+                return EditorInteropType.InvokeMember(method, flags | BindingFlags.InvokeMethod, null, EditorInstance,
+                    parameters);
 #if DEBUG
             }
             catch (Exception ex)
@@ -201,4 +223,33 @@ namespace WebSurge.Editor
         #endregion
 
     }
+
+    public class AceEditorConfiguration
+    {
+        public string Theme { get; set; } = "vscodelight";
+        public int FontSize { get; set; } = 14;
+        // public decimal MaxWidth { get; set; } =
+        public string Font { get; set; } = "Consolas";
+        public decimal LineHeight { get; set; } = 1.4M;
+        public int Padding { get; set; } = 10;
+        public bool HighlightActiveLine { get; set; } = true;
+        public bool WrapText { get; set; } = false;
+        public bool ShowLineNumbers { get; set; } = false;
+        public bool ShowInvisibles { get; set; } = false;
+        public bool ShowPrintMargin { get; set; } = false;
+        public int PrintMargin { get; set; } = 100;
+        public int WrapMargin { get; set; } = 0;
+        // public string KeyboardHandler { get; set; } 
+        public bool EnableBulletAutoCompletion { get; set; } = false;
+        public int TabSize { get; set; } = 4;
+        public bool UseSoftTabs { get; set; } = true;
+        public bool RightToLeft { get; set; } = false;
+        public bool ClickableLinks { get; set; } = true;
+        public string LinefeedMode { get; set; } = "windows";
+    }
+
 }
+
+
+
+

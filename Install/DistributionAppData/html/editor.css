@@ -72,3 +72,9 @@ body .ace_scrollbar-h {
   overflow-x: auto;
 }
 
+
+.ace-vslight, .ace-vs {
+    color: #050505;
+    background-color: #FCFCFC;
+    background: linear-gradient(to bottom, #fcfcfc 0%, #eee 100%);
+}

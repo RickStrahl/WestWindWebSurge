@@ -149,7 +149,7 @@ define("ace/mode/http_highlight_rules",["require","exports","module","ace/lib/oo
                 },
                 {
                     regex : "application/json|text/xml|multipart/mixed|application/x-www-form-urlencoded|multipart/form-data|text/html" +
-                    "|Bearer|if-modified|no-cache|bytes|chunked|keep-alive",                    
+                    "|Bearer|if-modified|no-cache|bytes|chunked|keep-alive|Keep-Alive",                    
                     token : "constant.keyword",                   
                 },
                 {

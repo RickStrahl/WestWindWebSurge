@@ -252,6 +252,7 @@ a {
    text-decoration: none;
    text-decoration-color: transparent;
 }
+/*
 .highlight-container {
     clear: both;
     margin: 20px 0 35px;
@@ -262,7 +263,6 @@ a {
     flex-wrap: wrap;    
     
 }
-
 .highlight-numbers {
    font-size: 2.5em; 
    font-weight: bold;
@@ -299,4 +299,4 @@ a {
 }
 .highlight-numbers.stats {
     border-left: solid 5px goldenrod;
-}    
+}     */

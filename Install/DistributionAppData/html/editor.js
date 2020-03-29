@@ -722,8 +722,13 @@
             }
             //},1);
 
-
             setTimeout(te.updateDocumentStats, 30);
+        },
+        setTheme: function(theme) {
+            var activeTheme = te.editor.getTheme();
+            var theme = "ace/theme/" + theme;
+            if (activeTheme !== theme)
+                te.editor.setTheme(theme);
         },
         setShowLineNumbers: function (showLineNumbers) {
             te.editor.renderer.setShowGutter(showLineNumbers);
@@ -1150,14 +1155,19 @@ function initializeinterop(textbox, jsonStyle) {
     return window.textEditor;
 }
 
-function initializeinteropSimple(textbox) {
+function initializeinteropSimple(textbox, jsonStyle) {
     var te = window.textEditor;
 
     te.mm = {};
     te.mm.textbox = textbox;
 
     te.isEditorSimple = true;
-    te.initialize(null);
+
+    var style = null;
+    if (jsonStyle)
+        style = JSON.parse(jsonStyle);
+
+    te.initialize(style);
 
     return window.textEditor;
 }

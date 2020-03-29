@@ -34,17 +34,7 @@
         <i class="fa fa-minus-square code-collapse"></i> <i class="fa fa-upload"></i> Request Headers
     </div>
 <style>
-    .first-line {
-        margin: 8px 10px 0;
-        font-family: Consolas;        
-    }
-    #HttpVerb {
-        color: darkred;font-size: 1.3em;
-    }
-    #RequestHeaders, #ResponseHeaders {
-        border: none;
-        margin: 10px 0 0
-    }    
+    
 </style>
 @{
     var sb = new StringBuilder();
@@ -76,12 +66,11 @@
             <i class="fa fa-minus-square code-collapse"></i>
             <i class="fa fa-cloud-upload"></i> Request Content
         </div>
-        <div class="codewrapper">
-            <pre class="grey-gradient" id="RequestBodyRaw">@Model.GetRequestContentAsString()</pre>
-
+        <div class="codewrapper grey-gradient">
+            <pre class="grey-gradient" id="RequestBodyRaw" style="display:none">@Model.GetRequestContentAsString()</pre>
             @if (!string.IsNullOrEmpty(requestBodyType))
             {
-                <pre id="RequestBodyFormatted" class="grey-gradient" style="display:none">@Model.GetFormattedContent(Model.GetRequestContentAsString(),requestBodyType)</pre>
+                <pre id="RequestBodyFormatted" style="display:none">@Model.GetFormattedContent(Model.GetRequestContentAsString(),requestBodyType)</pre>
             }
         </div>
     }
@@ -102,7 +91,7 @@
         </div>
         <div class="codewrapper grey-gradient">            
             <div class="@cssClass first-line">HTTP/1.1 @Model.StatusCode @Model.StatusDescription</div>
-            <pre id="ResponseHeaders">@Model.ResponseHeaders</pre>        
+            <pre id="ResponseHeaders">@Model.ResponseHeaders.Trim()</pre>        
         </div>
 
         if (Model.ResponseContent != null)
@@ -129,10 +118,10 @@
                 <i class="fa fa-cloud-download"></i> Http Response Body 
             </div>
             <div class="codewrapper">
-                <pre id="ResponseBodyRaw" class="grey-gradient" style="display:none">@Model.ResponseContent.Trim()</pre>
+                <pre id="ResponseBodyRaw"  style="display:none">@Model.ResponseContent.Trim()</pre>
                 @if (responseBodyType != null)
                 {
-                    <pre id="ResponseBodyFormatted" class="grey-gradient">@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseBodyType)</pre>
+                    <pre id="ResponseBodyFormatted" style="display:none" >@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseBodyType)</pre>
                 }
             </div>
         }

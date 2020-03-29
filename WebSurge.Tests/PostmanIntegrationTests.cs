@@ -38,7 +38,8 @@ namespace SimpleStressTester.Tests
 
             var postman = new PostmanIntegration();
 
-            var requests = postman.ImportFromFile(STR_PostmanCollectionFile);
+            string file = @"c:\temp\PostMan.txt";
+            var requests = postman.ImportFromFile(file);
 
             Assert.IsNotNull(requests, "Requests failed to import.");
 

@@ -105,14 +105,15 @@ namespace WebSurge.Support
 
                 var req = new HttpRequestData();
                 req.Url = item.request.url.raw;
-                req.Name = item.name;
+                if (req.Url != item.name)
+                    req.Name = item.name;
                 req.HttpVerb = item.request.method;
                 
                 req.RequestContent = item.request.body?.raw;
 
                 foreach (var header in item.request.header)
                 {
-                    req.Headers.Add(new HttpRequestHeader { Name = header.name, Value = header.value});
+                    req.Headers.Add(new HttpRequestHeader { Name = header.key ?? header.name, Value = header.value?.Trim()});
                 }
 
                 if (item.request.auth?.ntlm != null && item.request.auth?.ntlm.Count > 0)

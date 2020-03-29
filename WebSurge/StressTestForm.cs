@@ -1557,6 +1557,52 @@ namespace WebSurge
                     }
                 }
             }
+            else if (sender == btnPostmanImport)
+            {
+                string filename, filepath;
+
+                if (!string.IsNullOrEmpty(FileName))
+                {
+                    filename = Path.GetFileName(FileName);
+                    filepath = Path.GetDirectoryName(FileName);
+                }
+                else
+                {
+                    filename = null;
+                    filepath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                }
+
+
+                var od = new OpenFileDialog
+                {
+                    Filter = "json files (*.json)|*.json|All files (*.*)|*.*",
+                    FilterIndex = 1,
+                    FileName = filename,
+                    InitialDirectory = filepath,
+                    RestoreDirectory = true,
+                    CheckFileExists = true,
+                    DefaultExt = "json",
+                    Title = "Select Postman file to import"
+                };
+                var result = od.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    var postman = new PostmanIntegration();
+                    var requests = postman.ImportFromFile(od.FileName);
+                    if (requests == null)
+                        ShowStatus("Postman import failed.", timeout: 5000);
+                    else
+                    {
+                        CloseSession();
+                        Requests = requests.Requests;
+                        RenderRequests(Requests);
+                        ShowStatus("Import completed", timeout: 5000);
+                    }
+                }
+
+
+            }
             else if (sender == btnFeedback)
             {
                 string msg = 

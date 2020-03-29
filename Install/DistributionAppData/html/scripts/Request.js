@@ -140,6 +140,7 @@ try {
 }
 catch(e) { }
 
+
 try {    
     window.aceEditorRequest = ace.edit("RequestBodyFormatted");
     window.aceEditorRequest.id = "RequestBodyFormatted";
@@ -147,7 +148,7 @@ try {
     configureAceEditor(aceEditorRequest, serverVars);
     aceEditorRequest.getSession().setMode("ace/mode/" + lang);
 }
-catch(e) { }
+catch(e) { }    
 
 
 try {    
@@ -159,14 +160,16 @@ try {
 }
 catch(e) { }
 
-try {
-    window.aceEditor = ace.edit("ResponseBodyFormatted");
-    window.aceEditor.id = "ResponseBodyFormatted";
-    serverVars.allowEdit = false;
-    configureAceEditor(aceEditor, serverVars);
-    aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
-} 
-catch(e) { }
+setTimeout(function() {
+    try {
+        window.aceEditor = ace.edit("ResponseBodyFormatted");
+        window.aceEditor.id = "ResponseBodyFormatted";
+        serverVars.allowEdit = false;
+        configureAceEditor(aceEditor, serverVars);
+        aceEditor.getSession().setMode("ace/mode/" + serverVars.responseLanguage);
+    } 
+    catch(e) { }
+},20);
 
 
 //}, 0);
