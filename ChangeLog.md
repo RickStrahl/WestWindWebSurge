@@ -8,7 +8,10 @@
 
 
 ### Version 1.16
-<i><small>not released yet</small></i>
+<i><small>March 30th, 2020</small></i>
+
+* **Import and Export Postman Collections**  
+You can now use the **File -> Import** to import Postman collections into WebSurge and **File -> Export** to export WebSurge sessions into Postman Collections.
 
 * **Allow editing Request Data in Previewer**  
 You can now interactively edit the request data in the preview window using rich JSON/XML and HTTP header editing to edit the content for POST content and the HTTP Headers for each request. Editing in the preview is quicker and provides a richer editing experience than using the request entry form. Requests still have to be created in the request editor, but once created updating and customization of requests can be done in the previewer.
@@ -16,17 +19,14 @@ You can now interactively edit the request data in the preview window using rich
 * **Add Syntax Highlighting to pop-out Request Editor**  
 Added syntax highlighting to the popout editor available when double clicking on the request editor. The editor pops up with the appropriate syntax highlighting for HTTP headers or Request content in xml, json format. The editor is a full editor interface with better support for text spacing and re-alignment that makes it easier to edit text.
 
-* **Import and Export Postman Collections**  
-You can now use the **File -> Import** to import Postman collections into WebSurge and **File -> Export** to export WebSurge sessions into Postman Collections.
+* **Update Report Summary Display Page**  
+Created a new more visual display for the Report Summary section. Shout out the request per seconds and failures at the top and group test stats vs. result stats using colored visual bars.
 
 * **Add Total Bytes Sent and Total Bytes Posted to Summaries**  
 Added Total bytes send and posted to the WebSurge summary result screens of both the GUI and Console apps.
 
 ### Version 1.14
 <i><small>April 22rd, 2019</small></i>
-
-* **Update Report Summary Display Page**  
-Created a new more visual display for the Report Summary section. Shout out the request per seconds and failures at the top and group test stats vs. result stats using colored visual bars.
 
 * **Add New Session Button and Menu Item** 
 Added options to more obviously create a new session, rather than just closing. Create New Session closes the old session and creates a new and highlights a new request entry.
