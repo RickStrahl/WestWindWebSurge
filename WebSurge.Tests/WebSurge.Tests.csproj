@@ -51,8 +51,8 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="Westwind.Utilities, Version=3.0.36.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Westwind.Utilities.3.0.36\lib\net46\Westwind.Utilities.dll</HintPath>
+    <Reference Include="Westwind.Utilities, Version=3.0.49.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Westwind.Utilities.3.0.49.6\lib\net46\Westwind.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
