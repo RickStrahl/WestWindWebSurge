@@ -29,13 +29,13 @@ If (Test-Path $AppData\html\_results.html) {
     remove-item  $AppData\html\_results.html
 }
 
-.\signtool.exe sign /v /n "West Wind Technologies" /sm /s MY /tr "http://timestamp.digicert.com" /td SHA256 /fd SHA256 "$tgt\WebSurge.exe"
-.\signtool.exe sign /v /n "West Wind Technologies"  /sm /s MY   /tr "http://timestamp.digicert.com" /td SHA256 /fd SHA256  "$tgt\WebSurgeCli.exe"
+.\signtool.exe sign /v /n "West Wind Technologies" /tr "http://timestamp.digicert.com" /td SHA256 /fd SHA256 "$tgt\WebSurge.exe"
+.\signtool.exe sign /v /n "West Wind Technologies" /tr "http://timestamp.digicert.com" /td SHA256 /fd SHA256  "$tgt\WebSurgeCli.exe"
 
 # "Running Inno Setup..."
-& "C:\Program Files (x86)\Inno Setup 5\iscc.exe" "WebSurge.iss" 
+& "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "WebSurge.iss" 
 
-.\signtool.exe sign /v /n "West Wind Technologies"  /sm /s MY /tr "http://timestamp.digicert.com" /td SHA256 /fd SHA256 "$release\WebSurgeSetup.exe"
+.\signtool.exe sign /v /n "West Wind Technologies" /tr "http://timestamp.digicert.com" /td SHA256 /fd SHA256 "$release\WebSurgeSetup.exe"
 
 
 .\7z a -tzip "$release\WebSurgeSetup.zip" "$release\WebSurgeSetup.exe"

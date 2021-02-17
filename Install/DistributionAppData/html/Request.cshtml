@@ -1,4 +1,4 @@
-﻿@inherits Westwind.RazorHosting.RazorTemplateFolderHost<HttpRequestData>
+@inherits Westwind.RazorHosting.RazorTemplateFolderHost<HttpRequestData>
 @using WebSurge
 @using System.Linq
 @{    
@@ -97,7 +97,7 @@
 
                 @if (responseBodyType != null)
                 {
-                    if ("html,json,xml,css,javascript".Contains(responseBodyType))
+                    if ("html,json,xml,css,javascript,image".Contains(responseBodyType))
                     {
                         <div class="formattingResponseBody">                            
                             @if ("xml,html,json,js".Contains(responseBodyType))
@@ -109,18 +109,26 @@
                             <a href="javascript:{}" data-id="Raw" class="active" title="The raw HTTP response content as returned by the server">Raw Response</a>
 
                         </div>
-                    }
+                    }                   
                 }
                 <i class="fa fa-minus-square code-collapse"></i>
                 <i class="fa fa-cloud-download"></i> Http Response Body 
             </div>
-            <div class="codewrapper">
-                <pre id="ResponseBodyRaw"  style="display:none">@Model.ResponseContent.Trim()</pre>
-                @if (responseBodyType != null)
+           
+            <div class="codewrapper" style="width: 100%"> 
+                @if(responseBodyType == "image")
                 {
-                    <pre id="ResponseBodyFormatted" style="display:none" >@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseBodyType)</pre>
+                    <img id="ResponseBodyFormatted" 
+                         src="@Model.ResponseContent" 
+                         style="display: block; max-width: 100%; background: transparent; margin: 1em auto" />
+                    <pre id="ResponseBodyRaw"  style="display:none;white-space: pre-line; word-break: break-all">@Model.ResponseContent.Trim()</pre>
                 }
-            </div>
+                else if (responseBodyType != null)
+                {                                        
+                    <pre id="ResponseBodyFormatted" style="display:none;">@Model.GetFormattedContent(Model.ResponseContent.Trim(), responseBodyType)</pre>
+                    <pre id="ResponseBodyRaw"  style="display:none;">@Model.ResponseContent.Trim()</pre>                    
+                }   
+            </div>                     
         }
     }
 	

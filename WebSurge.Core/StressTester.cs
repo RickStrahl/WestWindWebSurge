@@ -423,23 +423,25 @@ namespace WebSurge
                     if (App.Configuration.StressTester.Users != null && App.Configuration.StressTester.Users.Count > 0)
                         HandleUser(result,client);
 
+                    // *** Important! Get out as quickly as possible
                     if (CancelThreads)
                         return null;
 
                     // *** REQUEST RUNS
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
-                    
-                    // using West Wind HttpClient
-                    string httpOutput = client.DownloadString(result.Url);
 
+                    // Download the content and format the string data stored in the result
+                    var httpOutput = DownloadAndFormatHttpOutput(client, result.Url);
                     
                     if (CancelThreads)
                         return null;
 
                     sw.Stop();
                     result.TimeTakenMs = (int)sw.ElapsedMilliseconds;  //(int)DateTime.UtcNow.Subtract(dt).TotalMilliseconds;
+
                     
+
                     if (client.Error || client.WebResponse == null)
                     {
                         result.ErrorMessage = client.ErrorMessage;
@@ -457,6 +459,7 @@ namespace WebSurge
                         result.ResponseLength = httpOutput.Length;
                     
                     result.ResponseContent = httpOutput;
+                    
                 
                     StringBuilder sb = new StringBuilder();
                     foreach (string key in client.WebResponse.Headers.Keys)
@@ -514,6 +517,60 @@ namespace WebSurge
 
                 return result;
             }
+        }
+
+        public string DownloadAndFormatHttpOutput(HttpClient client, string url)
+        {
+            // using West Wind HttpClient
+            //string httpOutput = client.DownloadString(result.Url);
+            byte[] bytes = client.DownloadBytes(url, 8192);
+            string httpOutput = string.Empty;
+
+            // assume content is string that needs to be decoded
+            try
+            {
+                if (!string.IsNullOrEmpty(client.WebResponse.CharacterSet))
+                {
+                    string charset = client.WebResponse.CharacterSet.ToLower();
+                    var encoding = Encoding.ASCII;
+
+                    // special case UTF-8 since it's most common
+                    if (charset.Contains("utf-8"))
+                        encoding = Encoding.UTF8;
+                    else if (charset.Contains("utf-16"))
+                        encoding = Encoding.Unicode;
+                    else if (charset.Contains("utf-7"))
+                        encoding = Encoding.UTF7;
+                    else if (charset.Contains("utf-32"))
+                        encoding = Encoding.UTF32;
+                    else
+                        encoding = Encoding.GetEncoding(charset);
+
+                    httpOutput = encoding.GetString(bytes);
+                }
+                else
+                {
+                    var contentType = client.WebResponse.ContentType;
+                    if (bytes == null)
+                        httpOutput = string.Empty;
+                    else if (string.IsNullOrEmpty(contentType) ||
+                             contentType.StartsWith("text/") ||
+                             contentType.StartsWith("application/json") ||
+                             contentType.StartsWith("application/xml"))
+                        httpOutput = Encoding.UTF8.GetString(bytes); // no encoding - assume utf-8
+                    else if (contentType.StartsWith("image/") ||
+                             (contentType.StartsWith("application/") &&
+                              !(contentType == "application/json" || contentType == "application/xml")))
+                        httpOutput = $"data:{contentType};base64," + Convert.ToBase64String(bytes);
+                    else // no content type or encoding assume UTF-8 text (may be wrong - best guess)
+                        httpOutput = Encoding.UTF8.GetString(bytes); // default to UTF 8
+                }
+            }
+            catch
+            {
+            } // ignore encoding assignment failures
+
+            return httpOutput;
         }
 
         private void HandleCookies(HttpRequestData result,

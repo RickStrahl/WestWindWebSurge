@@ -104,6 +104,8 @@ namespace WebSurge
           
         }
 
+        #region load and unload
+
         public void OpenFile(string fileName = null)
         {
             if (fileName == null)
@@ -131,8 +133,6 @@ namespace WebSurge
             AttachWatcher(fileName);
             UpdateButtonStatus();
         }
-
-        #region load and unload
 
         private void StressTestForm_Load(object sender, EventArgs e)
         {
@@ -1856,6 +1856,8 @@ any reported issues.";
                     format = "xml";
                 if (ct == "application/json")
                     format = "json";
+                if (ct.StartsWith("image/"))
+                    format = "image";
             }
 
             var editForm = new EditForm(new EditorFormParameters

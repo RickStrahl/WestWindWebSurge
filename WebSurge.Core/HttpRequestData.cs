@@ -175,6 +175,8 @@ namespace WebSurge
                 return "javascript";
             if (ct.Contains("application/x-www-form-urlencoded"))
                 return "urlencoded";
+            if (ct.StartsWith("image/"))
+                return "image";
           
             return null;
         }
@@ -231,6 +233,7 @@ namespace WebSurge
                 return StringUtils.UrlDecode(data.Replace("&", "\r\n"));
             }
 
+            
             return data;
         }
 
