@@ -6,6 +6,23 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+### Version 1.18
+<i><small>not released yet</small></i>
+
+* **Open link clicks in the System Default Browser**  
+When clicking on the HTTP link in the previewer, a new browser window is now opened instead of opening the document inline.
+
+### Version 1.17
+<i><small>February 17, 2021</small></i>
+
+* **Display Images in Previewer**  
+Image results are now displayed as images in the previewer. You can toggle between image and raw view which shows a base64 representation of the image data (usable as an image reference).
+
+* **Fix Timing Issue**  
+Fix timing calculations for warmup and wind-down requests.
+
+* **Fix: Crash on aborting Test Run**   
+Fix a bug that would crash WebSurge infrequently when cancelling an in progress test run. 
 
 ### Version 1.16
 <i><small>March 30th, 2020</small></i>
