@@ -16,6 +16,10 @@ $(".formattingRequestBody a").click(function (e) {
     var el = this;
     showTab(el, "request");
 });
+$("#RequestUrl").click(function(e) {
+    websurge.application.navigatebrowser(this.href);    
+    e.preventDefault();
+});
 
 // Collapse/restore content underneath headers
 $(".code-collapse").click(function() {

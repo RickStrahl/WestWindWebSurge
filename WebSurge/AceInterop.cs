@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Westwind.Utilities;
 
 namespace WebSurge
 {
@@ -39,6 +40,11 @@ namespace WebSurge
                 form.txtRequestHeaders.Text = text;
                 form.RequestData_Changed(null, null);
             }
+        }
+
+        public void navigatebrowser(string href)
+        {
+            ShellUtils.GoUrl(href);
         }
         
         public void InitializeInterop()
