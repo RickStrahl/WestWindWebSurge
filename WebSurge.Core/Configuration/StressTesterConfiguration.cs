@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -5,6 +6,61 @@ namespace WebSurge
 {
     public class StressTesterConfiguration
     {
+
+        #region Domain Replacement
+        /// <summary>
+        /// Optional Website Base URL that allows you to use *site relative URLs* rather than
+        /// fully qualified URLs for each request. Makes it easier to switch to different sites
+        /// for testing by changing the SiteBaseUrl in one place for all tests.
+        /// Works best if all URLs are to a single site.
+        ///
+        /// URL Examples:  
+        /// https://mysite.com  
+        /// http://localhost:5000    
+        /// http://localhost/virtual  
+        /// </summary>
+        [Description(@"Optional Website Base URL that allows you to use *site relative URLs* rather than fully qualified URLs for each request. Makes it easier to switch to different sites for testing by changing the SiteBaseUrl in one place for all tests. Works best if all URLs are to a single site.
+
+URL Examples:
+https://mysite.com
+http://localhost:5000
+http://localhost/virtual
+")]
+        [Category("Domain Replacement")]
+        public string SiteBaseUrl
+        {
+            get => _siteBaseUrl;
+            set
+            {
+                _siteBaseUrl = value;
+                if (!SiteBaseUrl.EndsWith("/"))
+                    _siteBaseUrl += "/";
+            }
+        }
+        private string _siteBaseUrl;
+
+
+        /// <summary>
+        /// Allows you to replace the domain and port number of the
+        /// Http request with the one specified here. Allows you to 
+        /// easily switch between multiple machines like dev, staging and live.
+        /// </summary>
+        [Obsolete]
+        [Description(
+            @"Obsolete - recommend you use `SiteBaseUrl` and relative URLs instead for easier site switching.
+
+Optional domain replacement for fully qualified `http://` and `https://` URLs. Parses the hostname of the original URL and replaces it with a replacement domain you specify.
+
+Example domains replacements: 
+MyDomain.com
+localhost:5001
+localhost/virtual
+")]
+        [Category("Domain Replacement")]
+        public string ReplaceDomain { get; set; }
+
+#endregion
+
         /// <summary>
         /// If true no progress information events are fired
         /// </summary>
@@ -51,27 +107,10 @@ namespace WebSurge
         public string ReplaceQueryStringValuePairs { get; set; }
 
 
-        /// <summary>
-        /// Allows you to replace the domain and port number of the
-        /// Http request with the one specified here. Allows you to 
-        /// easily switch between multiple machines like dev, staging and live.
-        /// </summary>
-        [Description(
-            "Allows you to replace the domain and port number and optional " + 
-            "base path of URL to handle running in different environments " + 
-            "without changing the original captured URL.\r\n" + 
-            "For example, say you captured original urls from 'YourLiveDomain.com', " + 
-            "but now you want to test on 'YourTestDomain.com' - " + 
-            "you can set  this property to 'YourTestDomain.com' and " + 
-            "all testing will replace that domain. You can also inject " + 
-            "a virtual path so a valid replacement might be 'localhost/myapp' " + 
-            "for local testing under a virtual directory."
-            )]
-        [Category("Header Replacement")]
-        public string ReplaceDomain { get; set; }
+        
 
+        #region Header and URL Replacement
 
-        #region Authentication
 
         /// <summary>
         /// A cookie value that is replaced instead of the 'real'
@@ -118,7 +157,21 @@ Allows to add custom authentication to a request after you've captured say a bea
         [Description("Optional specific users assigned to this test.")]
         [Category("Authentication")]
         public List<UserEntry> Users { get; set; }
-#endregion
+        #endregion
+
+        #region Test Operation
+
+        /// <summary>
+        /// The request timeout in milliseconds
+        /// </summary>
+        [Description("Max time a request can take before it's considered timed out. Value is in milliseconds.")]
+        [Category("Test Operation")]
+        public int RequestTimeoutMs
+        {
+            get => _requestTimeoutMs;
+            set => _requestTimeoutMs = value;
+        }
+        private int _requestTimeoutMs;
 
         /// <summary>
         /// Determines whether requests are run in random
@@ -132,12 +185,6 @@ Allows to add custom authentication to a request after you've captured say a bea
         [Category("Test Operation")]
         public bool RandomizeRequests { get; set; }
 
-        /// <summary>
-        /// The request timeout in milliseconds
-        /// </summary>
-        [Description("Max time a request can take before it's considered failed.")]
-        [Category("Test Operation")]
-        public int RequestTimeoutMs { get; set; }
 
         /// <summary>
         /// Seconds to run requests before logging actual requests. Use to warm up the Web server.
@@ -146,21 +193,9 @@ Allows to add custom authentication to a request after you've captured say a bea
         [Category("Test Operation")]
         public int WarmupSeconds { get; set; }
 
-        [Description("Determines whether templates are reloaded " +
-                     "on each request or whether they are cached. The latter is more " + 
-                     "efficient but won't reload templates if they're changed unless you restart. " + 
-                     "The former is useful if you want to customize the templates " + 
-                     "without restarting WebSurge.")]
-        [Category("User Interface")]
-        public bool ReloadTemplates { get; set; }
-
-        [Category("User Interface")]
-        [Description("Ace Editor theme used for viewing syntax highlighted content. Values come from the Ace Editor themes in the AppData/West Wind Web Surge/Html folder. Some themes avaialable: vscodelight,vscodedark,visualstudio,twilight,monokai,github,ambiance")]
-        public string FormattedPreviewTheme { get; set; }
-
-        [Browsable(false)]
-        public int LastThreads { get; set; }
-
+        /// <summary>
+        /// Determines if certificate errors are ignored. Must restart application for this change to take effect.
+        /// </summary>
         [Description("Determines if certificate errors are ignored. Must restart application for this change to take effect.")]
         [Category("Test Operation")]
         public bool IgnoreCertificateErrors { get; set; }
@@ -182,6 +217,27 @@ Allows to add custom authentication to a request after you've captured say a bea
             }
         }
         private bool _trackPerSessionCookies;
+
+        #endregion
+
+
+        [Description("Determines whether templates are reloaded " +
+                     "on each request or whether they are cached. The latter is more " + 
+                     "efficient but won't reload templates if they're changed unless you restart. " + 
+                     "The former is useful if you want to customize the templates " + 
+                     "without restarting WebSurge.")]
+        [Category("User Interface")]
+        public bool ReloadTemplates { get; set; }
+
+        [Category("User Interface")]
+        [Description("Ace Editor theme used for viewing syntax highlighted content. Values come from the Ace Editor themes in the AppData/West Wind Web Surge/Html folder. Some themes avaialable: vscodelight,vscodedark,visualstudio,twilight,monokai,github,ambiance")]
+        public string FormattedPreviewTheme { get; set; }
+
+        [Browsable(false)]
+        public int LastThreads { get; set; }
+
+
+    
 
 
         [Browsable(false)]
