@@ -1132,7 +1132,12 @@ namespace WebSurge
                             HtmlPreview(JValue.Parse(ActiveRequest.ResponseContent).ToString(Formatting.Indented) ,true,"html\\_preview.json");
                         else if (outputType == "xml")                                                 
                             HtmlPreview(ActiveRequest.ResponseContent, true, "html\\_preview.xml");
-                    }                    
+                    }
+
+                    if (action == "test")
+                    {
+                        this.ButtonHandler(btnRunRequest, EventArgs.Empty);
+                    }
                 }                
             }
         }
@@ -1403,17 +1408,7 @@ namespace WebSurge
             if (sender == btnSaveRequest)
             {
                 RequestData_Changed(sender, e);
-                //var req = txtRequestUrl.Tag as HttpRequestData;
-                //bool isNew = req == null;
-                //req = SaveRequest(req);                
-
-                //if (isNew)
-                //{
-                //    Requests.Add(req);
-                //    txtRequestUrl.Tag = req;
-                //}
-
-                //RenderRequests(Requests);
+                
             }
             if (sender == btnRunRequest || sender == tbTestRequest2 || sender == tbTestRequest)
             {
@@ -1643,7 +1638,7 @@ Thank you!";
                 var res = MessageBox.Show(msg, App.Configuration.AppName + " Bug Report",MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Information);
                 if (res == DialogResult.OK)
-                    ShellUtils.GoUrl("http://west-wind.com/wwThreads/default.asp?forum=West%20Wind%20WebSurge");
+                    ShellUtils.GoUrl("https://support.west-wind.com?forum=West%20Wind%20WebSurge");
             }
             else if (sender == btnBugReport)
             {
@@ -1911,6 +1906,71 @@ any reported issues.";
 
             txtRequestHeaders.WordWrap = checkBox.Checked;
             App.Configuration.WrapHeaderText = true;
+        }
+
+
+
+        private void ListRequests_DragDrop(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("WebSurge.HttpRequestData"))
+                return;
+
+            Point cp = ListRequests.PointToClient(new Point(e.X, e.Y));
+            ListViewItem lvItem = ListRequests.GetItemAt(cp.X, cp.Y);
+            if (lvItem == null) return;
+
+            var targetRequest = lvItem.Tag as HttpRequestData;
+            if (targetRequest == null) return;
+
+          
+
+            // assign current sort order
+            for(var x=0; x < Requests.Count-1; x++)
+                Requests[x].SortOrder = 100 + (Requests.Count - 1 - x) * 100;
+
+
+            var itemCount = 0;
+            HttpRequestData firstItem = null;
+            // Get all selected items
+            foreach (var item in ListRequests.SelectedItems)
+            {
+                lvItem = item as ListViewItem;
+                var droppedRequest = lvItem.Tag as HttpRequestData;
+                if (droppedRequest == null) continue;
+                if (firstItem == null)
+                    firstItem = droppedRequest;
+
+                droppedRequest.SortOrder = targetRequest.SortOrder - 1 - itemCount;
+                itemCount++;
+            }
+
+            Requests = Requests.OrderByDescending(req => req.SortOrder).ToList();
+            int index = firstItem != null ? index = Requests.IndexOf(firstItem) : 0;
+
+            // Rerender the list
+            RenderRequests(Requests, index);
+        }
+
+        private void ListRequests_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+                return;
+
+            var request = ActiveRequest;
+            ListRequests.DoDragDrop(ActiveRequest, DragDropEffects.Move);
+            Debug.WriteLine("StartDrag: " + ActiveRequest.Name ?? ActiveRequest.Url );
+        }
+
+        private void ListRequests_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data == null) return; 
+
+            
+
+            if (e.Data.GetDataPresent("WebSurge.HttpRequestData"))
+                e.Effect = DragDropEffects.Move;
+            else
+                e.Effect = DragDropEffects.None;
         }
     }
 
