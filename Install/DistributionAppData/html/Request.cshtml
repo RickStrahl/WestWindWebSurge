@@ -30,8 +30,11 @@
     }
 
     <div class="header" style="margin-top: 0;">
-
+<div class="formattingRequestBody">
+        <a href="app://test" title="Run this individual request and show results" class="btn btn-primary">Run</a>
+        </div>
         <i class="fa fa-minus-square code-collapse"></i> <i class="fa fa-upload"></i> Request Headers
+
     </div>
 @{
     var sb = new StringBuilder();
@@ -42,9 +45,12 @@
 }
 
 <div class="codewrapper grey-gradient">        
-    <div class="first-line"><span id="HttpVerb">@Model.HttpVerb</span> <a href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>
+    <div class="first-line"><span id="HttpVerb">@Model.HttpVerb</span> <a id="RequestUrl" href='@Model.Url'>@Model.Url</a> HTTP/1.1</div>
     <pre id="RequestHeaders">@headers</pre>
 </div>
+
+
+
     @if (!string.IsNullOrEmpty(Model.RequestContent))
     {
 
@@ -54,8 +60,8 @@
                 if ("json,xml,urlencoded".Contains(requestBodyType))
                 {
                     <div class="formattingRequestBody">
-                        <a href="javascript:{}" data-id="Formatted" title="See a formatted and syntax colored view of the HTTP response based on the content type">Formatted @requestBodyType</a>
-                        <a href="javascript:{}" data-id="Raw" class="active" title="The raw HTTP response content as returned by the server">Raw Request</a>
+                        <a href="javascript:{}" data-id="Formatted" title="See a formatted and syntax colored view of the HTTP response based on the content type">@requestBodyType</a>
+                        <a href="javascript:{}" data-id="Raw" class="active" title="The raw HTTP response content as returned by the server">Raw</a>
 
                     </div>
                 }

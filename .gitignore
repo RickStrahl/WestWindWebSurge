@@ -42,3 +42,4 @@ InstallerFiles/FilesToInstall/AppData/Html/_preview.json
 Install/Distribution
 Install/Builds
 Distribution/
+Install/FtpCredential.xml

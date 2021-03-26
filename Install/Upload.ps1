@@ -1,9 +1,11 @@
 # param([string]$uid = "uid", [string]$pwd = "")
 
+$curl = $env:ONEDRIVE + "\utl\curl.exe"
+
 Set-ExecutionPolicy Bypass -Scope CurrentUser
 
 # Credential set with:
-#  Get-Credential | Export-CliXml  -Path .\FtpCredential.xml
+# Get-Credential | Export-CliXml  -Path .\FtpCredential.xml
 $credential = Import-Clixml -Path .\FtpCredential.xml
 if( $null -ne $credential)
 {
@@ -28,6 +30,6 @@ if(!$pwd) {Exit;}
 
 # if(!$pwd) {Exit;}
 
-\utl\curl.exe -T ".\Builds\CurrentRelease\WebSurgeSetup.exe"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
-\utl\curl.exe -T ".\Builds\CurrentRelease\WebSurgeSetup.zip"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
-\utl\curl.exe -T ".\Builds\CurrentRelease\WebSurge_Version.xml"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
+& $curl -T ".\Builds\CurrentRelease\WebSurgeSetup.exe"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
+& $curl -T ".\Builds\CurrentRelease\WebSurgeSetup.zip"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k
+& $curl -T ".\Builds\CurrentRelease\WebSurge_Version.xml"  "ftps://west-wind.com/Westwind_sysroot/Ftp/Files/" -u ${uid}:${pwd} -k

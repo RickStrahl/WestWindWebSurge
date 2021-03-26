@@ -7,6 +7,7 @@
              margin-bottom: 0;            
              font-size: 1.1em;
              padding: 5px 10px 5px;
+             border-bottom: 0.5px solid #bbb;
         }
         .header-response {            
         }
@@ -34,16 +35,16 @@
         {
             float: right;            
 			padding: 0 8px;
-            background: #eee;
+            background: rgb(198, 216, 240);
             border-radius: 3px;
             border: 1px solid silver;
 			margin-right: 5px;
             text-decoration: none;                   
-            color: steelblue;            
+            color: #333;            
         }
             .formattingRequestBody a.active, 
             .formattingResponseBody a.active{
-                background: white;
+                background: #ddd;
                 color: steelblue;
                 color: #42739c;                
             }

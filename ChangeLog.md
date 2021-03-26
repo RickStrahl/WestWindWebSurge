@@ -6,8 +6,17 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
-### Version 1.18
-<i><small>not released yet</small></i>
+### Version 1.19
+<i><small>March 25th, 2021</small></i>
+
+* **Drag and Drop Request Moving in Request List**  
+You can now drag and drop requests into a new location by dragging an individual item to a new location in the list.
+
+* **Add SiteBaseUrl Session Option to allow for Relative URLs in Requests**  
+You can now use relative URLs for requests if accessing a single site, and set the new `SiteBaseUrl` session configuration setting to specify a URL. This base URL is pre-fixed to any request URLs that don't include `http://` or `https://` protocol schemas. This gives another option - in addition to the `ReplaceDomain` setting - to quickly switch tests between different sites in one place.
+
+* **Replace RequestTimeout with RequestTimeoutMs**  
+Fix issue with very small Request Timeouts causing WebSurge to fail to process the request. Changed behavior to use milliseconds rather than timeout seconds so it's now possible to use timeouts all the way down to 10ms.
 
 * **Open link clicks in the System Default Browser**  
 When clicking on the HTTP link in the previewer, a new browser window is now opened instead of opening the document inline.
