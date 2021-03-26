@@ -358,8 +358,9 @@ namespace WebSurge
             {
                 using (var client = new HttpClient())
                 {
-                    if (!string.IsNullOrEmpty(Options.ReplaceDomain))
-                        result.Url = ReplaceDomain(result.Url);
+
+                    if (!string.IsNullOrEmpty(Options.ReplaceDomain) || !string.IsNullOrEmpty(Options.SiteBaseUrl) )
+                        result.Url = FixupUrl(result.Url);
 
                     if (!string.IsNullOrEmpty(Options.ReplaceQueryStringValuePairs))
                         result.Url = ReplaceQueryStringValuePairs(result.Url, Options.ReplaceQueryStringValuePairs);
@@ -399,9 +400,11 @@ namespace WebSurge
                     
                     client.ContentType = result.ContentType;
                     client.PostMode = HttpPostMode.Raw;   // have to force raw data
-                
-                    client.Timeout = Options.RequestTimeoutMs / 1000;
 
+                    client.TimeoutMs = Options.RequestTimeoutMs;
+                    if (client.TimeoutMs < 10)
+                        client.TimeoutMs = 10; // minimum of 10ms
+                   
                     // don't auto-add gzip headers and don't decode by default
                     client.UseGZip = false;
 
@@ -524,7 +527,11 @@ namespace WebSurge
             // using West Wind HttpClient
             //string httpOutput = client.DownloadString(result.Url);
             byte[] bytes = client.DownloadBytes(url, 8192);
+            if (client.WebResponse == null)
+                return string.Empty;
+
             string httpOutput = string.Empty;
+
 
             // assume content is string that needs to be decoded
             try
@@ -665,8 +672,8 @@ namespace WebSurge
             foreach (var loginUrl in user.LoginUrls)
             {
                 string url = loginUrl.Url;
-                if (!string.IsNullOrEmpty(Options.ReplaceDomain))
-                    url = ReplaceDomain(url);
+                if (!string.IsNullOrEmpty(Options.ReplaceDomain) || !string.IsNullOrEmpty(Options.SiteBaseUrl))
+                    url = FixupUrl(url);
 
                 Debug.WriteLine(url + " " + request.Url + " - " + (url == request.Url));
 
@@ -798,8 +805,18 @@ namespace WebSurge
             return urlQuery.ToString();
         }
 
-        internal string ReplaceDomain(string url)
+        internal string FixupUrl(string url)
         {
+            if (string.IsNullOrEmpty(url))
+                return url;
+
+            if (!string.IsNullOrEmpty(Options.SiteBaseUrl))
+            {
+                if (!url.StartsWith("http"))
+                   url = Options.SiteBaseUrl.TrimEnd('/') + "/" + url.TrimStart('/');
+            }
+
+            // TODO: Obsolete - Remove this eventually
             if (!string.IsNullOrEmpty(Options.ReplaceDomain))
             {
                 var host = StringUtils.ExtractString(url, "://", "/", false, true);

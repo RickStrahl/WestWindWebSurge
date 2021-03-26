@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Westwind.Utilities;
 using Westwind.Utilities.InternetTools;
 
 namespace WebSurge
@@ -62,9 +64,17 @@ namespace WebSurge
         public bool IsWebSurgeAllowedForUrl(string serverUrl)
         {        
             string serverRootUrl = GetServerRootUrl(serverUrl);
+            try
+            {
+                var uri = new Uri(serverRootUrl);
+                if (NetworkUtils.IsLocalIpAddress(uri.Host))
+                    return true;
+            }
+            catch
+            {
+                return false;
+            }
 
-            if (new Uri(serverRootUrl).IsLoopback)
-                return true;
 
             var http = new HttpClient();
             if (!string.IsNullOrEmpty(StressTester.Options.Username))
@@ -76,7 +86,8 @@ namespace WebSurge
             {
                 var url = (serverRootUrl + "/websurge-allow.txt");
                 var text = http.DownloadString(url);
-                if (http.WebResponse.StatusCode != System.Net.HttpStatusCode.OK || text.Length > 5)
+                if (http.WebResponse.StatusCode != HttpStatusCode.OK && 
+                    http.WebResponse.StatusCode != HttpStatusCode.NoContent)
                 {
                     url = serverRootUrl + "/robots.txt";
                     string robots = http.DownloadString(url);
@@ -104,12 +115,12 @@ namespace WebSurge
             var port = ":" + builder.Port;
             if ((builder.Scheme == "https" && builder.Port == 443) ||
                 (builder.Scheme == "http" && builder.Port == 80))
-                port = "";
+                port = string.Empty;
 
             var path = $"{builder.Scheme}://{builder.Host}{port}";
 
             if (!string.IsNullOrEmpty(StressTester.Options.ReplaceDomain))
-                path = StressTester.ReplaceDomain(path);
+                path = StressTester.FixupUrl(path);
 
             return path;
         }

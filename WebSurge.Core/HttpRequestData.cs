@@ -93,6 +93,7 @@ namespace WebSurge
             IsError = true;
             ErrorMessage = string.Empty;
             TextEncoding = "UTF-8";
+
         }
         public static HttpRequestData Copy(HttpRequestData req)
         {
@@ -313,6 +314,8 @@ namespace WebSurge
             return WindowsEncoding.GetBytes(RequestContent);                        
         }
 
+
+
         /// <summary>
         /// Reliably returns a string from response content. Note string 
         /// may be truncated if binary data is in the result and it contains
@@ -467,6 +470,20 @@ namespace WebSurge
                 sb.AppendLine(req.ResponseContent);
             }
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Fixes up a 
+        /// </summary>
+        /// <param name="url">A full or relative Url</param>
+        /// <param name="siteBaseUrl">Site base url like `https://websurge.west-wind.com` or `http://localhost/wconnect` </param>
+        /// <returns></returns>
+        public static string FixupUrl(string url, string siteBaseUrl)
+        {
+            if (string.IsNullOrEmpty(siteBaseUrl) || string.IsNullOrEmpty(url) || url.StartsWith("http"))
+                return url;
+		
+            return siteBaseUrl.TrimEnd('/') + "/" + url.TrimStart('/');
         }
 
         /// <summary>
