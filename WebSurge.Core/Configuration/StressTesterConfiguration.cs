@@ -33,7 +33,7 @@ http://localhost/virtual
             set
             {
                 _siteBaseUrl = value;
-                if (!SiteBaseUrl.EndsWith("/"))
+                if (SiteBaseUrl != null && !_siteBaseUrl.EndsWith("/"))
                     _siteBaseUrl += "/";
             }
         }
