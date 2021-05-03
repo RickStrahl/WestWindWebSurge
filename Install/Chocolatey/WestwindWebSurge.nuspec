@@ -2,11 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>WestwindWebSurge</id>
-        <version>1.19</version>
+        <version>1.20</version>
         <title>West Wind WebSurge</title>
         <authors>Rick Strahl,West Wind Technologies</authors>
         <owners>West Wind Technologies</owners>
-        <licenseUrl>http://websurge.west-wind.com/pricing.aspx</licenseUrl>
+        <licenseUrl>https://github.com/RickStrahl/WestwindWebSurgeReleases/blob/master/LICENSE.md</licenseUrl>
         <projectUrl>http://websurge.west-wind.com</projectUrl>
         <iconUrl>http://websurge.west-wind.com/images/WebSurgeLogo128.png</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>

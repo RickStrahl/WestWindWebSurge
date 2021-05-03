@@ -6,6 +6,17 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+
+### Version 1.21
+<i><small>May 3rd, 2021</small></i>
+
+* **Double click to run Request**  
+You can now double click on a URL/Request to execute that request individually.
+
+* **Processing Message on longer Requests**  
+When running requests that are not very quick, you'll now see a `Processing...` header when running individual requests. This helps prevent confusion whether a request is running or not which previously only showed in the status bar.
+
+
 ### Version 1.19
 <i><small>March 25th, 2021</small></i>
 

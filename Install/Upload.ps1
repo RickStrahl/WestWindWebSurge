@@ -1,6 +1,6 @@
 # param([string]$uid = "uid", [string]$pwd = "")
 
-$curl = $env:ONEDRIVE + "\utl\curl.exe"
+$curl = $env:DropBox + "\utl\curl.exe"
 
 Set-ExecutionPolicy Bypass -Scope CurrentUser
 
