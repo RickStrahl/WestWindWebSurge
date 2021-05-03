@@ -22,8 +22,8 @@ namespace WebSurge
         [Description(@"Optional Website Base URL that allows you to use *site relative URLs* rather than fully qualified URLs for each request. Makes it easier to switch to different sites for testing by changing the SiteBaseUrl in one place for all tests. Works best if all URLs are to a single site.
 
 URL Examples:
-https://mysite.com
-http://localhost:5000
+https://mysite.com,
+http://localhost:5000,
 http://localhost/virtual
 ")]
         [Category("Domain Replacement")]
