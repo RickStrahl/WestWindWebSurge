@@ -221,23 +221,23 @@ namespace WebSurge
         public decimal MaxRequestTimeMs { get; set; }
         public int TimeTakenSecs { get; set; }
         public IEnumerable<ErrorMessage> ErrorMessages { get; set; }
-        public int TotalBytesSent { get; set; }
-        public int TotalBytesPosted { get; set; }
+        public long TotalBytesSent { get; set; }
+        public long TotalBytesPosted { get; set; }
 
 
 
-        public string ByteSizeString(int byteCount)
+        public string ByteSizeString(long byteCount)
         {
             string res = null;
-            if (byteCount < 9900)
-                res = byteCount.ToString() + " bytes";
+            if (byteCount < 10_000)
+                res = byteCount.ToString("n0") + " bytes";
             else if (byteCount < 1_500_000)
                 res = ((decimal) byteCount / 1000).ToString("n0") + "kb";
             else if (byteCount < 9_000_000)
                 res = ((decimal)byteCount / 1000000).ToString("n1") + "mb";
             else if (byteCount < 1_000_000_000)
                 res = ((decimal) byteCount / 1000000).ToString("n0") + "mb";
-            else if (byteCount < 1_000_000_000)
+            else
                 res = ((decimal)byteCount / 1_000_000_000).ToString("n1") + "gb";
 
             return res;
