@@ -1789,18 +1789,62 @@ any reported issues.";
                 TabsResult.SelectedTab = tabPreview;            
         }
 
+
+        /// <summary>
+        /// Manual Selection assignment and double-click detection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListRequests_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            if (e.Clicks == 2)
+            {
+                if (ListRequests.SelectedItems.Count < 1)
+                    return;
+
+                var listItem = ListRequests.SelectedItems[0];
+                var request = listItem.Tag as HttpRequestData;
+
+                if (request == null)
+                    return;
+
+                TestSiteUrl(request);
+                //ListRequests_DoubleClick(sender, e);
+                return;
+            }
+            if (ListRequests.SelectedItems.Count < 2)
+            {
+                var lvi = GetItemFromPoint(ListRequests, Cursor.Position);
+                if (lvi != null)
+                    lvi.Selected = true;
+            }
+
+        }
+
+        /// <summary>
+        /// Gets a ListView Item from a location
+        /// Call with: GetItemFromPoint(ListRequests, Cursor.Position)
+        /// </summary>
+        /// <param name="listView">The listview </param>
+        /// <param name="mousePosition">Absolute (not control relative) position</param>
+        /// <returns></returns>
+        private ListViewItem GetItemFromPoint(ListView listView = null, Point? mousePosition = null)
+        {
+            if (listView == null)
+                listView = ListRequests;
+            if (!mousePosition.HasValue)
+                mousePosition = Cursor.Position;
+
+            // translate the mouse position from screen coordinates to 
+            // client coordinates within the given ListView
+            Point localPoint = listView.PointToClient(mousePosition.Value);
+            return listView.GetItemAt(localPoint.X, localPoint.Y);
+        }
+
         private void ListRequests_DoubleClick(object sender, EventArgs e)
         {
-            if (ListRequests.SelectedItems.Count < 1)
-                return;
 
-            var listItem = ListRequests.SelectedItems[0];
-            var request = listItem.Tag as HttpRequestData;
-
-            if (request == null)
-                return;
-
-            TestSiteUrl(request);
         }
 
         /// <summary>
