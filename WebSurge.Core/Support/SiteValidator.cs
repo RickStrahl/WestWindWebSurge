@@ -106,6 +106,9 @@ namespace WebSurge
 
         string GetServerRootUrl(string url)
         {
+            if (!string.IsNullOrEmpty(StressTester.Options.ReplaceDomain) || !string.IsNullOrEmpty(StressTester.Options.SiteBaseUrl))
+                url = StressTester.FixupUrl(url);
+
             var uri = new Uri(url);
             var builder = new UriBuilder(uri);
 
