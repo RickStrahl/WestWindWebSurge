@@ -18,6 +18,8 @@ namespace WebSurge
         {
             Program.WebSurgeForm = webSurgeForm;
             InitializeInterop();
+
+            
         }
 
 
@@ -46,12 +48,24 @@ namespace WebSurge
         {
             ShellUtils.GoUrl(href);
         }
-        
+
+        public void ShowProcessingHeader(bool show)
+        {
+            try
+            {
+                Program.WebSurgeForm.PreViewBrowser.Document.InvokeScript("showProcessingHeader", new object[] { show });
+            }
+            catch
+            {
+
+            }
+        }
+
         public void InitializeInterop()
         {
             try
             {
-                Program.WebSurgeForm.PreViewBrowser.Document.InvokeScript("initializeInterop", new object[] {this});
+               Program.WebSurgeForm.PreViewBrowser.Document.InvokeScript("initializeInterop", new object[] {this});
             }
             catch 
             {

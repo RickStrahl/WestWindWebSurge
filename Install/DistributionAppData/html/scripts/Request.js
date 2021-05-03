@@ -168,6 +168,13 @@ setTimeout(function() {
 
 //}, 0);
 
+function showProcessingHeader(notused) { 
+    setTimeout(function() { 
+        $(".error-display").hide();
+        $("#Processing").show();
+    },200);
+    
+}
 
 // Pass WebSurge AceInterop object into the browser so we can edit
 function initializeInterop(webSurgeAceInterop) {    

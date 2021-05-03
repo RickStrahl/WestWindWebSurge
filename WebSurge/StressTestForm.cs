@@ -682,13 +682,18 @@ namespace WebSurge
             Cursor = Cursors.WaitCursor;
 
             StressTester.CancelThreads = false;
-            
+
+            AceInterop.ShowProcessingHeader(true);
+
             var action = new Action<HttpRequestData>(rq =>
             {
+                
                 ShowStatus("Checking URL: " + rq.Url);
            
                 var result = StressTester.CheckSite(rq, StressTester.InteractiveSessionCookieContainer);
-                string html = TemplateRenderer.RenderTemplate("Request.cshtml", result);                
+                string html = TemplateRenderer.RenderTemplate("Request.cshtml", result);
+
+                
 
                 Invoke(new Action<string>(htmlText =>
                 {
@@ -1798,9 +1803,10 @@ any reported issues.";
         private void ListRequests_MouseDown(object sender, MouseEventArgs e)
         {
 
+            // Handle double clicks here
             if (e.Clicks == 2)
             {
-                if (ListRequests.SelectedItems.Count < 1)
+                if (ListRequests.SelectedItems.Count < 1) // should never fire
                     return;
 
                 var listItem = ListRequests.SelectedItems[0];
@@ -1809,17 +1815,20 @@ any reported issues.";
                 if (request == null)
                     return;
 
-                TestSiteUrl(request);
-                //ListRequests_DoubleClick(sender, e);
+                Thread.Sleep(80);
+                Application.DoEvents();
+                BeginInvoke((Action) (() =>  { TestSiteUrl(request); }));
+                
                 return;
             }
-            if (ListRequests.SelectedItems.Count < 2)
-            {
-                var lvi = GetItemFromPoint(ListRequests, Cursor.Position);
-                if (lvi != null)
-                    lvi.Selected = true;
-            }
 
+            // single click - force selection if not selected or single selection
+            //if (ListRequests.SelectedItems.Count < 2)
+            //{
+            //    var lvi = GetItemFromPoint(ListRequests, Cursor.Position);
+            //    if (lvi != null)
+            //        lvi.Selected = true;
+            //}
         }
 
         /// <summary>
@@ -1842,10 +1851,6 @@ any reported issues.";
             return listView.GetItemAt(localPoint.X, localPoint.Y);
         }
 
-        private void ListRequests_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// Translates context menu clicks to ButtonHandler clicks

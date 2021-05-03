@@ -19,15 +19,23 @@
     <link href='css/request.css' type='text/css' rel='stylesheet' />
 </head>
 <body>
+    <div id="Processing" class='error-display' style='display:none; background: #656565; color: #eee; font-size: 1.3em; padding: 1.3em;'>
+        <div class="error-header" style="color: #ddd">
+            <div style="float: left;padding-right: 0.8em;"><i class="fa fa-circle-o-notch fa-spin" style="color: goldenrod;font-size: 1.4em; margin-top: -0.2em"></i></div>
+            <div style="padding-left: 25px;">Processing Request...</div>
+        </div>
+    </div>
+
     @if (!string.IsNullOrEmpty(Model.ErrorMessage))
     {
         <div class='error-display'>
             <div class="error-header">
-                <div style="float: left;"><i class="fa fa-exclamation-circle"></i></div>
+                <div style="float: left;"><i  class="fa fa-exclamation-circle"></i></div>
                 <div style="padding-left: 25px;">@Model.ErrorMessage</div>
             </div>
         </div>
     }
+
 
     <div class="header" style="margin-top: 0;">
 <div class="formattingRequestBody">
