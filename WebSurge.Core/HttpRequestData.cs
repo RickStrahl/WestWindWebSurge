@@ -63,7 +63,7 @@ namespace WebSurge
         
         public string StatusCode { get; set; }
         public string StatusDescription { get; set; }
-        public int ResponseLength { get; set; }
+        public long ResponseLength { get; set; }
 
         public int TimeTakenMs { get; set; }
         public int TimeToFirstByteMs { get; set; }        

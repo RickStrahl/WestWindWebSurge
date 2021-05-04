@@ -44,7 +44,7 @@
             // 
             // StartupTimer
             // 
-            this.StartupTimer.Interval = 3000;
+            this.StartupTimer.Interval = 2000;
             this.StartupTimer.Tick += new System.EventHandler(this.StartupTimer_Tick);
             // 
             // lblRegisterType
@@ -139,9 +139,9 @@
             this.pictureBox1.ErrorImage = null;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 1);
+            this.pictureBox1.Location = new System.Drawing.Point(5, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(340, 297);
+            this.pictureBox1.Size = new System.Drawing.Size(340, 300);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
@@ -151,7 +151,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(345, 308);
+            this.ClientSize = new System.Drawing.Size(345, 299);
             this.ControlBox = false;
             this.Controls.Add(this.lblClickClose);
             this.Controls.Add(this.lnkRegister);

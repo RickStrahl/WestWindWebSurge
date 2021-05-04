@@ -36,8 +36,8 @@ namespace WebSurge
                 AvgRequestTimeMs = (decimal) results.Average(req => req.TimeTakenMs),
                 MinRequestTimeMs = results.Min(req => req.TimeTakenMs),
                 MaxRequestTimeMs = results.Max(req => req.TimeTakenMs),
-                TotalBytesSent = results.Sum(req=> req.ResponseLength),
-                TotalBytesPosted = results.Sum(req=> string.IsNullOrEmpty(req.RequestContent) ? 0 : req.RequestContent.Length),
+                TotalBytesSent = results.Sum(req=> (long) req.ResponseLength),
+                TotalBytesPosted = results.Sum(req=> string.IsNullOrEmpty(req.RequestContent) ? 0 : (long) req.RequestContent.Length),
 
                 ErrorMessages = results
                                     .GroupBy(x => x.ErrorMessage)
@@ -147,8 +147,8 @@ namespace WebSurge
                                 MinRequestTimeMs = results.Min(u => u.TimeTakenMs),
                                 MaxRequestTimeMs = results.Max(u => u.TimeTakenMs),
                                 AvgRequestTimeMs = (decimal) results.Average(u => u.TimeTakenMs),
-                                TotalBytesSent = results.Sum(req => req.ResponseLength),
-                                TotalBytesPosted = results.Sum(req => string.IsNullOrEmpty(req.RequestContent) ? 0 : req.RequestContent.Length),
+                                TotalBytesSent = results.Sum(req => (long) req.ResponseLength),
+                                TotalBytesPosted = results.Sum(req => string.IsNullOrEmpty(req.RequestContent) ? 0 : (long) req.RequestContent.Length),
 
                                 ErrorMessages = results
                                     .GroupBy(x => x.ErrorMessage)
