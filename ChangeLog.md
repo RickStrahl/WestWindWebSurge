@@ -6,9 +6,11 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+### Version 1.22
+<small>in progress version</small>
 
-### Version 1.21
-<i><small>May 3rd, 2021</small></i>
+* **Drag and Drop Request Moving in Request List**  
+You can now drag and drop requests into a new location by dragging an individual item to a new location in the list.
 
 * **Double click to run Request**  
 You can now double click on a URL/Request to execute that request individually.
@@ -16,12 +18,15 @@ You can now double click on a URL/Request to execute that request individually.
 * **Processing Message on longer Requests**  
 When running requests that are not very quick, you'll now see a `Processing...` header when running individual requests. This helps prevent confusion whether a request is running or not which previously only showed in the status bar.
 
+* **Fix: Crash on no active Request** 
+Fix issue where WebSurge would crash when creating a new request without first using *New Request*. When no request is active one is now created and added to the list as soon as request data has been entered.
+
+* **Fix: Overflow error on Test Run Reporting**  
+Fix issue where in some instances long test runs would overrun an integer size for report summaries and crash.
+
 
 ### Version 1.19
 <i><small>March 25th, 2021</small></i>
-
-* **Drag and Drop Request Moving in Request List**  
-You can now drag and drop requests into a new location by dragging an individual item to a new location in the list.
 
 * **Add SiteBaseUrl Session Option to allow for Relative URLs in Requests**  
 You can now use relative URLs for requests if accessing a single site, and set the new `SiteBaseUrl` session configuration setting to specify a URL. This base URL is pre-fixed to any request URLs that don't include `http://` or `https://` protocol schemas. This gives another option - in addition to the `ReplaceDomain` setting - to quickly switch tests between different sites in one place.
