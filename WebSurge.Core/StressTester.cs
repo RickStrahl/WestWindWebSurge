@@ -522,6 +522,13 @@ namespace WebSurge
             }
         }
 
+        public Task<HttpRequestData> CheckSiteAsync(HttpRequestData reqData,
+            CookieContainer cookieContainer = null,
+            int threadNumber = 0)
+        {
+            return Task.Run<HttpRequestData>( ()=> CheckSite(reqData, cookieContainer, threadNumber) );
+        }
+
         public string DownloadAndFormatHttpOutput(HttpClient client, string url)
         {
             // using West Wind HttpClient

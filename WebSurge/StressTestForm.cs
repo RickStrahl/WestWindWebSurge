@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -553,8 +554,13 @@ namespace WebSurge
         public void RequestData_Changed(object sender, EventArgs e)
         {
             if (ActiveRequest == null)
-                return;
-            
+            {
+                ActiveRequest = new HttpRequestData();
+                if (Requests.Count == 0)
+                    Requests.Add(ActiveRequest);
+            }
+
+
             FixClickFocus();
             
             string displayData = null;
@@ -678,26 +684,25 @@ namespace WebSurge
 
 
         private void TestSiteUrl(HttpRequestData req)
-        {            
+        {
+            if (ActiveRequest == null)
+                ActiveRequest = req;
+
             Cursor = Cursors.WaitCursor;
 
             StressTester.CancelThreads = false;
 
-            AceInterop.ShowProcessingHeader(true);
+            AceInterop?.ShowProcessingHeader(true);
 
             var action = new Action<HttpRequestData>(rq =>
             {
-                
-                ShowStatus("Checking URL: " + rq.Url);
+                ShowStatus("Checking URL: " + req.Url);
            
-                var result = StressTester.CheckSite(rq, StressTester.InteractiveSessionCookieContainer);
+                var result =  StressTester.CheckSite(req, StressTester.InteractiveSessionCookieContainer);
                 string html = TemplateRenderer.RenderTemplate("Request.cshtml", result);
-
                 
-
                 Invoke(new Action<string>(htmlText =>
                 {
-
                     ActiveRequest.ResponseContent = result.ResponseContent;
                     ActiveRequest.ResponseHeaders = result.ResponseHeaders;
 
@@ -706,8 +711,7 @@ namespace WebSurge
 
                     ShowStatus("URL check complete.", 1, 5000);
 
-                }),html);
-                
+                }), html);
             });
             action.BeginInvoke(req,null,null);
            
@@ -1419,6 +1423,18 @@ namespace WebSurge
             {
                 var req = txtRequestUrl.Tag as HttpRequestData;
                 req = SaveRequest(req);
+
+                if (req != null)
+                {
+                    ActiveRequest = req;
+                    if (this.Requests == null || Requests.Count == 0)
+                    {
+                        Requests = new List<HttpRequestData>( new [] { req });
+                        RenderRequests(Requests, 0);
+                    }
+                }
+
+                TabsResult.SelectedTab = tabPreview;
 
                 TestSiteUrl(req);
             } 
