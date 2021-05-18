@@ -16,6 +16,4 @@ git add -f "WebSurgeSetup-${version}.exe"
 git commit -m "$version"
 git push origin master
 
-cd "$PSScriptRoot" 
-
-pause
+cd "$PSScriptRoot"

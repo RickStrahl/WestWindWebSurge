@@ -6,8 +6,8 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
-### Version 1.22
-<small>in progress version</small>
+### Version 1.23
+<small>May 18th, 2021</small>
 
 * **Drag and Drop Request Moving in Request List**  
 You can now drag and drop requests into a new location by dragging an individual item to a new location in the list.
@@ -17,6 +17,9 @@ You can now double click on a URL/Request to execute that request individually.
 
 * **Processing Message on longer Requests**  
 When running requests that are not very quick, you'll now see a `Processing...` header when running individual requests. This helps prevent confusion whether a request is running or not which previously only showed in the status bar.
+
+* **Copy Request Button**  
+There's now a **Copy Request** button in the Preview pane that copies the current request to an HTTP text trace on the clipboard. The text matches what the Preview displays, which can either be just the Request data or both Request and Response if a request has run.
 
 * **Fix: Crash on no active Request** 
 Fix issue where WebSurge would crash when creating a new request without first using *New Request*. When no request is active one is now created and added to the list as soon as request data has been entered.
