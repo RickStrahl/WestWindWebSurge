@@ -539,6 +539,8 @@ namespace WebSurge
 
             string httpOutput = string.Empty;
 
+            if (bytes == null)
+                return httpOutput;
 
             // assume content is string that needs to be decoded
             try

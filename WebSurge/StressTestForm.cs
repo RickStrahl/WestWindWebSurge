@@ -56,7 +56,6 @@ namespace WebSurge
             {
                 string text;
 
-
                 if (UnlockKey.Unlocked)
                     text = "West Wind WebSurge (Professional)";
                 else
@@ -83,9 +82,7 @@ namespace WebSurge
             set { _Requests = value; }
         }
         List<HttpRequestData> _Requests;
-
-
-   
+        
 
 
         FileSystemWatcher Watcher { get; set; }
@@ -102,7 +99,7 @@ namespace WebSurge
 
             InitializeComponent();
 
-          
+            this.Text = string.Empty;  // force title update
         }
 
         #region load and unload
@@ -706,6 +703,9 @@ namespace WebSurge
                     ActiveRequest.ResponseContent = result.ResponseContent;
                     ActiveRequest.ResponseHeaders = result.ResponseHeaders;
 
+                    ActiveRequest.StatusCode = result.StatusCode;
+                    ActiveRequest.StatusDescription = result.StatusDescription;
+
                     HtmlPreview(html);
                     TabsResult.SelectedTab = tabPreview;       
 
@@ -1071,9 +1071,17 @@ namespace WebSurge
             }
         }
 
+
+        /// <summary>
+        /// Displays a status message.
+        ///
+        /// use - 1 to specify the default timeout
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="panelId"></param>
+        /// <param name="timeout"></param>
         public void ShowStatus(string text = null, int panelId = 1, int timeout = 0)
         {
-
             var action = new Action<string, int>(ShowStatus_Internal);
             try
             {
@@ -1146,6 +1154,24 @@ namespace WebSurge
                     if (action == "test")
                     {
                         this.ButtonHandler(btnRunRequest, EventArgs.Empty);
+                    }
+
+                    if (action == "copyrequest")
+                    {
+                        var req = ActiveRequest;
+                        req.Url = HttpRequestData.FixupUrl(ActiveRequest.Url, App.Configuration.StressTester.SiteBaseUrl);
+
+                        var reqText = req.ToRequestHttpHeader();
+                        if (!string.IsNullOrEmpty(req.ResponseHeaders))
+                        {
+                            reqText +=
+                                "\r\n------------------------------------------------------------------\r\n" +
+                                req.ToResponseHttpHeader();
+                        }
+
+                        Clipboard.SetText(reqText);
+
+                        ShowStatus("Request text copied to the clipboard.", timeout: 5000);
                     }
                 }                
             }
@@ -1778,7 +1804,7 @@ any reported issues.";
             UpdateButtonStatus();
 
             HttpRequestData req = e.Item.Tag as HttpRequestData;
-            if (e.Item.Tag == null)
+            if (req == null)
                 return;
 
             ActiveRequest = req;
@@ -1795,10 +1821,14 @@ any reported issues.";
                 return;
 
             UpdateButtonStatus();
-
+            
             HttpRequestData req = e.Item.Tag as HttpRequestData;
             if (e.Item.Tag == null)
                 return;
+
+            // clear out display so we don't display response
+            req.StatusCode = null;
+            req.StatusDescription = null;
 
             ActiveRequest = req;
 
