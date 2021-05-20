@@ -569,8 +569,20 @@ namespace WebSurge
 <body>
 ";
             return html + sb + "</body>\r\n</html>";
-        }        
+        }
 
+        /// <summary>
+        /// Clears the Response data from this request
+        /// </summary>
+        public void RemoveResponseData()
+        {
+            // clear out display so we don't display response
+            StatusCode = null;
+            StatusDescription = null;
+            ResponseContent = null;
+            ResponseHeaders = null;
+            ResponseLength = 0;
+        }
     }
 
     [Serializable]

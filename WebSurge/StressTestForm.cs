@@ -1162,7 +1162,7 @@ namespace WebSurge
                         req.Url = HttpRequestData.FixupUrl(ActiveRequest.Url, App.Configuration.StressTester.SiteBaseUrl);
 
                         var reqText = req.ToRequestHttpHeader();
-                        if (!string.IsNullOrEmpty(req.ResponseHeaders))
+                        if (!string.IsNullOrEmpty(req.StatusCode))
                         {
                             reqText +=
                                 "\r\n------------------------------------------------------------------\r\n" +
@@ -1826,13 +1826,10 @@ any reported issues.";
             if (e.Item.Tag == null)
                 return;
 
-            // clear out display so we don't display response
-            req.StatusCode = null;
-            req.StatusDescription = null;
-
+            req.RemoveResponseData();
             ActiveRequest = req;
 
-            UpdateRequestHtmlPreview(ActiveRequest);
+            UpdateRequestHtmlPreview(req);
 
             LoadRequest(req);
 
