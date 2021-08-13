@@ -41,8 +41,8 @@
     <Reference Include="CommandLine">
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -53,8 +53,8 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="Westwind.Utilities, Version=3.0.55.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Westwind.Utilities.3.0.55\lib\net46\Westwind.Utilities.dll</HintPath>
+    <Reference Include="Westwind.Utilities, Version=3.0.58.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Westwind.Utilities.3.0.58.2\lib\net46\Westwind.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

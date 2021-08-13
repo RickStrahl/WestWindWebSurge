@@ -71,8 +71,8 @@
       <HintPath>..\packages\FiddlerCore.4.5.1.0\lib\net40\FiddlerCore4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -84,8 +84,8 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Westwind.Utilities, Version=3.0.55.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Westwind.Utilities.3.0.55\lib\net46\Westwind.Utilities.dll</HintPath>
+    <Reference Include="Westwind.Utilities, Version=3.0.59.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Westwind.Utilities.3.0.59\lib\net46\Westwind.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
