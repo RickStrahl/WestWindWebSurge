@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
@@ -34,17 +35,34 @@ namespace WebSurge
             // setting using config file switch
             //ServicePointManager.Expect100Continue = false;
 
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            
 
+
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             if (App.Configuration.StressTester.IgnoreCertificateErrors)
             {
                 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             }
 
+            var templatePath = Path.Combine(App.UserDataPath, "html");
+            if (!Directory.Exists(templatePath))
+            {
+                MessageBox.Show("You are missing part of WebSurge's installation files and " +
+                           "the application cannot start. Please run the WebSurge Installer "+ 
+                           "to install or re-install the application and " +
+                           "ensure that the template files are created " +
+                           "in the required user folder:\n\n" +
+                           $"{templatePath}\n\n" +
+                           "WebSurge will now shut down.",
+                    "WebSurge: Missing Installation Files",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+                return;
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            
             WebSurgeForm = new StressTestForm(fileName);            
             
 
