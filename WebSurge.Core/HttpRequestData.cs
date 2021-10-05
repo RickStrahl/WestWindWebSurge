@@ -81,7 +81,16 @@ namespace WebSurge
         public string TextEncoding { get; set; }
 
         public CookieContainer Cookies { get; set; }
-         
+
+        public string DisplayTitle
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Name)) return Name;
+                return Url;
+            }
+        }
+
 
         public HttpRequestData()
         {

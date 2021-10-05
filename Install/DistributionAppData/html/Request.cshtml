@@ -87,7 +87,7 @@
         </div>
     }
 
-    @if (!string.IsNullOrEmpty(Model.StatusCode))
+    @if (Model.StatusCode != null)
     {
         <div class="header">
             <i class="fa fa-minus-square code-collapse"></i>

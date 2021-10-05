@@ -70,7 +70,7 @@ namespace WebSurge
             }
         }
 
-        private List<HttpRequestData> Requests
+        public List<HttpRequestData> Requests
         {
             get
             {
@@ -447,7 +447,6 @@ namespace WebSurge
             BeginInvoke(new Action(() =>
             {
                 Thread.Sleep(1);
-
                 try
                 {
                     // reload the session list
@@ -456,7 +455,6 @@ namespace WebSurge
                 catch { }
             }));
         }
-
         #endregion
 
         #region Editing Requests

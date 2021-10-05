@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Westwind.Utilities;
 
@@ -26,18 +29,21 @@ namespace WebSurge.Support
                 var item = new Item();
                 pm.item.Add(item);
                 
-                item.name = request.Url;
+                item.name = request.DisplayTitle; // request.Url;
 
                 var req = new Request();
                 item.request = req;
 
                 req.url = new Url();
                 req.method = request.HttpVerb;
-
-                var body = new Body();
-                req.body = body;
-                body.mode = "raw";
-                body.raw = request.RequestContent;
+                
+                if (!string.IsNullOrEmpty(request.RequestContent))
+                {
+                    var body = new Body();
+                    req.body = body;
+                    body.mode = "raw";
+                    body.raw = request.RequestContent;
+                }
 
                 // don't copy over credentials explicitly
                 //if (!string.IsNullOrEmpty(config.Username))
@@ -56,19 +62,47 @@ namespace WebSurge.Support
                         { key = header.Name, name = header.Name, value = header.Value, type = "text" });
                 }
 
-                req.url.raw = request.Url;
-                req.url.protocol = "http";
-                req.url.host.Add(request.Host);
+                req.url.raw = HttpRequestData.FixupUrl(request.Url, config.SiteBaseUrl);
 
+                var uri = new Uri(req.url.raw);
+                
+                req.url.protocol = uri.Scheme;
+                req.url.host.Add(uri.Host);
+                foreach (var seg in uri.Segments)
+                {
+                    var pv = seg.Trim('/');
+                    if (string.IsNullOrEmpty(pv)) 
+                        continue;
 
+                    req.url.path.Add(pv);
+                }
+
+                if (!string.IsNullOrEmpty(uri.Query))
+                {
+                    var keys = ParseQueryString(uri.Query);
+                    foreach (string key in keys.AllKeys)
+                    {
+                        req.url.query.Add(new Query { key = key, value = keys[key] });
+                    }
+                }
             }
 
             if (!string.IsNullOrEmpty(filename))
             {
-                if (JsonSerializationUtils.SerializeToFile(pm, filename, false, true))
+                try
+                {
+                    var json = JsonSerializationUtils.Serialize(pm, false, true);
+                    System.IO.File.WriteAllText(filename, json, new UTF8Encoding(false));
                     return "OK";
+                }
+                catch
+                {
+                    return null;
+                }
+
+
+
                 
-                return null;
             }
 
             return JsonSerializationUtils.Serialize(pm, false, formatJsonOutput: true);
@@ -138,6 +172,24 @@ namespace WebSurge.Support
                 Requests = list
             };
         }
+
+        static NameValueCollection ParseQueryString(string query)
+        {
+            query = query.Trim(new char[] { '&', '?' });
+
+            NameValueCollection nvc = new NameValueCollection();
+
+            foreach (string vp in Regex.Split(query, "&"))
+            {
+                string[] singlePair = Regex.Split(vp, "=");
+                if (singlePair.Length == 2)
+                {
+                    nvc.Add(singlePair[0], WebUtility.UrlDecode(singlePair[1]));
+                }
+            }
+
+            return nvc;
+        }
     }
 
     public class RequestCollection
@@ -163,7 +215,7 @@ namespace WebSurge.Support
     {
         public string name { get; set; }
         public Request request { get; set; }
-        public object[] response { get; set; }
+        public object[] response { get; set; } = { };
     }
 
     public class Request
@@ -180,8 +232,8 @@ namespace WebSurge.Support
         public string raw { get; set; }
         public string protocol { get; set; }
         public List<string> host { get; set; } = new List<string>();
-        public List<string> path { get; set; } 
-        public List<Query> query { get; set; }
+        public List<string> path { get; set; } = new List<string>();
+        public List<Query> query { get; set; } = new List<Query>();
     }
 
     public class Query

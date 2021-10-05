@@ -50,8 +50,8 @@
             this.tbSaveAllRequests2 = new System.Windows.Forms.ToolStripButton();
             this.tbEditFile = new System.Windows.Forms.ToolStripButton();
             this.ListRequests = new System.Windows.Forms.ListView();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.RequestContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tbNewRequest = new System.Windows.Forms.ToolStripMenuItem();
             this.tbCopyFromRequest = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,9 +68,9 @@
             this.Images = new System.Windows.Forms.ImageList(this.components);
             this.tabResults = new System.Windows.Forms.TabPage();
             this.ListResults = new System.Windows.Forms.ListView();
-            this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Request = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ErrorMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Status = new System.Windows.Forms.ColumnHeader();
+            this.Request = new System.Windows.Forms.ColumnHeader();
+            this.ErrorMessage = new System.Windows.Forms.ColumnHeader();
             this.ResultContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tbResultCharts = new System.Windows.Forms.ToolStripMenuItem();
             this.tbRequestsPerSecondChart = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,6 +126,7 @@
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.btnRecentSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.RecentFilesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.btnEditFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCreateNewSession = new System.Windows.Forms.ToolStripMenuItem();
             this.btnClose = new System.Windows.Forms.ToolStripMenuItem();
@@ -164,7 +165,6 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStrip = new System.Windows.Forms.ToolStrip();
-            this.tbOpen = new System.Windows.Forms.ToolStripSplitButton();
             this.tbCreateNewSession = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbStart = new System.Windows.Forms.ToolStripButton();
@@ -246,15 +246,11 @@
             // 
             // statusBar
             // 
-            this.statusBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.statusBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.statusBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.statusBar.Dock = System.Windows.Forms.DockStyle.None;
             this.statusBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
-            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblStatusText,
-            this.lblStatusFilename,
-            this.txtProcessingTime});
+            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.lblStatusText, this.lblStatusFilename, this.txtProcessingTime });
             this.statusBar.Location = new System.Drawing.Point(0, 0);
             this.statusBar.Name = "statusBar";
             this.statusBar.Size = new System.Drawing.Size(1029, 22);
@@ -335,17 +331,7 @@
             // SessionToolStrip
             // 
             this.SessionToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.SessionToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbNewRequest2,
-            this.tbEditRequest2,
-            this.tbDeleteRequest2,
-            this.toolStripSeparator18,
-            this.tbTestRequest,
-            this.tbTestAll,
-            this.toolStripSeparator11,
-            this.tbCapture,
-            this.tbSaveAllRequests2,
-            this.tbEditFile});
+            this.SessionToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tbNewRequest2, this.tbEditRequest2, this.tbDeleteRequest2, this.toolStripSeparator18, this.tbTestRequest, this.tbTestAll, this.toolStripSeparator11, this.tbCapture, this.tbSaveAllRequests2, this.tbEditFile });
             this.SessionToolStrip.Location = new System.Drawing.Point(0, 0);
             this.SessionToolStrip.Name = "SessionToolStrip";
             this.SessionToolStrip.Size = new System.Drawing.Size(477, 25);
@@ -436,21 +422,16 @@
             this.tbEditFile.Image = ((System.Drawing.Image)(resources.GetObject("tbEditFile.Image")));
             this.tbEditFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbEditFile.Name = "tbEditFile";
-            this.tbEditFile.Size = new System.Drawing.Size(47, 22);
-            this.tbEditFile.Text = "Edit";
+            this.tbEditFile.Size = new System.Drawing.Size(23, 22);
             this.tbEditFile.ToolTipText = "Edit session file as text";
             this.tbEditFile.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // ListRequests
             // 
             this.ListRequests.AllowDrop = true;
-            this.ListRequests.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListRequests.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.ListRequests.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ListRequests.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4,
-            this.columnHeader2});
+            this.ListRequests.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.columnHeader4, this.columnHeader2 });
             this.ListRequests.ContextMenuStrip = this.RequestContextMenu;
             this.ListRequests.FullRowSelect = true;
             this.ListRequests.GridLines = true;
@@ -459,7 +440,7 @@
             this.ListRequests.Margin = new System.Windows.Forms.Padding(0);
             this.ListRequests.Name = "ListRequests";
             this.ListRequests.ShowItemToolTips = true;
-            this.ListRequests.Size = new System.Drawing.Size(480, 491);
+            this.ListRequests.Size = new System.Drawing.Size(480, 493);
             this.ListRequests.SmallImageList = this.Images;
             this.ListRequests.TabIndex = 1;
             this.ListRequests.UseCompatibleStateImageBehavior = false;
@@ -484,19 +465,7 @@
             // 
             // RequestContextMenu
             // 
-            this.RequestContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbNewRequest,
-            this.tbCopyFromRequest,
-            this.toolStripSeparator8,
-            this.tbEditRequest,
-            this.tbTestRequest2,
-            this.tbDeleteRequest,
-            this.toolStripSeparator17,
-            this.tbToggleActive,
-            this.tbMoveUp,
-            this.tbMoveDown,
-            this.toolStripSeparator6,
-            this.tbSaveAllRequests});
+            this.RequestContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tbNewRequest, this.tbCopyFromRequest, this.toolStripSeparator8, this.tbEditRequest, this.tbTestRequest2, this.tbDeleteRequest, this.toolStripSeparator17, this.tbToggleActive, this.tbMoveUp, this.tbMoveDown, this.toolStripSeparator6, this.tbSaveAllRequests });
             this.RequestContextMenu.Name = "RequestContextMenu";
             this.RequestContextMenu.Size = new System.Drawing.Size(216, 220);
             this.RequestContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
@@ -596,24 +565,19 @@
             this.tabResults.Controls.Add(this.ListResults);
             this.tabResults.Controls.Add(this.lblRequestCount);
             this.tabResults.Controls.Add(this.cmbListDisplayMode);
-            this.tabResults.Location = new System.Drawing.Point(4, 22);
+            this.tabResults.Location = new System.Drawing.Point(4, 24);
             this.tabResults.Name = "tabResults";
             this.tabResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabResults.Size = new System.Drawing.Size(477, 497);
+            this.tabResults.Size = new System.Drawing.Size(477, 495);
             this.tabResults.TabIndex = 1;
             this.tabResults.Text = "Results";
             this.tabResults.UseVisualStyleBackColor = true;
             // 
             // ListResults
             // 
-            this.ListResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.ListResults.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ListResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Status,
-            this.Request,
-            this.ErrorMessage});
+            this.ListResults.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.Status, this.Request, this.ErrorMessage });
             this.ListResults.ContextMenuStrip = this.ResultContextMenu;
             this.ListResults.FullRowSelect = true;
             this.ListResults.GridLines = true;
@@ -621,7 +585,7 @@
             this.ListResults.Location = new System.Drawing.Point(-1, 37);
             this.ListResults.Name = "ListResults";
             this.ListResults.ShowItemToolTips = true;
-            this.ListResults.Size = new System.Drawing.Size(479, 462);
+            this.ListResults.Size = new System.Drawing.Size(479, 460);
             this.ListResults.SmallImageList = this.Images;
             this.ListResults.TabIndex = 3;
             this.ListResults.UseCompatibleStateImageBehavior = false;
@@ -645,19 +609,14 @@
             // 
             // ResultContextMenu
             // 
-            this.ResultContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbResultCharts,
-            this.tbImportWebSurgeResults});
+            this.ResultContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tbResultCharts, this.tbImportWebSurgeResults });
             this.ResultContextMenu.Name = "ResultContextMenu";
             this.ResultContextMenu.Size = new System.Drawing.Size(208, 48);
             this.ResultContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuItemClickedToButtonHandler_Click);
             // 
             // tbResultCharts
             // 
-            this.tbResultCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbRequestsPerSecondChart,
-            this.toolStripSeparator9,
-            this.tbTimeTakenPerUrl});
+            this.tbResultCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tbRequestsPerSecondChart, this.toolStripSeparator9, this.tbTimeTakenPerUrl });
             this.tbResultCharts.Name = "tbResultCharts";
             this.tbResultCharts.Size = new System.Drawing.Size(207, 22);
             this.tbResultCharts.Text = "Charts";
@@ -700,10 +659,7 @@
             // cmbListDisplayMode
             // 
             this.cmbListDisplayMode.FormattingEnabled = true;
-            this.cmbListDisplayMode.Items.AddRange(new object[] {
-            "All",
-            "Success",
-            "Errors"});
+            this.cmbListDisplayMode.Items.AddRange(new object[] { "All", "Success", "Errors" });
             this.cmbListDisplayMode.Location = new System.Drawing.Point(8, 8);
             this.cmbListDisplayMode.Name = "cmbListDisplayMode";
             this.cmbListDisplayMode.Size = new System.Drawing.Size(167, 23);
@@ -752,12 +708,7 @@
             // 
             // BrowserContextMenu
             // 
-            this.BrowserContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnOpenInDefaultBrowser,
-            this.btnOpenUrlInDefaultBrowser,
-            this.toolStripSeparator20,
-            this.btnCopyRequestTraceToClipboard,
-            this.btnCopyResponseTraceToClipboard});
+            this.BrowserContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.btnOpenInDefaultBrowser, this.btnOpenUrlInDefaultBrowser, this.toolStripSeparator20, this.btnCopyRequestTraceToClipboard, this.btnCopyResponseTraceToClipboard });
             this.BrowserContextMenu.Name = "BrowserContextMenu";
             this.BrowserContextMenu.Size = new System.Drawing.Size(273, 98);
             this.BrowserContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.BrowserContextMenu_Opening);
@@ -869,9 +820,7 @@
             this.chkNoRandomize.Size = new System.Drawing.Size(113, 19);
             this.chkNoRandomize.TabIndex = 16;
             this.chkNoRandomize.Text = "don\'t randomize";
-            this.ToolTip.SetToolTip(this.chkNoRandomize, "if checked forces this request to the top of the list when you randomize requests" +
-        " during testing. Use for logins or other requests that have to run before others" +
-        ".");
+            this.ToolTip.SetToolTip(this.chkNoRandomize, "if checked forces this request to the top of the list when you randomize requests" + " during testing. Use for logins or other requests that have to run before others" + ".");
             this.chkNoRandomize.UseVisualStyleBackColor = true;
             // 
             // btn_PasteRawRequest
@@ -931,16 +880,13 @@
             this.chkIsActive.Size = new System.Drawing.Size(59, 19);
             this.chkIsActive.TabIndex = 1;
             this.chkIsActive.Text = "Active";
-            this.ToolTip.SetToolTip(this.chkIsActive, "If unchecked the request will not run in a stress test. You can still test the re" +
-        "quest individually however.");
+            this.ToolTip.SetToolTip(this.chkIsActive, "If unchecked the request will not run in a stress test. You can still test the re" + "quest individually however.");
             this.chkIsActive.UseVisualStyleBackColor = true;
             this.chkIsActive.Leave += new System.EventHandler(this.RequestData_Changed);
             // 
             // HeadersContentSplitter
             // 
-            this.HeadersContentSplitter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HeadersContentSplitter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.HeadersContentSplitter.Location = new System.Drawing.Point(7, 88);
             this.HeadersContentSplitter.Name = "HeadersContentSplitter";
             this.HeadersContentSplitter.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -991,9 +937,7 @@
             // txtRequestHeaders
             // 
             this.txtRequestHeaders.AcceptsReturn = true;
-            this.txtRequestHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRequestHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRequestHeaders.Font = new System.Drawing.Font("Consolas", 11F);
             this.txtRequestHeaders.Location = new System.Drawing.Point(0, 20);
             this.txtRequestHeaders.Multiline = true;
@@ -1012,8 +956,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(414, 19);
             this.label1.TabIndex = 1;
-            this.label1.Text = "(Clear, Unicode text. Content is encoded according to charset when sent to server" +
-    ")";
+            this.label1.Text = "(Clear, Unicode text. Content is encoded according to charset when sent to server" + ")";
             this.label1.UseCompatibleTextRendering = true;
             // 
             // lblRequestContent
@@ -1029,9 +972,7 @@
             // txtRequestContent
             // 
             this.txtRequestContent.AcceptsReturn = true;
-            this.txtRequestContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRequestContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRequestContent.Font = new System.Drawing.Font("Consolas", 11F);
             this.txtRequestContent.Location = new System.Drawing.Point(0, 20);
             this.txtRequestContent.MaxLength = 2147483647;
@@ -1069,8 +1010,7 @@
             // 
             // txtRequestUrl
             // 
-            this.txtRequestUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRequestUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRequestUrl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRequestUrl.Location = new System.Drawing.Point(6, 58);
             this.txtRequestUrl.Name = "txtRequestUrl";
@@ -1091,15 +1031,7 @@
             // txtHttpMethod
             // 
             this.txtHttpMethod.FormattingEnabled = true;
-            this.txtHttpMethod.Items.AddRange(new object[] {
-            "GET",
-            "POST",
-            "PUT",
-            "DELETE",
-            "HEAD",
-            "TRACE",
-            "OPTIONS",
-            "PATCH"});
+            this.txtHttpMethod.Items.AddRange(new object[] { "GET", "POST", "PUT", "DELETE", "HEAD", "TRACE", "OPTIONS", "PATCH" });
             this.txtHttpMethod.Location = new System.Drawing.Point(6, 10);
             this.txtHttpMethod.Name = "txtHttpMethod";
             this.txtHttpMethod.Size = new System.Drawing.Size(113, 23);
@@ -1136,10 +1068,7 @@
             // MainMenu
             // 
             this.MainMenu.Dock = System.Windows.Forms.DockStyle.None;
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.sessionToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.fileToolStripMenuItem, this.sessionToolStripMenuItem, this.helpToolStripMenuItem });
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Size = new System.Drawing.Size(1029, 24);
@@ -1148,20 +1077,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnOpen,
-            this.btnSaveAllRequests,
-            this.btnSaveAllRequestsAs,
-            this.tbCloudDrives,
-            this.toolStripSeparator15,
-            this.btnRecentSessions,
-            this.btnEditFile,
-            this.btnCreateNewSession,
-            this.btnClose,
-            this.toolStripSeparator10,
-            this.btnCapture,
-            this.toolStripSeparator2,
-            this.btnExit});
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.btnOpen, this.btnSaveAllRequests, this.btnSaveAllRequestsAs, this.tbCloudDrives, this.toolStripSeparator15, this.btnRecentSessions, this.btnEditFile, this.btnCreateNewSession, this.btnClose, this.toolStripSeparator10, this.btnCapture, this.toolStripSeparator2, this.btnExit });
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -1185,20 +1101,14 @@
             // btnSaveAllRequestsAs
             // 
             this.btnSaveAllRequestsAs.Name = "btnSaveAllRequestsAs";
-            this.btnSaveAllRequestsAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
+            this.btnSaveAllRequestsAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) | System.Windows.Forms.Keys.S)));
             this.btnSaveAllRequestsAs.Size = new System.Drawing.Size(237, 22);
             this.btnSaveAllRequestsAs.Text = "Save Session As...";
             this.btnSaveAllRequestsAs.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // tbCloudDrives
             // 
-            this.tbCloudDrives.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbOpenFromDropbox,
-            this.tbSaveToDropbox,
-            this.toolStripSeparator19,
-            this.tbOpenFromOneDrive,
-            this.tbSaveToOneDrive});
+            this.tbCloudDrives.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tbOpenFromDropbox, this.tbSaveToDropbox, this.toolStripSeparator19, this.tbOpenFromOneDrive, this.tbSaveToOneDrive });
             this.tbCloudDrives.Name = "tbCloudDrives";
             this.tbCloudDrives.Size = new System.Drawing.Size(237, 22);
             this.tbCloudDrives.Text = "Cloud Drive";
@@ -1250,9 +1160,20 @@
             // RecentFilesContextMenu
             // 
             this.RecentFilesContextMenu.Name = "RecentFilesContextMenu";
-            this.RecentFilesContextMenu.OwnerItem = this.tbOpen;
+            this.RecentFilesContextMenu.OwnerItem = this.btnRecentSessions;
             this.RecentFilesContextMenu.Size = new System.Drawing.Size(61, 4);
             this.RecentFilesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.AddRecentFiles);
+            // 
+            // tbOpen
+            // 
+            this.tbOpen.DropDown = this.RecentFilesContextMenu;
+            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
+            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(110, 22);
+            this.tbOpen.Text = "Open Session";
+            this.tbOpen.ToolTipText = "Open session file";
+            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // btnEditFile
             // 
@@ -1302,13 +1223,7 @@
             // 
             // sessionToolStripMenuItem
             // 
-            this.sessionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnStart,
-            this.btnStop,
-            this.toolStripSeparator14,
-            this.btnExport,
-            this.importToolStripMenuItem,
-            this.btnCharts});
+            this.sessionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.btnStart, this.btnStop, this.toolStripSeparator14, this.btnExport, this.importToolStripMenuItem, this.btnCharts });
             this.sessionToolStripMenuItem.Name = "sessionToolStripMenuItem";
             this.sessionToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.sessionToolStripMenuItem.Text = "Session";
@@ -1334,12 +1249,7 @@
             // 
             // btnExport
             // 
-            this.btnExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnExportXml,
-            this.btnExportJson,
-            this.btnExportHtml,
-            this.toolStripMenuItem1,
-            this.btnPostmanExport});
+            this.btnExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.btnExportXml, this.btnExportJson, this.btnExportHtml, this.toolStripMenuItem1, this.btnPostmanExport });
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(110, 22);
             this.btnExport.Text = "E&xport";
@@ -1379,8 +1289,7 @@
             // 
             // importToolStripMenuItem
             // 
-            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnPostmanImport});
+            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.btnPostmanImport });
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.importToolStripMenuItem.Text = "Import";
@@ -1394,9 +1303,7 @@
             // 
             // btnCharts
             // 
-            this.btnCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnRequestsPerSecondChart,
-            this.btnTimeTakenPerUrlChart});
+            this.btnCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.btnRequestsPerSecondChart, this.btnTimeTakenPerUrlChart });
             this.btnCharts.Name = "btnCharts";
             this.btnCharts.Size = new System.Drawing.Size(110, 22);
             this.btnCharts.Text = "Charts";
@@ -1416,21 +1323,7 @@
             // 
             // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnHelp,
-            this.toolStripSeparator7,
-            this.btnGotoRegistration,
-            this.btnRegistration,
-            this.toolStripSeparator12,
-            this.btnFeedback,
-            this.btnBugReport,
-            this.btnShowErrorLog,
-            this.btnGotoSettingsFolder,
-            this.toolStripSeparator13,
-            this.btnGotoWebSite,
-            this.btnCheckForNewVersion,
-            this.toolStripSeparator4,
-            this.btnAbout});
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.btnHelp, this.toolStripSeparator7, this.btnGotoRegistration, this.btnRegistration, this.toolStripSeparator12, this.btnFeedback, this.btnBugReport, this.btnShowErrorLog, this.btnGotoSettingsFolder, this.toolStripSeparator13, this.btnGotoWebSite, this.btnCheckForNewVersion, this.toolStripSeparator4, this.btnAbout });
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -1529,31 +1422,12 @@
             // MainToolStrip
             // 
             this.MainToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbOpen,
-            this.tbCreateNewSession,
-            this.toolStripSeparator1,
-            this.tbStart,
-            this.tbStop,
-            this.toolStripSeparator3,
-            this.tbExport,
-            this.tbCharts});
+            this.MainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tbOpen, this.tbCreateNewSession, this.toolStripSeparator1, this.tbStart, this.tbStop, this.toolStripSeparator3, this.tbExport, this.tbCharts });
             this.MainToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.MainToolStrip.Location = new System.Drawing.Point(3, 24);
             this.MainToolStrip.Name = "MainToolStrip";
             this.MainToolStrip.Size = new System.Drawing.Size(445, 25);
             this.MainToolStrip.TabIndex = 1;
-            // 
-            // tbOpen
-            // 
-            this.tbOpen.DropDown = this.RecentFilesContextMenu;
-            this.tbOpen.Image = ((System.Drawing.Image)(resources.GetObject("tbOpen.Image")));
-            this.tbOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(110, 22);
-            this.tbOpen.Text = "Open Session";
-            this.tbOpen.ToolTipText = "Open session file";
-            this.tbOpen.ButtonClick += new System.EventHandler(this.ButtonHandler);
             // 
             // tbCreateNewSession
             // 
@@ -1597,12 +1471,7 @@
             // 
             // tbExport
             // 
-            this.tbExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbExportRaw,
-            this.tbExportJson,
-            this.tbExportXml,
-            this.toolStripSeparator16,
-            this.btnExportResultSummary});
+            this.tbExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tbExportRaw, this.tbExportJson, this.tbExportXml, this.toolStripSeparator16, this.btnExportResultSummary });
             this.tbExport.Image = ((System.Drawing.Image)(resources.GetObject("tbExport.Image")));
             this.tbExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbExport.Name = "tbExport";
@@ -1645,9 +1514,7 @@
             // 
             // tbCharts
             // 
-            this.tbCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbRequestPerSecondChart,
-            this.tbTimeTakenPerUrlChart});
+            this.tbCharts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.tbRequestPerSecondChart, this.tbTimeTakenPerUrlChart });
             this.tbCharts.Image = ((System.Drawing.Image)(resources.GetObject("tbCharts.Image")));
             this.tbCharts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbCharts.Name = "tbCharts";
@@ -1671,14 +1538,7 @@
             // OptionsToolStrip
             // 
             this.OptionsToolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.OptionsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel2,
-            this.tbtxtTimeToRun,
-            this.toolStripLabel3,
-            this.lblTbThreads,
-            this.tbtxtThreads,
-            this.toolStripSeparator5,
-            this.tbNoProgressEvents});
+            this.OptionsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.toolStripLabel2, this.tbtxtTimeToRun, this.toolStripLabel3, this.lblTbThreads, this.tbtxtThreads, this.toolStripSeparator5, this.tbNoProgressEvents });
             this.OptionsToolStrip.Location = new System.Drawing.Point(3, 49);
             this.OptionsToolStrip.Name = "OptionsToolStrip";
             this.OptionsToolStrip.Size = new System.Drawing.Size(257, 25);
@@ -1804,7 +1664,6 @@
             this.OptionsToolStrip.ResumeLayout(false);
             this.OptionsToolStrip.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
 

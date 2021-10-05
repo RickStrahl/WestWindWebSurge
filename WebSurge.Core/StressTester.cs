@@ -138,9 +138,10 @@ namespace WebSurge
         /// The worker method call for each Session request processing is 
         /// SessionThreadRunner().
         /// </summary>
-        /// <param name="requests"></param>
-        /// <param name="threadCount"></param>
-        /// <param name="seconds"></param>
+        /// <param name="requests">List of requests to run</param>
+        /// <param name="threadCount">number of simultaneous sessions (1 thread each)</param>
+        /// <param name="seconds">number of seconds to run the test for</param>
+        /// <param name="runOnce">If true runs all requests exactly once</param>
         /// <returns></returns>
         public List<HttpRequestData> CheckAllSites(List<HttpRequestData> requests,
             int threadCount = 2,

@@ -95,9 +95,13 @@
             editor.setOptions({
                 // fill entire view
                 maxLines: 0,
-                minLines: 0
+                minLines: 0,
                 //wrapBehavioursEnabled: editorSettings.wrapText
-            });
+                displayIndentGuides: false,
+                scrollPastEnd: 0.1
+            });  
+            editor.renderer.setScrollMargin(0, 18);
+            editor.renderer.$cursorLayer.element.style.display = "none"; // hide cursor
 
             te.setEditorStyle(editorSettings, editor);
 

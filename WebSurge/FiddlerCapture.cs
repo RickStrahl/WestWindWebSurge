@@ -22,18 +22,18 @@ namespace WebSurge
         CaptureConfiguration = App.Configuration.UrlCapture;
         MainForm = form;
 
-        // Future use (Win7+): No dependencies on certmaker and bouncy castle libs
-        // FiddlerApplication.Prefs.SetBoolPref("fiddler.certmaker.PreferCertEnroll", true);
+            // Future use (Win7+): No dependencies on certmaker and bouncy castle libs
+            // FiddlerApplication.Prefs.SetBoolPref("fiddler.certmaker.PreferCertEnroll", true);
 
-        // IF PROBLEMS WITH SSL NOT WORKING
-        // Delete the C:\Users\rstrahl\AppData\Roaming\Microsoft\Crypto\RSA folder
+            // IF PROBLEMS WITH SSL NOT WORKING
+            // Delete the C:\Users\rstrahl\AppData\Roaming\Microsoft\Crypto\RSA folder
 
-        if (!string.IsNullOrEmpty(App.Configuration.UrlCapture.Cert))
-        {
-            FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.key", App.Configuration.UrlCapture.Key);
-            FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.cert", App.Configuration.UrlCapture.Cert);
+            if (!string.IsNullOrEmpty(App.Configuration.UrlCapture.Cert))
+            {
+                FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.key", App.Configuration.UrlCapture.Key);
+                FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.bc.cert", App.Configuration.UrlCapture.Cert);
+            }
         }
-    }
 
         private void FiddlerCapture_Load(object sender, EventArgs e)
         {
@@ -182,9 +182,6 @@ namespace WebSurge
                 FiddlerCoreStartupFlags.RegisterAsSystemProxy;
 
             FiddlerApplication.Startup(App.Configuration.UrlCapture.ProxyPort, flags);
-
-
-
         }
 
 
@@ -202,11 +199,12 @@ namespace WebSurge
         {
             if (!CertMaker.rootCertExists())
             {
-                if (!CertMaker.createRootCert())
+                if (!CertMaker.createRootCert() )
                     return false;
 
                 if (!CertMaker.trustRootCert())
                     return false;
+
 
                 App.Configuration.UrlCapture.Cert = FiddlerApplication.Prefs.GetStringPref("fiddler.certmaker.bc.cert", null);
                 App.Configuration.UrlCapture.Key = FiddlerApplication.Prefs.GetStringPref("fiddler.certmaker.bc.key", null);
