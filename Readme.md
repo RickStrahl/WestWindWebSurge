@@ -5,7 +5,7 @@
 
 #### Http Request and Load Testing for Windows
 
-<img src="websurgelogo.png" height="240"  /> 
+<img src="WebSurgeLogo.png" height="240"  /> 
 
 Like what you see? Don't forget to :star: Star the repo (top right).
 
