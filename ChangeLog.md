@@ -5,61 +5,29 @@
 [![Download WebSurge](https://img.shields.io/badge/Download-Installer-blue.svg)](https://websurge.west-wind.com/download.aspx)
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
-### Version 1.24
-<small>not released yet</small>
 
+### Version 2.0
 
-### Version 1.23
-<small>May 18th, 2021</small>
+<small>*available now in preview*</small>
 
-* **Drag and Drop Request Moving in Request List**  
-You can now drag and drop requests into a new location by dragging an individual item to a new location in the list.
+* **Complete UI Overhaul**  
+Rebuilt user interface of the application entirely using modern, responsive and more flexible UI functionality. The new look is more modern, but also offers much better interactivity.
 
-* **Double click to run Request**  
-You can now double click on a URL/Request to execute that request individually.
+* **Updated to run on .NET 6.0**  
+Updated application to run on .NET 6.0 to take advantage of new performance features. Chief functionality updates include a completely re-written HTTP request engine for more efficient request processing which much lighter processor usage.
 
-* **Processing Message on longer Requests**  
-When running requests that are not very quick, you'll now see a `Processing...` header when running individual requests. This helps prevent confusion whether a request is running or not which previously only showed in the status bar.
+* **More Interactivity in Request Views**  
+The request views are fully editable in v2 and allow more functionality to be edited directly in the HTML preview.
 
-* **Copy Request Button**  
-There's now a **Copy Request** button in the Preview pane that copies the current request to an HTTP text trace on the clipboard. The text matches what the Preview displays, which can either be just the Request data or both Request and Response if a request has run.
-
-* **Fix: Crash on no active Request** 
-Fix issue where WebSurge would crash when creating a new request without first using *New Request*. When no request is active one is now created and added to the list as soon as request data has been entered.
-
-* **Fix: Overflow error on Test Run Reporting**  
-Fix issue where in some instances long test runs would overrun an integer size for report summaries and crash.
-
-
-### Version 1.19
-<i><small>March 25th, 2021</small></i>
-
-* **Add SiteBaseUrl Session Option to allow for Relative URLs in Requests**  
-You can now use relative URLs for requests if accessing a single site, and set the new `SiteBaseUrl` session configuration setting to specify a URL. This base URL is pre-fixed to any request URLs that don't include `http://` or `https://` protocol schemas. This gives another option - in addition to the `ReplaceDomain` setting - to quickly switch tests between different sites in one place.
-
-* **Replace RequestTimeout with RequestTimeoutMs**  
-Fix issue with very small Request Timeouts causing WebSurge to fail to process the request. Changed behavior to use milliseconds rather than timeout seconds so it's now possible to use timeouts all the way down to 10ms.
-
-* **Open link clicks in the System Default Browser**  
-When clicking on the HTTP link in the previewer, a new browser window is now opened instead of opening the document inline.
-
-### Version 1.17
-<i><small>February 17, 2021</small></i>
-
-* **Display Images in Previewer**  
-Image results are now displayed as images in the previewer. You can toggle between image and raw view which shows a base64 representation of the image data (usable as an image reference).
-
-* **Fix Timing Issue**  
-Fix timing calculations for warmup and wind-down requests.
-
-* **Fix: Crash on aborting Test Run**   
-Fix a bug that would crash WebSurge infrequently when cancelling an in progress test run. 
-
-### Version 1.16
-<i><small>March 30th, 2020</small></i>
+* **New Result View**  
+The result view is now browser based and uses in browser technology for faster rendering. The request per second graph is now embedded into the result view.
 
 * **Import and Export Postman Collections**  
 You can now use the **File -> Import** to import Postman collections into WebSurge and **File -> Export** to export WebSurge sessions into Postman Collections.
+
+
+### Version 1.16
+<i><small>March 30th, 2020</small></i>
 
 * **Allow editing Request Data in Previewer**  
 You can now interactively edit the request data in the preview window using rich JSON/XML and HTTP header editing to edit the content for POST content and the HTTP Headers for each request. Editing in the preview is quicker and provides a richer editing experience than using the request entry form. Requests still have to be created in the request editor, but once created updating and customization of requests can be done in the previewer.

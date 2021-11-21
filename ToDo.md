@@ -1,8 +1,15 @@
-﻿# West Wind WebSurge ToDo List
+# West Wind WebSurge ToDo List
 This document describes various fixes, ideas for new features and various 
 work items. 
 
 ### Core Features
+
+* **Doublecheck Registration Logic**  
+Registration for the installed version doesn't appear to work and stick.
+
+* **Save and Load From Gist (or other global store)**  
+Allow saving or loading from Gist.
+
 
 * **Support for User Sessions**  
 We need the ability to explicitly load a session with specific user credentials. This can currently be done with creating a custom plug-in but it'd be nice to have a generic way to configure a user 'session' based on ids. Not sure how to approach this as each implentation tends to be different.
