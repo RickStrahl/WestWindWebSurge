@@ -1,4 +1,4 @@
-<img src="WebSurgeLogo.png" align="right" />
+<img src="WebSurgeLogo.png" align="right" height="120" />
 
 # West Wind WebSurge Change Log
 
