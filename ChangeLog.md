@@ -1,8 +1,8 @@
-<img src="WebSurgeLogo.png" align="right" height="120" />
+<img src="WebSurgeLogo.png" align="right" height="130" />
 
 # West Wind WebSurge Change Log
 
-[![Download WebSurge](https://img.shields.io/badge/Download-Installer-blue.svg)](https://websurge.west-wind.com/download.aspx)
+[![Download WebSurge](https://img.shields.io/badge/Download-Installer-blue.svg)](https://websurge.west-wind.com/download)
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 

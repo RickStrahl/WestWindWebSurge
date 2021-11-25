@@ -1,5 +1,5 @@
 # West Wind WebSurge
-[![Download WebSurge](https://img.shields.io/badge/WebSurge-Installer-blue.svg)](https://websurge.west-wind.com/download.aspx)
+[![Download WebSurge](https://img.shields.io/badge/WebSurge-Installer-blue.svg)](https://websurge.west-wind.com/download)
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
