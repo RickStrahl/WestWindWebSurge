@@ -23,7 +23,10 @@ The request views are fully editable in v2 and allow more functionality to be ed
 The result view is now browser based and uses in browser technology for faster rendering. The request per second graph is now embedded into the result view.
 
 * **Import and Export Postman Collections**  
-You can now use the **File -> Import** to import Postman collections into WebSurge and **File -> Export** to export WebSurge sessions into Postman Collections.
+You can now use the **Session->Import and Export->Import from Postman** to import Postman collections into WebSurge and **Session->Import and Export->Export to Postman** to export WebSurge sessions into Postman Collections.
+
+* **Import Fiddler Traces**  
+You can now use Fiddler to capture requests and export them via **Save Sessions->Save As->Text** in Fiddler to export selected Http traces and then import them into WebSurge via **Session->Import and Export->Export from Fiddler**.
 
 
 ### Version 1.16
