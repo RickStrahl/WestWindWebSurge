@@ -20,7 +20,7 @@ Updated application to run on .NET 6.0 to take advantage of new performance feat
 The application is overall faster, and more responsive with changes rippling through the entire UI more naturally than v1 (less explicit saving). The request processing engine has been completely re-written for improved Http request throughput and much lower CPU usage while running load tests.
 
 * **More Interactivity in Request Views**  
-The live request preview is fully editable now, in addition to the dedicated request editor to make it quicker to edit requests interactively.
+The live request preview is fully editable now. This is in addition to the dedicated request editor. The interactive editing makes it quicker and easier to edit request headers and content interactively as you run request without context switches.
 
 * **New Result View**  
 The results view is now browser based and uses in browser technology for faster rendering. The request per second graph is now embedded into the result view.
