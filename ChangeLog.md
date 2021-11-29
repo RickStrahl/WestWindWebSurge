@@ -11,16 +11,19 @@
 <small>*available now in preview*</small>
 
 * **Complete UI Overhaul**  
-Rebuilt user interface of the application entirely using modern, responsive and more flexible UI functionality. The new look is more modern, but also offers much better interactivity.
+Rebuilt user interface of the application entirely using modern, responsive and more flexible UI functionality. There are dark and light application themes. The new look is more modern, but also offers much better interactivity.
 
 * **Updated to run on .NET 6.0**  
 Updated application to run on .NET 6.0 to take advantage of new performance features. Chief functionality updates include a completely re-written HTTP request engine for more efficient request processing which much lighter processor usage.
 
+* **Improved Performance and lower CPU Usage**  
+The application is overall faster, and more responsive with changes rippling through the entire UI more naturally than v1 (less explicit saving). The request processing engine has been completely re-written for improved Http request throughput and much lower CPU usage while running load tests.
+
 * **More Interactivity in Request Views**  
-The request views are fully editable in v2 and allow more functionality to be edited directly in the HTML preview.
+The live request preview is fully editable now, in addition to the dedicated request editor to make it quicker to edit requests interactively.
 
 * **New Result View**  
-The result view is now browser based and uses in browser technology for faster rendering. The request per second graph is now embedded into the result view.
+The results view is now browser based and uses in browser technology for faster rendering. The request per second graph is now embedded into the result view.
 
 * **Import and Export Postman Collections**  
 You can now use the **Session->Import and Export->Import from Postman** to import Postman collections into WebSurge and **Session->Import and Export->Export to Postman** to export WebSurge sessions into Postman Collections.

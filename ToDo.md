@@ -4,24 +4,22 @@ work items.
 
 ### Core Features
 
-* **Doublecheck Registration Logic**  
-Registration for the installed version doesn't appear to work and stick.
-
 * **Save and Load From Gist (or other global store)**  
 Allow saving or loading from Gist.
 
-
-* **Support for User Sessions**  
+* **Support for User Sessions (works but needs review)**  
 We need the ability to explicitly load a session with specific user credentials. This can currently be done with creating a custom plug-in but it'd be nice to have a generic way to configure a user 'session' based on ids. Not sure how to approach this as each implentation tends to be different.
 
 ### Miscellaneous Fixes required
-* **Add per request username and password option**<br/>
+
+* **Add per request username and password option**
 In addition to the global username and password option we also should 
 support username and password per request. This is already supported,
 but there's no UI and no way to store this info in a request (use
 custom headers like the Active flag).
 
 ### Features
+  
 * **Sync multiple WebSurge Instances to increase load**<br/>
 Allow multiple instances of WebSurge on multiple machines run the same
 test and synchronize their results. One machine acts as a master the
