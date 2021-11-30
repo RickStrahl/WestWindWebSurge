@@ -2,6 +2,21 @@
 This document describes various fixes, ideas for new features and various 
 work items. 
 
+### Priority List
+
+* **Review and Update Documentation**  
+Documentation is for v1, so all screenshots need to be updated and behavior changes. It'll require a complete revamping of the docs.
+
+* **User Agent Handling**  
+Need the ability to specify a fixed user agent for each request and inject it if provided.
+
+* **User Handling**  
+Per request user handling is currently disabled and needs to be hooked back up. Review and update logic and look into providing UI for configuring user data beyond the current Configuration file settings.
+
+* **Check Content Compression Options with HttpClient**  
+Need to verify that we can automatically decompress Gzip/deflate etc. content when retrieved and whether this works with HttpClient automatically.
+
+
 ### Core Features
 
 * **Save and Load From Gist (or other global store)**  
