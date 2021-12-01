@@ -4,17 +4,21 @@ work items.
 
 ### Priority List
 
+* **Swagger Import Fixes**  
+	* Handle Multiple Verbs for Same URL (iterate on Verb)
+	* Parse POSt Parameters better (see other Petstore Swagger)
+
 * **Review and Update Documentation**  
 Documentation is for v1, so all screenshots need to be updated and behavior changes. It'll require a complete revamping of the docs.
-
-* **User Agent Handling**  
-Need the ability to specify a fixed user agent for each request and inject it if provided.
 
 * **User Handling**  
 Per request user handling is currently disabled and needs to be hooked back up. Review and update logic and look into providing UI for configuring user data beyond the current Configuration file settings.
 
 * **Check Content Compression Options with HttpClient**  
 Need to verify that we can automatically decompress Gzip/deflate etc. content when retrieved and whether this works with HttpClient automatically.
+
+* **Check out `Spectre.Console` for WebSurgeCli**  
+We need better Console operation and result output generation and Spectre.Console looks like it might provide the features needed including: test progress, result display (table mode), layout and colors for results.
 
 
 ### Core Features
