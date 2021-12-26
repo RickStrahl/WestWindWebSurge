@@ -27,7 +27,7 @@ We need better Console operation and result output generation and Spectre.Consol
 Allow saving or loading from Gist.
 
 * **Support for User Sessions (works but needs review)**  
-We need the ability to explicitly load a session with specific user credentials. This can currently be done with creating a custom plug-in but it'd be nice to have a generic way to configure a user 'session' based on ids. Not sure how to approach this as each implentation tends to be different.
+We need the ability to explicitly load a session with specific user credentials. This can currently be done with creating a custom plug-in but it'd be nice to have a generic way to configure a user 'session' based on ids. Not sure how to approach this as eacimplementationon tends to be different.
 
 ### Miscellaneous Fixes required
 

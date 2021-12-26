@@ -19,11 +19,18 @@ Updated application to run on .NET 6.0 to take advantage of new performance feat
 * **Improved Performance and lower CPU Usage**  
 The application is overall faster, and more responsive with changes rippling through the entire UI more naturally than v1 (less explicit saving). The request processing engine has been completely re-written for improved Http request throughput and much lower CPU usage while running load tests.
 
+* **Completely overhauled User Management System**  
+Each executing session thread is now mapped to a User. Users contain a unique HTTP instance with its own connection state for things like cookies, caching and and authorization state. In addition, you can now capture and inject JSON tokens and Http Form variables (capture in one request and inject into another) via Http Headers.   
+Currently User configuration is only support via configuration files - no UI.
+
 * **More Interactivity in Request Views**  
 The live request preview is fully editable now. This is in addition to the dedicated request editor. The interactive editing makes it quicker and easier to edit request headers and content interactively as you run request without context switches.
 
 * **New Result View**  
 The results view is now browser based and uses in browser technology for faster rendering. The request per second graph is now embedded into the result view.
+
+* **Image and Html Previews**  
+Image results now display the image, rather than the binary data. HTML result displays HTML as unformatted (default) view and the rendered HTML in formatted view.
 
 * **Import and Export Postman Collections**  
 You can now use the **Session->Import and Export->Import from Postman** to import Postman collections into WebSurge and **Session->Import and Export->Export to Postman** to export WebSurge sessions into Postman Collections.
