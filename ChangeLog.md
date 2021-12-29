@@ -27,10 +27,15 @@ Currently User configuration is only support via configuration files - no UI.
 The live request preview is fully editable now. This is in addition to the dedicated request editor. The interactive editing makes it quicker and easier to edit request headers and content interactively as you run request without context switches.
 
 * **New Result View**  
-The results view is now browser based and uses in browser technology for faster rendering. The request per second graph is now embedded into the result view.
+The results view is now browser based and uses in browser technology for faster rendering. The request per second graph is now embedded into the result view. We've also added 99th, 95th, 1st and 5th percentiles to the Results View and cleaned up the display to be more visually appealing.
+
+* **You can now Print and Save the Results Page**  
+The results page now sports the regular browser Print dialog that allows you to print or save the results page, with full fidelity to the Printer or PDF File.
 
 * **Image and Html Previews**  
 Image results now display the image, rather than the binary data. HTML result displays HTML as unformatted (default) view and the rendered HTML in formatted view.
+
+
 
 * **Import and Export Postman Collections**  
 You can now use the **Session->Import and Export->Import from Postman** to import Postman collections into WebSurge and **Session->Import and Export->Export to Postman** to export WebSurge sessions into Postman Collections.
@@ -57,8 +62,7 @@ Created a new more visual display for the Report Summary section. Shout out the 
 * **Add Total Bytes Sent and Total Bytes Posted to Summaries**  
 Added Total bytes send and posted to the WebSurge summary result screens of both the GUI and Console apps.
 
-* **You can now Print and Save the Results Page**  
-The results page now sports the regular browser Print dialog that allows you to print or save the results page, with full fidelity to the Printer or PDF File.
+
 
 ### Version 1.14
 <i><small>April 22rd, 2019</small></i>
