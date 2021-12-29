@@ -48,11 +48,17 @@ You can now interactively edit the request data in the preview window using rich
 * **Add Syntax Highlighting to pop-out Request Editor**  
 Added syntax highlighting to the popout editor available when double clicking on the request editor. The editor pops up with the appropriate syntax highlighting for HTTP headers or Request content in xml, json format. The editor is a full editor interface with better support for text spacing and re-alignment that makes it easier to edit text.
 
+* **Add Request Header Context Menu to add common Headers**
+You can now use the context menu to quickly pop in common headers like Content Type, Accept, and Accept-Encoding headers into the Request header both in the Request Editor and Previewer. Context menu also shows additional actions for running, active/inactive etc.
+
 * **Update Report Summary Display Page**  
 Created a new more visual display for the Report Summary section. Shout out the request per seconds and failures at the top and group test stats vs. result stats using colored visual bars.
 
 * **Add Total Bytes Sent and Total Bytes Posted to Summaries**  
 Added Total bytes send and posted to the WebSurge summary result screens of both the GUI and Console apps.
+
+* **You can now Print and Save the Results Page**  
+The results page now sports the regular browser Print dialog that allows you to print or save the results page, with full fidelity to the Printer or PDF File.
 
 ### Version 1.14
 <i><small>April 22rd, 2019</small></i>
