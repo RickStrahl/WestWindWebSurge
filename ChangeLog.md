@@ -32,6 +32,9 @@ The results view is now browser based and uses in browser technology for faster 
 * **You can now Print and Save the Results Page**  
 The results page now sports the regular browser Print dialog that allows you to print or save the results page, with full fidelity to the Printer or PDF File. Accessible via context menu on the results page or via **Results -> Print**.
 
+* **Updated CLI Test UI**  
+We're now using much richer display output to show progress information during tests and to display the result view. The new view uses tables and colors to make results easier to view at a glance. For raw data result capture `--json` option is also available.
+
 * **Image and Html Previews**  
 Image results now display the image, rather than the binary data. HTML result displays HTML as unformatted (default) view and the rendered HTML in formatted view.
 
