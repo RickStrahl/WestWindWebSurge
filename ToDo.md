@@ -1,6 +1,5 @@
 # West Wind WebSurge ToDo List
-This document describes various fixes, ideas for new features and various 
-work items. 
+This document describes various fixes, ideas for new features and various work items. 
 
 ### Priority List
 

@@ -3,7 +3,7 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
-#### Http Request and Load Testing for Windows
+#### REST Client and Http Load Testing for Windows
 
 <img src="WebSurgeLogo.png" height="240"  /> 
 
@@ -12,9 +12,9 @@ Like what you see? Don't forget to :star: Star the repo.
 ### What is WebSurge?
 West Wind WebSurge is an Http Request and Load Testing tool for Windows. 
 
-Use it to create, import or capture and then play back Http requests, either individually for interactive request testing and debugging (a la Postman), or for Http Load Tests that can play back a session of requests under heavy load.
+Use it to create, import or capture and then play back Http requests, either individually for interactive API or Web request testing and debugging (a la Postman), or use it for Http Load Tests that can play back a session of requests under heavy load.
 
-The goal is to make it quick and drop dead simple to create and set up requests, and then test and load test them easily, in order integrate testing functionality without friction into your development process.
+The goal is to make it quick and drop dead simple to create and set up requests, and then run and load test them easily, in order integrate testing functionality without friction into your development process.
 
 > #### @icon-info-circle Source Code Access by Request
 > Note this repository no longer holds source code for West Wind WebSurge, **due to rampant license abuse** in v1. v2 has moved to a private repository. Source code access is still available but only by request via private access.
@@ -33,7 +33,7 @@ To create new requests or edit more detailed editing of requests, the edit view 
 ![](Assets/ScreenShots/EditRequest.png)
 
 **Running a Load Test**  
-To run a load test you press **Start**, set the Threads and Duration and off you go. Requests run in the background with a running tally showing in the HUD display on the bottom. You can continue to use the UI while tests are running.
+To run a load test you press **Start**, but first set the Duration and Threads, which is the number of simultaneous sessions that run. Requests run in the background with a running tally showing in the HUD panel on the bottom of the main window. You can continue to use the UI while tests are running.
 
 ![](Assets/ScreenShots/ActiveLoadSession.png)
 
@@ -49,7 +49,7 @@ The load testing interface is also available via a Command Line tool (`websurgeC
 
 
 #### Goal of WebSurge
-The goal of this tool is to make it drop dead easy to capture or create HTTP request content and test and play it back easily under load. It provides simple results that are easy to understand and act on. It's so easy that you can *frequently* stress test Web applications for load  characteristics during development, testing and in production.
+The goal of this tool is to make it drop dead easy to capture or create HTTP requests, quickly test them individually and then play them back easily under load. WebSurge provides simple results that are easy to understand and act on. It's quick and easy so that you can *frequently* stress test Web applications for load characteristics during development and in production.
 
 * Easy capture or manual entry of URLs
 * Interactive recording of screen sessions
@@ -68,8 +68,8 @@ Sessions are stored in plain files and can easily be shared in source control, t
 
 #### Use Cases
 
+* As a REST Client for testing API or Web Requests
 * Load testing Web applications and services
-* Easy Http Request testing and debugging for REST and Data services
 * URL management for saving, sharing, restoring
 
 ### Requirements
@@ -78,10 +78,9 @@ Sessions are stored in plain files and can easily be shared in source control, t
 * .NET 6.0
 * Microsoft WebView2 
 
-
 ### More info
 
-* [WebSurge Web Sitee](https://websurge.west-wind.com/)
+* [WebSurge Web Site](https://websurge.west-wind.com/)
 * [WebSurge Download](https://websurge.west-wind.com/download)
 * [WebSurge Chocolatey Package](https://chocolatey.org/packages/WestwindWebSurge)
 * [Licensing](http://west-wind.com/websurge/purchase#license)
