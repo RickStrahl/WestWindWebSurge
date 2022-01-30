@@ -3,18 +3,18 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
-#### REST Client and Http Load Testing for Windows
+#### Http REST Client and Http Load Testing for Windows
 
 <img src="WebSurgeLogo.png" height="240"  /> 
 
-Like what you see? Don't forget to :star: Star the repo.
+Like what you see? Don't forget to :star: star the repo.
 
 ### What is WebSurge?
 West Wind WebSurge is an Http Request and Load Testing tool for Windows. 
 
 Use it to create, import or capture and then play back Http requests, either individually for interactive API or Web request testing and debugging (a la Postman), or use it for Http Load Tests that can play back a session of requests under heavy load.
 
-The goal is to make it quick and drop dead simple to create and set up requests, and then run and load test them easily, in order integrate testing functionality without friction into your development process.
+The goal is to make it quick and drop dead simple to create and set up requests as sessions, and then run them individually or load test the sessions easily. The goal is to integrate Http testing functionality without friction into your development process.
 
 > #### @icon-info-circle Source Code Access by Request
 > Note this repository no longer holds source code for West Wind WebSurge, **due to rampant license abuse** in v1. v2 has moved to a private repository. Source code access is still available but only by request via private access.
@@ -38,7 +38,7 @@ To run a load test you press **Start**, but first set the Duration and Threads, 
 ![](Assets/ScreenShots/ActiveLoadSession.png)
 
 **Test Result View**  
-The test result view shows a summary of the test that was just run. It'll provide request per second, failed requests, total requests, duration and a few other top level statistics. It also shows similiar information for each individual Url of the session. 
+The test result view shows a summary of the test that was just run. It'll provide request per second, failed requests, total requests, duration and a few other top level statistics. It also shows similar information for each individual Url of the session. 
 
 ![](Assets/ScreenShots/SessionResults.png)
 
