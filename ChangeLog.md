@@ -6,9 +6,9 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
-### Version 2.0
+### Version 2.0.1
 
-<small>*available now in preview*</small>
+<small>February 2nd, 2022 • [Initial Release Post](https://weblog.west-wind.com/posts/2022/Feb/01/West-Wind-WebSurge-20-is-here) &bull; [Release Video](https://www.youtube.com/watch?v=jgEYn-ldr30) </small>
 
 * **[Complete UI Overhaul](https://websurge.west-wind.com/docs/_67i10usf7.htm)**  
 Rebuilt user interface of the application entirely using modern, responsive and more flexible UI functionality. The new Request Previewer provides more request and response information and allows for two-way editing of request data in addition to the official request editor. There are dark and light application themes and the entire UI is now responsive and reflects changes made immediately. The new look is more modern, but also offers much better interactivity for a much improved workflow.
