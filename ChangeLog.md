@@ -9,23 +9,29 @@
 
 ### Version 2.1
 
-<small>not released yet</small>
+<small>March 31st, 2022</small>
 
-
-* **Interactive Http Forms Editor** 
+* **Interactive Http Forms Editor**  
 Added an interactive forms editor for UrlEncoded and multi-part forms. The editor allows for interactively editing form variables and values, and for multipart forms allows for loading file content and encoding it. This complements the existing edit view, and urlencoded interactive editing in the previewer. 
-
-* **Better handling of Binary Data in Multi-Part forms**  
-Multipart forms now display binary content as `b64_<long base64 string>` in the Request editor. This format is recognized by the request runner and it appropriately expands the binary data to send the request. You can create the binary data interactively in the **Http Forms Editor** (`ctrl-t` in the Request Content Entry textbox).
-
-* **Clickable File Link in StatusBar**  
-The open file in the editor is now a clickable link in the right corner of the statusbar, so you can easily grab the path and jump to the file location. The tooltip also now displays the folder information.
 
 * **Support for Custom Users**  
 Added support for users that can be assigned to a session. Users define session specific information that can vary between users - for example separate login credentials or variables to log in with for different users, or different values to fill into various controls. User can add global Cookies and Authorization headers, or URL specific headers and form variables. 
 
 * **Separate Http Context for each executing Session**  
 When running load tests, each **Thread** or Session of requests, gets it's own dedicated Http call context that is reused for all requests on that thread. This allows separate threads to have separate context so each context can maintain its own authorization, cookie and other Http state.
+
+* **Better handling of Binary Data in Multi-Part forms**  
+Multipart forms now display binary content as `b64_<long base64 string>` in the Request editor. This format is recognized by the request runner and it appropriately expands the binary data to send the request. You can create the binary data interactively in the **Http Forms Editor** (`ctrl-t` in the Request Content Entry textbox).
+
+* **Request Grouping**  
+You can now optionally assign requests to a group and drag and drop between groups. This makes it a little easier to organize requests in long request lists that don't need a fixed sequence.
+
+* **Clickable File Link in StatusBar**  
+The open file in the editor is now a clickable link in the right corner of the statusbar, so you can easily grab the path and jump to the file location. The tooltip also now displays the folder information.
+
+* **When importing Multi-Part forms via Request Capture Parse Form Vars**  
+Form variables are now parsed when importing multi-part forms via the Request Capture Form. Previously data was captured as a single `b64_` binary blob. You can now view and edit captured the data in the Forms editor.  
+**Note**: Binary data still can't be captured with the Request Capture tool due to a bug in the WebView control that doesn't return this data.
 
 
 ### Version 2.0.1
