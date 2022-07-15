@@ -6,6 +6,14 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+### Version 2.2
+<small>not released yet</small>
+
+* **Add Basic Authentication Username and Password Dialog**  
+You can now specify Basic Authentication for individual requests via the Context Menu and the *Basic Authentication* option. You can enter and update and clear basic authentication `Authorization` headers via this dialog that handles encoding of the userid:password combination.
+
+* **Fix: First time error page on Request Preview**  
+Fix issue where the request viewer briefly showed a *Page Unavailable* page when first displaying request information. 
 
 ### Version 2.1
 
