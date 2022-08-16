@@ -9,6 +9,9 @@
 ### Version 2.2
 <small>not released yet</small>
 
+* **Add Recent SiteBaseUrl List to allow easy switching between sites**  
+The Session configuration now includes a list of 5 recent URLs that that show up in a drop down to allow quickly selecting from a list of test target sites. This makes it easier to share a `.websurge` file for multiple different environments. Values can be edited in the UI or edited in the Session configuration file.
+
 * **Add Basic Authentication Username and Password Dialog**  
 You can now specify Basic Authentication for individual requests via the Context Menu and the *Basic Authentication* option. You can enter and update and clear basic authentication `Authorization` headers via this dialog that handles encoding of the userid:password combination.
 
