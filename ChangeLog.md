@@ -10,7 +10,8 @@
 <small>not released yet</small>
 
 * **Add support for HTTP 2.0**  
-You can now run requests in HTTP mode. Http Mode is specified as part of the session and is displayed in the Request Preview as `HTTP/2.0`. HTTP 2.0 falls back to 1.1 if the server doesn't support it and that is reflected in the response from the server which then shows `HTTP/1.1`.
+You can now run requests in HTTP/2 mode. Http Mode is specified as part of the session and is displayed in the Request Preview as `HTTP/2.0`. HTTP 2.0 falls back to 1.1 if the server doesn't support it and that is reflected in the response from the server which then shows `HTTP/1.1`.    
+*note: the HTTP/2 header display uses the HTTP/1.1 syntax as 2.0 syntax is much less readable/editable*.
 
 * **Specify Item to open from CommandLine**  
 You can  now specify which item to open by using the following syntax: `startupFilename:startupItem`. `startupItem` can be a URL, name or ID of an item in the file's list to pre-select.
@@ -27,8 +28,14 @@ You can now more easily access the print or save to PDF feature in the previewer
 * **Add Basic Authentication Username and Password Dialog**  
 You can now specify Basic Authentication for individual requests via the Context Menu and the *Basic Authentication* option. You can enter and update and clear basic authentication `Authorization` headers via this dialog that handles encoding of the userid:password combination.
 
+* **Bearer Token Context Menu Options**  
+The request menu now has a number of Bearer token defaults that display including *Empty Bearer Token* (adds an Authorization: Bearer with not token header), as well as several WebSurge specific settings that can capture a token and either save it and manually assign it or set the global Authorization override in the settings automatically.
+
 * **Fix: First time error page on Request Preview**  
 Fix issue where the request viewer briefly showed a *Page Unavailable* page when first displaying request information. 
+
+* **Fix: Multipart Form Variables Encoding**  
+Fix issue with CRLF breaks in the form variable output - in some cases only LF was generated which breaks some servers that parse by explicitly looking for CRLF line breaks. 
 
 ### Version 2.1
 
