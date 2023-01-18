@@ -31,11 +31,20 @@ You can now specify Basic Authentication for individual requests via the Context
 * **Bearer Token Context Menu Options**  
 The request menu now has a number of Bearer token defaults that display including *Empty Bearer Token* (adds an Authorization: Bearer with not token header), as well as several WebSurge specific settings that can capture a token and either save it and manually assign it or set the global Authorization override in the settings automatically.
 
+* **Add Request Name to the Tab Bar**  
+If the request has a Name associated with it, that name is now displayed on the Tab bar above the request. This makes it easier to see what's active even when a request has already run and only shows the URL.
+
+* **Request Buttons stay Visbible on Scrolling**  
+The Request buttons in the HTML Previewer now are pinned to the top of the preview window and stay visible even if you scroll down the request display. This keeps the big Run/Copy/Paste/Print buttons always available.
+
 * **Fix: First time error page on Request Preview**  
 Fix issue where the request viewer briefly showed a *Page Unavailable* page when first displaying request information. 
 
 * **Fix: Multipart Form Variables Encoding**  
 Fix issue with CRLF breaks in the form variable output - in some cases only LF was generated which breaks some servers that parse by explicitly looking for CRLF line breaks. 
+
+* **Fix: Addin OnBeforeRequestSent() Timing**  
+Fix issue where headers were sent before this addin was fired resulting in headers not getting applied. Fixed [#101](https://github.com/RickStrahl/WestWindWebSurge/issues/101)
 
 ### Version 2.1
 
