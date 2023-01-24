@@ -14,19 +14,22 @@ You can now run requests in HTTP/2 mode. Http Mode is specified as part of the s
 *note: the HTTP/2 header display uses the HTTP/1.1 syntax as 2.0 syntax is much less readable/editable*.
 
 * **Edit Url and HttpVerb in Preview Display**  
-You can now edit the URL in the preview display. You can still navigate but it now uses Ctrl-Click as plain click is required for editing.
+You can now edit the URL in the Request Previewer along with the headers and request body. You can still navigate the URL as well, but it now uses Ctrl-Click.
 
 * **Specify Item to open from CommandLine**  
-You can now specify which item to open by using the following syntax: `WebSurge startupFilename:startupItem`. `startupItem` can be a URL, name or ID of an item in the file's list to pre-select.
+You can now specify which item to open by using the following syntax: `WebSurge startupFilename:startupItem`. `startupItem` can be a URL, name or request ID from Session file.
 
 * **Open Request in new Window**  
-You can now open any request in a new WebSurge instance to allow you to look at multiple requests simultaneously.
+You can now open any request in a new WebSurge instance to allow opening and running multiple requests simultaneously. Very useful for reference.
 
-* **Add Recent SiteBaseUrl List to allow easy switching between sites**  
-The Session configuration now includes a list of 5 recent URLs that that show up in a drop down to allow quickly selecting from a list of test target sites. This makes it easier to share a `.websurge` file for multiple different environments. Values can be edited in the UI or edited in the Session configuration file.
+* **Copy and Paste Requests**  
+You can now copy a request using the copy button and paste it into a new request. Request data is copied to the clipboard in plain text, HTTP header syntax, and can also be used for easily pasting into blog posts documentation.
 
-* **Add Print Request to Menu and Button Bar in Previewer**  
-You can now more easily access the print or save to PDF feature in the previewer with UI access to the print operation. Print Request is now present on the Button Bar at the top, in the Context Menu for request content and body, and in the main body of the document. `Ctrl-p` now also works more reliably.
+* **New Recent SiteBaseUrl List to allow easy switching between sites**  
+The Session configuration now includes a dropdown for the SiteBaseUrl that keeps track of the last 5 unique base Urls used for the session. This makes it easy to switch between different sites for testing (ie. local dev, staging, live site etc.) without having to duplicate session files. The list is stored with the `.websurge` Session file so the list can also be checked in as part of a project and shared across developers in dev environments.
+
+* **Print Request on Menu and Button Bar in Previewer**  
+You can now more easily print to a printer or save the current request to PDF. This operation takes the Request output from the previewer and sends it to the Print output. Print Request is now available on the Button Bar at the top, in the Context Menu for request content and body, and in the main body of the document. `Ctrl-p` now also works more reliably both in the editor and Previewer.
 
 * **Add Basic Authentication Username and Password Dialog**  
 You can now specify Basic Authentication for individual requests via the Context Menu and the *Basic Authentication* option. You can enter and update and clear basic authentication `Authorization` headers via this dialog that handles encoding of the userid:password combination.
