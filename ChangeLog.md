@@ -49,6 +49,8 @@ The application now runs under .NET 7.0 which brings additional performance impr
 * **Improved UI Responsiveness for the Previewer and Live Request Editor**  
 There have been many improvements to integration with the new features of the WebView component used for the previewer, request capture and documentation window. The new async related improvements improve stability and responsiveness of any of the HTML based interfaces.
 
+* **Support for OpenAPI 3.0 Imports**  
+There's now support for importing OpenAPI 3.0 service descriptions as WebSurge Sessions. There are also improved error messages when errors occur.
 
 * **Fix: First time error page on Request Preview**  
 Fix issue where the request viewer briefly showed a *Page Unavailable* page when first displaying request information. 
