@@ -7,14 +7,17 @@
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 ### Version 2.2
-<small>not released yet</small>
+<small>January 24th, 2023</small>
 
 * **Add support for HTTP 2.0**  
 You can now run requests in HTTP/2 mode. Http Mode is specified as part of the session and is displayed in the Request Preview as `HTTP/2.0`. HTTP 2.0 falls back to 1.1 if the server doesn't support it and that is reflected in the response from the server which then shows `HTTP/1.1`.    
 *note: the HTTP/2 header display uses the HTTP/1.1 syntax as 2.0 syntax is much less readable/editable*.
 
+* **Edit Url and HttpVerb in Preview Display**  
+You can now edit the URL in the preview display. You can still navigate but it now uses Ctrl-Click as plain click is required for editing.
+
 * **Specify Item to open from CommandLine**  
-You can  now specify which item to open by using the following syntax: `startupFilename:startupItem`. `startupItem` can be a URL, name or ID of an item in the file's list to pre-select.
+You can now specify which item to open by using the following syntax: `WebSurge startupFilename:startupItem`. `startupItem` can be a URL, name or ID of an item in the file's list to pre-select.
 
 * **Open Request in new Window**  
 You can now open any request in a new WebSurge instance to allow you to look at multiple requests simultaneously.
@@ -34,8 +37,15 @@ The request menu now has a number of Bearer token defaults that display includin
 * **Add Request Name to the Tab Bar**  
 If the request has a Name associated with it, that name is now displayed on the Tab bar above the request. This makes it easier to see what's active even when a request has already run and only shows the URL.
 
-* **Request Buttons stay Visbible on Scrolling**  
-The Request buttons in the HTML Previewer now are pinned to the top of the preview window and stay visible even if you scroll down the request display. This keeps the big Run/Copy/Paste/Print buttons always available.
+* **Preview Request Buttons stay Visible on Scrolling**  
+The Request buttons in the HTML Previewer (Run/Print/Copy/Paste) now are pinned to the top of the preview window and stay visible even if you scroll down the request display. This makes it more consistent to re-run the current request.
+
+* **Update to .NET 7.0**  
+The application now runs under .NET 7.0 which brings additional performance improvements for load testing and general UI operation.
+
+* **Improved UI Responsiveness for the Previewer and Live Request Editor**  
+There have been many improvements to integration with the new features of the WebView component used for the previewer, request capture and documentation window. The new async related improvements improve stability and responsiveness of any of the HTML based interfaces.
+
 
 * **Fix: First time error page on Request Preview**  
 Fix issue where the request viewer briefly showed a *Page Unavailable* page when first displaying request information. 

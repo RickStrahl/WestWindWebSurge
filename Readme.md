@@ -75,8 +75,7 @@ Sessions are stored in plain files and can easily be shared in source control, t
 ### Requirements
 
 * Windows 7+, Windows 2012+
-* .NET 6.0
-* Microsoft WebView2 
+* .NET 7.0 
 
 ### More info
 
