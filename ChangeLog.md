@@ -6,6 +6,15 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+### Version 2.3 
+<small>not released yet</small>
+
+* **Fix OpenApi/Swagger Import Dialog**  
+Fix issue with the import dialog that would not pre-validate JSON spec content correctly, incorrectly flagging it as invalid. Fixed. 
+ 
+ * **Improve Slow Request Processing Display**  
+ Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
+ 
 ### Version 2.2
 <small>January 24th, 2023</small>
 
