@@ -12,6 +12,9 @@
 * **Fix OpenApi/Swagger Import Dialog**  
 Fix issue with the import dialog that would not pre-validate JSON spec content correctly, incorrectly flagging it as invalid. Fixed. 
  
+ * **Saved Request Viewer**  
+ Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison. 
+ 
  * **Improve Slow Request Processing Display**  
  Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
  
