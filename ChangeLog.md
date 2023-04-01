@@ -9,9 +9,7 @@
 ### Version 2.3 
 <small>not released yet</small>
 
-* **Fix OpenApi/Swagger Import Dialog**  
-Fix issue with the import dialog that would not pre-validate JSON spec content correctly, incorrectly flagging it as invalid. Fixed. 
- 
+
  * **Saved Request Viewer**  
  Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
  
@@ -20,6 +18,9 @@ Fix issue with the import dialog that would not pre-validate JSON spec content c
  
  * **Allow Import of Visual Studio\VsCode .rest and .http Files**  
  You can now import all .http and .rest files from a Visual Studio (or VS Code) project based on a folder. All requests are imported into the current session.
+ 
+ * **Fix OpenApi/Swagger Import Dialog**  
+Fix issue with the import dialog that would not pre-validate JSON spec content correctly, incorrectly flagging it as invalid. Fixed. 
  
 ### Version 2.2
 <small>January 24th, 2023</small>
