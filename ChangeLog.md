@@ -15,6 +15,9 @@ Fix issue with the import dialog that would not pre-validate JSON spec content c
  * **Improve Slow Request Processing Display**  
  Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
  
+ * **Allow Import of Visual Studio\VsCode .rest and .http Files**  
+ You can now import all .http and .rest files from a Visual Studio (or VS Code) project based on a folder. All requests are imported into the current session.
+ 
 ### Version 2.2
 <small>January 24th, 2023</small>
 
