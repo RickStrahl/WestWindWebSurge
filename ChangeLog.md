@@ -17,7 +17,10 @@
  Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
  
  * **Allow Import of Visual Studio\VsCode .rest and .http Files**  
- You can now import all .http and .rest files from a Visual Studio (or VS Code) project based on a folder. All requests are imported into the current session.
+ You can now import all .http and .rest files from a Visual Studio (or VS Code) project based on a folder. These files can be used by VS/VSCode to run HTTP requests. All .http and .reset files are imported into the current session based on the project root folder.
+ 
+ * **Show Audio Files as Audio Player**   
+ If you download MP3 files as audio they will now display as a music player that you can use to play the audio file in the Response Content area. This is similar to images which are displayed as images in the previewer.
  
  * **Fix OpenApi/Swagger Import Dialog**  
 Fix issue with the import dialog that would not pre-validate JSON spec content correctly, incorrectly flagging it as invalid. Fixed. 
