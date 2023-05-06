@@ -9,7 +9,6 @@
 ### Version 2.3 
 <small>not released yet</small>
 
-
  * **Saved Request Viewer**  
  Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
  
@@ -19,9 +18,15 @@
  * **Allow Import of Visual Studio\VsCode .rest and .http Files**  
  You can now import all .http and .rest files from a Visual Studio (or VS Code) project based on a folder. These files can be used by VS/VSCode to run HTTP requests. All .http and .reset files are imported into the current session based on the project root folder.
  
- * **Show Audio Files as Audio Player**   
- If you download MP3 files as audio they will now display as a music player that you can use to play the audio file in the Response Content area. This is similar to images which are displayed as images in the previewer.
+ * **Paste CURL Commands into Request Editor**  
+ You can now use the Paste button to paste CURL commands directly into the request editor.
  
+ * **Show Audio Files as Audio Player**   
+ If you download MP3 files as audio they will now display as a music player that you can use to play the audio file in the Response Content area. This is similar to images which are displayed as images in the previewer.0
+ 
+ * **Preview Zoom Sticky**  
+Previously you could zoom into the Preview View of the Http Request and Result pane, but the zoomed view would only be active for the current request. As soon as you re-ran the preview would resize to the original un-zoomed setting. This update keeps the zoom fixed for the duration of the application once the previewer has been activated.
+
  * **Fix OpenApi/Swagger Import Dialog**  
 Fix issue with the import dialog that would not pre-validate JSON spec content correctly, incorrectly flagging it as invalid. Fixed. 
  
