@@ -16,7 +16,7 @@
  Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
  
  * **Allow Import of Visual Studio\VsCode .rest and .http Files**  
- You can now import all .http and .rest files from a Visual Studio (or VS Code) project based on a folder. These files can be used by VS/VSCode to run HTTP requests. All .http and .reset files are imported into the current session based on the project root folder.
+ You can now import all Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.
  
  * **Paste CURL Commands into Request Editor**  
  You can now use the Paste button to paste CURL commands directly into the request editor.
@@ -26,6 +26,12 @@
  
  * **Preview Zoom Sticky**  
 Previously you could zoom into the Preview View of the Http Request and Result pane, but the zoomed view would only be active for the current request. As soon as you re-ran the preview would resize to the original un-zoomed setting. This update keeps the zoom fixed for the duration of the application once the previewer has been activated.
+
+* **Improve Default Request Display in the Request List**  
+Requests in the Request List now show only the last segment of the URL as list item title rather than the full URL specified for the request. This often reduces the need to explicitly provide a display title for requests.
+
+* **Fix: Bearer token replacement only occurs if `Authorization: Bearer` is present**  
+Fixed behavior of authorization override for bearer token to only replace Authorization headers when a `Authorization Bearer` header is already present in the request headers. This is to ensure that other authentication like Basic for auth requests are still honored and not replaced by the bearer token replacement.
 
  * **Fix OpenApi/Swagger Import Dialog**  
 Fix issue with the import dialog that would not pre-validate JSON spec content correctly, incorrectly flagging it as invalid. Fixed. 
