@@ -14,12 +14,19 @@
  
  * **Improve Slow Request Processing Display**  
  Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
- 
+  
  * **Allow Import of Visual Studio\VsCode .rest and .http Files**  
  You can now import all Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.
  
+ * **Support for Session Variables**  
+ You can now create a list of replaceable session variables that can be injected into content, using replacement syntax that is compatible with Visual Studio's `.http` files. Using `@varname=value` declarations (in Session Configuration) and then embedding with `{{ varname }}` into Url, Headers and Content.
+
  * **Paste CURL Commands into Request Editor**  
- You can now use the Paste button to paste CURL commands directly into the request editor.
+ You can now use the Paste button to paste CURL commands directly into the request editor. Note not all CURL features are supported but many of the most common ones work.
+ 
+ * **Improved Live Request Editing**  
+ The request editor is now more selective about what can be edited in the Previewer for Url, Request Headers and Request Content. If doing a plain (non-executed) Preview of a request, everything is always editable. On executed HTTP Requests requests are editable only when requests do not contain variables or other embedded content that might affect the initial content. Ideally all editing should only 
+ 
  
  * **Show Audio Files as Audio Player**   
  If you download MP3 files as audio they will now display as a music player that you can use to play the audio file in the Response Content area. This is similar to images which are displayed as images in the previewer.0
