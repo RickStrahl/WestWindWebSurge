@@ -13,14 +13,14 @@
 Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
  
 * **[Allow Opening and Saving of Visual Studio\VsCode Http REST Files](https://websurge.west-wind.com/docs/_6p911jb62.htm)**  
-You can now import all Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.  
+You can now open and import Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.  
 *Note: Not all WebSurge configuration features are supported by `.http` files so if you use WebSurge primarily, don't use `.http` files to store sessions and use `.websurge` instead. Use this new feature primarily to import and export.*
 
 * **Improve Slow Request Processing Display**  
-Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
+The progress display has been updated so that when running slow requests  the number of cumulative seconds the request has been running is shown. The progress info only shows after requests take longer than 1 second to execute to avoid a bouncy UI.
 
 * **[Support for Session Variables](https://websurge.west-wind.com/docs/_6p910g53y.htm)**  
-You can now create a list of replaceable session variables that can be injected into content, using replacement syntax that is compatible with Visual Studio's `.http` files. Using `@varname=value` declarations (in Session Configuration) and then embedding with `{{varname}}` into Url, Headers and Content.
+You can now create a list of replaceable session variables that can be injected into content, using replacement syntax that is compatible with Visual Studio's `.http` files. Using `@varname=value` declarations (in Session Configuration) and then embedding with `{{varname}}` into Url, Headers and Content. This matches behavior of Visual Studio's `.http` file variables.
 
 * **[Paste CURL Commands into Request Editor](https://websurge.west-wind.com/docs/_6p912d0o9.htm)**  
 You can now use the Paste button to paste commands from the `CURL` command line tool that are commonly shown in documentation, and paste them directly into the request editor. WebSurge picks up the URL, Verb, Headers and Content in the Paste operation.
