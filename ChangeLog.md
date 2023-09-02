@@ -7,31 +7,31 @@
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 ### Version 2.3 
-<small>not released yet</small>
+<small>September 6th, 2023</small>
 
- * **Saved Request Viewer**  
- Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
+* **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
+Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
  
- * **Improve Slow Request Processing Display**  
- Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
-  
- * **Allow Import of Visual Studio\VsCode .rest and .http Files**  
- You can now import all Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.
- 
- * **Support for Session Variables**  
- You can now create a list of replaceable session variables that can be injected into content, using replacement syntax that is compatible with Visual Studio's `.http` files. Using `@varname=value` declarations (in Session Configuration) and then embedding with `{{ varname }}` into Url, Headers and Content.
+* **[Allow Opening and Saving of Visual Studio\VsCode Http REST Files](https://websurge.west-wind.com/docs/_6p911jb62.htm)**  
+You can now import all Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.  
+*Note: Not all WebSurge configuration features are supported by `.http` files so if you use WebSurge primarily, don't use `.http` files to store sessions and use `.websurge` instead. Use this new feature primarily to import and export.*
 
- * **Paste CURL Commands into Request Editor**  
- You can now use the Paste button to paste CURL commands directly into the request editor. Note not all CURL features are supported but many of the most common ones work.
+* **Improve Slow Request Processing Display**  
+Update the display when running slow requests with a bit of delay so you only see it if requests are slow. Requests that take multiple seconds now also show the number of cumulative seconds requests has been running.
+
+* **[Support for Session Variables](https://websurge.west-wind.com/docs/_6p910g53y.htm)**  
+You can now create a list of replaceable session variables that can be injected into content, using replacement syntax that is compatible with Visual Studio's `.http` files. Using `@varname=value` declarations (in Session Configuration) and then embedding with `{{varname}}` into Url, Headers and Content.
+
+* **[Paste CURL Commands into Request Editor](https://websurge.west-wind.com/docs/_6p912d0o9.htm)**  
+You can now use the Paste button to paste commands from the `CURL` command line tool that are commonly shown in documentation, and paste them directly into the request editor. WebSurge picks up the URL, Verb, Headers and Content in the Paste operation.
  
- * **Improved Live Request Editing**  
- The request editor is now more selective about what can be edited in the Previewer for Url, Request Headers and Request Content. If doing a plain (non-executed) Preview of a request, everything is always editable. On executed HTTP Requests requests are editable only when requests do not contain variables or other embedded content that might affect the initial content. Ideally all editing should only 
+* **Improved Live Request Editing**  
+The request editor is now more selective about what can be edited in the Previewer for Url, Request Headers and Request Content. If doing a plain (non-executed) Preview of a request, everything is always editable. On executed HTTP Requests requests are editable only when requests do not contain variables or other embedded content that might affect the initial content. Ideally all editing should only 
+
+* **Show Audio Files as Audio Player**   
+If you download MP3 files as audio they will now display as a music player that you can use to play the audio file in the Response Content area. This is similar to images which are displayed as images in the previewer.0
  
- 
- * **Show Audio Files as Audio Player**   
- If you download MP3 files as audio they will now display as a music player that you can use to play the audio file in the Response Content area. This is similar to images which are displayed as images in the previewer.0
- 
- * **Preview Zoom Sticky**  
+* **Preview Zoom Sticky**  
 Previously you could zoom into the Preview View of the Http Request and Result pane, but the zoomed view would only be active for the current request. As soon as you re-ran the preview would resize to the original un-zoomed setting. This update keeps the zoom fixed for the duration of the application once the previewer has been activated.
 
 * **Improve Default Request Display in the Request List**  
