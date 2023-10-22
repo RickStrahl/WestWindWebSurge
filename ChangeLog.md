@@ -7,7 +7,7 @@
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 ### Version 2.3 
-<small>September 6th, 2023</small>
+<small>September 5th, 2023</small>
 
 * **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
 Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
@@ -21,6 +21,9 @@ The progress display has been updated so that when running slow requests  the nu
 
 * **[Support for Session Variables](https://websurge.west-wind.com/docs/_6p910g53y.htm)**  
 You can now create a list of replaceable session variables that can be injected into content, using replacement syntax that is compatible with Visual Studio's `.http` files. Using `@varname=value` declarations (in Session Configuration) and then embedding with `{{varname}}` into Url, Headers and Content. This matches behavior of Visual Studio's `.http` file variables.
+
+* **[Allow for different lookup and replacement keys for WebSurge-Request-InjectJsonToken](https://websurge.west-wind.com/docs/_6pd0uwvbt.htm#inject-a-json-token)**  
+When replacing values in JSON content you can now optionally specify a second key name separated by `|` using `lookupkey|replacementkey` syntax to allow replacing values that have different property keys.
 
 * **[Paste CURL Commands into Request Editor](https://websurge.west-wind.com/docs/_6p912d0o9.htm)**  
 You can now use the Paste button to paste commands from the `CURL` command line tool that are commonly shown in documentation, and paste them directly into the request editor. WebSurge picks up the URL, Verb, Headers and Content in the Paste operation.
