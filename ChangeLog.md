@@ -6,7 +6,7 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
-### Version 2.3 
+### Version 2.2.25 
 <small>September 5th, 2023</small>
 
 * **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
@@ -39,6 +39,12 @@ Previously you could zoom into the Preview View of the Http Request and Result p
 
 * **Improve Default Request Display in the Request List**  
 Requests in the Request List now show only the last segment of the URL as list item title rather than the full URL specified for the request. This often reduces the need to explicitly provide a display title for requests.
+
+* **Improve Emoji Viewer Initial Load Speed**  
+Change load behavior in Emjoi Viewer to load a small subset of icons initially, then activate the rest after brief delay. Effect is near instant render as opposed to the 2-3 seconds delay previously.
+
+* **Add Match Count to Emoji Viewer**  
+Emoji viewer now shows the number of Emojis that are displayed on the statusbar of the form.
 
 * **Fix: Bearer token replacement only occurs if `Authorization: Bearer` is present**  
 Fixed behavior of authorization override for bearer token to only replace Authorization headers when a `Authorization Bearer` header is already present in the request headers. This is to ensure that other authentication like Basic for auth requests are still honored and not replaced by the bearer token replacement.
