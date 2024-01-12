@@ -6,6 +6,15 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+### Version 2.2.35 
+<small>January 12th, 2024</small>
+
+* **Display SiteBaseUrl if set under Url**  
+If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
+
+* **Shared Sessions (Preview)**  
+You can now share sessions online using your West Wind Store account and then share the session ID with another user that can then open the session, making it easy to share sessions with other users. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.
+
 ### Version 2.2.25 
 <small>September 5th, 2023</small>
 
