@@ -9,9 +9,11 @@
 ### Version 3.0 (Preview)
 <small>not released yet</small>
 
+<small><i>Note the 3.0 preview version currently works with existing v2 WebSurge licenses, but once out of preview the v2 license will become invalid and require a proper v3 license upgrade.</i></small>
 
 * **Automatically pick up Windows Proxy Settings**  
-You can now specify `"default"` for the proxy value in the WebSurge main settings that will automatically use the Windows default configured proxy. Useful if you fire up Fiddler or other HTTP proxy so it can automatically be detected when those proxies are attached and detached.
+You can now specify `"default"` for the proxy value in the WebSurge main settings that will automatically use the Windows default configured proxy. Useful if you fire up Fiddler or other HTTP proxy so it can automatically be detected when those proxies are attached and detached.  
+<small><i>Note: Actual proxy changes while WebSurge is running still require a restart to see the system level changes reflected in the local environment. The new feature however automatically detects a proxy if attached when first creating a session without explicitly specifying a proxy Url.</i></small>
 
 * **Shared Sessions (Preview)**  
 You can now share your sessions online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that accessible online and can be shared by its session id which makes it quick and easy to share session content with another user. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
