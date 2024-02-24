@@ -31,7 +31,7 @@ You can now open and import Visual Studio (or VS Code) `.http` files, or a folde
 *Note: Not all WebSurge configuration features are supported by `.http` files so if you use WebSurge primarily, don't use `.http` files to store sessions and use `.websurge` instead. Use this new feature primarily to import and export.*
 
 ### Version 2.3
-<small>January 12th, 2024</small>
+<small>February 12th, 2024</small>
 
 * **Improve Slow Request Processing Display**  
 The progress display has been updated so that when running slow requests  the number of cumulative seconds the request has been running is shown. The progress info only shows after requests take longer than 1 second to execute to avoid a bouncy UI.
