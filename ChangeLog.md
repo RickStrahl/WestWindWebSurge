@@ -19,16 +19,8 @@ You can now share sessions online using your West Wind Store account and then sh
 * **PDF Response Previewer**  
 PDF Files are now displayed in an embedded `iframe` when returning a PDF content type in formatted display mode.
 
-### Version 2.2.35 
-<small>January 12th, 2024</small>
-
 * **Display SiteBaseUrl if set under Url**  
 If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
-
-
-
-### Version 2.2.25 
-<small>September 5th, 2023</small>
 
 * **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
 Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
@@ -36,6 +28,10 @@ Added a separate saved request viewer that you can use to temporarily save indiv
 * **[Allow Opening and Saving of Visual Studio\VsCode Http REST Files](https://websurge.west-wind.com/docs/_6p911jb62.htm)**  
 You can now open and import Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.  
 *Note: Not all WebSurge configuration features are supported by `.http` files so if you use WebSurge primarily, don't use `.http` files to store sessions and use `.websurge` instead. Use this new feature primarily to import and export.*
+
+### Version 2.3
+<small>January 12th, 2024</small>
+
 
 * **Improve Slow Request Processing Display**  
 The progress display has been updated so that when running slow requests  the number of cumulative seconds the request has been running is shown. The progress info only shows after requests take longer than 1 second to execute to avoid a bouncy UI.
