@@ -14,8 +14,8 @@
 You can now specify `"default"` for the proxy value in the WebSurge main settings that will automatically use the Windows default configured proxy. Useful if you fire up Fiddler or other HTTP proxy so it can automatically be detected when those proxies are attached and detached.
 
 * **Shared Sessions (Preview)**  
-You can now share sessions online using your West Wind Store account and then share the session ID with another user that can then open the session, making it easy to share sessions with other users. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
-<i style="font-size: 0.95em">Currently you need a valid WebSurge license to use this feature, but licensing for this feature will likely change before final release to a limited number of shared sessions per license with a subscription for additional sessions</i>
+You can now share your sessions online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that accessible online and can be shared by its session id which makes it quick and easy to share session content with another user. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
+<i style="font-size: 0.95em">Licensing for this feature has not been set - for now you need to have a WebSurge paid license to use it. The likely licensing scenario will require at minmimum a paid license with a small number of allowed shares, with a subscription update to share additional sessions.</i>
 
 * **Display SiteBaseUrl under Request Url**  
 If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
