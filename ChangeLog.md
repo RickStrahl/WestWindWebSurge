@@ -17,11 +17,11 @@ You can now specify `"default"` for the proxy value in the WebSurge main setting
 You can now share sessions online using your West Wind Store account and then share the session ID with another user that can then open the session, making it easy to share sessions with other users. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
 <i style="font-size: 0.95em">Currently you need a valid WebSurge license to use this feature, but licensing for this feature will likely change before final release to a limited number of shared sessions per license with a subscription for additional sessions</i>
 
-* **PDF Response Previewer**  
-PDF Files are now displayed in an embedded `iframe` when returning a PDF content type in formatted display mode.
-
-* **Display SiteBaseUrl if set under Url**  
+* **Display SiteBaseUrl under Request Url**  
 If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
+
+* **PDF, Image and MP3 Response Previewer**  
+PDF Files, Images and MP3 files are now displayed in respective previewers that display the image, display a PDF preview in an iframe, and display an audio player for mp3 files.
 
 * **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
 Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
