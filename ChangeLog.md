@@ -14,7 +14,8 @@
 You can now specify `"default"` for the proxy value in the WebSurge main settings that will automatically use the Windows default configured proxy. Useful if you fire up Fiddler or other HTTP proxy so it can automatically be detected when those proxies are attached and detached.
 
 * **Shared Sessions (Preview)**  
-You can now share sessions online using your West Wind Store account and then share the session ID with another user that can then open the session, making it easy to share sessions with other users. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.
+You can now share sessions online using your West Wind Store account and then share the session ID with another user that can then open the session, making it easy to share sessions with other users. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
+<i style="font-size: 0.95em">Currently you need a valid WebSurge license to use this feature, but licensing for this feature will likely change before final release to a limited number of shared sessions per license with a subscription for additional sessions</i>
 
 * **PDF Response Previewer**  
 PDF Files are now displayed in an embedded `iframe` when returning a PDF content type in formatted display mode.
@@ -31,7 +32,6 @@ You can now open and import Visual Studio (or VS Code) `.http` files, or a folde
 
 ### Version 2.3
 <small>January 12th, 2024</small>
-
 
 * **Improve Slow Request Processing Display**  
 The progress display has been updated so that when running slow requests  the number of cumulative seconds the request has been running is shown. The progress info only shows after requests take longer than 1 second to execute to avoid a bouncy UI.
