@@ -4,16 +4,18 @@ This document describes various fixes, ideas for new features and various work i
 
 ### Priority List
 
+* **Http Import not working for files with variables**
+
+* **Update to FontAwesome Icons in App and Previewer**
+
+* **Use local copy of Vue rather than online version**
+
 * **Review and Update Documentation**  
 Documentation is for v1, so all screenshots need to be updated and behavior changes. It'll require a complete revamping of the docs.
 
 ### Core Features
 
-* **Interactive Session Sharing**  
-Interactive session sharing that would allow for session information to be easily shared in a remote location.
-    * Git? 
-    * Gist?
-  
+
 * **Save and Load From Gist (or other global store)**  
 Allow saving or loading from Gist.
 

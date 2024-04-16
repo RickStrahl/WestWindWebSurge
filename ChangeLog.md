@@ -9,24 +9,28 @@
 ### Version 3.0 (Preview)
 <small>not released yet</small>
 
-<small><i>Note the 3.0 preview version currently works with existing v2 WebSurge licenses, but once out of preview the v2 license will become invalid and require a proper v3 license upgrade.</i></small>
+<small><i>Note the 3.0 preview version currently works with existing v2 WebSurge licenses, but once out of preview the v2 license will become invalid and require a proper v3 license upgrade. v2 Licenses purchased after March 1st, 2023 can upgrade for free (license info).</i></small>
+
+* **Shared Sessions (Preview)**  
+You can now share your sessions online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that accessible online and can be shared by its session id which makes it quick and easy to share session content with another user. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
+<i style="font-size: 0.95em">Licensing for this feature has not been set - for now you need to have a WebSurge paid license to use it. The likely licensing scenario will require at minmimum a paid license with a small number of allowed shared sessions, with a subscription add-on to share additional sessions.</i>
+
+* **PDF, Image, Video and MP3 Response Previewers**  
+PDF Files, Images, Videos and MP3 files are now displayed in respective previewers by default - they show as *formatted content*. You now see PDFs displayed in the PDF viewer, audio and video showing in media players and images as inline images. You can still flip back to unformatted view to see the `data:`  base64 representation (up to a certain size).
+
+* **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
+There's a new button to 'save' a request in a separate window that can be kept open. This allows you to capture request and/or response output for reference or potential copying parts of into other requests and for comparison. You can open as many new saved windows as you like.
+
+* **Save as File from Raw Content View**  
+For HTTP responses, you can now save most file formats directly to file via the *Save* button. This is especially useful for binary files like image, music, video, pdf, excel, word and other files.
+
+* **Display SiteBaseUrl under Request Url**  
+If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
 
 * **Automatically pick up Windows Proxy Settings**  
 You can now specify `"default"` for the proxy value in the WebSurge main settings that will automatically use the Windows default configured proxy. Useful if you fire up Fiddler or other HTTP proxy so it can automatically be detected when those proxies are attached and detached.  
 <small><i>Note: Actual proxy changes while WebSurge is running still require a restart to see the system level changes reflected in the local environment. The new feature however automatically detects a proxy if attached when first creating a session without explicitly specifying a proxy Url.</i></small>
 
-* **Shared Sessions (Preview)**  
-You can now share your sessions online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that accessible online and can be shared by its session id which makes it quick and easy to share session content with another user. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
-<i style="font-size: 0.95em">Licensing for this feature has not been set - for now you need to have a WebSurge paid license to use it. The likely licensing scenario will require at minmimum a paid license with a small number of allowed shares, with a subscription update to share additional sessions.</i>
-
-* **Display SiteBaseUrl under Request Url**  
-If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
-
-* **PDF, Image and MP3 Response Previewer**  
-PDF Files, Images and MP3 files are now displayed in respective previewers that display the image, display a PDF preview in an iframe, and display an audio player for mp3 files.
-
-* **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
-Added a separate saved request viewer that you can use to temporarily save individual requests for later review or comparison separately from the main request viewer window. 
  
 * **[Allow Opening and Saving of Visual Studio\VsCode Http REST Files](https://websurge.west-wind.com/docs/_6p911jb62.htm)**  
 You can now open and import Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.  
