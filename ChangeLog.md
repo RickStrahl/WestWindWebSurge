@@ -9,7 +9,7 @@
 ### Version 3.0 (Preview)
 <small>not released yet</small>
 
-<small><i>Note the 3.0 preview version currently works with existing v2 WebSurge licenses, but once out of preview the v2 license will become invalid and require a proper v3 license upgrade. v2 Licenses purchased after March 1st, 2023 can upgrade for free (license info).</i></small>
+<small><i>Note the 3.0 preview version currently works with existing v2 WebSurge licenses, but once out of preview the v2 license will become invalid and require a proper v3 license upgrade. v2 Licenses purchased after March 1st, 2023 can upgrade for free ([license info](https://websurge.west-wind.com/purchase#License)).</i></small>
 
 * **Shared Sessions (Preview)**  
 You can now share your sessions online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that accessible online and can be shared by its session id which makes it quick and easy to share session content with another user. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
@@ -31,10 +31,15 @@ If you have a session level site base URL it's now displayed in the request edit
 You can now specify `"default"` for the proxy value in the WebSurge main settings that will automatically use the Windows default configured proxy. Useful if you fire up Fiddler or other HTTP proxy so it can automatically be detected when those proxies are attached and detached.  
 <small><i>Note: Actual proxy changes while WebSurge is running still require a restart to see the system level changes reflected in the local environment. The new feature however automatically detects a proxy if attached when first creating a session without explicitly specifying a proxy Url.</i></small>
 
- 
 * **[Allow Opening and Saving of Visual Studio\VsCode Http REST Files](https://websurge.west-wind.com/docs/_6p911jb62.htm)**  
 You can now open and import Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.  
 *Note: Not all WebSurge configuration features are supported by `.http` files so if you use WebSurge primarily, don't use `.http` files to store sessions and use `.websurge` instead. Use this new feature primarily to import and export.*
+
+* **Fix: Initial Request Entry on Startup**  
+When initially starting WebSurge with no session open, we now create a new empty request that you can immediately type into. Previously you had to explicitly add which caused some confusion as the initial request wasn't saved. ([#113](https://github.com/RickStrahl/WestWindWebSurge/issues/113))
+
+* **Fix: Request Timeout says Ms but is in Seconds**  
+Fixed request timeout to properly use Milliseconds instead of seconds which resulted in VERY long timeouts if you specified milliseconds ([#111](https://github.com/RickStrahl/WestWindWebSurge/issues/111))
 
 ### Version 2.3
 <small>February 12th, 2024</small>
