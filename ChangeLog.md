@@ -41,6 +41,9 @@ When initially starting WebSurge with no session open, we now create a new empty
 * **Fix: Request Timeout says Ms but is in Seconds**  
 Fixed request timeout to properly use Milliseconds instead of seconds which resulted in VERY long timeouts if you specified milliseconds ([#111](https://github.com/RickStrahl/WestWindWebSurge/issues/111))
 
+* **Fix: Swagger Import of Query String Values**  
+WebSurge now imports query string parameters and adds them to the imported URL using a format of `?parm1={type}&parm1={type2}` ([#109](https://github.com/RickStrahl/WestWindWebSurge/issues/109))
+
 ### Version 2.3
 <small>February 12th, 2024</small>
 
