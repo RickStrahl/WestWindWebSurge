@@ -3,13 +3,13 @@
 # West Wind WebSurge Change Log 
 
 [![Download WebSurge](https://img.shields.io/badge/Download-Installer-blue.svg)](https://websurge.west-wind.com/download)
-[![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
+[![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/WestwindWebSurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 ### Version 3.0 (Preview)
 <small>not released yet</small>
 
-<small><i>Note the 3.0 preview version currently works with existing v2 WebSurge licenses, but once out of preview the v2 license will become invalid and require a proper v3 license upgrade. v2 Licenses purchased after March 1st, 2023 can upgrade for free ([license info](https://websurge.west-wind.com/purchase#License)).</i></small>
+
 
 * **Shared Sessions (Preview)**  
 You can now share your sessions online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that accessible online and can be shared by its session id which makes it quick and easy to share session content with another user. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
