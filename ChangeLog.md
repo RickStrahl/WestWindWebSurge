@@ -9,8 +9,6 @@
 ### Version 3.0 (Preview)
 <small>not released yet</small>
 
-
-
 * **Shared Sessions (Preview)**  
 You can now share your sessions online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that accessible online and can be shared by its session id which makes it quick and easy to share session content with another user. Enabled as a preview feature and requires that you have a licensed copy of WebSurge.  
 <i style="font-size: 0.95em">Licensing for this feature allows for one Shared Session for any registered user, 3 Shared Sessions for licensed WebSurge users, and Basic (10 sessions) and Professional (50 Sessions) [WebSurge Online Subscriptions](https://websurge.west-wind.com/purchase#OnlineSubscriptions).</i>
@@ -26,6 +24,9 @@ For HTTP responses, you can now save most file formats directly to file via the 
 
 * **Display SiteBaseUrl under Request Url**  
 If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
+
+* **Use Environment Variables in Session Variables**  
+You can now use Environment Variable names in session variables in the format of `SessionVar=%ENV_VAR%` to externalize security sensitive settings outside of your `.websurge` file. You can declare session variables in the Session Configuration and embed them in your request data and headers as `{{ SessionVar }}`.
 
 * **Automatically pick up Windows Proxy Settings**  
 You can now specify `"default"` for the proxy value in the WebSurge main settings that will automatically use the Windows default configured proxy. Useful if you fire up Fiddler or other HTTP proxy so it can automatically be detected when those proxies are attached and detached.  
