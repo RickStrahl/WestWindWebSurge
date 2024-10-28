@@ -25,6 +25,9 @@ For HTTP responses, you can now save most file formats directly to file via the 
 * **Display SiteBaseUrl under Request Url**  
 If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
 
+* **Updated User Interface**  
+The user interface has been updated a bit with more convenient and efficient quick action buttons on the main menu, with (one of) the run button in a consistent location, explicit Start Load Test link, and easier request navigation and management operations.
+
 * **Use Environment Variables in Session Variables**  
 You can now use Environment Variable names in session variables in the format of `SessionVar=%ENV_VAR%` to externalize security sensitive settings outside of your `.websurge` file. You can declare session variables in the Session Configuration and embed them in your request data and headers as `{{ SessionVar }}`.
 

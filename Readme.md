@@ -7,7 +7,7 @@
 
 <img src="WebSurgeLogo.png" height="240"  /> 
 
-![Screenshot](Screenshot.png)
+![West Wind Web Surge](https://websurge.west-wind.com/Images/Carousel/MainScreenShot.png)
 
 Like what you see? Don't forget to :star: star the repo.
 
