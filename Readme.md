@@ -12,14 +12,14 @@
 Like what you see? Don't forget to :star: star the repo.
 
 ### What is WebSurge?
-West Wind WebSurge is an Http Request and Load Testing tool for Windows. 
+West Wind WebSurge is an interactive HTTP REST Client and Web Load Testing tool for Windows. 
 
-Use it to create, import or capture and then play back Http requests, either individually for interactive API or Web request testing and debugging (a la Postman), or use it for Http Load Tests that can play back a session of requests under heavy load.
+Use it to create, import or capture and Http requests, either individually for interactive API or Web request testing and debugging (a la Postman), or use it for Http Load Tests that can play back a session of requests under heavy load.
 
-The goal is to make it quick and drop dead simple to create and set up requests as sessions, and then run them individually or load test the sessions easily. The goal is to integrate Http testing functionality without friction into your development process.
+The goal is to make it quick and easy to create Http requests as sessions, and then fire them either  individually for typical REST request testing, or for load testing all or selected requests. The goal is to integrate Http testing and load testing with minimal friction into your development process.
 
 > #### @icon-info-circle Source Code Access by Request
-> Note this repository no longer holds source code for West Wind WebSurge, **due to rampant license abuse** in v1. v2 has moved to a private repository. Source code access is still available but only by request via private access.
+> Note this repository no longer holds source code for West Wind WebSurge, **due to rampant license abuse** in v1. v2 has moved to a private repository. Source code access is still available but only by request via private access for registered users.
 
 ### Screenshots
 Here are a some screen shots that demonstrate the core features of WebSurge:
