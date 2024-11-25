@@ -1,4 +1,5 @@
 # West Wind WebSurge
+
 [![Download WebSurge](https://img.shields.io/badge/WebSurge-Installer-blue.svg)](https://websurge.west-wind.com/download)
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/westwindwebsurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
@@ -77,7 +78,7 @@ Sessions are stored in plain files and can easily be shared in source control, t
 ### Requirements
 
 * Windows 7+, Windows 2012+
-* .NET 7.0 
+* .NET 9.0 
 
 ### More info
 

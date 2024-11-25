@@ -9,8 +9,8 @@
 ### Version 3.0 (Preview)
 <small>not released yet</small>
 
-* **Shared Sessions**  
-You can now share your sessions online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that is accessible online and can be shared with other users via its session id. This feature require an active West Wind account.  
+* **Online Shared Sessions**  
+You can now share your session of requests online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that is accessible online and can be shared with other users via its session id. This feature require an active West Wind account.
 <i style="font-size: 0.95em">Licensing for this feature allows for one Shared Session for any West Wind Store registered user, 3 Shared Sessions for licensed WebSurge users, or subscriptions of Basic (10 sessions) and Professional (50 Sessions). See [WebSurge Online Subscriptions](https://websurge.west-wind.com/purchase#OnlineSubscriptions).</i>
 
 * **PDF, Image, Video and MP3 Response Previewers**  
@@ -24,6 +24,9 @@ For HTTP responses, you can now save most file formats directly to file via the 
 
 * **Display SiteBaseUrl under Request Url**  
 If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
+
+* **Improved Request Cancellation**  
+You can now cancel request that have been started via a Cancel button when running in individual URL tests. Also navigating to a new request automatically cancels the active interactive request that may not have completed. This fixes the issue where long running requests may bomb the currently active request when they complete while not activated.
 
 * **Updated User Interface**  
 The user interface has been updated a bit with more convenient and efficient quick action buttons on the main menu, with (one of) the run button in a consistent location, explicit Start Load Test link, and easier request navigation and management operations.
