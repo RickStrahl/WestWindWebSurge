@@ -6,7 +6,7 @@
 
 #### Http REST Client and Http Load Testing for Windows
 
-<img src="WebSurgeLogo.png" height="240"  /> 
+![WebSurge Logo](WebSurgeLogo_240.png)
 
 ![West Wind Web Surge](https://websurge.west-wind.com/Images/Carousel/MainScreenShot.png)
 
