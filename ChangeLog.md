@@ -13,8 +13,11 @@
 You can now share your session of requests online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that is accessible online and can be shared with other users via its session id. This feature require an active West Wind account.
 <i style="font-size: 0.95em">Licensing for this feature allows for one Shared Session for any West Wind Store registered user, 3 Shared Sessions for licensed WebSurge users, or subscriptions of Basic (10 sessions) and Professional (50 Sessions). See [WebSurge Online Subscriptions](https://websurge.west-wind.com/purchase#OnlineSubscriptions).</i>
 
+* **Improved Request Throughput**  
+This release features an updated HTTP request pipeline that improves request throughput significantly allowing for more requests to be sent in load test scenarios. In our internal tests for maxed out sessions we're seeing between 15-20% throughput improvements with lower memory load.
+
 * **Improved Request Cancellation**  
-You can now cancel request that have been started via a Cancel button when running in individual URL tests. Also navigating to a new request automatically cancels the active interactive request that may not have completed. This fixes the issue where long running requests may bomb the currently active request when they complete while not activated.
+You can now cancel interactive requests that have been started via a Cancel button when running in individual URL tests. Also navigating to a new request automatically cancels the active interactive request that may not have completed. This fixes the issue where long running requests may bombed the currently active request when they completed while not activated.
 
 * **PDF, Image, Video and MP3 Response Previewers**  
 PDF Files, Images, Videos and MP3 files are now displayed in respective previewers by default - they show as *formatted content*. You now see PDFs displayed in the PDF viewer, audio and video showing in media players and images as inline images. You can still flip back to unformatted view to see the `data:` base64 representation (up to a certain size).
@@ -31,10 +34,13 @@ If you have a session level site base URL it's now displayed in the request edit
 * **UI Options to Run Load Tests from the Command Line**  
 The Sessions menu now has a couple of new menu items to allow running requests in the CLI interface, or for copying the CLI command to the clipboard for easy pasting into your scripts or for manually running from the Terminal.
 
-* **Updated User Interface**  
-The user interface has been updated a bit with more convenient and efficient quick action buttons on the main menu, with (one of) the Run button in a consistent location, explicit Start Load Test link, and easier request navigation and management operations.
+* **Updated Main Window Menus, Toolbars and Buttons**  
+The user interface has been updated a bit with more convenient and efficient quick action buttons on the main menu and toolbars, with (one of) the Run and Cancel button in a consistent location, explicit Start Load Test link, and easier request navigation and management operations.
 
-* **Use Environment Variables in Session Variables**  
+* **Improve Slow Request Processing Display**  
+The progress display has been updated so that when running slow requests  the number of cumulative seconds the request has been running are shown. The progress info only shows after requests take longer than 1 second to execute to avoid a bouncy UI.
+
+* **Environment Variables Support in Session Variables**  
 You can now use Environment Variable names in session variables in the format of `SessionVar=%ENV_VAR%` to externalize security sensitive settings outside of your `.websurge` file. You can declare session variables in the Session Configuration and embed them in your request data and headers as `{{ SessionVar }}`.
 
 * **Automatically pick up Windows Proxy Settings**  
@@ -60,8 +66,7 @@ WebSurge now imports query string parameters and adds them to the imported URL u
 ### Version 2.3
 <small>February 12th, 2024</small>
 
-* **Improve Slow Request Processing Display**  
-The progress display has been updated so that when running slow requests  the number of cumulative seconds the request has been running is shown. The progress info only shows after requests take longer than 1 second to execute to avoid a bouncy UI.
+
 
 * **[Support for Session Variables](https://websurge.west-wind.com/docs/_6p910g53y.htm)**  
 You can now create a list of replaceable session variables that can be injected into content, using replacement syntax that is compatible with Visual Studio's `.http` files. Using `@varname=value` declarations (in Session Configuration) and then embedding with `{{varname}}` into Url, Headers and Content. This matches behavior of Visual Studio's `.http` file variables.
