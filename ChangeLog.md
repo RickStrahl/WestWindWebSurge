@@ -13,23 +13,26 @@
 You can now share your session of requests online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that is accessible online and can be shared with other users via its session id. This feature require an active West Wind account.
 <i style="font-size: 0.95em">Licensing for this feature allows for one Shared Session for any West Wind Store registered user, 3 Shared Sessions for licensed WebSurge users, or subscriptions of Basic (10 sessions) and Professional (50 Sessions). See [WebSurge Online Subscriptions](https://websurge.west-wind.com/purchase#OnlineSubscriptions).</i>
 
+* **Improved Request Cancellation**  
+You can now cancel request that have been started via a Cancel button when running in individual URL tests. Also navigating to a new request automatically cancels the active interactive request that may not have completed. This fixes the issue where long running requests may bomb the currently active request when they complete while not activated.
+
 * **PDF, Image, Video and MP3 Response Previewers**  
 PDF Files, Images, Videos and MP3 files are now displayed in respective previewers by default - they show as *formatted content*. You now see PDFs displayed in the PDF viewer, audio and video showing in media players and images as inline images. You can still flip back to unformatted view to see the `data:` base64 representation (up to a certain size).
-
-* **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
-There's a new button to 'save' a request in a separate window that can be kept open. This allows you to capture request and/or response output for reference or potential copying parts of into other requests and for comparison. You can open as many new saved windows as you like.
 
 * **Save as File from Raw Content View**  
 For HTTP responses, you can now save most file formats directly to file via the *Save* button. This is especially useful for binary files like image, music, video, pdf, excel, word and other files.
 
+* **[Saved Request Viewer](https://websurge.west-wind.com/docs/_6p910rt7e.htm)**  
+There's a new button to 'save' a request in a separate window that can be kept open. This allows you to capture request and/or response output for reference or potential copying parts of into other requests and for comparison. You can open as many new saved windows as you like.
+
 * **Display SiteBaseUrl under Request Url**  
 If you have a session level site base URL it's now displayed in the request editor underneath the URL so you can quickly see which site is selected when using site relative URLs.
 
-* **Improved Request Cancellation**  
-You can now cancel request that have been started via a Cancel button when running in individual URL tests. Also navigating to a new request automatically cancels the active interactive request that may not have completed. This fixes the issue where long running requests may bomb the currently active request when they complete while not activated.
+* **UI Options to Run Load Tests from the Command Line**  
+The Sessions menu now has a couple of new menu items to allow running requests in the CLI interface, or for copying the CLI command to the clipboard for easy pasting into your scripts or for manually running from the Terminal.
 
 * **Updated User Interface**  
-The user interface has been updated a bit with more convenient and efficient quick action buttons on the main menu, with (one of) the run button in a consistent location, explicit Start Load Test link, and easier request navigation and management operations.
+The user interface has been updated a bit with more convenient and efficient quick action buttons on the main menu, with (one of) the Run button in a consistent location, explicit Start Load Test link, and easier request navigation and management operations.
 
 * **Use Environment Variables in Session Variables**  
 You can now use Environment Variable names in session variables in the format of `SessionVar=%ENV_VAR%` to externalize security sensitive settings outside of your `.websurge` file. You can declare session variables in the Session Configuration and embed them in your request data and headers as `{{ SessionVar }}`.
@@ -41,6 +44,9 @@ You can now specify `"default"` for the proxy value in the WebSurge main setting
 * **[Allow Opening and Saving of Visual Studio\VsCode Http REST Files](https://websurge.west-wind.com/docs/_6p911jb62.htm)**  
 You can now open and import Visual Studio (or VS Code) `.http` files, or a folder of multiple `.http` files. Both individual requests and request lists in a single `.http` file are imported into the current project.  
 *Note: Not all WebSurge configuration features are supported by `.http` files so if you use WebSurge primarily, don't use `.http` files to store sessions and use `.websurge` instead. Use this new feature primarily to import and export.*
+
+* **Add Median Request Time to Test Results View**  
+In addition to the average request time, you now also get the Median request time.
 
 * **Fix: Initial Request Entry on Startup**  
 When initially starting WebSurge with no session open, we now create a new empty request that you can immediately type into. Previously you had to explicitly add which caused some confusion as the initial request wasn't saved. ([#113](https://github.com/RickStrahl/WestWindWebSurge/issues/113))
