@@ -95,6 +95,9 @@ Change load behavior in Emjoi Viewer to load a small subset of icons initially, 
 * **Add Match Count to Emoji Viewer**  
 Emoji viewer now shows the number of Emojis that are displayed on the statusbar of the form.
 
+* **Allow Cancellation of Results Processing**  
+Previously you can't cancel a test, but the results of the test are still processed and it was not possible to abort the results processing for a shorter test. You can now separately cancel the result processing with a new toolbar button.
+
 * **Fix: Bearer token replacement only occurs if `Authorization: Bearer` is present**  
 Fixed behavior of authorization override for bearer token to only replace Authorization headers when a `Authorization Bearer` header is already present in the request headers. This is to ensure that other authentication like Basic for auth requests are still honored and not replaced by the bearer token replacement.
 
