@@ -6,7 +6,7 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/WestwindWebSurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
-### Version 3.0 (Preview)
+### Version 3.0
 <small>not released yet</small>
 
 * **Online Shared Sessions**  
@@ -17,7 +17,7 @@ You can now share your session of requests online with other users, using your W
 This release features an updated HTTP request pipeline that improves request throughput significantly allowing for more requests to be sent in load test scenarios. In our internal tests for maxed out sessions we're seeing between 15-20% throughput improvements with lower memory load.
 
 * **Improved Request Cancellation**  
-You can now cancel interactive requests that have been started via a Cancel button when running in individual URL tests. Also navigating to a new request automatically cancels the active interactive request that may not have completed. This fixes the issue where long running requests may bombed the currently active request when they completed while not activated.
+You can now cancel interactive requests that have been started via a Cancel button when running in individual URL tests. Also navigating to a new request automatically cancels the active interactive request that may not have completed. This fixes the issue where previous long running requests may have bombed into the currently active request response which resulted in confusing display output at times. Now only a single request runs at all times for individual request runs.
 
 * **PDF, Image, Video and MP3 Response Previewers**  
 PDF Files, Images, Videos and MP3 files are now displayed in respective previewers by default - they show as *formatted content*. You now see PDFs displayed in the PDF viewer, audio and video showing in media players and images as inline images. You can still flip back to unformatted view to see the `data:` base64 representation (up to a certain size).
