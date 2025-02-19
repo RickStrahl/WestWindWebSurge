@@ -9,9 +9,9 @@
 ### Version 3.0
 <small>not released yet</small>
 
-* **Online Shared Sessions**  
-You can now share your session of requests online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that is accessible online and can be shared with other users via its session id. This feature require an active West Wind account.
-<i style="font-size: 0.95em">Licensing for this feature allows for one Shared Session for any West Wind Store registered user, 3 Shared Sessions for licensed WebSurge users, or subscriptions of Basic (10 sessions) and Professional (50 Sessions). See [WebSurge Online Subscriptions](https://websurge.west-wind.com/purchase#OnlineSubscriptions).</i>
+* [Shared Online Sessions](https://websurge.west-wind.com/docs/User-Guide/Shared-Online-Sessions.html)  
+You can now share your session of requests online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that is accessible online and can be shared with other users via its session id. This feature requires an active West Wind account.  
+<i style="font-size: 0.95em">Licensing for this feature allows for one Shared Session for any West Wind Store registered user, 2 Shared Sessions for licensed WebSurge users, or subscriptions of Basic (10 sessions) and Professional (50 Sessions). See [WebSurge Online Subscriptions](https://websurge.west-wind.com/purchase#OnlineSubscriptions).</i>
 
 * **Improved Request Throughput**  
 This release features an updated HTTP request pipeline that improves request throughput significantly allowing for more requests to be sent in load test scenarios. In our internal tests for maxed out sessions we're seeing between 15-20% throughput improvements with lower memory load.
@@ -140,6 +140,9 @@ If the request has a Name associated with it, that name is now displayed on the 
 
 * **Preview Request Buttons stay Visible on Scrolling**  
 The Request buttons in the HTML Previewer (Run/Print/Copy/Paste) now are pinned to the top of the preview window and stay visible even if you scroll down the request display. This makes it more consistent to re-run the current request.
+
+* **Preview collapses large Request Content by Default**  
+If the request content sent to the server is large, it's initially collapsed so the response is favored. Also: Collapsing the Request Headers now collapses only the actual headers but leaves the Url visible.
 
 * **Update to .NET 7.0**  
 The application now runs under .NET 7.0 which brings additional performance improvements for load testing and general UI operation.
