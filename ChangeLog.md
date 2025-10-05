@@ -7,7 +7,7 @@
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
 ### Version 3.0
-<small>not released yet</small>
+<small>February 21st, 2025</small>
 
 * [Shared Online Sessions](https://websurge.west-wind.com/docs/User-Guide/Shared-Online-Sessions.html)  
 You can now share your session of requests online with other users, using your West Wind Store account to sign in. Once signed in you can create a shared session that is accessible online and can be shared with other users via its session id. This feature requires an active West Wind account.  
