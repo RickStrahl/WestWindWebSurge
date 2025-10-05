@@ -6,6 +6,34 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/WestwindWebSurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+
+### Version 3.02
+<small>October 6th, 2025</small>
+
+* **Number of UI and Icon Updates**  
+We switched to a different newer FontAwesome icon set which results in a few additional, clearer icons being used in some context. Additionally several of the sub-toolbars have been reorganized for more logical operations. The **Run** Request  button is now consistently available on the right hand corner as well as on the toolbar.
+
+* **Improved Environment Variable Handling**  
+Environment variables can now be used directly in Request expressions as `{{ %OPENAI_KEY% }}` expansions, in addition to using environment variables in session variables.
+
+* **Allow for Request Cancellation**  
+You can now explicitly stop requests. Previously you had to let them run to timeout, or stop by re-running the request.
+
+* **Slight Refactor of Request/Response Display**  
+Made the request and response view more visual with additional color cues for quick idenitification of success, fail and warning (auth) results.
+
+* **Add Median Request Time to Load Test Results** 
+The median request time is now displayed on the Summary Result screen after a load test has completed running.
+
+* **Add System Information on About Screen**  
+The about screen now has a clickable Info icon that you can click to see complete version and system information. This information also copies to the clipboard for support purposes when posting bug or feature request reports.
+
+* **Fix: Multipart Request Parsing**  
+Fix bug where in some cases multi-part forms would lose their multi-part encoding and effectively fail to provide multi-part data. Fixed.
+
+* **Fix: Patch Content Support**  
+Fix bug that did not allow adding content to `PATCH` requests.
+
 ### Version 3.0
 <small>February 21st, 2025</small>
 
