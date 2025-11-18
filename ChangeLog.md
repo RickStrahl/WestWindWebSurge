@@ -6,21 +6,34 @@
 [![Download WebSurge from Chocolatey](https://img.shields.io/chocolatey/dt/WestwindWebSurge.svg)](https://chocolatey.org/packages/WestwindWebSurge)
 [![Web Site](https://img.shields.io/badge/West_Wind_WebSurge-WebSite-blue.svg)](https://websurge.west-wind.com)
 
+### Version 3.03
+<small>not released yet</small>
+
+* **Update to .NET 9.0**  
+Updated to the latest version of .NET for overall runtime performance and memory usage improvements. While performance doesn't see much change in either UI or load testing, we do considerably less memory usage which allows for tests to return larger result sets.
+
+* **Add Native Arm64 Support**  
+Updated the binaries to include a native Arm64 binary, so WebSurge can run without emulation on Arm64 now. Previously WebSurge ran in emulation mode, and Arm64 users should see significantly improved performance for launch, UI and actual tests.
+
+* **Improved Environment Variable Handling**  
+Environment variables can now be used directly in Request url, header and content as `{{ %OPENAI_KEY% }}` expansions. This is in addition to environment variable support in session variables (ie. `app_openai_key=%OPENAI_KEY%` embedded with `{{ app_openai_key }}`) which has the same effect. The new feature is much easier and intuitive for environment variables.
+
+* **Request Option to not follow Http Redirects**  
+A new `AutoFollowRedirects` configuration switch on the request can request to not follow redirects now. The default is to follow redirects as was the old behavior.
+
+
 
 ### Version 3.02
 <small>October 6th, 2025</small>
 
 * **Number of UI and Icon Updates**  
-We switched to a different newer FontAwesome icon set which results in a few additional, clearer icons being used in some context. Additionally several of the sub-toolbars have been reorganized for more logical operations. The **Run** Request  button is now consistently available on the right hand corner as well as on the toolbar.
-
-* **Improved Environment Variable Handling**  
-Environment variables can now be used directly in Request expressions as `{{ %OPENAI_KEY% }}` expansions, in addition to using environment variables in session variables.
+We switched to a different newer FontAwesome icon set which results in a few additional, clearer icons being used in some contexts. Additionally several of the sub-toolbars have been reorganized for more logical operations. The **Run** Request  button is now consistently available on the right hand corner as well as on the main toolbar.
 
 * **Allow for Request Cancellation**  
 You can now explicitly stop requests. Previously you had to let them run to timeout, or stop by re-running the request.
 
 * **Slight Refactor of Request/Response Display**  
-Made the request and response view more visual with additional color cues for quick idenitification of success, fail and warning (auth) results.
+Made the request and response view more visual with additional color cues for quick identification of success, fail and warning (auth) results.
 
 * **Add Median Request Time to Load Test Results** 
 The median request time is now displayed on the Summary Result screen after a load test has completed running.
