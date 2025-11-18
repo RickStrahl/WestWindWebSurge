@@ -9,8 +9,8 @@
 ### Version 3.03
 <small>not released yet</small>
 
-* **Update to .NET 9.0**  
-Updated to the latest version of .NET for overall runtime performance and memory usage improvements. While performance doesn't see much change in either UI or load testing, we do considerably less memory usage which allows for tests to return larger result sets.
+* **Update to .NET 10.0**  
+Updated to the latest version of .NET 10 for overall runtime performance and memory usage improvements. While performance doesn't see much change in either UI or load testing, we do considerably less memory usage which allows for tests to return larger result sets.
 
 * **Add Native Arm64 Support**  
 Updated the binaries to include a native Arm64 binary, so WebSurge can run without emulation on Arm64 now. Previously WebSurge ran in emulation mode, and Arm64 users should see significantly improved performance for launch, UI and actual tests.
