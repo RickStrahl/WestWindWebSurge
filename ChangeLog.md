@@ -15,20 +15,22 @@ Updated to the latest version of .NET 10 for overall runtime performance and mem
 * **Add Native Arm64 Support**  
 Updated the binaries to include a native Arm64 binary, so WebSurge can run without emulation on Arm64 SnapDragon devices now. Previously WebSurge ran in emulation mode, and Arm64 users should see significantly improved performance for launch, UI and actual testing.
 
+* **Many small UI and Icon Improvements**  
+We switched to a different newer FontAwesome icon set which results in a few additional, clearer icons being used in some contexts. Additionally several of the sub-toolbars have been reorganized for more logical operations. The **Run** Request  button is now consistently available on the right hand corner as well as on the main toolbar.
+
+* **Allow for Request Cancellation**  
+You can now explicitly stop requests. Previously you had to let them run to timeout, or by re-running the current or a new request.
+
+* **Refactor of Request/Response Display**  
+Made the request and response view more visual with additional color cues for quick identification of success, fail and warning (auth) results.
+
+
 * **Improved Environment Variable Handling**  
 Environment variables can now be used directly in Request url, header and content as `{{ %OPENAI_KEY% }}` expansions. This is in addition to environment variable support in session variables (ie. `app_openai_key=%OPENAI_KEY%` embedded with `{{ app_openai_key }}`) which has the same effect. The new feature is much easier and intuitive for environment variables.
 
 * **Request Option to not follow Http Redirects**  
 A new `AutoFollowRedirects` configuration switch on the request can request to not follow redirects now. The default is to follow redirects as was the old behavior.
 
-* **Number of UI and Icon Updates**  
-We switched to a different newer FontAwesome icon set which results in a few additional, clearer icons being used in some contexts. Additionally several of the sub-toolbars have been reorganized for more logical operations. The **Run** Request  button is now consistently available on the right hand corner as well as on the main toolbar.
-
-* **Allow for Request Cancellation**  
-You can now explicitly stop requests. Previously you had to let them run to timeout, or stop by re-running the request.
-
-* **Slight Refactor of Request/Response Display**  
-Made the request and response view more visual with additional color cues for quick identification of success, fail and warning (auth) results.
 
 * **Add Median Request Time to Load Test Results** 
 The median request time is now displayed on the Summary Result screen after a load test has completed running.
